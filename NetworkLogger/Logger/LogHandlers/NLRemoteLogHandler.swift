@@ -10,6 +10,10 @@ import UIKit
 
 public class NLRemoteLogHandler: NSObject, NLLogHandler {
     
+    private let ipAddress: String = "127.1.1.2"
+    private let port: UInt = 443
+    private let logComposer = LogComposer()
+    
     public func logNetworkRequest(_ urlRequest: URLRequest) {
         
     }

@@ -22,6 +22,7 @@ public class NLConsoleLogHandler: NSObject, NLLogHandler {
         if let filters = self.filters {
             for filter in filters where filter.shouldLog(urlRequest: urlRequest) {
                 print(logComposer.getRequestLog(from: urlRequest))
+                break
             }
         }
         else {
@@ -30,6 +31,15 @@ public class NLConsoleLogHandler: NSObject, NLLogHandler {
     }
     
     public func logNetworkResponse(for urlRequest: URLRequest, responseData: NLResponseData) {
+        
+        if let filters = self.filters {
+            for filter in filters where filter.shouldLog(urlRequest: urlRequest) {
+                print(logComposer.getResponseLog(urlRequest: urlRequest, response: responseData))
+                break
+            }
+        } else {
+            print(logComposer.getResponseLog(urlRequest: urlRequest, response: responseData))
+        }
         
     }
     

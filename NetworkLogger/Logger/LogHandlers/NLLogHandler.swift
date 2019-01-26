@@ -18,18 +18,7 @@ public protocol NLLogHandler {
 public enum NLLogHandlerType {
     
     case console([NLFilter]?)
-    case slack(token: String, channel: String, username: String)
+    case slack(NLSlackUser)
     case remote
     
-    public func handler() -> NLLogHandler {
-        
-        switch self {
-        case .console(let filters):
-            return NLConsoleLogHandler(filters: filters)
-        case .slack(_,_,_):
-            return NLSlackLogHandler()
-        default:
-            return NLConsoleLogHandler(filters: nil)
-        }
-    }
 }

@@ -14,4 +14,10 @@ public struct NLSlackUser {
     let username: String
     let channel: String
     
+    public init(token: String, username: String, channel: String) {
+        self.token = token
+        self.username = username
+        self.channel = channel
+    }
+    
 }

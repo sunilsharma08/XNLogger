@@ -10,49 +10,46 @@ import Foundation
 
 @objc public class NetworkLogger: NSObject {
     
+    // Public variables
     @objc public static let shared = NetworkLogger()
+    
+    // Private variables
     private let networkInterceptor = NetworkInterceptor()
     private var handlers:[NLLogHandler] = []
     
     override private init() {}
     
     public func startLogging() {
-        print("Started logging all network traffic")
+        debugPrint("Started logging network traffic")
         networkInterceptor.startInterceptingNetwork()
     }
     
     public func stopLogging() {
-        print("Stopped logging all network traffic")
+        debugPrint("Stopped logging network traffic")
         networkInterceptor.stopInterceptingNetwork()
     }
     
-    public func addHandler(_ handler: NLLogHandler) {
+    public func addLogHandler(_ handler: NLLogHandler) {
         self.handlers.append(handler)
     }
     
-    public func addHandlers(_ handlers: [NLLogHandler]) {
+    public func addLogHandlers(_ handlers: [NLLogHandler]) {
         self.handlers.append(contentsOf: handlers)
     }
     
-    func logResponse(_ responseData: NLResponseData) {
+    func logResponse(for urlRequest: URLRequest, responseData: NLResponseData) {
         
-//        if let error = error {
-//            print("Error")
-//            print(error.localizedDescription)
-//            return
-//        }
-//        guard let data = data,
-//            let response = response as? HTTPURLResponse
-//            else { return }
-//        print("Response header")
-//        print(response)
-//        print("Response")
-//        print(JSONUtils().getJsonStringFrom(jsonData: data))
+        for handler in self.handlers {
+            handler.logNetworkResponse(for: urlRequest, responseData: responseData)
+        }
         
     }
     
-    func logRequest(request: URLRequest) {
-        print("Request")
-        print(request)
+    func logRequest(_ urlRequest: URLRequest) {
+        
+        for handler in self.handlers {
+            handler.logNetworkRequest(urlRequest)
+        }
     }
+    
 }
