@@ -14,8 +14,8 @@ public class NLLogHandlerFactory: NSObject {
         switch handlerType {
         case .console(let filters):
             return NLConsoleLogHandler(filters: filters)
-        case .slack(let slackUserInfo):
-            return NLSlackLogHandler(slackUserInfo: slackUserInfo)
+        case .slack(let webhookUrl):
+            return NLSlackLogHandler(webhookUrl: webhookUrl)
         default:
             return NLConsoleLogHandler(filters: nil)
         }

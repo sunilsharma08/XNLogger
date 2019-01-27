@@ -18,7 +18,23 @@ public protocol NLLogHandler {
 public enum NLLogHandlerType {
     
     case console([NLFilter]?)
-    case slack(NLSlackUser)
+    case slack(String)
     case remote
+    
+}
+
+protocol NLRemoteLogger {
+    
+    func writeLog(urlRequest: URLRequest)
+    
+}
+
+extension NLRemoteLogger {
+    
+    func writeLog(urlRequest: URLRequest) {
+        var request = urlRequest
+        request.addValue("true", forHTTPHeaderField: AppConstants.LogRequestKey)
+        URLSession.shared.dataTask(with: request).resume()
+    }
     
 }

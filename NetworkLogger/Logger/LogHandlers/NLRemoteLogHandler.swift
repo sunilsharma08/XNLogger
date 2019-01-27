@@ -8,7 +8,7 @@
 
 import UIKit
 
-public class NLRemoteLogHandler: NSObject, NLLogHandler {
+public class NLRemoteLogHandler: NSObject, NLLogHandler, NLRemoteLogger {
     
     private let ipAddress: String = "127.1.1.2"
     private let port: UInt = 443

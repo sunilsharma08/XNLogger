@@ -8,58 +8,50 @@
 
 import UIKit
 
-public class NLSlackLogHandler: NSObject, NLLogHandler {
+public class NLSlackLogHandler: NSObject, NLLogHandler, NLRemoteLogger {
     
-    private let slackUserInfo: NLSlackUser
+    private let webhookUrl: String
     private let logComposer = LogComposer()
     
-    init(slackUserInfo: NLSlackUser) {
-        self.slackUserInfo = slackUserInfo
+    init(webhookUrl: String) {
+        self.webhookUrl = webhookUrl
     }
     
     public func logNetworkRequest(_ urlRequest: URLRequest) {
         
-        URLSession.shared.interceptableDataTask(with: generateSlackPayloadFromRequest(originalRequest: urlRequest)) { (data, response, error) in
-        }.resume()
+        let message = logComposer.getRequestLog(from: urlRequest)
+        let slackRequest = getSlackRequest(forRequest: urlRequest, message: message)
         
+        self.writeLog(urlRequest: slackRequest)
     }
     
     public func logNetworkResponse(for urlRequest: URLRequest, responseData: NLResponseData) {
+        let message = logComposer.getResponseLog(urlRequest: urlRequest, response: responseData)
+        let slackRequest = getSlackRequest(forRequest: urlRequest, message: message)
         
+        self.writeLog(urlRequest: slackRequest)
     }
     
+    func getSlackRequest(forRequest originalRequest:URLRequest, message: String) -> URLRequest {
+        let request = self.createSlackRequest()
+        var bodyJson: [String: Any] = [:]
+        bodyJson["text"] = "```\(message)```"
+        bodyJson["pretty"] = "1"
+        bodyJson["mrkdwn"] = true
+        let jsonData = try? JSONSerialization.data(withJSONObject: bodyJson)
+        request.httpBody = jsonData
+        return request as URLRequest
+    }
     
-    func generateSlackForwardingRequest() -> NSMutableURLRequest {
+    func createSlackRequest() -> NSMutableURLRequest {
         let request = NSMutableURLRequest()
-        request.url = URL(string: "https://slack.com/api/chat.postMessage")
+        request.url = URL(string: self.webhookUrl)
+        
         request.allHTTPHeaderFields = [
-            "Content-Type": "application/json",
-            "Authorization": "Bearer \(self.slackUserInfo.token)"
+            "Content-Type": "application/json"
         ]
         request.httpMethod = "POST"
         return request
-    }
-    
-    func generateForwardingJsonBody() -> [String: String] {
-        let json: [String: String] = [
-            "channel": self.slackUserInfo.channel,
-            "username": self.slackUserInfo.username,
-            "pretty": "1",
-            ]
-        return json
-    }
-    
-    func generateSlackPayloadFromRequest(originalRequest: URLRequest) -> URLRequest{
-        let request = self.generateSlackForwardingRequest()
-        var json = self.generateForwardingJsonBody()
-        
-        let bundleName = Bundle.main.infoDictionary!["CFBundleName"] as? String ?? ""
-        let text: String  = logComposer.getRequestLog(from: originalRequest)
-        json["text"] = "```[\(bundleName)] \(text)```"
-        
-        let jsonData = try? JSONSerialization.data(withJSONObject: json)
-        request.httpBody = jsonData
-        return request as URLRequest
     }
     
 }

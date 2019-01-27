@@ -11,18 +11,26 @@
 		1005806D21C65F4A0020288D /* NetworkLoggerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1005806C21C65F4A0020288D /* NetworkLoggerTests.swift */; };
 		1005806F21C65F4A0020288D /* NetworkLogger.h in Headers */ = {isa = PBXBuildFile; fileRef = 1005806121C65F490020288D /* NetworkLogger.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		1005807921C685000020288D /* NetworkLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1005807821C685000020288D /* NetworkLogger.swift */; };
-		101CE7D521F1B5F200C050C7 /* NLResponseData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 101CE7D421F1B5F200C050C7 /* NLResponseData.swift */; };
-		101CE7D721F1CD2200C050C7 /* URLRequest+cURL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 101CE7D621F1CD2200C050C7 /* URLRequest+cURL.swift */; };
-		101CE7D921F1D88B00C050C7 /* NLSlackUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 101CE7D821F1D88B00C050C7 /* NLSlackUser.swift */; };
-		102DF74A21E377E7007F652A /* JSONUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 102DF74921E377E7007F652A /* JSONUtils.swift */; };
-		102FBDD921DDE1660012FEF9 /* NetworkInterceptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 102FBDD821DDE1660012FEF9 /* NetworkInterceptor.swift */; };
-		103EAD8821EFC7B0004BDE0F /* LogComposer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 103EAD8721EFC7B0004BDE0F /* LogComposer.swift */; };
-		1062BB5B21E76B33009B4C30 /* NLConsoleLogHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1062BB5A21E76B33009B4C30 /* NLConsoleLogHandler.swift */; };
-		1062BB5D21E76B4A009B4C30 /* NLSlackLogHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1062BB5C21E76B4A009B4C30 /* NLSlackLogHandler.swift */; };
-		1062BB5F21E76B64009B4C30 /* NLRemoteLogHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1062BB5E21E76B64009B4C30 /* NLRemoteLogHandler.swift */; };
+		108576A021FDD662008ABD2B /* NLSlackUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1085768921FDD662008ABD2B /* NLSlackUser.swift */; };
+		108576A121FDD662008ABD2B /* NLResponseData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1085768A21FDD662008ABD2B /* NLResponseData.swift */; };
+		108576A221FDD662008ABD2B /* NLFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1085768C21FDD662008ABD2B /* NLFilter.swift */; };
+		108576A321FDD662008ABD2B /* NLFilterFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1085768D21FDD662008ABD2B /* NLFilterFactory.swift */; };
+		108576A621FDD662008ABD2B /* JSONUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1085769321FDD662008ABD2B /* JSONUtils.swift */; };
+		108576A721FDD662008ABD2B /* AppConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1085769421FDD662008ABD2B /* AppConstants.swift */; };
+		108576A821FDD662008ABD2B /* NetworkInterceptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1085769621FDD662008ABD2B /* NetworkInterceptor.swift */; };
+		108576A921FDD662008ABD2B /* NLLogHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1085769921FDD662008ABD2B /* NLLogHandler.swift */; };
+		108576AA21FDD662008ABD2B /* NLRemoteLogHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1085769A21FDD662008ABD2B /* NLRemoteLogHandler.swift */; };
+		108576AB21FDD662008ABD2B /* NLConsoleLogHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1085769B21FDD662008ABD2B /* NLConsoleLogHandler.swift */; };
+		108576AC21FDD662008ABD2B /* NLSlackLogHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1085769C21FDD662008ABD2B /* NLSlackLogHandler.swift */; };
+		108576AD21FDD662008ABD2B /* NLLogHandlerFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1085769D21FDD662008ABD2B /* NLLogHandlerFactory.swift */; };
+		108576AE21FDD662008ABD2B /* URLRequest+cURL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1085769E21FDD662008ABD2B /* URLRequest+cURL.swift */; };
+		108576AF21FDD662008ABD2B /* LogComposer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1085769F21FDD662008ABD2B /* LogComposer.swift */; };
+		108576B821FDD99A008ABD2B /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 108576B721FDD99A008ABD2B /* Extensions.swift */; };
+		10AA00D921FE34E6006E4A48 /* R&DConclusions.md in Resources */ = {isa = PBXBuildFile; fileRef = 10AA00D721FE34E6006E4A48 /* R&DConclusions.md */; };
+		10AA00DA21FE34E6006E4A48 /* Technical.md in Resources */ = {isa = PBXBuildFile; fileRef = 10AA00D821FE34E6006E4A48 /* Technical.md */; };
 		10BF876021F046A2008AA336 /* NLConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10BF875F21F046A2008AA336 /* NLConfiguration.swift */; };
-		10BF876221F0492D008AA336 /* NLFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10BF876121F0492D008AA336 /* NLFilter.swift */; };
-		10BF876421F04B0D008AA336 /* NLLogHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10BF876321F04B0D008AA336 /* NLLogHandler.swift */; };
+		810828F0BE75B409F66B3346 /* Pods_NetworkLoggerTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9290FC19A9F604788CF2BA30 /* Pods_NetworkLoggerTests.framework */; };
+		D1580A580636FA1A49686D54 /* Pods_NetworkLogger.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C1F8FC2C73F89A2A638E1F47 /* Pods_NetworkLogger.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -43,20 +51,30 @@
 		1005806C21C65F4A0020288D /* NetworkLoggerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkLoggerTests.swift; sourceTree = "<group>"; };
 		1005806E21C65F4A0020288D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1005807821C685000020288D /* NetworkLogger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkLogger.swift; sourceTree = "<group>"; };
-		101CE7D421F1B5F200C050C7 /* NLResponseData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NLResponseData.swift; sourceTree = "<group>"; };
-		101CE7D621F1CD2200C050C7 /* URLRequest+cURL.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URLRequest+cURL.swift"; sourceTree = "<group>"; };
-		101CE7D821F1D88B00C050C7 /* NLSlackUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NLSlackUser.swift; sourceTree = "<group>"; };
-		102DF74921E377E7007F652A /* JSONUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONUtils.swift; sourceTree = "<group>"; };
-		102FBDD521DCA74E0012FEF9 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
-		102FBDD621DCD6150012FEF9 /* R&DConclusions.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = "R&DConclusions.md"; sourceTree = "<group>"; };
-		102FBDD821DDE1660012FEF9 /* NetworkInterceptor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkInterceptor.swift; sourceTree = "<group>"; };
-		103EAD8721EFC7B0004BDE0F /* LogComposer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogComposer.swift; sourceTree = "<group>"; };
-		1062BB5A21E76B33009B4C30 /* NLConsoleLogHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NLConsoleLogHandler.swift; sourceTree = "<group>"; };
-		1062BB5C21E76B4A009B4C30 /* NLSlackLogHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NLSlackLogHandler.swift; sourceTree = "<group>"; };
-		1062BB5E21E76B64009B4C30 /* NLRemoteLogHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NLRemoteLogHandler.swift; sourceTree = "<group>"; };
+		1085768921FDD662008ABD2B /* NLSlackUser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NLSlackUser.swift; sourceTree = "<group>"; };
+		1085768A21FDD662008ABD2B /* NLResponseData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NLResponseData.swift; sourceTree = "<group>"; };
+		1085768C21FDD662008ABD2B /* NLFilter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NLFilter.swift; sourceTree = "<group>"; };
+		1085768D21FDD662008ABD2B /* NLFilterFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NLFilterFactory.swift; sourceTree = "<group>"; };
+		1085769321FDD662008ABD2B /* JSONUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSONUtils.swift; sourceTree = "<group>"; };
+		1085769421FDD662008ABD2B /* AppConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppConstants.swift; sourceTree = "<group>"; };
+		1085769621FDD662008ABD2B /* NetworkInterceptor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkInterceptor.swift; sourceTree = "<group>"; };
+		1085769921FDD662008ABD2B /* NLLogHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NLLogHandler.swift; sourceTree = "<group>"; };
+		1085769A21FDD662008ABD2B /* NLRemoteLogHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NLRemoteLogHandler.swift; sourceTree = "<group>"; };
+		1085769B21FDD662008ABD2B /* NLConsoleLogHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NLConsoleLogHandler.swift; sourceTree = "<group>"; };
+		1085769C21FDD662008ABD2B /* NLSlackLogHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NLSlackLogHandler.swift; sourceTree = "<group>"; };
+		1085769D21FDD662008ABD2B /* NLLogHandlerFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NLLogHandlerFactory.swift; sourceTree = "<group>"; };
+		1085769E21FDD662008ABD2B /* URLRequest+cURL.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "URLRequest+cURL.swift"; sourceTree = "<group>"; };
+		1085769F21FDD662008ABD2B /* LogComposer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogComposer.swift; sourceTree = "<group>"; };
+		108576B721FDD99A008ABD2B /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		10AA00D721FE34E6006E4A48 /* R&DConclusions.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = "R&DConclusions.md"; sourceTree = "<group>"; };
+		10AA00D821FE34E6006E4A48 /* Technical.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = Technical.md; sourceTree = "<group>"; };
 		10BF875F21F046A2008AA336 /* NLConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NLConfiguration.swift; sourceTree = "<group>"; };
-		10BF876121F0492D008AA336 /* NLFilter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NLFilter.swift; sourceTree = "<group>"; };
-		10BF876321F04B0D008AA336 /* NLLogHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NLLogHandler.swift; sourceTree = "<group>"; };
+		21645FAD8427AE2A6A40555C /* Pods-NetworkLogger.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NetworkLogger.release.xcconfig"; path = "Pods/Target Support Files/Pods-NetworkLogger/Pods-NetworkLogger.release.xcconfig"; sourceTree = "<group>"; };
+		2403541FE129CA8495F890D4 /* Pods-NetworkLogger.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NetworkLogger.debug.xcconfig"; path = "Pods/Target Support Files/Pods-NetworkLogger/Pods-NetworkLogger.debug.xcconfig"; sourceTree = "<group>"; };
+		62644C211F75EBCE77D9D635 /* Pods-NetworkLoggerTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NetworkLoggerTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-NetworkLoggerTests/Pods-NetworkLoggerTests.release.xcconfig"; sourceTree = "<group>"; };
+		916282C86F8A8E7A7A6EAF88 /* Pods-NetworkLoggerTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NetworkLoggerTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-NetworkLoggerTests/Pods-NetworkLoggerTests.debug.xcconfig"; sourceTree = "<group>"; };
+		9290FC19A9F604788CF2BA30 /* Pods_NetworkLoggerTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_NetworkLoggerTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		C1F8FC2C73F89A2A638E1F47 /* Pods_NetworkLogger.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_NetworkLogger.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -64,6 +82,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D1580A580636FA1A49686D54 /* Pods_NetworkLogger.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -72,6 +91,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				1005806821C65F4A0020288D /* NetworkLogger.framework in Frameworks */,
+				810828F0BE75B409F66B3346 /* Pods_NetworkLoggerTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -84,6 +104,8 @@
 				1005806021C65F490020288D /* NetworkLogger */,
 				1005806B21C65F4A0020288D /* NetworkLoggerTests */,
 				1005805F21C65F490020288D /* Products */,
+				5EF4AC20FDA5093C4C97ACF3 /* Pods */,
+				E8915F63EF3B82F0FF848A17 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -99,15 +121,14 @@
 		1005806021C65F490020288D /* NetworkLogger */ = {
 			isa = PBXGroup;
 			children = (
+				10AA00D621FE34E6006E4A48 /* Docs */,
 				1005807821C685000020288D /* NetworkLogger.swift */,
 				10BF875F21F046A2008AA336 /* NLConfiguration.swift */,
-				101CE7D321F1B5D100C050C7 /* Models */,
-				1062BB6121E7E2CF009B4C30 /* NetworkInterceptor */,
-				1062BB6021E7E2B5009B4C30 /* Logger */,
-				1062BB6221E7E7BB009B4C30 /* Filter */,
-				102FBDD721DCE9F70012FEF9 /* Docs */,
-				1005807A21C687CF0020288D /* URLProtocols */,
-				102DF74821E377C7007F652A /* Utils */,
+				1085768B21FDD662008ABD2B /* Filters */,
+				1085769721FDD662008ABD2B /* Logger */,
+				1085768821FDD661008ABD2B /* Models */,
+				1085769521FDD662008ABD2B /* NetworkInterceptor */,
+				1085769221FDD662008ABD2B /* Utils */,
 				1005806121C65F490020288D /* NetworkLogger.h */,
 				1005806221C65F490020288D /* Info.plist */,
 			);
@@ -123,74 +144,91 @@
 			path = NetworkLoggerTests;
 			sourceTree = "<group>";
 		};
-		1005807A21C687CF0020288D /* URLProtocols */ = {
+		1085768821FDD661008ABD2B /* Models */ = {
 			isa = PBXGroup;
 			children = (
-			);
-			path = URLProtocols;
-			sourceTree = "<group>";
-		};
-		101CE7D321F1B5D100C050C7 /* Models */ = {
-			isa = PBXGroup;
-			children = (
-				101CE7D421F1B5F200C050C7 /* NLResponseData.swift */,
-				101CE7D821F1D88B00C050C7 /* NLSlackUser.swift */,
+				1085768921FDD662008ABD2B /* NLSlackUser.swift */,
+				1085768A21FDD662008ABD2B /* NLResponseData.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
 		};
-		102DF74821E377C7007F652A /* Utils */ = {
+		1085768B21FDD662008ABD2B /* Filters */ = {
 			isa = PBXGroup;
 			children = (
-				102DF74921E377E7007F652A /* JSONUtils.swift */,
+				1085768C21FDD662008ABD2B /* NLFilter.swift */,
+				1085768D21FDD662008ABD2B /* NLFilterFactory.swift */,
+			);
+			path = Filters;
+			sourceTree = "<group>";
+		};
+		1085769221FDD662008ABD2B /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				108576B721FDD99A008ABD2B /* Extensions.swift */,
+				1085769321FDD662008ABD2B /* JSONUtils.swift */,
+				1085769421FDD662008ABD2B /* AppConstants.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
 		};
-		102FBDD721DCE9F70012FEF9 /* Docs */ = {
+		1085769521FDD662008ABD2B /* NetworkInterceptor */ = {
 			isa = PBXGroup;
 			children = (
-				102FBDD521DCA74E0012FEF9 /* README.md */,
-				102FBDD621DCD6150012FEF9 /* R&DConclusions.md */,
-			);
-			path = Docs;
-			sourceTree = "<group>";
-		};
-		1062BB5921E76B0B009B4C30 /* LogHandlers */ = {
-			isa = PBXGroup;
-			children = (
-				1062BB5A21E76B33009B4C30 /* NLConsoleLogHandler.swift */,
-				1062BB5C21E76B4A009B4C30 /* NLSlackLogHandler.swift */,
-				1062BB5E21E76B64009B4C30 /* NLRemoteLogHandler.swift */,
-				10BF876321F04B0D008AA336 /* NLLogHandler.swift */,
-			);
-			path = LogHandlers;
-			sourceTree = "<group>";
-		};
-		1062BB6021E7E2B5009B4C30 /* Logger */ = {
-			isa = PBXGroup;
-			children = (
-				1062BB5921E76B0B009B4C30 /* LogHandlers */,
-				103EAD8721EFC7B0004BDE0F /* LogComposer.swift */,
-				101CE7D621F1CD2200C050C7 /* URLRequest+cURL.swift */,
-			);
-			path = Logger;
-			sourceTree = "<group>";
-		};
-		1062BB6121E7E2CF009B4C30 /* NetworkInterceptor */ = {
-			isa = PBXGroup;
-			children = (
-				102FBDD821DDE1660012FEF9 /* NetworkInterceptor.swift */,
+				1085769621FDD662008ABD2B /* NetworkInterceptor.swift */,
 			);
 			path = NetworkInterceptor;
 			sourceTree = "<group>";
 		};
-		1062BB6221E7E7BB009B4C30 /* Filter */ = {
+		1085769721FDD662008ABD2B /* Logger */ = {
 			isa = PBXGroup;
 			children = (
-				10BF876121F0492D008AA336 /* NLFilter.swift */,
+				1085769821FDD662008ABD2B /* LogHandlers */,
+				1085769E21FDD662008ABD2B /* URLRequest+cURL.swift */,
+				1085769F21FDD662008ABD2B /* LogComposer.swift */,
 			);
-			path = Filter;
+			path = Logger;
+			sourceTree = "<group>";
+		};
+		1085769821FDD662008ABD2B /* LogHandlers */ = {
+			isa = PBXGroup;
+			children = (
+				1085769921FDD662008ABD2B /* NLLogHandler.swift */,
+				1085769A21FDD662008ABD2B /* NLRemoteLogHandler.swift */,
+				1085769B21FDD662008ABD2B /* NLConsoleLogHandler.swift */,
+				1085769C21FDD662008ABD2B /* NLSlackLogHandler.swift */,
+				1085769D21FDD662008ABD2B /* NLLogHandlerFactory.swift */,
+			);
+			path = LogHandlers;
+			sourceTree = "<group>";
+		};
+		10AA00D621FE34E6006E4A48 /* Docs */ = {
+			isa = PBXGroup;
+			children = (
+				10AA00D721FE34E6006E4A48 /* R&DConclusions.md */,
+				10AA00D821FE34E6006E4A48 /* Technical.md */,
+			);
+			path = Docs;
+			sourceTree = "<group>";
+		};
+		5EF4AC20FDA5093C4C97ACF3 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				2403541FE129CA8495F890D4 /* Pods-NetworkLogger.debug.xcconfig */,
+				21645FAD8427AE2A6A40555C /* Pods-NetworkLogger.release.xcconfig */,
+				916282C86F8A8E7A7A6EAF88 /* Pods-NetworkLoggerTests.debug.xcconfig */,
+				62644C211F75EBCE77D9D635 /* Pods-NetworkLoggerTests.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		E8915F63EF3B82F0FF848A17 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				C1F8FC2C73F89A2A638E1F47 /* Pods_NetworkLogger.framework */,
+				9290FC19A9F604788CF2BA30 /* Pods_NetworkLoggerTests.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -211,6 +249,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 1005807221C65F4A0020288D /* Build configuration list for PBXNativeTarget "NetworkLogger" */;
 			buildPhases = (
+				5385EA26D702ACFC603D01A9 /* [CP] Check Pods Manifest.lock */,
 				1005805921C65F490020288D /* Headers */,
 				1005805A21C65F490020288D /* Sources */,
 				1005805B21C65F490020288D /* Frameworks */,
@@ -229,9 +268,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 1005807521C65F4A0020288D /* Build configuration list for PBXNativeTarget "NetworkLoggerTests" */;
 			buildPhases = (
+				142854DAB4F368D733B6AEA4 /* [CP] Check Pods Manifest.lock */,
 				1005806321C65F4A0020288D /* Sources */,
 				1005806421C65F4A0020288D /* Frameworks */,
 				1005806521C65F4A0020288D /* Resources */,
+				7FE11F4C8C4D4508466E1D3B /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -285,6 +326,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				10AA00DA21FE34E6006E4A48 /* Technical.md in Resources */,
+				10AA00D921FE34E6006E4A48 /* R&DConclusions.md in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -297,24 +340,97 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		142854DAB4F368D733B6AEA4 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-NetworkLoggerTests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		5385EA26D702ACFC603D01A9 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-NetworkLogger-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		7FE11F4C8C4D4508466E1D3B /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-NetworkLoggerTests/Pods-NetworkLoggerTests-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/GzipSwift/Gzip.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Gzip.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-NetworkLoggerTests/Pods-NetworkLoggerTests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		1005805A21C65F490020288D /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				10BF876221F0492D008AA336 /* NLFilter.swift in Sources */,
-				10BF876421F04B0D008AA336 /* NLLogHandler.swift in Sources */,
-				102FBDD921DDE1660012FEF9 /* NetworkInterceptor.swift in Sources */,
-				101CE7D921F1D88B00C050C7 /* NLSlackUser.swift in Sources */,
-				1062BB5B21E76B33009B4C30 /* NLConsoleLogHandler.swift in Sources */,
-				1062BB5D21E76B4A009B4C30 /* NLSlackLogHandler.swift in Sources */,
-				101CE7D721F1CD2200C050C7 /* URLRequest+cURL.swift in Sources */,
+				108576A121FDD662008ABD2B /* NLResponseData.swift in Sources */,
+				108576A721FDD662008ABD2B /* AppConstants.swift in Sources */,
+				108576AE21FDD662008ABD2B /* URLRequest+cURL.swift in Sources */,
+				108576AC21FDD662008ABD2B /* NLSlackLogHandler.swift in Sources */,
+				108576AD21FDD662008ABD2B /* NLLogHandlerFactory.swift in Sources */,
+				108576A021FDD662008ABD2B /* NLSlackUser.swift in Sources */,
+				108576A321FDD662008ABD2B /* NLFilterFactory.swift in Sources */,
+				108576A621FDD662008ABD2B /* JSONUtils.swift in Sources */,
 				10BF876021F046A2008AA336 /* NLConfiguration.swift in Sources */,
-				101CE7D521F1B5F200C050C7 /* NLResponseData.swift in Sources */,
-				102DF74A21E377E7007F652A /* JSONUtils.swift in Sources */,
+				108576A221FDD662008ABD2B /* NLFilter.swift in Sources */,
+				108576AB21FDD662008ABD2B /* NLConsoleLogHandler.swift in Sources */,
+				108576AA21FDD662008ABD2B /* NLRemoteLogHandler.swift in Sources */,
+				108576A921FDD662008ABD2B /* NLLogHandler.swift in Sources */,
+				108576A821FDD662008ABD2B /* NetworkInterceptor.swift in Sources */,
+				108576AF21FDD662008ABD2B /* LogComposer.swift in Sources */,
 				1005807921C685000020288D /* NetworkLogger.swift in Sources */,
-				1062BB5F21E76B64009B4C30 /* NLRemoteLogHandler.swift in Sources */,
-				103EAD8821EFC7B0004BDE0F /* LogComposer.swift in Sources */,
+				108576B821FDD99A008ABD2B /* Extensions.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -461,7 +577,9 @@
 		};
 		1005807321C65F4A0020288D /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 2403541FE129CA8495F890D4 /* Pods-NetworkLogger.debug.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(inherited)";
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
 				CODE_SIGN_STYLE = Automatic;
@@ -487,7 +605,9 @@
 		};
 		1005807421C65F4A0020288D /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 21645FAD8427AE2A6A40555C /* Pods-NetworkLogger.release.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(inherited)";
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
 				CODE_SIGN_STYLE = Automatic;
@@ -512,8 +632,9 @@
 		};
 		1005807621C65F4A0020288D /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 916282C86F8A8E7A7A6EAF88 /* Pods-NetworkLoggerTests.debug.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(inherited)";
 				CODE_SIGN_STYLE = Automatic;
 				INFOPLIST_FILE = NetworkLoggerTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -530,8 +651,9 @@
 		};
 		1005807721C65F4A0020288D /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 62644C211F75EBCE77D9D635 /* Pods-NetworkLoggerTests.release.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(inherited)";
 				CODE_SIGN_STYLE = Automatic;
 				INFOPLIST_FILE = NetworkLoggerTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (

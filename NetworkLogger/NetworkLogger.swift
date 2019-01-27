@@ -38,17 +38,27 @@ import Foundation
     }
     
     func logResponse(for urlRequest: URLRequest, responseData: NLResponseData) {
-        
-        for handler in self.handlers {
-            handler.logNetworkResponse(for: urlRequest, responseData: responseData)
+        if !isRemoteLogRequest(urlRequest) {
+            for handler in self.handlers {
+                handler.logNetworkResponse(for: urlRequest, responseData: responseData)
+            }
         }
-        
     }
     
     func logRequest(_ urlRequest: URLRequest) {
+        if !isRemoteLogRequest(urlRequest) {
+            for handler in self.handlers {
+                handler.logNetworkRequest(urlRequest)
+            }
+        }
+    }
+    
+    private func isRemoteLogRequest(_ urlRequest: URLRequest) -> Bool {
         
-        for handler in self.handlers {
-            handler.logNetworkRequest(urlRequest)
+        if let _ = urlRequest.allHTTPHeaderFields?[AppConstants.LogRequestKey] {
+            return true
+        } else {
+            return false
         }
     }
     
