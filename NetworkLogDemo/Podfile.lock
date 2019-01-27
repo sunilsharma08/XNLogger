@@ -1,0 +1,16 @@
+PODS:
+  - NetworkLogger (0.0.1)
+
+DEPENDENCIES:
+  - NetworkLogger (from `../`)
+
+EXTERNAL SOURCES:
+  NetworkLogger:
+    :path: "../"
+
+SPEC CHECKSUMS:
+  NetworkLogger: a28543905c62819966a7cf8450ca724bae435a32
+
+PODFILE CHECKSUM: 6752b3b62571bcb9d3c8e8411e5825892a65e019
+
+COCOAPODS: 1.5.3
