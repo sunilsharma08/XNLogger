@@ -56,7 +56,7 @@ func swizzleDataTask() {
  */
 internal extension URLSession {
     
-    @objc func interceptableDataTask(with request: URLRequest, completionHandler: @escaping (Data?, URLResponse?, Error?) -> Void) -> URLSessionDataTask {
+    @objc func interceptableDataTask(with request: URLRequest, completionHandler: ((Data?, URLResponse?, Error?) -> Void)?) -> URLSessionDataTask {
         
         NetworkLogger.shared.logRequest(request)
         
@@ -65,6 +65,7 @@ internal extension URLSession {
             let responseData = NLResponseData(response: response, responseData: data, error: error)
             NetworkLogger.shared.logResponse(for: request, responseData: responseData)
             
+            completionHandler?(data, response, error)
         }
         return sessionDataTask
     }
