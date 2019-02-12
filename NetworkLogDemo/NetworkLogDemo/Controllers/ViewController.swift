@@ -196,64 +196,27 @@ extension ViewController {
         print("============\(#function)============")
         var urlRequest = URLRequest(url: URL(string: "https://gorest.co.in:443/public-api/users?param=vvalue")!)
         urlRequest.addValue("Bearer ggolvSv4UpUH_a9Qk5x5KAC2YudbptpltVYZ", forHTTPHeaderField: "Authorization")
-        let session = URLSession(configuration: .default)
-        session.dataTask(with: urlRequest) { (data, urlResponse, error) in
-//            print("Response \(#function) \n \(String(describing: urlResponse))")
-            do {
-                let response = try JSONSerialization.jsonObject(with: data ?? Data(), options: []) as? [String: Any]
-                print("Response JSON \(#function) \n \(String(describing: response))")
-            } catch {
-                print(error.localizedDescription)
-            }
-            }.resume()
+//        URLSession.shared.dataTask(with: urlRequest).resume()
+//        URLSession.shared.dataTask(with: URL(string: "https://gorest.co.in:443/public-api/users?param=vvalue")!).resume()
+//        let session = URLSession(configuration: .default)
+//        session.dataTask(with: urlRequest) { (data, urlResponse, error) in
+////            print("Response \(#function) \n \(String(describing: urlResponse))")
+//            do {
+//                let response = try JSONSerialization.jsonObject(with: data ?? Data(), options: []) as? [String: Any]
+//                print("Response JSON \(#function) \n \(String(describing: response))")
+//            } catch {
+//                print(error.localizedDescription)
+//            }
+//            }.resume()
+        
+        let session = URLSession(configuration: .background(withIdentifier: "123"), delegate: self, delegateQueue: nil)
+            session.dataTask(with: urlRequest).resume()
+        
     }
     
 }
-
-open class TestClass: NSObject {
-    
-    
-    
-}
-
-extension TestClass {
-    
-    open func overloadingTest(with request:URLRequest) {
-        print("\(#function) - 2")
-    }
-    
-    open func overloadingTest(with url:URL) {
-        print("\(#function) - 1")
-    }
-}
-
-//protocol proto1: class {
-//    var vProto1:Int {get set}
-//}
-//
-//protocol proto2: class {
-//    var vProto2:Float {get set}
-//}
-
-//struct OneProto:proto1 {
-//
-//    var vProto1: Int = 1
-//}
-//
-//class TwoProto: proto1, proto2 {
-//
-//    var vProto1: Int = 2
-//
-//    var vProto2: Float = 3.0
-//
-//}
-//
 
 class CustomURLSession: URLSession {
-    
-//    func getDefaultSession() -> URLSession {
-//        return URLSession(configuration: .default)
-//    }
     
     override func dataTask(with request: URLRequest, completionHandler: @escaping (Data?, URLResponse?, Error?) -> Void) -> URLSessionDataTask {
         print("Stack trace original \(Thread.callStackSymbols)")

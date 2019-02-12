@@ -10,6 +10,9 @@ import UIKit
 
 class JSONUtils: NSObject {
     
+    static let shared: JSONUtils = JSONUtils()
+    
+    private override init() {}
     
     func getJsonStringFrom(jsonData: Data) -> String {
         
@@ -24,6 +27,31 @@ class JSONUtils: NSObject {
         } catch let parseError {
             debugPrint("json serialization error: \(parseError)")
             return ""
+        }
+    }
+    
+    func getDictionaryStringFrom(jsonData: Data) -> [String: Any]? {
+        
+        do {
+            if let jsonObj = try getJsonObjectFrom(jsonData: jsonData) as? [String: Any] {
+                return jsonObj
+            } else {
+                return nil
+            }
+        } catch let parseError {
+            debugPrint("JSON serialization error: \(parseError)")
+            return nil
+        }
+    }
+    
+    func getJsonObjectFrom(jsonData: Data) throws -> Any {
+        
+        do {
+            let jsonObj = try JSONSerialization.jsonObject(with: jsonData, options: [.allowFragments, .mutableLeaves, .mutableContainers])
+            return jsonObj
+        } catch let parseError {
+            debugPrint("JSON serialization error: \(parseError)")
+            throw parseError
         }
     }
 
