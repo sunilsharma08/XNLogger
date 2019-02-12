@@ -13,6 +13,11 @@
   },
   "source_files": "NetworkLogger/**/*.{swift}",
   "requires_arc": true,
+  "dependencies": {
+    "GzipSwift": [
+
+    ]
+  },
   "platforms": {
     "osx": null,
     "ios": null,

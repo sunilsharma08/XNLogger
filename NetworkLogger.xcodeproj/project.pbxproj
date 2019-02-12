@@ -11,6 +11,7 @@
 		1005806D21C65F4A0020288D /* NetworkLoggerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1005806C21C65F4A0020288D /* NetworkLoggerTests.swift */; };
 		1005806F21C65F4A0020288D /* NetworkLogger.h in Headers */ = {isa = PBXBuildFile; fileRef = 1005806121C65F490020288D /* NetworkLogger.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		1005807921C685000020288D /* NetworkLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1005807821C685000020288D /* NetworkLogger.swift */; };
+		10398B39220B557100EDFC05 /* NetworkInterceptorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10398B38220B557100EDFC05 /* NetworkInterceptorTests.swift */; };
 		108576A021FDD662008ABD2B /* NLSlackUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1085768921FDD662008ABD2B /* NLSlackUser.swift */; };
 		108576A121FDD662008ABD2B /* NLResponseData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1085768A21FDD662008ABD2B /* NLResponseData.swift */; };
 		108576A221FDD662008ABD2B /* NLFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1085768C21FDD662008ABD2B /* NLFilter.swift */; };
@@ -51,6 +52,7 @@
 		1005806C21C65F4A0020288D /* NetworkLoggerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkLoggerTests.swift; sourceTree = "<group>"; };
 		1005806E21C65F4A0020288D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1005807821C685000020288D /* NetworkLogger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkLogger.swift; sourceTree = "<group>"; };
+		10398B38220B557100EDFC05 /* NetworkInterceptorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkInterceptorTests.swift; sourceTree = "<group>"; };
 		1085768921FDD662008ABD2B /* NLSlackUser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NLSlackUser.swift; sourceTree = "<group>"; };
 		1085768A21FDD662008ABD2B /* NLResponseData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NLResponseData.swift; sourceTree = "<group>"; };
 		1085768C21FDD662008ABD2B /* NLFilter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NLFilter.swift; sourceTree = "<group>"; };
@@ -140,6 +142,7 @@
 			children = (
 				1005806C21C65F4A0020288D /* NetworkLoggerTests.swift */,
 				1005806E21C65F4A0020288D /* Info.plist */,
+				10398B38220B557100EDFC05 /* NetworkInterceptorTests.swift */,
 			);
 			path = NetworkLoggerTests;
 			sourceTree = "<group>";
@@ -394,12 +397,14 @@
 			);
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-NetworkLoggerTests/Pods-NetworkLoggerTests-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/Swifter/Swifter.framework",
 				"${BUILT_PRODUCTS_DIR}/GzipSwift/Gzip.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
 			);
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Swifter.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Gzip.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -438,6 +443,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				10398B39220B557100EDFC05 /* NetworkInterceptorTests.swift in Sources */,
 				1005806D21C65F4A0020288D /* NetworkLoggerTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -11,6 +11,7 @@ target 'NetworkLogger' do
   target 'NetworkLoggerTests' do
     inherit! :search_paths
     # Pods for testing
+    pod 'Swifter', '~> 1.4.5'
   end
 
 end

@@ -7,7 +7,7 @@
 //
 
 import Foundation
-//import Gzip
+import Gzip
 
 extension URLRequest {
     public var cURL: String {
@@ -80,9 +80,9 @@ class RequestCurlCommand{
     }
     
     fileprivate func getStringFromHttpBody(httpBody: Data) -> String? {
-//        if httpBody.isGzipped {
-//            return String(data: try! httpBody.gunzipped(), encoding: .utf8)
-//        }
+        if httpBody.isGzipped {
+            return String(data: try! httpBody.gunzipped(), encoding: .utf8)
+        }
         if let httpBodyString = String(data: httpBody, encoding: String.Encoding.utf8) {
             return httpBodyString
         }

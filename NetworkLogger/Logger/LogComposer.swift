@@ -14,7 +14,7 @@ internal class LogComposer {
         
         var responseStr = "\n\(getBoundry(for: "Response"))\n"
         responseStr += "\nResponse for Request\n\(urlRequest.cURL)\n"
-        let jsonUtils = JSONUtils()
+        let jsonUtils = JSONUtils.shared
         
         if let metaData = response.responseHeader {
             responseStr += "\n\(getBoundry(for: "Response Metadata"))\n\n"

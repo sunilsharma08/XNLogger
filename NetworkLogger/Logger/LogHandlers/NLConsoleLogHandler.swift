@@ -18,8 +18,7 @@ public class NLConsoleLogHandler: NSObject, NLLogHandler {
     }
     
     public func logNetworkRequest(_ urlRequest: URLRequest) {
-        
-        if let filters = self.filters {
+        if let filters = self.filters, filters.count > 0 {
             for filter in filters where filter.shouldLog(urlRequest: urlRequest) {
                 print(logComposer.getRequestLog(from: urlRequest))
                 break
@@ -31,8 +30,7 @@ public class NLConsoleLogHandler: NSObject, NLLogHandler {
     }
     
     public func logNetworkResponse(for urlRequest: URLRequest, responseData: NLResponseData) {
-        
-        if let filters = self.filters {
+        if let filters = self.filters, filters.count > 0 {
             for filter in filters where filter.shouldLog(urlRequest: urlRequest) {
                 print(logComposer.getResponseLog(urlRequest: urlRequest, response: responseData))
                 break
