@@ -11,6 +11,7 @@
 		1005806D21C65F4A0020288D /* NetworkLoggerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1005806C21C65F4A0020288D /* NetworkLoggerTests.swift */; };
 		1005806F21C65F4A0020288D /* NetworkLogger.h in Headers */ = {isa = PBXBuildFile; fileRef = 1005806121C65F490020288D /* NetworkLogger.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		1005807921C685000020288D /* NetworkLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1005807821C685000020288D /* NetworkLogger.swift */; };
+		10301A4E2213334B00BCB339 /* NetworkAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10301A4D2213334B00BCB339 /* NetworkAPI.swift */; };
 		10398B39220B557100EDFC05 /* NetworkInterceptorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10398B38220B557100EDFC05 /* NetworkInterceptorTests.swift */; };
 		108576A021FDD662008ABD2B /* NLSlackUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1085768921FDD662008ABD2B /* NLSlackUser.swift */; };
 		108576A121FDD662008ABD2B /* NLResponseData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1085768A21FDD662008ABD2B /* NLResponseData.swift */; };
@@ -52,6 +53,7 @@
 		1005806C21C65F4A0020288D /* NetworkLoggerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkLoggerTests.swift; sourceTree = "<group>"; };
 		1005806E21C65F4A0020288D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1005807821C685000020288D /* NetworkLogger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkLogger.swift; sourceTree = "<group>"; };
+		10301A4D2213334B00BCB339 /* NetworkAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkAPI.swift; sourceTree = "<group>"; };
 		10398B38220B557100EDFC05 /* NetworkInterceptorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkInterceptorTests.swift; sourceTree = "<group>"; };
 		1085768921FDD662008ABD2B /* NLSlackUser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NLSlackUser.swift; sourceTree = "<group>"; };
 		1085768A21FDD662008ABD2B /* NLResponseData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NLResponseData.swift; sourceTree = "<group>"; };
@@ -143,6 +145,7 @@
 				1005806C21C65F4A0020288D /* NetworkLoggerTests.swift */,
 				1005806E21C65F4A0020288D /* Info.plist */,
 				10398B38220B557100EDFC05 /* NetworkInterceptorTests.swift */,
+				10301A4D2213334B00BCB339 /* NetworkAPI.swift */,
 			);
 			path = NetworkLoggerTests;
 			sourceTree = "<group>";
@@ -445,6 +448,7 @@
 			files = (
 				10398B39220B557100EDFC05 /* NetworkInterceptorTests.swift in Sources */,
 				1005806D21C65F4A0020288D /* NetworkLoggerTests.swift in Sources */,
+				10301A4E2213334B00BCB339 /* NetworkAPI.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

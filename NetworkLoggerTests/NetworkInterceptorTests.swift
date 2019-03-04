@@ -16,8 +16,8 @@ class NetworkInterceptorTests: XCTestCase {
     
     override func setUp() {
         setupNetworkLogger()
-        server!["/hello"] = { request in
-            return HttpResponse.ok(.json(["hello":"welcome"] as AnyObject))
+        server![API.localInfo.path] = { request in
+            return HttpResponse.ok(.json(DummyResponse.get(forAPI: .localInfo)))
         }
         try! server?.start()
     }
@@ -27,13 +27,10 @@ class NetworkInterceptorTests: XCTestCase {
         NetworkLogger.shared.addLogHandler(logHandlerFactory.create(.console([])))
         NetworkLogger.shared.startLogging()
     }
-    
-    
 
     override func tearDown() {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
         server?.stop()
-        server = nil
         NetworkLogger.shared.stopLogging()
     }
 
@@ -52,7 +49,7 @@ class NetworkInterceptorTests: XCTestCase {
             XCTestExpectation(description: "\(#function) - Perform data task with ephemeral URLSession configuration")]
         
         // Create a URL for a web page to be downloaded.
-        let url = URL(string: "http://localhost:8080/hello")!
+        let url: URL! = API.localInfo.url
         
         let sessions = [URLSession.shared, URLSession(configuration: .default), URLSession(configuration: .ephemeral)]
         
@@ -60,6 +57,7 @@ class NetworkInterceptorTests: XCTestCase {
             
             let dataTask = session.dataTask(with: url) { (data, _, _) in
                 
+                print("Stack trace1 \n\(Thread.callStackSymbols)")
                 // Make sure we downloaded some data.
                 XCTAssertNotNil(data, "No data was downloaded.")
                 
