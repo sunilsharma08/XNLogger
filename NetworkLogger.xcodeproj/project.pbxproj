@@ -31,6 +31,8 @@
 		10AA00D921FE34E6006E4A48 /* R&DConclusions.md in Resources */ = {isa = PBXBuildFile; fileRef = 10AA00D721FE34E6006E4A48 /* R&DConclusions.md */; };
 		10AA00DA21FE34E6006E4A48 /* Technical.md in Resources */ = {isa = PBXBuildFile; fileRef = 10AA00D821FE34E6006E4A48 /* Technical.md */; };
 		10BF876021F046A2008AA336 /* NLConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10BF875F21F046A2008AA336 /* NLConfiguration.swift */; };
+		10C7268F222DA0BE00239900 /* NLFileLogHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10C7268E222DA0BE00239900 /* NLFileLogHandler.swift */; };
+		10C72691222DAC2D00239900 /* NLBaseLogHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10C72690222DAC2D00239900 /* NLBaseLogHandler.swift */; };
 		810828F0BE75B409F66B3346 /* Pods_NetworkLoggerTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9290FC19A9F604788CF2BA30 /* Pods_NetworkLoggerTests.framework */; };
 		D1580A580636FA1A49686D54 /* Pods_NetworkLogger.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C1F8FC2C73F89A2A638E1F47 /* Pods_NetworkLogger.framework */; };
 /* End PBXBuildFile section */
@@ -73,6 +75,8 @@
 		10AA00D721FE34E6006E4A48 /* R&DConclusions.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = "R&DConclusions.md"; sourceTree = "<group>"; };
 		10AA00D821FE34E6006E4A48 /* Technical.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = Technical.md; sourceTree = "<group>"; };
 		10BF875F21F046A2008AA336 /* NLConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NLConfiguration.swift; sourceTree = "<group>"; };
+		10C7268E222DA0BE00239900 /* NLFileLogHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NLFileLogHandler.swift; sourceTree = "<group>"; };
+		10C72690222DAC2D00239900 /* NLBaseLogHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NLBaseLogHandler.swift; sourceTree = "<group>"; };
 		21645FAD8427AE2A6A40555C /* Pods-NetworkLogger.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NetworkLogger.release.xcconfig"; path = "Pods/Target Support Files/Pods-NetworkLogger/Pods-NetworkLogger.release.xcconfig"; sourceTree = "<group>"; };
 		2403541FE129CA8495F890D4 /* Pods-NetworkLogger.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NetworkLogger.debug.xcconfig"; path = "Pods/Target Support Files/Pods-NetworkLogger/Pods-NetworkLogger.debug.xcconfig"; sourceTree = "<group>"; };
 		62644C211F75EBCE77D9D635 /* Pods-NetworkLoggerTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NetworkLoggerTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-NetworkLoggerTests/Pods-NetworkLoggerTests.release.xcconfig"; sourceTree = "<group>"; };
@@ -204,6 +208,8 @@
 				1085769B21FDD662008ABD2B /* NLConsoleLogHandler.swift */,
 				1085769C21FDD662008ABD2B /* NLSlackLogHandler.swift */,
 				1085769D21FDD662008ABD2B /* NLLogHandlerFactory.swift */,
+				10C7268E222DA0BE00239900 /* NLFileLogHandler.swift */,
+				10C72690222DAC2D00239900 /* NLBaseLogHandler.swift */,
 			);
 			path = LogHandlers;
 			sourceTree = "<group>";
@@ -431,8 +437,10 @@
 				108576A321FDD662008ABD2B /* NLFilterFactory.swift in Sources */,
 				108576A621FDD662008ABD2B /* JSONUtils.swift in Sources */,
 				10BF876021F046A2008AA336 /* NLConfiguration.swift in Sources */,
+				10C7268F222DA0BE00239900 /* NLFileLogHandler.swift in Sources */,
 				108576A221FDD662008ABD2B /* NLFilter.swift in Sources */,
 				108576AB21FDD662008ABD2B /* NLConsoleLogHandler.swift in Sources */,
+				10C72691222DAC2D00239900 /* NLBaseLogHandler.swift in Sources */,
 				108576AA21FDD662008ABD2B /* NLRemoteLogHandler.swift in Sources */,
 				108576A921FDD662008ABD2B /* NLLogHandler.swift in Sources */,
 				108576A821FDD662008ABD2B /* NetworkInterceptor.swift in Sources */,

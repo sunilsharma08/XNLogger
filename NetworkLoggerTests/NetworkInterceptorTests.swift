@@ -24,7 +24,7 @@ class NetworkInterceptorTests: XCTestCase {
     
     func setupNetworkLogger() {
         let logHandlerFactory = NLLogHandlerFactory()
-        NetworkLogger.shared.addLogHandler(logHandlerFactory.create(.console([])))
+        NetworkLogger.shared.addLogHandler(logHandlerFactory.create(.file))
         NetworkLogger.shared.startLogging()
     }
 
@@ -57,7 +57,7 @@ class NetworkInterceptorTests: XCTestCase {
             
             let dataTask = session.dataTask(with: url) { (data, _, _) in
                 
-                print("Stack trace1 \n\(Thread.callStackSymbols)")
+//                print("Stack trace1 \n\(Thread.callStackSymbols)")
                 // Make sure we downloaded some data.
                 XCTAssertNotNil(data, "No data was downloaded.")
                 

@@ -20,6 +20,7 @@ public enum NLLogHandlerType {
     case console([NLFilter]?)
     case slack(String)
     case remote
+    case file
     
 }
 
