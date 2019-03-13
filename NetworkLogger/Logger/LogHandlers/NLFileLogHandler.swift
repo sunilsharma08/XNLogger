@@ -13,6 +13,7 @@ class NLFileLogHandler: NLBaseLogHandler, NLLogHandler {
     private let logComposer = LogComposer()
     private(set) var fileName: String = "NLNetworkLog"
     private let fileManager = FileManager.default
+    private let fileWriteQueue = DispatchQueue.global(qos: .background)
     
     // The max size a log file can be in Kilobytes. Default is 1024 (1 MB)
     public var maxFileSize: UInt64 = 1024
@@ -30,25 +31,27 @@ class NLFileLogHandler: NLBaseLogHandler, NLLogHandler {
     open var directory = NLFileLogHandler.defaultDirectory() {
         didSet {
             directory = NSString(string: directory).expandingTildeInPath
-            
-            let fileManager = FileManager.default
-            if !fileManager.fileExists(atPath: directory) {
-                do {
-                    try fileManager.createDirectory(atPath: directory, withIntermediateDirectories: true, attributes: nil)
-                } catch let error {
-                    debugPrint("Couldn't create directory at \(directory)")
-                    debugPrint(error.localizedDescription)
-                }
+            createLogDirectory()
+        }
+    }
+    
+    func createLogDirectory() {
+        if !fileManager.fileExists(atPath: directory) {
+            do {
+                try fileManager.createDirectory(atPath: directory, withIntermediateDirectories: true, attributes: nil)
+            } catch let error {
+                debugPrint("Couldn't create directory at \(directory)")
+                debugPrint(error.localizedDescription)
             }
         }
     }
     
-    private var currentPath: String {
+    public var currentPath: String {
         return "\(directory)/\(logName(0))"
     }
     
     // Get the default log directory
-    class func defaultDirectory() -> String {
+    class public func defaultDirectory() -> String {
         var path = ""
         let fileManager = FileManager.default
         let paths = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)
@@ -69,7 +72,7 @@ class NLFileLogHandler: NLBaseLogHandler, NLLogHandler {
     }
     
     // Check the size of a file
-    func fileSize(_ path: String) -> UInt64 {
+    private func fileSize(_ path: String) -> UInt64 {
         let attrs: NSDictionary? = try? self.fileManager.attributesOfItem(atPath: path) as NSDictionary
         if let dict = attrs {
             return dict.fileSize()
@@ -79,26 +82,32 @@ class NLFileLogHandler: NLBaseLogHandler, NLLogHandler {
     
     // Write content to the current log file.
     open func write(_ text: String) {
-        let path = currentPath
-        if !fileManager.fileExists(atPath: path) {
-            do {
-                try "".write(toFile: path, atomically: true, encoding: String.Encoding.utf8)
-            } catch let error {
-                debugPrint(error.localizedDescription)
+        fileWriteQueue.async {
+            let path = self.currentPath
+            if !self.fileManager.fileExists(atPath: path) {
+                if !self.fileManager.fileExists(atPath: self.directory) {
+                    self.createLogDirectory()
+                }
+                do {
+                    try "".write(toFile: path, atomically: false, encoding: String.Encoding.utf8)
+                } catch let error {
+                    debugPrint(error.localizedDescription)
+                }
             }
-        }
-        if let fileHandle = FileHandle(forWritingAtPath: path) {
-            let dateStr = dateFormatter.string(from: Date())
-            let writeText = "[\(dateStr)]: \(text)\n"
-            fileHandle.seekToEndOfFile()
-            fileHandle.write(writeText.data(using: String.Encoding.utf8)!)
-            fileHandle.closeFile()
-            cleanup()
+            if let fileHandle = FileHandle(forWritingAtPath: path) {
+                let dateStr = self.dateFormatter.string(from: Date())
+                let writeText = "[\(dateStr)]: \(text)\n"
+                fileHandle.seekToEndOfFile()
+                fileHandle.write(writeText.data(using: String.Encoding.utf8)!)
+                fileHandle.synchronizeFile()
+                fileHandle.closeFile()
+                self.cleanup()
+            }
         }
     }
     
     // Do the checks and cleanup
-    func cleanup() {
+    private func cleanup() {
         let path = "\(directory)/\(logName(0))"
         let size = fileSize(path)
         let maxSize: UInt64 = maxFileSize*1024
@@ -117,7 +126,7 @@ class NLFileLogHandler: NLBaseLogHandler, NLLogHandler {
     }
     
     // Recursive method call to rename log files
-    func rename(_ index: Int) {
+    private func rename(_ index: Int) {
         let path = "\(directory)/\(logName(index))"
         let newPath = "\(directory)/\(logName(index+1))"
         if self.fileManager.fileExists(atPath: newPath) {
@@ -132,7 +141,7 @@ class NLFileLogHandler: NLBaseLogHandler, NLLogHandler {
     }
     
     // The date formatter
-    var dateFormatter: DateFormatter {
+    private var dateFormatter: DateFormatter {
         let formatter = DateFormatter()
         formatter.timeStyle = .medium
         formatter.dateStyle = .medium
@@ -140,8 +149,17 @@ class NLFileLogHandler: NLBaseLogHandler, NLLogHandler {
     }
     
     // Gets the log name
-    func logName(_ num: Int) -> String {
+    private func logName(_ num: Int) -> String {
         return "\(self.fileName)-\(num).log"
+    }
+    
+    public func clearLogFiles() {
+        do {
+            try fileManager.removeItem(atPath: directory)
+        }
+        catch let error as NSError {
+            debugPrint(error.debugDescription)
+        }
     }
     
     //MARK: Logging delegates
@@ -164,6 +182,7 @@ class NLFileLogHandler: NLBaseLogHandler, NLLogHandler {
                 break
             }
         } else {
+            debugPrint("will write response log for \(urlRequest.url!.absoluteString) ")
             write(logComposer.getResponseLog(urlRequest: urlRequest, response: responseData))
         }
     }

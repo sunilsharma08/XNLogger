@@ -17,7 +17,7 @@ class JSONUtils: NSObject {
     func getJsonStringFrom(jsonData: Data) -> String {
         
         do {
-            let jsonObj = try JSONSerialization.jsonObject(with: jsonData, options: [.allowFragments, .mutableLeaves, .mutableContainers])
+            let jsonObj = try getJsonObjectFrom(jsonData: jsonData)
             let jsonData = try JSONSerialization.data(withJSONObject: jsonObj, options: [.prettyPrinted])
             guard let jsonString = String(data: jsonData, encoding: String.Encoding.utf8) else {
                 debugPrint("Can't create string with data.")

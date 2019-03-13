@@ -11,29 +11,37 @@ import Swifter
 @testable import NetworkLogger
 
 class NetworkInterceptorTests: XCTestCase {
-
+    
     var server: HttpServer? = HttpServer()
+    var fileLogHandler: NLFileLogHandler?
+    let apisToTest: [API] = [.defaultSession, .sharedSession, .ephemeralSession]
+    
     
     override func setUp() {
         setupNetworkLogger()
-        server![API.localInfo.path] = { request in
-            return HttpResponse.ok(.json(DummyResponse.get(forAPI: .localInfo)))
+        for api in apisToTest {
+            server![api.path] = { request in
+                return HttpResponse.ok(.json(DummyResponse.get(forAPI: api)))
+            }
         }
         try! server?.start()
     }
     
     func setupNetworkLogger() {
         let logHandlerFactory = NLLogHandlerFactory()
-        NetworkLogger.shared.addLogHandler(logHandlerFactory.create(.file))
+        fileLogHandler = logHandlerFactory.create(.file) as? NLFileLogHandler
+        NetworkLogger.shared.addLogHandler(fileLogHandler!)
+        NetworkLogger.shared.clearLogs()
         NetworkLogger.shared.startLogging()
     }
-
+    
     override func tearDown() {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
-        server?.stop()
-        NetworkLogger.shared.stopLogging()
+//        server?.stop()
+//        NetworkLogger.shared.stopLogging()
+//        fileLogHandler = nil
     }
-
+    
     /**
      Test data task method
      `func dataTask(with url: URL, completionHandler: @escaping (Data?, URLResponse?, Error?) -> Void) -> URLSessionDataTask`
@@ -44,24 +52,43 @@ class NetworkInterceptorTests: XCTestCase {
         
         // Create an expectation for a background download task.
         let expectations = [
-            XCTestExpectation(description: "\(#function) - Perform data task with shared URLSession configuration"),
             XCTestExpectation(description: "\(#function) - Perform data task with default URLSession configuration"),
+            XCTestExpectation(description: "\(#function) - Perform data task with shared URLSession configuration"),
             XCTestExpectation(description: "\(#function) - Perform data task with ephemeral URLSession configuration")]
         
         // Create a URL for a web page to be downloaded.
-        let url: URL! = API.localInfo.url
-        
-        let sessions = [URLSession.shared, URLSession(configuration: .default), URLSession(configuration: .ephemeral)]
+        var url: [URL] = []
+        var sessions: [URLSession] = []
+        for api in apisToTest {
+            url.append(api.url!)
+            
+            switch api {
+            case .defaultSession:
+                sessions.append(URLSession(configuration: .default))
+            case .sharedSession:
+                sessions.append(URLSession.shared)
+            case .ephemeralSession:
+                sessions.append(URLSession(configuration: .ephemeral))
+            default:
+                debugPrint("API to be tested should not have other then above metioned category. Check API list variable.")
+                break
+            }
+//            expectations.append(XCTestExpectation(description: "\(#function) - Perform data task with \(api.url!) URLSession configuration"))
+        }
         
         for (index, session) in sessions.enumerated() {
             
-            let dataTask = session.dataTask(with: url) { (data, _, _) in
+            debugPrint("start job at index \(index) for url = \(url[index])")
+            let dataTask = session.dataTask(with: url[index]) { (data, response, error) in
                 
-//                print("Stack trace1 \n\(Thread.callStackSymbols)")
                 // Make sure we downloaded some data.
                 XCTAssertNotNil(data, "No data was downloaded.")
-                
-                print(JSONUtils.shared.getJsonStringFrom(jsonData: data ?? Data()))
+                let subString = TestUtils.getStringFromObject(DummyResponse.get(forAPI: self.apisToTest[index]))!
+                debugPrint("Received \(index) response for \(subString)")
+                let status = TestUtils.isLogged(atPath: self.fileLogHandler!.currentPath,
+                                   subString: subString,
+                                   numberOfTimes: 1)
+                XCTAssert(status, "Failed to log data for url \(url[index])")
                 
                 // Fulfill the expectation to indicate that the background task has finished successfully.
                 expectations[index].fulfill()
@@ -72,7 +99,7 @@ class NetworkInterceptorTests: XCTestCase {
             dataTask.resume()
         }
         // Wait until the expectation is fulfilled, with a timeout of 10 seconds.
-        wait(for: expectations, timeout: 10.0)
+        wait(for: expectations, timeout: 20.0)
     }
-
+    
 }

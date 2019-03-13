@@ -17,7 +17,7 @@ public class NLLogHandlerFactory: NSObject {
         case .slack(let webhookUrl):
             return NLSlackLogHandler(webhookUrl: webhookUrl)
         case .file:
-            return NLFileLogHandler(fileName: "NetworkLogFile")
+            return NLFileLogHandler(fileName: nil)
         default:
             return NLConsoleLogHandler()
         }

@@ -52,6 +52,9 @@ private(set) var environment = Environment("Local", host: "http://localhost:8080
 
 enum API {
     case localInfo
+    case defaultSession
+    case sharedSession
+    case ephemeralSession
     case userInfo
 }
 
@@ -62,25 +65,26 @@ extension API: Request {
         switch self {
         case .localInfo:
             return "/info"
+        case .defaultSession:
+            return "/info/defaultsession"
+        case .sharedSession:
+            return "/info/sharedsession"
+        case .ephemeralSession:
+            return "/info/ephemeralsession"
         case .userInfo:
             return "/info"
         }
     }
     
     var url: URL? {
-        switch self {
-        case .localInfo:
-            return URL(string: "\(environment.host)\(API.localInfo.path)")
-        case .userInfo:
-            return URL(string: "\(environment.host)\(API.localInfo.path)")
-        }
+        return URL(string: "\(environment.host)\(path)")
     }
     
     
     var method: HTTPMethod {
         
         switch self {
-        case .localInfo, .userInfo:
+        case .localInfo, .userInfo, .defaultSession, .ephemeralSession, .sharedSession:
             return .get
         }
     }
@@ -88,7 +92,7 @@ extension API: Request {
     var parameters: [String : Any]? {
         
         switch self {
-        case .localInfo:
+        case .localInfo, .defaultSession, .sharedSession, .ephemeralSession:
             return [:]
         case .userInfo:
             return [:]
@@ -98,7 +102,7 @@ extension API: Request {
     var headers: [String : Any]? {
         
         switch self {
-        case .localInfo:
+        case .localInfo, .defaultSession, .sharedSession, .ephemeralSession:
             return [:]
         case .userInfo:
             return [:]
@@ -115,6 +119,12 @@ class DummyResponse {
         switch api {
         case .localInfo:
             return ["hello": "welcome"] as AnyObject
+        case .defaultSession:
+            return ["hello": "default session 123"] as AnyObject
+        case .sharedSession:
+            return ["hello": "shared session 3232"] as AnyObject
+        case .ephemeralSession:
+            return ["hello": "ephemeral session 3211"] as AnyObject
         case .userInfo:
             return [:] as AnyObject
         }

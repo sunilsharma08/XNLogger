@@ -15,7 +15,7 @@ import Foundation
     
     // Private variables
     private let networkInterceptor = NetworkInterceptor()
-    private var handlers:[NLLogHandler] = []
+    private(set) var handlers:[NLLogHandler] = []
     
     override private init() {}
     
@@ -35,6 +35,17 @@ import Foundation
     
     public func addLogHandlers(_ handlers: [NLLogHandler]) {
         self.handlers.append(contentsOf: handlers)
+    }
+    
+    /**
+     Clear all logs in-memory and disk cache
+     */
+    public func clearLogs() {
+        for handler in handlers {
+            if let fileHandler = handler as? NLFileLogHandler {
+                fileHandler.clearLogFiles()
+            }
+        }
     }
     
     func logResponse(for urlRequest: URLRequest, responseData: NLResponseData) {
