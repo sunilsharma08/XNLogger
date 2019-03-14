@@ -13,7 +13,7 @@ class NLFileLogHandler: NLBaseLogHandler, NLLogHandler {
     private let logComposer = LogComposer()
     private(set) var fileName: String = "NLNetworkLog"
     private let fileManager = FileManager.default
-    private let fileWriteQueue = DispatchQueue.global(qos: .background)
+    private let fileWriteQueue = DispatchQueue(label: "com.nlNetworkLogger.fileHandler", qos: .utility)
     
     // The max size a log file can be in Kilobytes. Default is 1024 (1 MB)
     public var maxFileSize: UInt64 = 1024
@@ -82,27 +82,25 @@ class NLFileLogHandler: NLBaseLogHandler, NLLogHandler {
     
     // Write content to the current log file.
     open func write(_ text: String) {
-        fileWriteQueue.async {
-            let path = self.currentPath
-            if !self.fileManager.fileExists(atPath: path) {
-                if !self.fileManager.fileExists(atPath: self.directory) {
-                    self.createLogDirectory()
-                }
-                do {
-                    try "".write(toFile: path, atomically: false, encoding: String.Encoding.utf8)
-                } catch let error {
-                    debugPrint(error.localizedDescription)
-                }
+        let path = self.currentPath
+        if !self.fileManager.fileExists(atPath: path) {
+            if !self.fileManager.fileExists(atPath: self.directory) {
+                self.createLogDirectory()
             }
-            if let fileHandle = FileHandle(forWritingAtPath: path) {
-                let dateStr = self.dateFormatter.string(from: Date())
-                let writeText = "[\(dateStr)]: \(text)\n"
-                fileHandle.seekToEndOfFile()
-                fileHandle.write(writeText.data(using: String.Encoding.utf8)!)
-                fileHandle.synchronizeFile()
-                fileHandle.closeFile()
-                self.cleanup()
+            do {
+                try "".write(toFile: path, atomically: false, encoding: String.Encoding.utf8)
+            } catch let error {
+                debugPrint(error.localizedDescription)
             }
+        }
+        if let fileHandle = FileHandle(forWritingAtPath: path) {
+            let dateStr = self.dateFormatter.string(from: Date())
+            let writeText = "[\(dateStr)]: \(text)\n"
+            fileHandle.seekToEndOfFile()
+            fileHandle.write(writeText.data(using: String.Encoding.utf8)!)
+            fileHandle.synchronizeFile()
+            fileHandle.closeFile()
+            self.cleanup()
         }
     }
     
@@ -164,26 +162,30 @@ class NLFileLogHandler: NLBaseLogHandler, NLLogHandler {
     
     //MARK: Logging delegates
     public func logNetworkRequest(_ urlRequest: URLRequest) {
-        if self.filters.count > 0 {
-            for filter in filters where filter.shouldLog(urlRequest: urlRequest) {
-                write(logComposer.getRequestLog(from: urlRequest))
-                break
+        self.fileWriteQueue.async {
+            if self.filters.count > 0 {
+                for filter in self.filters where filter.shouldLog(urlRequest: urlRequest) {
+                    self.write(self.logComposer.getRequestLog(from: urlRequest))
+                    break
+                }
             }
-        }
-        else {
-            write(logComposer.getRequestLog(from: urlRequest))
+            else {
+                self.write(self.logComposer.getRequestLog(from: urlRequest))
+            }
         }
     }
     
     public func logNetworkResponse(for urlRequest: URLRequest, responseData: NLResponseData) {
-        if self.filters.count > 0 {
-            for filter in filters where filter.shouldLog(urlRequest: urlRequest) {
-                write(logComposer.getResponseLog(urlRequest: urlRequest, response: responseData))
-                break
+        self.fileWriteQueue.async {
+            if self.filters.count > 0 {
+                for filter in self.filters where filter.shouldLog(urlRequest: urlRequest) {
+                    self.write(self.logComposer.getResponseLog(urlRequest: urlRequest, response: responseData))
+                    break
+                }
+            } else {
+                debugPrint("Will write response log for \(urlRequest.url!.absoluteString)")
+                self.write(self.logComposer.getResponseLog(urlRequest: urlRequest, response: responseData))
             }
-        } else {
-            debugPrint("will write response log for \(urlRequest.url!.absoluteString) ")
-            write(logComposer.getResponseLog(urlRequest: urlRequest, response: responseData))
         }
     }
 }

@@ -51,10 +51,7 @@ class NetworkInterceptorTests: XCTestCase {
     func testDataTaskUrlCompletionHandler() {
         
         // Create an expectation for a background download task.
-        let expectations = [
-            XCTestExpectation(description: "\(#function) - Perform data task with default URLSession configuration"),
-            XCTestExpectation(description: "\(#function) - Perform data task with shared URLSession configuration"),
-            XCTestExpectation(description: "\(#function) - Perform data task with ephemeral URLSession configuration")]
+        var expectations: [XCTestExpectation] = []
         
         // Create a URL for a web page to be downloaded.
         var url: [URL] = []
@@ -65,26 +62,32 @@ class NetworkInterceptorTests: XCTestCase {
             switch api {
             case .defaultSession:
                 sessions.append(URLSession(configuration: .default))
+                expectations.append(XCTestExpectation(description: "Perform data task with Default URLSession configuration"))
             case .sharedSession:
                 sessions.append(URLSession.shared)
+                expectations.append(XCTestExpectation(description: "Perform data task with Shared URLSession configuration"))
             case .ephemeralSession:
                 sessions.append(URLSession(configuration: .ephemeral))
+                expectations.append(XCTestExpectation(description: "Perform data task with Ephemeral URLSession configuration"))
             default:
-                debugPrint("API to be tested should not have other then above metioned category. Check API list variable.")
+                XCTFail("API to be tested should not have other then above metioned category. Check API list variable.")
                 break
             }
-//            expectations.append(XCTestExpectation(description: "\(#function) - Perform data task with \(api.url!) URLSession configuration"))
         }
         
         for (index, session) in sessions.enumerated() {
             
-            debugPrint("start job at index \(index) for url = \(url[index])")
+            debugPrint("Start job at index \(index) for url = \(url[index])")
+            
             let dataTask = session.dataTask(with: url[index]) { (data, response, error) in
                 
                 // Make sure we downloaded some data.
-                XCTAssertNotNil(data, "No data was downloaded.")
+                XCTAssertNotNil(data, "No data was downloaded for url \(url[index])")
                 let subString = TestUtils.getStringFromObject(DummyResponse.get(forAPI: self.apisToTest[index]))!
                 debugPrint("Received \(index) response for \(subString)")
+                
+                /// Wait to complete write operation as we write to log file asynchronous
+                sleep(5)
                 let status = TestUtils.isLogged(atPath: self.fileLogHandler!.currentPath,
                                    subString: subString,
                                    numberOfTimes: 1)
