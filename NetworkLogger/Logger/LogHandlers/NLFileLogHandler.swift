@@ -152,6 +152,8 @@ class NLFileLogHandler: NLBaseLogHandler, NLLogHandler {
     }
     
     public func clearLogFiles() {
+        guard self.fileManager.fileExists(atPath: directory)
+        else { return }
         do {
             try fileManager.removeItem(atPath: directory)
         }

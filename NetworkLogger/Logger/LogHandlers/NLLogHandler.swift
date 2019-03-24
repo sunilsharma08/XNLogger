@@ -8,7 +8,7 @@
 
 import Foundation
 
-public protocol NLLogHandler {
+public protocol NLLogHandler: class {
     
     func logNetworkRequest(_ urlRequest: URLRequest)
     func logNetworkResponse(for urlRequest: URLRequest, responseData: NLResponseData)

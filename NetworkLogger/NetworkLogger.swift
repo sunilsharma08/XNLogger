@@ -37,6 +37,16 @@ import Foundation
         self.handlers.append(contentsOf: handlers)
     }
     
+    public func removeHandler(_ handler: NLLogHandler) {
+        self.handlers = self.handlers.filter { (item) -> Bool in
+            return item !== handler
+        }
+    }
+    
+    public func removeAllHandlers() {
+        self.handlers.removeAll()
+    }
+    
     /**
      Clear all logs in-memory and disk cache
      */
