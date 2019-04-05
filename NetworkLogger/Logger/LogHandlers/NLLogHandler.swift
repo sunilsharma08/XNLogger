@@ -17,7 +17,7 @@ public protocol NLLogHandler: class {
 
 public enum NLLogHandlerType {
     
-    case console([NLFilter]?)
+    case console
     case slack(String)
     case remote
     case file

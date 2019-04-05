@@ -419,20 +419,18 @@
 			inputFileListPaths = (
 			);
 			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-NetworkLoggerTests/Pods-NetworkLoggerTests-frameworks.sh",
+				"${PODS_ROOT}/Target Support Files/Pods-NetworkLoggerTests/Pods-NetworkLoggerTests-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Swifter/Swifter.framework",
-				"${BUILT_PRODUCTS_DIR}/GzipSwift/Gzip.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
 			);
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Swifter.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Gzip.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-NetworkLoggerTests/Pods-NetworkLoggerTests-frameworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-NetworkLoggerTests/Pods-NetworkLoggerTests-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
