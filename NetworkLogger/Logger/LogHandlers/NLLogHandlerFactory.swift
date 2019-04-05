@@ -12,12 +12,14 @@ public class NLLogHandlerFactory: NSObject {
     public func create(_ handlerType: NLLogHandlerType) -> NLLogHandler {
         
         switch handlerType {
-        case .console(let filters):
-            return NLConsoleLogHandler(filters: filters)
+        case .console:
+            return NLConsoleLogHandler()
         case .slack(let webhookUrl):
             return NLSlackLogHandler(webhookUrl: webhookUrl)
+        case .file:
+            return NLFileLogHandler(fileName: nil)
         default:
-            return NLConsoleLogHandler(filters: nil)
+            return NLConsoleLogHandler()
         }
     }
     

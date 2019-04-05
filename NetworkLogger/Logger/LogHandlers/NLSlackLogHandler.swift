@@ -8,7 +8,7 @@
 
 import UIKit
 
-public class NLSlackLogHandler: NSObject, NLLogHandler, NLRemoteLogger {
+public class NLSlackLogHandler: NLBaseLogHandler, NLLogHandler, NLRemoteLogger {
     
     private let webhookUrl: String
     private let logComposer = LogComposer()
@@ -18,18 +18,41 @@ public class NLSlackLogHandler: NSObject, NLLogHandler, NLRemoteLogger {
     }
     
     public func logNetworkRequest(_ urlRequest: URLRequest) {
+        func log() {
+            let message = logComposer.getRequestLog(from: urlRequest)
+            let slackRequest = getSlackRequest(forRequest: urlRequest, message: message)
+            
+            self.writeLog(urlRequest: slackRequest)
+        }
         
-        let message = logComposer.getRequestLog(from: urlRequest)
-        let slackRequest = getSlackRequest(forRequest: urlRequest, message: message)
-        
-        self.writeLog(urlRequest: slackRequest)
+        if self.filters.count > 0 {
+            for filter in self.filters where filter.shouldLog(urlRequest: urlRequest) {
+                log()
+                break
+            }
+        }
+        else {
+            log()
+        }
     }
     
     public func logNetworkResponse(for urlRequest: URLRequest, responseData: NLResponseData) {
-        let message = logComposer.getResponseLog(urlRequest: urlRequest, response: responseData)
-        let slackRequest = getSlackRequest(forRequest: urlRequest, message: message)
         
-        self.writeLog(urlRequest: slackRequest)
+        func log() {
+            let message = logComposer.getResponseLog(urlRequest: urlRequest, response: responseData)
+            let slackRequest = getSlackRequest(forRequest: urlRequest, message: message)
+            
+            self.writeLog(urlRequest: slackRequest)
+        }
+        
+        if self.filters.count > 0 {
+            for filter in self.filters where filter.shouldLog(urlRequest: urlRequest) {
+                log()
+                break
+            }
+        } else {
+            log()
+        }
     }
     
     func getSlackRequest(forRequest originalRequest:URLRequest, message: String) -> URLRequest {

@@ -8,18 +8,13 @@
 
 import UIKit
 
-public class NLConsoleLogHandler: NSObject, NLLogHandler {
+public class NLConsoleLogHandler: NLBaseLogHandler, NLLogHandler {
     
-    private var filters: [NLFilter]?
     private let logComposer = LogComposer()
     
-    init(filters: [NLFilter]?) {
-        self.filters = filters
-    }
-    
     public func logNetworkRequest(_ urlRequest: URLRequest) {
-        if let filters = self.filters, filters.count > 0 {
-            for filter in filters where filter.shouldLog(urlRequest: urlRequest) {
+        if self.filters.count > 0 {
+            for filter in self.filters where filter.shouldLog(urlRequest: urlRequest) {
                 print(logComposer.getRequestLog(from: urlRequest))
                 break
             }
@@ -30,8 +25,8 @@ public class NLConsoleLogHandler: NSObject, NLLogHandler {
     }
     
     public func logNetworkResponse(for urlRequest: URLRequest, responseData: NLResponseData) {
-        if let filters = self.filters, filters.count > 0 {
-            for filter in filters where filter.shouldLog(urlRequest: urlRequest) {
+        if self.filters.count > 0 {
+            for filter in self.filters where filter.shouldLog(urlRequest: urlRequest) {
                 print(logComposer.getResponseLog(urlRequest: urlRequest, response: responseData))
                 break
             }
