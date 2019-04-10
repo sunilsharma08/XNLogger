@@ -24,8 +24,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
-        URLProtocol.registerClass(LogUrlProtocol.self)
-        URLProtocol.registerClass(CustomUrlProtocol.self)
+//        URLProtocol.registerClass(LogUrlProtocol.self)
+//        URLProtocol.registerClass(CustomUrlProtocol.self)
         return true
     }
 

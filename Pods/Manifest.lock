@@ -1,5 +1,5 @@
 PODS:
-  - GzipSwift (4.0.4)
+  - GzipSwift (5.0.0)
   - Swifter (1.4.5)
 
 DEPENDENCIES:
@@ -12,7 +12,7 @@ SPEC REPOS:
     - Swifter
 
 SPEC CHECKSUMS:
-  GzipSwift: 1a5bc5f7827e09846b0635b5079f1224bc3b1c3a
+  GzipSwift: 5592f4d62b641e04d06443ba471f8ed76b1363e4
   Swifter: eb2bc1d192a1c09169c7fefd01971565fa940521
 
 PODFILE CHECKSUM: daa41de68b8d1b45c1aae1d5fd00aa0e079a2cc6

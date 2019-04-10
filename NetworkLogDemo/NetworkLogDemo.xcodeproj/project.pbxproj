@@ -18,6 +18,7 @@
 		100605E921C3B4F4007C281E /* NetworkLoggerUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 100605E821C3B4F4007C281E /* NetworkLoggerUITests.swift */; };
 		100605F721C3B567007C281E /* LogUrlProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 100605F621C3B567007C281E /* LogUrlProtocol.swift */; };
 		104DF17321C775D700441267 /* CustomUrlProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 104DF17221C775D700441267 /* CustomUrlProtocol.swift */; };
+		106BD89F225A1F3A00568599 /* NetworkExamplesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 106BD89E225A1F3A00568599 /* NetworkExamplesViewController.swift */; };
 		1090B9BB21CA6A6300869F9A /* SecondViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1090B9BA21CA6A6300869F9A /* SecondViewController.swift */; };
 		7E90ACB032CF234995C21EBE /* Pods_NetworkLogDemo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1A7A3C96367D9E2FFD23CE4D /* Pods_NetworkLogDemo.framework */; };
 		9DAB005BAF3C1EAAAFA71AAA /* Pods_NetworkLogDemoUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B4E99B4D191DF8C51CB71052 /* Pods_NetworkLogDemoUITests.framework */; };
@@ -73,6 +74,7 @@
 		100605EA21C3B4F4007C281E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		100605F621C3B567007C281E /* LogUrlProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogUrlProtocol.swift; sourceTree = "<group>"; };
 		104DF17221C775D700441267 /* CustomUrlProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomUrlProtocol.swift; sourceTree = "<group>"; };
+		106BD89E225A1F3A00568599 /* NetworkExamplesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkExamplesViewController.swift; sourceTree = "<group>"; };
 		1090B9BA21CA6A6300869F9A /* SecondViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondViewController.swift; sourceTree = "<group>"; };
 		1A7A3C96367D9E2FFD23CE4D /* Pods_NetworkLogDemo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_NetworkLogDemo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		1ECD86CD5F28E655847C5DAA /* Pods-NetworkLogDemoUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NetworkLogDemoUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-NetworkLogDemoUITests/Pods-NetworkLogDemoUITests.release.xcconfig"; sourceTree = "<group>"; };
@@ -185,6 +187,7 @@
 			children = (
 				100605CA21C3B4F1007C281E /* ViewController.swift */,
 				1090B9BA21CA6A6300869F9A /* SecondViewController.swift */,
+				106BD89E225A1F3A00568599 /* NetworkExamplesViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -255,7 +258,7 @@
 				100605C221C3B4F1007C281E /* Frameworks */,
 				100605C321C3B4F1007C281E /* Resources */,
 				1005808C21C690B70020288D /* Embed Frameworks */,
-				7DEE770265D4E2EF3637BCEC /* [CP] Embed Pods Frameworks */,
+				BBCD9B447B6E89ABF8F83945 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -317,6 +320,11 @@
 					100605C421C3B4F1007C281E = {
 						CreatedOnToolsVersion = 10.1;
 						LastSwiftMigration = 1010;
+						SystemCapabilities = {
+							com.apple.BackgroundModes = {
+								enabled = 1;
+							};
+						};
 					};
 					100605D821C3B4F4007C281E = {
 						CreatedOnToolsVersion = 10.1;
@@ -398,30 +406,6 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		7DEE770265D4E2EF3637BCEC /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-NetworkLogDemo/Pods-NetworkLogDemo-frameworks.sh",
-				"${BUILT_PRODUCTS_DIR}/GzipSwift/Gzip.framework",
-				"${BUILT_PRODUCTS_DIR}/NetworkLogger/NetworkLogger.framework",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Gzip.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/NetworkLogger.framework",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-NetworkLogDemo/Pods-NetworkLogDemo-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 		9E622E892FD3EFF0C62569F5 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -442,6 +426,30 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		BBCD9B447B6E89ABF8F83945 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-NetworkLogDemo/Pods-NetworkLogDemo-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/GzipSwift/Gzip.framework",
+				"${BUILT_PRODUCTS_DIR}/NetworkLogger/NetworkLogger.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Gzip.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/NetworkLogger.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-NetworkLogDemo/Pods-NetworkLogDemo-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		E19E578459C52E806AB8293F /* [CP] Check Pods Manifest.lock */ = {
@@ -479,6 +487,7 @@
 				100605C921C3B4F1007C281E /* AppDelegate.swift in Sources */,
 				1090B9BB21CA6A6300869F9A /* SecondViewController.swift in Sources */,
 				104DF17321C775D700441267 /* CustomUrlProtocol.swift in Sources */,
+				106BD89F225A1F3A00568599 /* NetworkExamplesViewController.swift in Sources */,
 				100605F721C3B567007C281E /* LogUrlProtocol.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -15,7 +15,7 @@
   "requires_arc": true,
   "dependencies": {
     "GzipSwift": [
-
+      "~> 4.1.0"
     ]
   },
   "platforms": {

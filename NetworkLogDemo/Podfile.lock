@@ -1,7 +1,7 @@
 PODS:
-  - GzipSwift (4.0.4)
+  - GzipSwift (4.1.0)
   - NetworkLogger (0.0.1):
-    - GzipSwift
+    - GzipSwift (~> 4.1.0)
 
 DEPENDENCIES:
   - NetworkLogger (from `../`)
@@ -15,9 +15,9 @@ EXTERNAL SOURCES:
     :path: "../"
 
 SPEC CHECKSUMS:
-  GzipSwift: 1a5bc5f7827e09846b0635b5079f1224bc3b1c3a
-  NetworkLogger: ebe38fbde4f629b22c450d1f40fb7afc80fc2273
+  GzipSwift: df1636fa095bd8f21d98db14e7393ecc9e230fed
+  NetworkLogger: df5ea2415ba8a80985ecf633d18ec2eef1670ce9
 
 PODFILE CHECKSUM: 6752b3b62571bcb9d3c8e8411e5825892a65e019
 
-COCOAPODS: 1.5.3
+COCOAPODS: 1.6.1
