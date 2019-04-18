@@ -20,7 +20,10 @@ import UIKit
 //    let output = items.map { "\($0)" }.joined(separator: separator)
 //    Swift.print(output, separator: separator, terminator: terminator)
 //}
-
+import netfox
+//#if DEBUG
+//import CocoaDebug
+//#endif
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -29,6 +32,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
+
 //        URLProtocol.registerClass(LogUrlProtocol.self)
 //        URLProtocol.registerClass(CustomUrlProtocol.self)
         
@@ -36,7 +40,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 //        CocoaDebug.enable()
 //        NFX.sharedInstance().start()
         #endif
-        
         
         return true
     }

@@ -23,7 +23,7 @@ internal class NetworkInterceptor: NSObject {
      */
     func stopInterceptingNetwork() {
         // Need logic to confirm revert back
-            swizzleDataTask()
+        swizzleDataTask()
     }
     
     /**
@@ -57,7 +57,7 @@ internal class NetworkInterceptor: NSObject {
 internal extension URLSession {
     
     @objc func interceptableDataTask(with request: URLRequest, completionHandler: ((Data?, URLResponse?, Error?) -> Void)?) -> URLSessionDataTask {
-        
+        print("delegate = %@",delegate)
         NetworkLogger.shared.logRequest(request)
         
         let sessionDataTask = self.interceptableDataTask(with: request) { (data, response, error) in

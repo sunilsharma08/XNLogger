@@ -74,6 +74,7 @@
 		F9A77D461EEA00131F29FE0182FBE9F6 /* NLSlackLogHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = F170C76A24A5620D1415E48616F41C97 /* NLSlackLogHandler.swift */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
 		FB013AA220FA3209E4D4E169605DA7DF /* URLRequest+cURL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03F84C98A3C49D11CE709EFEA8E9F089 /* URLRequest+cURL.swift */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
 		FEF35FC5C0065F63270681B90AFA5F6F /* NFXInfoController_iOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7D6B5616C4FBF0B74E1381202B6996A /* NFXInfoController_iOS.swift */; };
+
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -225,6 +226,7 @@
 		FBC0B362450B49AC9367231B1F3A9FF9 /* Pods-NetworkLogDemo-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-NetworkLogDemo-acknowledgements.markdown"; sourceTree = "<group>"; };
 		FD35673E9A983E75E22A8386EDD5ACAF /* Gzip.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Gzip.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		FF9E15BB7FD3BB55CB73E978534C1A69 /* GzipSwift.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = GzipSwift.xcconfig; sourceTree = "<group>"; };
+
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -532,8 +534,8 @@
 				CADB4A2B596CF6D37D676C727AC638F7 /* NetworkInterceptor.swift */,
 				4627CEA25E59FEF21D4C3030821EC68A /* NLURLProtocol.swift */,
 			);
-			name = NetworkInterceptor;
-			path = NetworkLogger/NetworkInterceptor;
+			name = Utils;
+			path = NetworkLogger/Utils;
 			sourceTree = "<group>";
 		};
 		E1FC986EAF2ED6AD614824D6E47CFF30 /* Support Files */ = {
@@ -918,6 +920,40 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		F4A3EF1B0B1C8F9AA59D184ABEBB314B /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B457AFC074760A17398756D4A3CD8B51 /* netfox-dummy.m in Sources */,
+				F35A0B6551143138C688216D499401EB /* NFX.swift in Sources */,
+				BFEB7379B5E4FE22C955171CAA3BE417 /* NFXAssets.swift in Sources */,
+				85AE3DB08690A37EFB727064129279FD /* NFXAuthenticationChallengeSender.swift in Sources */,
+				045261FAF617AD3189C5CE5AEC170F42 /* NFXConstants.swift in Sources */,
+				8EE4BBD68E639CAB875C7D6178F311B1 /* NFXDetailsController.swift in Sources */,
+				B1F05C1003009F3618EFA1A8E41F6CD8 /* NFXDetailsController_iOS.swift in Sources */,
+				72D8ACF04AA630C5C668AA5DBF72FF05 /* NFXGenericBodyDetailsController.swift in Sources */,
+				793CB75B9475968CB642F37E35AEB486 /* NFXGenericController.swift in Sources */,
+				F6530A1EC812DD44141F4E11ACBC296A /* NFXHelper.swift in Sources */,
+				04A3311B7925312D1CBFEFD4EB89772F /* NFXHelper_iOS.swift in Sources */,
+				EFF043BCC5758B13819C375757EF63D6 /* NFXHTTPModel.swift in Sources */,
+				9FD0282182E0C5D529714049BBBF5D3D /* NFXHTTPModelManager.swift in Sources */,
+				C9165913BFDE978A2DFE4F3DF68BE321 /* NFXImageBodyDetailsController.swift in Sources */,
+				AFD879D1688879B11E119EDE65A277CF /* NFXInfoController.swift in Sources */,
+				D50815D576460F6992B70FA260F4F101 /* NFXInfoController_iOS.swift in Sources */,
+				58D73AD30F36061154D720CBF2445DCC /* NFXListCell_iOS.swift in Sources */,
+				DEC8F2106460E49ABD0AF710C73671A3 /* NFXListController.swift in Sources */,
+				CF303EF2BB6CDAD6CD16F012B93EACA8 /* NFXListController_iOS.swift in Sources */,
+				F4FB6960CEA519F1BE8F123060D0314A /* NFXLoader.m in Sources */,
+				CC2A5919CA17F8CD9FE468C18284CBBE /* NFXProtocol.swift in Sources */,
+				82C51CFEBE2595A1EF46B303063DEA98 /* NFXRawBodyDetailsController.swift in Sources */,
+				611E10D097F093A76474493BC85A5478 /* NFXSettingsController.swift in Sources */,
+				997790E06B589D984FC8D131C1731F7D /* NFXSettingsController_iOS.swift in Sources */,
+				F0D30DCF8C398832D5B103A53A643EB0 /* NFXStatisticsController.swift in Sources */,
+				5E9EDF80C3D992F2835D7034F6013611 /* NFXStatisticsController_iOS.swift in Sources */,
+				911BD46A5D0D5365490D1308BEA32D37 /* NFXWindowController.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -989,6 +1025,44 @@
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
 				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		214F82BD0CC675B51BE8934011B9E792 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = EEE180CF98677834D1E26152E0012023 /* Pods-NetworkLogDemoTests.release.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = "Target Support Files/Pods-NetworkLogDemoTests/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MACH_O_TYPE = staticlib;
+				MODULEMAP_FILE = "Target Support Files/Pods-NetworkLogDemoTests/Pods-NetworkLogDemoTests.modulemap";
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
@@ -1024,10 +1098,11 @@
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
 				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
 			};
-			name = Debug;
+			name = Release;
 		};
 		4CE281642D6EE9FAB113046B4B6328A0 /* Release */ = {
 			isa = XCBuildConfiguration;
@@ -1108,7 +1183,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MACH_O_TYPE = staticlib;
-				MODULEMAP_FILE = "Target Support Files/Pods-NetworkLogDemoTests/Pods-NetworkLogDemoTests.modulemap";
+				MODULEMAP_FILE = "Target Support Files/Pods-NetworkLogDemo/Pods-NetworkLogDemo.modulemap";
 				OTHER_LDFLAGS = "";
 				OTHER_LIBTOOLFLAGS = "";
 				PODS_ROOT = "$(SRCROOT)";
@@ -1117,11 +1192,10 @@
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				VALIDATE_PRODUCT = YES;
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
 			};
-			name = Release;
+			name = Debug;
 		};
 		669350CA888185BDF51FDE4E95A4CC61 /* Release */ = {
 			isa = XCBuildConfiguration;
@@ -1418,8 +1492,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = CE2B8C294AC30187EDB9BB4F1526F260 /* Pods-NetworkLogDemoUITests.debug.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
-				CLANG_ENABLE_OBJC_WEAK = NO;
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
@@ -1442,6 +1514,8 @@
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
@@ -1541,6 +1615,15 @@
 			buildConfigurations = (
 				C18C816D5DED6B8491DAF257F824F4E8 /* Debug */,
 				669350CA888185BDF51FDE4E95A4CC61 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		DB83EAF542B019C6EE561120C323A36C /* Build configuration list for PBXNativeTarget "netfox" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				52B47B1F1203E058BDA8042B8D900230 /* Debug */,
+				FC3A29C8DC02B287AE78736447EEC23B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

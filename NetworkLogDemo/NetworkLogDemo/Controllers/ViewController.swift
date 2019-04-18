@@ -19,6 +19,8 @@ class Model:Codable {
 }
 
 class ViewController: UIViewController {
+    
+    var backgroundSession: URLSession? = nil
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -45,7 +47,7 @@ class ViewController: UIViewController {
     func loadDataFromServer() {
         var urlRequest = URLRequest(url: URL(string: "https://gorest.co.in/public-api/users")!)
         urlRequest.addValue("Bearer ggolvSv4UpUH_a9Qk5x5KAC2YudbptpltVYZ", forHTTPHeaderField: "Authorization")
-        let session = URLSession(configuration: .default)
+        let session = URLSession(configuration: .ephemeral)
         
 //        let session = URLSession(configuration: .background(withIdentifier: "123"), delegate: self, delegateQueue: nil)
 //        session.dataTask(with: urlRequest).resume()
@@ -148,6 +150,17 @@ extension ViewController: URLSessionDataDelegate {
     public func urlSession(_ session: URLSession, dataTask: URLSessionDataTask, didReceive response: URLResponse, completionHandler: @escaping (URLSession.ResponseDisposition) -> Void) {
         print("Response -> \(String(describing: response.mimeType))")
     }
+    
+    func urlSession(_ session: URLSession, task: URLSessionTask, didCompleteWithError error: Error?) {
+        print(#function)
+        backgroundSession?.finishTasksAndInvalidate()
+    }
+    
+    func urlSessionDidFinishEvents(forBackgroundURLSession session: URLSession) {
+        print(#function)
+        backgroundSession?.finishTasksAndInvalidate()
+    }
+    
 }
 
 extension URLSessionConfiguration {
@@ -194,10 +207,10 @@ extension ViewController {
     
     func loadDataUsingUrlRequest() {
         print("============\(#function)============")
-        var urlRequest = URLRequest(url: URL(string: "https://gorest.co.in:443/public-api/users?param=vvalue")!)
+        var urlRequest = URLRequest(url: URL(string: "https://jsonplaceholder.typicode.com/todos/1")!)
         urlRequest.addValue("Bearer ggolvSv4UpUH_a9Qk5x5KAC2YudbptpltVYZ", forHTTPHeaderField: "Authorization")
 //        URLSession.shared.dataTask(with: urlRequest).resume()
-//        URLSession.shared.dataTask(with: URL(string: "https://gorest.co.in:443/public-api/users?param=vvalue")!).resume()
+
 //        let session = URLSession(configuration: .default)
 //        session.dataTask(with: urlRequest) { (data, urlResponse, error) in
 ////            print("Response \(#function) \n \(String(describing: urlResponse))")
@@ -209,8 +222,9 @@ extension ViewController {
 //            }
 //            }.resume()
         
-        let session = URLSession(configuration: .background(withIdentifier: "123"), delegate: self, delegateQueue: nil)
-            session.dataTask(with: urlRequest).resume()
+        let backgroundConf = URLSessionConfiguration.background(withIdentifier: "12345")
+        self.backgroundSession = URLSession(configuration: backgroundConf, delegate: self, delegateQueue: nil)
+        backgroundSession?.dataTask(with: urlRequest).resume()
         
     }
     

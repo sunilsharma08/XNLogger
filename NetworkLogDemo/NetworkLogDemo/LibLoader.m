@@ -16,7 +16,7 @@
 
 static void __attribute__((constructor)) initialize(void){
     NSLog(@"Started loading...");
-    [[NetworkLogManager shared] logNetworkRequests];
+//    [[NetworkLogManager shared] logNetworkRequests];
 }
 
 @end
