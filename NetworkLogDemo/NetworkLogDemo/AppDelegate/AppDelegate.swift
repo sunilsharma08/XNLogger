@@ -7,6 +7,11 @@
 //
 
 import UIKit
+#if DEBUG
+//import CocoaDebug
+//import netfox
+#endif
+
 
 //func print(_ items: Any..., separator: String = ", ", terminator: String = "\n") {
 //}
@@ -26,7 +31,21 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
 //        URLProtocol.registerClass(LogUrlProtocol.self)
 //        URLProtocol.registerClass(CustomUrlProtocol.self)
+        
+        #if DEBUG
+//        CocoaDebug.enable()
+//        NFX.sharedInstance().start()
+        #endif
+        
+        
         return true
+    }
+    
+    // CocoaDebug method
+    public func print<T>(file: String = #file, function: String = #function, line: Int = #line, _ message: T, color: UIColor = .white) {
+//        #if DEBUG
+//        swiftLog(file, function, line, message, color, false)
+//        #endif
     }
 
     func applicationWillResignActive(_ application: UIApplication) {

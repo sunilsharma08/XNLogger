@@ -155,6 +155,7 @@ strip_invalid_archs() {
 if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_framework "${BUILT_PRODUCTS_DIR}/GzipSwift/Gzip.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/NetworkLogger/NetworkLogger.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/netfox/netfox.framework"
 fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
   install_framework "${BUILT_PRODUCTS_DIR}/GzipSwift/Gzip.framework"
