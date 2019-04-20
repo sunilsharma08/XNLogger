@@ -406,7 +406,7 @@
 			inputFileListPaths = (
 			);
 			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-NetworkLogDemo/Pods-NetworkLogDemo-frameworks.sh",
+				"${PODS_ROOT}/Target Support Files/Pods-NetworkLogDemo/Pods-NetworkLogDemo-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/GzipSwift/Gzip.framework",
 				"${BUILT_PRODUCTS_DIR}/NetworkLogger/NetworkLogger.framework",
 			);
@@ -419,7 +419,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-NetworkLogDemo/Pods-NetworkLogDemo-frameworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-NetworkLogDemo/Pods-NetworkLogDemo-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		9E622E892FD3EFF0C62569F5 /* [CP] Check Pods Manifest.lock */ = {
