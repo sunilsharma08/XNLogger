@@ -6,7 +6,7 @@ target 'NetworkLogger' do
   use_frameworks!
 
   # Pods for NetworkLogger
-  pod 'GzipSwift'
+  pod 'GzipSwift', '~> 4.1.0'
 
   target 'NetworkLoggerTests' do
     inherit! :search_paths

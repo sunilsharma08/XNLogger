@@ -1,6 +1,0 @@
-framework module Pods_NetworkLogger {
-  umbrella header "Pods-NetworkLogger-umbrella.h"
-
-  export *
-  module * { export * }
-}

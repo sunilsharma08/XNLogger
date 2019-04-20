@@ -180,7 +180,7 @@ extension ViewController {
     
     func loadDataUsingUrl() {
         print("============\(#function)============")
-        let session = URLSession(configuration: .default)
+        let session = URLSession(configuration: .ephemeral)
         session.dataTask(with: URL(string: "https://gorest.co.in/public-api/users")!) { (data, urlResponse, error) in
 //            print("Response \(#function) \n \(String(describing: urlResponse.debugDescription))")
             do {

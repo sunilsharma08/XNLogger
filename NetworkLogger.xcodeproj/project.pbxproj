@@ -30,6 +30,7 @@
 		108576B821FDD99A008ABD2B /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 108576B721FDD99A008ABD2B /* Extensions.swift */; };
 		10AA00D921FE34E6006E4A48 /* R&DConclusions.md in Resources */ = {isa = PBXBuildFile; fileRef = 10AA00D721FE34E6006E4A48 /* R&DConclusions.md */; };
 		10AA00DA21FE34E6006E4A48 /* Technical.md in Resources */ = {isa = PBXBuildFile; fileRef = 10AA00D821FE34E6006E4A48 /* Technical.md */; };
+		10B4076822626644000FD18E /* NLURLProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10B4076722626644000FD18E /* NLURLProtocol.swift */; };
 		10BE806B2233C8B800A147BC /* TestUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10BE806A2233C8B800A147BC /* TestUtils.swift */; };
 		10BF876021F046A2008AA336 /* NLConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10BF875F21F046A2008AA336 /* NLConfiguration.swift */; };
 		10C7268F222DA0BE00239900 /* NLFileLogHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10C7268E222DA0BE00239900 /* NLFileLogHandler.swift */; };
@@ -75,6 +76,7 @@
 		108576B721FDD99A008ABD2B /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		10AA00D721FE34E6006E4A48 /* R&DConclusions.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = "R&DConclusions.md"; sourceTree = "<group>"; };
 		10AA00D821FE34E6006E4A48 /* Technical.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = Technical.md; sourceTree = "<group>"; };
+		10B4076722626644000FD18E /* NLURLProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NLURLProtocol.swift; sourceTree = "<group>"; };
 		10BE806A2233C8B800A147BC /* TestUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestUtils.swift; sourceTree = "<group>"; };
 		10BF875F21F046A2008AA336 /* NLConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NLConfiguration.swift; sourceTree = "<group>"; };
 		10C7268E222DA0BE00239900 /* NLFileLogHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NLFileLogHandler.swift; sourceTree = "<group>"; };
@@ -189,6 +191,7 @@
 			isa = PBXGroup;
 			children = (
 				1085769621FDD662008ABD2B /* NetworkInterceptor.swift */,
+				10B4076722626644000FD18E /* NLURLProtocol.swift */,
 			);
 			path = NetworkInterceptor;
 			sourceTree = "<group>";
@@ -446,6 +449,7 @@
 				108576A921FDD662008ABD2B /* NLLogHandler.swift in Sources */,
 				108576A821FDD662008ABD2B /* NetworkInterceptor.swift in Sources */,
 				108576AF21FDD662008ABD2B /* LogComposer.swift in Sources */,
+				10B4076822626644000FD18E /* NLURLProtocol.swift in Sources */,
 				1005807921C685000020288D /* NetworkLogger.swift in Sources */,
 				108576B821FDD99A008ABD2B /* Extensions.swift in Sources */,
 			);
