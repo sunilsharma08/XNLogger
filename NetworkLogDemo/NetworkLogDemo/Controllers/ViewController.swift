@@ -31,6 +31,18 @@ class ViewController: UIViewController {
 //        let selector2 = #selector((TestClass.overloadingTest(with:)) as (TestClass) -> (URLRequest) -> Void)
 //        perform(selector)
 //        perform(selector2)
+//        URLProtocol.registerClass(CustomUrlProtocol.self)
+//        URLProtocol.registerClass(CustomUrlProtocol.self)
+        print(URLSessionConfiguration.default.protocolClasses)
+        
+        let classes = URLSessionConfiguration.default.protocolClasses
+        for cls in classes ?? []{
+            let className = cls.description()
+            if className == "NFXProtocol" {
+                print("Woh")
+            }
+            print(className)
+        }
     }
     
     /**
@@ -180,7 +192,7 @@ extension ViewController {
     
     func loadDataUsingUrl() {
         print("============\(#function)============")
-        let session = URLSession(configuration: .ephemeral)
+        let session = URLSession(configuration: .default)
         session.dataTask(with: URL(string: "https://gorest.co.in/public-api/users")!) { (data, urlResponse, error) in
 //            print("Response \(#function) \n \(String(describing: urlResponse.debugDescription))")
             do {

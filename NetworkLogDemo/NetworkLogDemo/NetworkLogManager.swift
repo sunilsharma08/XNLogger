@@ -22,7 +22,7 @@ import NetworkLogger
         let logHandlerFactory = NLLogHandlerFactory()
 //        NetworkLogger.shared.addLogHandler(logHandlerFactory.create(.slack("<slackwebhookurl>")))
         NetworkLogger.shared.addLogHandler(logHandlerFactory.create(.console))
-        NetworkLogger.shared.startLogging()
+//        NetworkLogger.shared.startLogging()
         
 //        print("Logging network tasks")
 //

@@ -26,6 +26,23 @@ internal class NetworkInterceptor: NSObject {
             swizzleDataTask()
     }
     
+    func registerURLProtocol() {
+        let instance = URLSessionConfiguration.default
+        if let uRLSessionConfigurationClass: AnyClass = object_getClass(instance),
+            let originalProtocolGetter: Method = class_getInstanceMethod(uRLSessionConfigurationClass, #selector(getter: uRLSessionConfigurationClass.protocolClasses)),
+            let customProtocolClass: Method = class_getInstanceMethod(URLSessionConfiguration.self, #selector(URLSessionConfiguration.nlProcotolClasses)){
+            method_exchangeImplementations(originalProtocolGetter, customProtocolClass)
+        } else {
+            debugPrint("Failed to swizzle protocol classes")
+        }
+        
+        
+    }
+    
+    func unregisterURLProtocol() {
+        
+    }
+    
     /**
      Swizzle original Data task method with Interceptable Data task method.
      */
@@ -48,6 +65,21 @@ internal class NetworkInterceptor: NSObject {
         else {
             debugPrint("Failed to get data task method instance")
         }
+    }
+}
+
+extension URLSessionConfiguration {
+    
+    @objc func nlProcotolClasses() -> [AnyClass]? {
+        guard let nlProcotolClasses = self.nlProcotolClasses() else {
+            return []
+        }
+        var originalProtocolClasses = nlProcotolClasses.filter {
+            return $0 != NLURLProtocol.self
+        }
+        //Make sure NLURLProtocol class is at top in protocol classes list.
+        originalProtocolClasses.insert(NLURLProtocol.self, at: 0)
+        return originalProtocolClasses
     }
 }
 
