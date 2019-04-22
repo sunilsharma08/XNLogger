@@ -18,6 +18,8 @@ class NetworkExamplesViewController: UIViewController {
     @IBOutlet weak var uploadDelegate: UIButton!
     @IBOutlet weak var downloadResume: UIButton!
     @IBOutlet weak var downloadBackground: UIButton!
+    var resumeDownloadtask: URLSessionDownloadTask?
+    var resumeData: Data?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -226,6 +228,60 @@ extension NetworkExamplesViewController {
     
     @IBAction func clickedOnResumeDownload(_ sender: Any) {
         print(#function)
+        
+        guard let button = sender as? UIButton
+            else { return }
+        print("Button tag \(button.tag)")
+        let url = URL(string: "http://file-examples.com/wp-content/uploads/2017/04/file_example_MP4_640_3MG.mp4")!
+        let configuration = URLSessionConfiguration.default
+        let session = URLSession(configuration: configuration, delegate: self, delegateQueue: nil)
+        if button.tag == 0 {
+            resumeDownloadtask = session.downloadTask(with: url, completionHandler: { (dataUrl, response, error) in
+                DispatchQueue.main.async {
+                    if let nserror = error as NSError?,
+                        let _ = nserror.userInfo[NSURLSessionDownloadTaskResumeData] as? Data{
+                    } else {
+                        print("Download file url -> \(dataUrl?.absoluteString ?? "no file path found")")
+                        button.tag = 0
+                        button.setTitle("Download - Resume", for: .normal)
+                    }
+                }
+            })
+            resumeDownloadtask?.resume()
+            button.tag = 1
+            button.setTitle("Pause", for: .normal)
+        } else if button.tag == 1 {
+            resumeDownloadtask?.cancel(byProducingResumeData: { (resumeData) in
+                if resumeData == nil {
+                    // Reset data
+                    DispatchQueue.main.async {
+                        print("Resume is not possible")
+                        button.tag = 0
+                        button.setTitle("Download - Resume", for: .normal)
+                        self.resumeDownloadtask = nil
+                        self.resumeData = nil
+                    }
+                } else {
+                    DispatchQueue.main.async {
+                        self.resumeData = resumeData
+                        button.tag = 2
+                        button.setTitle("Resume", for: .normal)
+                    }
+                }
+            })
+        } else if button.tag == 2 {
+            button.setTitle("Downloading...", for: .normal)
+            resumeDownloadtask = session.downloadTask(withResumeData: resumeData!, completionHandler: { (dataUrl, response, error) in
+                
+                DispatchQueue.main.async {
+                    print("Download - Resume: file url -> \(dataUrl?.absoluteString ?? "no file path")")
+                    button.tag = 0
+                    button.setTitle("Download - Resume", for: .normal)
+                }
+                self.resumeData = nil
+            })
+            resumeDownloadtask?.resume()
+        }
         
     }
     
