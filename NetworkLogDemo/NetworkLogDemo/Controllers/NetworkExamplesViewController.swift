@@ -178,7 +178,7 @@ extension NetworkExamplesViewController {
         
         let url = URL(string: "https://httpbin.org/get")!
         
-        let session = URLSession(configuration: .default)
+        let session = URLSession(configuration: .ephemeral)
         
         session.dataTask(with: url) { (data, urlResponse, error) in
             print(self.getJSONFrom(data: data) ?? "")
@@ -191,7 +191,7 @@ extension NetworkExamplesViewController {
         
         let url = URL(string: "https://httpbin.org/get")!
         
-        let configuration = URLSessionConfiguration.default
+        let configuration = URLSessionConfiguration.ephemeral
         
         let session = URLSession(configuration: configuration, delegate: self, delegateQueue: nil)
         
@@ -204,6 +204,7 @@ extension NetworkExamplesViewController {
 
 // Download task
 extension NetworkExamplesViewController {
+    
     @IBAction func clickedOnDownloadHandler(_ sender: Any) {
         print(#function)
         

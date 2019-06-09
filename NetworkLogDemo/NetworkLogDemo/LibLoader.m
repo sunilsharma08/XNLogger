@@ -15,8 +15,8 @@
 @implementation CodeInjection
 
 static void __attribute__((constructor)) initialize(void){
-    NSLog(@"Started loading...");
-    [[NetworkLogManager shared] logNetworkRequests];
+//    NSLog(@"Started loading...");
+//    [[NetworkLogManager shared] logNetworkRequests];
 }
 
 @end

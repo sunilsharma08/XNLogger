@@ -11,7 +11,8 @@ import Foundation
 open class NLURLProtocol: URLProtocol {
     
     open override class func canInit(with request: URLRequest) -> Bool {
-        print(#function)
+        debugPrint(#function)
+        NetworkLogger.shared.logRequest(request)
         return canServeRequest(request)
     }
     
@@ -21,11 +22,6 @@ open class NLURLProtocol: URLProtocol {
     
     open override func startLoading() {
         print(#function)
-//        URLProtocol.setProperty("1", forKey: "NFXInternal", in: request)
-        
-//        let configuration = URLSessionConfiguration.default
-//        let session = URLSession(configuration: configuration, delegate: self, delegateQueue: nil)
-//        let task = session
     }
     
     open override func stopLoading() {
@@ -35,20 +31,9 @@ open class NLURLProtocol: URLProtocol {
 }
 
 // Helper private methods
-private extension NLURLProtocol {
+fileprivate extension NLURLProtocol {
     
     fileprivate class func canServeRequest(_ request: URLRequest) -> Bool {
-        
-        if let url = request.url {
-            if !(url.absoluteString.hasPrefix("http")) &&
-               !(url.absoluteString.hasPrefix("https")) {
-                return false
-            }
-        }
-        
-//        if URLProtocol.property(forKey: "NFXInternal", in: request) != nil {
-//            return false
-//        }
         
         return true
     }

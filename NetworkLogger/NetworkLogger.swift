@@ -15,7 +15,7 @@ import Foundation
     
     // Private variables
     private let networkInterceptor = NetworkInterceptor()
-    private(set) var handlers:[NLLogHandler] = []
+    private(set) var handlers: [NLLogHandler] = []
     
     override private init() {}
     

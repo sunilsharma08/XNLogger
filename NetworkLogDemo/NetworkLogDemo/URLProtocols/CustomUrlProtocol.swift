@@ -8,24 +8,24 @@
 
 import Foundation
 
-class CustomUrlProtocol: URLProtocol {
+open class CustomUrlProtocol: URLProtocol {
     
-    override class func canInit(with request: URLRequest) -> Bool {
+    override open class func canInit(with request: URLRequest) -> Bool {
         print("\(String(describing: self)):\(#function) => \(request.url?.absoluteString ?? "N/A")")
         return false
     }
     
-    override class func canonicalRequest(for request: URLRequest) -> URLRequest {
+    override open class func canonicalRequest(for request: URLRequest) -> URLRequest {
         print("\(String(describing: self)):\(#function) => \(request.allHTTPHeaderFields ?? [:])")
         
         return request
     }
     
-    override func startLoading() {
+    override open func startLoading() {
         print("Started loading data")
     }
     
-    override func stopLoading() {
+    override open func stopLoading() {
         print("Stopped loading data")
     }
     

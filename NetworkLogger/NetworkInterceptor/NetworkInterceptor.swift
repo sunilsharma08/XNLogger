@@ -14,7 +14,9 @@ internal class NetworkInterceptor: NSObject {
      Setup and start logging network calls
      */
     func startInterceptingNetwork() {
-            swizzleDataTask()
+        if isProtocolSwizzled() == false {
+            swizzleProtocolClasses()
+        }
     }
     
     /**
@@ -22,11 +24,20 @@ internal class NetworkInterceptor: NSObject {
      intercept network calls.
      */
     func stopInterceptingNetwork() {
-        // Need logic to confirm revert back
-            swizzleDataTask()
+        unswizzleProtocolClasses()
     }
     
-    func registerURLProtocol() {
+    func isProtocolSwizzled() -> Bool {
+        let protocolClasses: [AnyClass] = URLSessionConfiguration.default.protocolClasses ?? []
+        for protocolCls in protocolClasses {
+            if protocolCls == NLURLProtocol.self {
+                return true
+            }
+        }
+        return false
+    }
+    
+    func swizzleProtocolClasses() {
         let instance = URLSessionConfiguration.default
         if let uRLSessionConfigurationClass: AnyClass = object_getClass(instance),
             let originalProtocolGetter: Method = class_getInstanceMethod(uRLSessionConfigurationClass, #selector(getter: uRLSessionConfigurationClass.protocolClasses)),
@@ -35,21 +46,22 @@ internal class NetworkInterceptor: NSObject {
         } else {
             debugPrint("Failed to swizzle protocol classes")
         }
-        
-        
     }
     
-    func unregisterURLProtocol() {
-        
+    func unswizzleProtocolClasses() {
+        if isProtocolSwizzled() {
+            swizzleProtocolClasses()
+        }
     }
     
     /**
+     Now not used. Should be removed
      Swizzle original Data task method with Interceptable Data task method.
-     */
+ 
     func swizzleDataTask() {
         
         let sessionInstance = URLSession(configuration: .default)
-        guard let urlSessionClass:AnyClass = object_getClass(sessionInstance) else {
+        guard let urlSessionClass: AnyClass = object_getClass(sessionInstance) else {
             debugPrint("Failed to get URLSession Class")
             return
         }
@@ -66,10 +78,15 @@ internal class NetworkInterceptor: NSObject {
             debugPrint("Failed to get data task method instance")
         }
     }
+     */
 }
 
 extension URLSessionConfiguration {
     
+    /**
+    Never call this method directly.
+    Always use `protocolClasses` to get protocol classes.
+    */
     @objc func nlProcotolClasses() -> [AnyClass]? {
         guard let nlProcotolClasses = self.nlProcotolClasses() else {
             return []
@@ -77,7 +94,7 @@ extension URLSessionConfiguration {
         var originalProtocolClasses = nlProcotolClasses.filter {
             return $0 != NLURLProtocol.self
         }
-        //Make sure NLURLProtocol class is at top in protocol classes list.
+        // Make sure NLURLProtocol class is at top in protocol classes list.
         originalProtocolClasses.insert(NLURLProtocol.self, at: 0)
         return originalProtocolClasses
     }
@@ -85,7 +102,7 @@ extension URLSessionConfiguration {
 
 /**
  Implement interceptable data task method.
- */
+ 
 internal extension URLSession {
     
     @objc func interceptableDataTask(with request: URLRequest, completionHandler: ((Data?, URLResponse?, Error?) -> Void)?) -> URLSessionDataTask {
@@ -103,4 +120,5 @@ internal extension URLSession {
     }
     
 }
+ */
 

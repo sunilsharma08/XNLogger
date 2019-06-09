@@ -33,7 +33,10 @@ class ViewController: UIViewController {
 //        perform(selector2)
 //        URLProtocol.registerClass(CustomUrlProtocol.self)
 //        URLProtocol.registerClass(CustomUrlProtocol.self)
-        print(URLSessionConfiguration.default.protocolClasses)
+//        URLProtocol.registerClass(CustomUrlProtocol.self)
+//        let status = URLProtocol.registerClass(CustomUrlProtocol.self)
+//        print("register status \(status)")
+//        print(URLSessionConfiguration.default.protocolClasses)
         
         let classes = URLSessionConfiguration.default.protocolClasses
         for cls in classes ?? []{
@@ -94,7 +97,8 @@ class ViewController: UIViewController {
     }
     
     @IBAction func clickedOnUrlRequest(_ sender: Any) {
-        performNetworkTask(requestType: .urlRequest)
+//        performNetworkTask(requestType: .urlRequest)
+        register()
     }
     
     @IBAction func clickedOnNextButton(_ sender: Any) {
@@ -105,17 +109,48 @@ class ViewController: UIViewController {
     
     @IBAction func refreshButtonPressed(_ sender: UIButton) {
         performNetworkTask(requestType: .url)
+        
+    }
+    
+    func isSwizzled() -> Bool {
+        let protocolClasses: [AnyClass] = URLSessionConfiguration.default.protocolClasses ?? []
+        for protocolCls in protocolClasses {
+            if protocolCls == CustomUrlProtocol.self {
+                return true
+            }
+        }
+        return false
     }
     
     func register() {
-        let instance = URLSessionConfiguration.default
-        let uRLSessionConfigurationClass: AnyClass = object_getClass(instance)!
-        
-        let method1: Method = class_getInstanceMethod(uRLSessionConfigurationClass, #selector(getter: uRLSessionConfigurationClass.protocolClasses))!
-        let method2: Method = class_getInstanceMethod(URLSessionConfiguration.self, #selector(URLSessionConfiguration.fakeProcotolClasses))!
-        
-        method_exchangeImplementations(method1, method2)
-        swizzleDataTask()
+//        URLProtocol.registerClass(CustomUrlProtocol.self)
+//        let instance = URLSessionConfiguration.default
+//        let uRLSessionConfigurationClass: AnyClass = object_getClass(instance)!
+//        let fakeProtocolSel = #selector(URLSessionConfiguration.fakeProcotolClasses)
+//        let originalProtocolSel = #selector(getter: instance.protocolClasses)
+//
+//        print("Before \(isSwizzled())")
+//        if instance.responds(to: originalProtocolSel) {
+//            print("Original class")
+//        } else {
+//            print("Somethig is fishe")
+//        }
+//        if instance.responds(to: fakeProtocolSel) {
+//            print("Fake class")
+//        } else {
+//            print("it's ok")
+//        }
+//
+//        let method1: Method = class_getInstanceMethod(uRLSessionConfigurationClass, #selector(getter: uRLSessionConfigurationClass.protocolClasses))!
+//        print("original method \(method1.debugDescription) hash = \(method1.hashValue)")
+//        print(URLSessionConfiguration.default.protocolClasses!)
+//        let method2: Method = class_getInstanceMethod(URLSessionConfiguration.self, #selector(URLSessionConfiguration.fakeProcotolClasses))!
+//        print("fake method \(method2.debugDescription) hash = \(method2.hashValue)")
+//
+//        method_exchangeImplementations(method1, method2)
+//        print(URLSessionConfiguration.default.protocolClasses!)
+        print("After \(isSwizzled())")
+//        swizzleDataTask()
     }
 
 }
@@ -165,6 +200,7 @@ extension ViewController: URLSessionDataDelegate {
 extension URLSessionConfiguration {
     
     @objc func fakeProcotolClasses() -> [AnyClass]? {
+//        print(Thread.callStackSymbols)
         guard let fakeProcotolClasses = self.fakeProcotolClasses() else {
             return []
         }
@@ -192,7 +228,7 @@ extension ViewController {
     
     func loadDataUsingUrl() {
         print("============\(#function)============")
-        let session = URLSession(configuration: .default)
+        let session = URLSession.shared
         session.dataTask(with: URL(string: "https://gorest.co.in/public-api/users")!) { (data, urlResponse, error) in
 //            print("Response \(#function) \n \(String(describing: urlResponse.debugDescription))")
             do {
