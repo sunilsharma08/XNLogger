@@ -10,31 +10,28 @@ import Foundation
 
 public enum NLFilterType {
     
-    case scheme(String)
+    case scheme(NLSchemeType)
     case domain(String)
     case contains(String)
     
 }
 
-public protocol NLFilter {
+public enum NLSchemeType: String {
+    case http
+    case https
+}
+
+public protocol NLFilter: class {
     
-    func shouldLog(urlRequest: URLRequest) -> Bool
+    var invert: Bool { get set }
+    func isAllowed(urlRequest: URLRequest) -> Bool
     
 }
 
-protocol NLExcludableFilter: NLFilter {
-    
-    var shouldExclude: Bool {get}
-    func shouldExclude(_ value: Bool)
-    
-    func updateStatus(_ status: Bool) -> Bool
-    
-}
-
-extension NLExcludableFilter {
+extension NLFilter {
     
     func updateStatus(_ status: Bool) -> Bool {
-        if shouldExclude {
+        if invert {
             return !status
         } else {
             return status
@@ -42,25 +39,21 @@ extension NLExcludableFilter {
     }
 }
 
-class NLSchemeFilter: NLExcludableFilter {
+class NLSchemeFilter: NLFilter {
     
-    private let scheme: String
-    internal var shouldExclude: Bool = false
+    private let scheme: NLSchemeType
+    public var invert: Bool = false
     
-    init(scheme: String) {
+    init(scheme: NLSchemeType) {
         self.scheme = scheme
     }
     
-    func shouldExclude(_ value: Bool) {
-        self.shouldExclude = value
-    }
-    
-    public func shouldLog(urlRequest: URLRequest) -> Bool {
+    public func isAllowed(urlRequest: URLRequest) -> Bool {
         
         var status: Bool = false
         
         if let scheme = urlRequest.url?.scheme,
-            scheme == self.scheme {
+            scheme.lowercased() == self.scheme.rawValue {
             status = true
         }
         
@@ -69,25 +62,21 @@ class NLSchemeFilter: NLExcludableFilter {
     
 }
 
-class NLDomainFilter: NLExcludableFilter {
+class NLDomainFilter: NLFilter {
     
     private let domain: String
-    internal var shouldExclude: Bool = false
+    public var invert: Bool = false
     
     init(domain: String) {
-        self.domain = domain
+        self.domain = domain.lowercased()
     }
     
-    func shouldExclude(_ value: Bool) {
-        self.shouldExclude = value
-    }
-    
-    public func shouldLog(urlRequest: URLRequest) -> Bool {
+    public func isAllowed(urlRequest: URLRequest) -> Bool {
         
         var status: Bool = false
         
         if let host = urlRequest.url?.host,
-           host == self.domain {
+           host.lowercased() == self.domain {
             status = true
         }
         
@@ -96,24 +85,20 @@ class NLDomainFilter: NLExcludableFilter {
     
 }
 
-class NLContainsFilter: NLExcludableFilter {
+class NLContainsFilter: NLFilter {
     
     private let filterString: String
-    internal var shouldExclude: Bool = false
+    public var invert: Bool = false
     
     init(filterString: String) {
-        self.filterString = filterString
+        self.filterString = filterString.lowercased()
     }
     
-    func shouldExclude(_ value: Bool) {
-        self.shouldExclude = value
-    }
-    
-    func shouldLog(urlRequest: URLRequest) -> Bool {
+    func isAllowed(urlRequest: URLRequest) -> Bool {
         
         var status: Bool = false
         
-        if let url = urlRequest.url?.absoluteString,
+        if let url = urlRequest.url?.absoluteString.lowercased(),
             url.contains(filterString){
             status = true
         }

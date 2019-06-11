@@ -166,7 +166,7 @@ class NLFileLogHandler: NLBaseLogHandler, NLLogHandler {
     public func logNetworkRequest(_ urlRequest: URLRequest) {
         self.fileWriteQueue.async {
             if self.filters.count > 0 {
-                for filter in self.filters where filter.shouldLog(urlRequest: urlRequest) {
+                for filter in self.filters where filter.isAllowed(urlRequest: urlRequest) {
                     self.write(self.logComposer.getRequestLog(from: urlRequest))
                     break
                 }
@@ -180,7 +180,7 @@ class NLFileLogHandler: NLBaseLogHandler, NLLogHandler {
     public func logNetworkResponse(for urlRequest: URLRequest, responseData: NLResponseData) {
         self.fileWriteQueue.async {
             if self.filters.count > 0 {
-                for filter in self.filters where filter.shouldLog(urlRequest: urlRequest) {
+                for filter in self.filters where filter.isAllowed(urlRequest: urlRequest) {
                     self.write(self.logComposer.getResponseLog(urlRequest: urlRequest, response: responseData))
                     break
                 }

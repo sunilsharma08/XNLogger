@@ -210,12 +210,12 @@
 			isa = PBXGroup;
 			children = (
 				1085769921FDD662008ABD2B /* NLLogHandler.swift */,
-				1085769A21FDD662008ABD2B /* NLRemoteLogHandler.swift */,
+				10C72690222DAC2D00239900 /* NLBaseLogHandler.swift */,
 				1085769B21FDD662008ABD2B /* NLConsoleLogHandler.swift */,
+				1085769A21FDD662008ABD2B /* NLRemoteLogHandler.swift */,
 				1085769C21FDD662008ABD2B /* NLSlackLogHandler.swift */,
 				1085769D21FDD662008ABD2B /* NLLogHandlerFactory.swift */,
 				10C7268E222DA0BE00239900 /* NLFileLogHandler.swift */,
-				10C72690222DAC2D00239900 /* NLBaseLogHandler.swift */,
 			);
 			path = LogHandlers;
 			sourceTree = "<group>";

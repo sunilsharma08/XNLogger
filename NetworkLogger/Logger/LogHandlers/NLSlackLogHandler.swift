@@ -26,7 +26,7 @@ public class NLSlackLogHandler: NLBaseLogHandler, NLLogHandler, NLRemoteLogger {
         }
         
         if self.filters.count > 0 {
-            for filter in self.filters where filter.shouldLog(urlRequest: urlRequest) {
+            for filter in self.filters where filter.isAllowed(urlRequest: urlRequest) {
                 log()
                 break
             }
@@ -46,7 +46,7 @@ public class NLSlackLogHandler: NLBaseLogHandler, NLLogHandler, NLRemoteLogger {
         }
         
         if self.filters.count > 0 {
-            for filter in self.filters where filter.shouldLog(urlRequest: urlRequest) {
+            for filter in self.filters where filter.isAllowed(urlRequest: urlRequest) {
                 log()
                 break
             }

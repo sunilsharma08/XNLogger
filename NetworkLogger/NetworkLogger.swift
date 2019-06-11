@@ -17,14 +17,16 @@ import Foundation
     private let networkInterceptor = NetworkInterceptor()
     private(set) var handlers: [NLLogHandler] = []
     
+    private(set) var filters: [NLFilter] = []
+    
     override private init() {}
     
-    public func startLogging() {
+    @objc public func startLogging() {
         debugPrint("Started logging network traffic")
         networkInterceptor.startInterceptingNetwork()
     }
     
-    public func stopLogging() {
+    @objc public func stopLogging() {
         debugPrint("Stopped logging network traffic")
         networkInterceptor.stopInterceptingNetwork()
     }
@@ -43,14 +45,42 @@ import Foundation
         }
     }
     
-    public func removeAllHandlers() {
+    @objc public func removeAllHandlers() {
         self.handlers.removeAll()
+    }
+    
+    // MARK: Methods to handle Skip URLs from Network Logger
+    
+    /**
+     URL filter added will not go through Network Logger.
+    */
+    public func skipURLs(urlFilters: [NLFilter]) {
+        for filter in urlFilters {
+            filter.invert = true
+            self.filters.append(filter)
+        }
+    }
+    
+    /**
+     Remove specified url filter from skip urls list
+    */
+    public func removeSkipURL(filter: NLFilter) {
+        self.filters = self.filters.filter { (item) -> Bool in
+            return item !== filter
+        }
+    }
+    
+    /**
+     Remove all filters from skip urls list
+    */
+    public func removeAllSkipURLs() {
+        self.filters.removeAll()
     }
     
     /**
      Clear all logs in-memory and disk cache
      */
-    public func clearLogs() {
+    @objc public func clearLogs() {
         for handler in handlers {
             if let fileHandler = handler as? NLFileLogHandler {
                 fileHandler.clearLogFiles()
