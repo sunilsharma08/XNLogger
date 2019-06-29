@@ -11,9 +11,12 @@ import UIKit
 internal class NetworkInterceptor: NSObject {
     
     /**
-     Setup and start logging network calls
+     Setup and start logging network calls.
      */
     func startInterceptingNetwork() {
+        /// Before swizzle checking if it's already not swizzled.
+        /// If it already swizzled skip else swizzle for logging.
+        /// This check make safe to call multiple times.
         if isProtocolSwizzled() == false {
             swizzleProtocolClasses()
         }
@@ -24,7 +27,12 @@ internal class NetworkInterceptor: NSObject {
      intercept network calls.
      */
     func stopInterceptingNetwork() {
-        unswizzleProtocolClasses()
+        /// Check if already unswizzled for logging, if so then skip
+        /// else unswizzle for logging i.e. it will stop logging.
+        /// Check make it safe to call multiple times.
+        if isProtocolSwizzled() {
+            swizzleProtocolClasses()
+        }
     }
     
     func isProtocolSwizzled() -> Bool {
@@ -45,12 +53,6 @@ internal class NetworkInterceptor: NSObject {
             method_exchangeImplementations(originalProtocolGetter, customProtocolClass)
         } else {
             debugPrint("Failed to swizzle protocol classes")
-        }
-    }
-    
-    func unswizzleProtocolClasses() {
-        if isProtocolSwizzled() {
-            swizzleProtocolClasses()
         }
     }
     

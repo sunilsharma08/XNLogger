@@ -13,45 +13,31 @@ public class NLSlackLogHandler: NLBaseLogHandler, NLLogHandler, NLRemoteLogger {
     private let webhookUrl: String
     private let logComposer = LogComposer()
     
+    public class func create(webhookUrl: String) -> NLSlackLogHandler {
+        return NLSlackLogHandler(webhookUrl: webhookUrl)
+    }
+    
     init(webhookUrl: String) {
         self.webhookUrl = webhookUrl
     }
     
     public func logNetworkRequest(_ urlRequest: URLRequest) {
-        func log() {
+        
+        if isAllowed(urlRequest: urlRequest) {
             let message = logComposer.getRequestLog(from: urlRequest)
             let slackRequest = getSlackRequest(forRequest: urlRequest, message: message)
             
             self.writeLog(urlRequest: slackRequest)
         }
-        
-        if self.filters.count > 0 {
-            for filter in self.filters where filter.isAllowed(urlRequest: urlRequest) {
-                log()
-                break
-            }
-        }
-        else {
-            log()
-        }
     }
     
     public func logNetworkResponse(for urlRequest: URLRequest, responseData: NLResponseData) {
         
-        func log() {
+        if isAllowed(urlRequest: urlRequest) {
             let message = logComposer.getResponseLog(urlRequest: urlRequest, response: responseData)
             let slackRequest = getSlackRequest(forRequest: urlRequest, message: message)
             
             self.writeLog(urlRequest: slackRequest)
-        }
-        
-        if self.filters.count > 0 {
-            for filter in self.filters where filter.isAllowed(urlRequest: urlRequest) {
-                log()
-                break
-            }
-        } else {
-            log()
         }
     }
     

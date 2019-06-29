@@ -17,7 +17,7 @@ import Foundation
     private let networkInterceptor = NetworkInterceptor()
     private(set) var handlers: [NLLogHandler] = []
     
-    private(set) var filters: [NLFilter] = []
+    let filterManager: NLFilterManager = NLFilterManager()
     
     override private init() {}
     
@@ -54,27 +54,30 @@ import Foundation
     /**
      URL filter added will not go through Network Logger.
     */
-    public func skipURLs(urlFilters: [NLFilter]) {
-        for filter in urlFilters {
-            filter.invert = true
-            self.filters.append(filter)
-        }
+    public func addFilters(_ filters: [NLFilter]) {
+        self.filterManager.addFilters(filters)
     }
     
     /**
      Remove specified url filter from skip urls list
     */
-    public func removeSkipURL(filter: NLFilter) {
-        self.filters = self.filters.filter { (item) -> Bool in
-            return item !== filter
-        }
+    public func removeFilters(_ filters: [NLFilter]) {
+        self.filterManager.removeFilters(filters)
     }
     
     /**
      Remove all filters from skip urls list
     */
-    public func removeAllSkipURLs() {
-        self.filters.removeAll()
+    public func removeAllFilters() {
+        self.filterManager.removeAllFilters()
+    }
+    
+    public func filters() -> [NLFilter] {
+        return filterManager.getFilters()
+    }
+    
+    public func update(filterType: NLFilterType, toInvertMode state: Bool) {
+        filterManager.update(filterType: filterType, toInvertMode: state)
     }
     
     /**

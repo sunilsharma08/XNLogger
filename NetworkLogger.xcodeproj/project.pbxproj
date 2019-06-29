@@ -11,12 +11,12 @@
 		1005806D21C65F4A0020288D /* NetworkLoggerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1005806C21C65F4A0020288D /* NetworkLoggerTests.swift */; };
 		1005806F21C65F4A0020288D /* NetworkLogger.h in Headers */ = {isa = PBXBuildFile; fileRef = 1005806121C65F490020288D /* NetworkLogger.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		1005807921C685000020288D /* NetworkLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1005807821C685000020288D /* NetworkLogger.swift */; };
+		1017F84122C1C9F4000D185E /* NLFilterManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1017F84022C1C9F4000D185E /* NLFilterManager.swift */; };
 		10301A4E2213334B00BCB339 /* NetworkAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10301A4D2213334B00BCB339 /* NetworkAPI.swift */; };
 		10398B39220B557100EDFC05 /* NetworkInterceptorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10398B38220B557100EDFC05 /* NetworkInterceptorTests.swift */; };
 		108576A021FDD662008ABD2B /* NLSlackUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1085768921FDD662008ABD2B /* NLSlackUser.swift */; };
 		108576A121FDD662008ABD2B /* NLResponseData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1085768A21FDD662008ABD2B /* NLResponseData.swift */; };
 		108576A221FDD662008ABD2B /* NLFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1085768C21FDD662008ABD2B /* NLFilter.swift */; };
-		108576A321FDD662008ABD2B /* NLFilterFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1085768D21FDD662008ABD2B /* NLFilterFactory.swift */; };
 		108576A621FDD662008ABD2B /* JSONUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1085769321FDD662008ABD2B /* JSONUtils.swift */; };
 		108576A721FDD662008ABD2B /* AppConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1085769421FDD662008ABD2B /* AppConstants.swift */; };
 		108576A821FDD662008ABD2B /* NetworkInterceptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1085769621FDD662008ABD2B /* NetworkInterceptor.swift */; };
@@ -24,7 +24,6 @@
 		108576AA21FDD662008ABD2B /* NLRemoteLogHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1085769A21FDD662008ABD2B /* NLRemoteLogHandler.swift */; };
 		108576AB21FDD662008ABD2B /* NLConsoleLogHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1085769B21FDD662008ABD2B /* NLConsoleLogHandler.swift */; };
 		108576AC21FDD662008ABD2B /* NLSlackLogHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1085769C21FDD662008ABD2B /* NLSlackLogHandler.swift */; };
-		108576AD21FDD662008ABD2B /* NLLogHandlerFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1085769D21FDD662008ABD2B /* NLLogHandlerFactory.swift */; };
 		108576AE21FDD662008ABD2B /* URLRequest+cURL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1085769E21FDD662008ABD2B /* URLRequest+cURL.swift */; };
 		108576AF21FDD662008ABD2B /* LogComposer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1085769F21FDD662008ABD2B /* LogComposer.swift */; };
 		108576B821FDD99A008ABD2B /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 108576B721FDD99A008ABD2B /* Extensions.swift */; };
@@ -57,12 +56,12 @@
 		1005806C21C65F4A0020288D /* NetworkLoggerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkLoggerTests.swift; sourceTree = "<group>"; };
 		1005806E21C65F4A0020288D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1005807821C685000020288D /* NetworkLogger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkLogger.swift; sourceTree = "<group>"; };
+		1017F84022C1C9F4000D185E /* NLFilterManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NLFilterManager.swift; sourceTree = "<group>"; };
 		10301A4D2213334B00BCB339 /* NetworkAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkAPI.swift; sourceTree = "<group>"; };
 		10398B38220B557100EDFC05 /* NetworkInterceptorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkInterceptorTests.swift; sourceTree = "<group>"; };
 		1085768921FDD662008ABD2B /* NLSlackUser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NLSlackUser.swift; sourceTree = "<group>"; };
 		1085768A21FDD662008ABD2B /* NLResponseData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NLResponseData.swift; sourceTree = "<group>"; };
 		1085768C21FDD662008ABD2B /* NLFilter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NLFilter.swift; sourceTree = "<group>"; };
-		1085768D21FDD662008ABD2B /* NLFilterFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NLFilterFactory.swift; sourceTree = "<group>"; };
 		1085769321FDD662008ABD2B /* JSONUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSONUtils.swift; sourceTree = "<group>"; };
 		1085769421FDD662008ABD2B /* AppConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppConstants.swift; sourceTree = "<group>"; };
 		1085769621FDD662008ABD2B /* NetworkInterceptor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkInterceptor.swift; sourceTree = "<group>"; };
@@ -70,7 +69,6 @@
 		1085769A21FDD662008ABD2B /* NLRemoteLogHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NLRemoteLogHandler.swift; sourceTree = "<group>"; };
 		1085769B21FDD662008ABD2B /* NLConsoleLogHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NLConsoleLogHandler.swift; sourceTree = "<group>"; };
 		1085769C21FDD662008ABD2B /* NLSlackLogHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NLSlackLogHandler.swift; sourceTree = "<group>"; };
-		1085769D21FDD662008ABD2B /* NLLogHandlerFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NLLogHandlerFactory.swift; sourceTree = "<group>"; };
 		1085769E21FDD662008ABD2B /* URLRequest+cURL.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "URLRequest+cURL.swift"; sourceTree = "<group>"; };
 		1085769F21FDD662008ABD2B /* LogComposer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogComposer.swift; sourceTree = "<group>"; };
 		108576B721FDD99A008ABD2B /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
@@ -172,7 +170,7 @@
 			isa = PBXGroup;
 			children = (
 				1085768C21FDD662008ABD2B /* NLFilter.swift */,
-				1085768D21FDD662008ABD2B /* NLFilterFactory.swift */,
+				1017F84022C1C9F4000D185E /* NLFilterManager.swift */,
 			);
 			path = Filters;
 			sourceTree = "<group>";
@@ -214,7 +212,6 @@
 				1085769B21FDD662008ABD2B /* NLConsoleLogHandler.swift */,
 				1085769A21FDD662008ABD2B /* NLRemoteLogHandler.swift */,
 				1085769C21FDD662008ABD2B /* NLSlackLogHandler.swift */,
-				1085769D21FDD662008ABD2B /* NLLogHandlerFactory.swift */,
 				10C7268E222DA0BE00239900 /* NLFileLogHandler.swift */,
 			);
 			path = LogHandlers;
@@ -436,9 +433,8 @@
 				108576A721FDD662008ABD2B /* AppConstants.swift in Sources */,
 				108576AE21FDD662008ABD2B /* URLRequest+cURL.swift in Sources */,
 				108576AC21FDD662008ABD2B /* NLSlackLogHandler.swift in Sources */,
-				108576AD21FDD662008ABD2B /* NLLogHandlerFactory.swift in Sources */,
+				1017F84122C1C9F4000D185E /* NLFilterManager.swift in Sources */,
 				108576A021FDD662008ABD2B /* NLSlackUser.swift in Sources */,
-				108576A321FDD662008ABD2B /* NLFilterFactory.swift in Sources */,
 				108576A621FDD662008ABD2B /* JSONUtils.swift in Sources */,
 				10BF876021F046A2008AA336 /* NLConfiguration.swift in Sources */,
 				10C7268F222DA0BE00239900 /* NLFileLogHandler.swift in Sources */,

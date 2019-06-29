@@ -8,44 +8,40 @@
 
 import Foundation
 
+/**
+ Filter priority order from highest to lowest are as:
+ Scheme - Highest
+ Host
+ Contains - Lowest
+ */
 public enum NLFilterType {
+    case scheme     // http or https
+    case host       // www.example.com
+    case contains   // any string in url
     
-    case scheme(NLSchemeType)
-    case domain(String)
-    case contains(String)
-    
-}
-
-public enum NLSchemeType: String {
-    case http
-    case https
-}
-
-public protocol NLFilter: class {
-    
-    var invert: Bool { get set }
-    func isAllowed(urlRequest: URLRequest) -> Bool
-    
-}
-
-extension NLFilter {
-    
-    func updateStatus(_ status: Bool) -> Bool {
-        if invert {
-            return !status
-        } else {
-            return status
+    func create(filterString: String) ->  NLFilter {
+        switch self {
+        case .scheme:
+            return NLSchemeFilter(scheme: filterString)
+        case .host:
+            return NLHostFilter(host: filterString)
+        case .contains:
+            return NLContainsFilter(filterString: filterString)
         }
     }
 }
 
+public protocol NLFilter: class {
+    
+    func isAllowed(urlRequest: URLRequest) -> Bool
+}
+
 class NLSchemeFilter: NLFilter {
     
-    private let scheme: NLSchemeType
-    public var invert: Bool = false
+    private let scheme: String
     
-    init(scheme: NLSchemeType) {
-        self.scheme = scheme
+    init(scheme: String) {
+        self.scheme = scheme.lowercased()
     }
     
     public func isAllowed(urlRequest: URLRequest) -> Bool {
@@ -53,22 +49,20 @@ class NLSchemeFilter: NLFilter {
         var status: Bool = false
         
         if let scheme = urlRequest.url?.scheme,
-            scheme.lowercased() == self.scheme.rawValue {
+            scheme.lowercased() == self.scheme {
             status = true
         }
         
-        return updateStatus(status)
+        return status
     }
-    
 }
 
-class NLDomainFilter: NLFilter {
+class NLHostFilter: NLFilter {
     
-    private let domain: String
-    public var invert: Bool = false
+    private let host: String
     
-    init(domain: String) {
-        self.domain = domain.lowercased()
+    init(host: String) {
+        self.host = host.lowercased()
     }
     
     public func isAllowed(urlRequest: URLRequest) -> Bool {
@@ -76,19 +70,17 @@ class NLDomainFilter: NLFilter {
         var status: Bool = false
         
         if let host = urlRequest.url?.host,
-           host.lowercased() == self.domain {
+           host.lowercased() == self.host {
             status = true
         }
         
-        return updateStatus(status)
+        return status
     }
-    
 }
 
 class NLContainsFilter: NLFilter {
     
     private let filterString: String
-    public var invert: Bool = false
     
     init(filterString: String) {
         self.filterString = filterString.lowercased()
@@ -103,9 +95,8 @@ class NLContainsFilter: NLFilter {
             status = true
         }
         
-        return updateStatus(status)
+        return status
     }
-    
 }
 
 

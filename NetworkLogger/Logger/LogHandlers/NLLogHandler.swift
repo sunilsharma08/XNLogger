@@ -12,22 +12,19 @@ public protocol NLLogHandler: class {
     
     func logNetworkRequest(_ urlRequest: URLRequest)
     func logNetworkResponse(for urlRequest: URLRequest, responseData: NLResponseData)
-    
 }
 
 public enum NLLogHandlerType {
     
     case console
-    case slack(String)
+    case slack
     case remote
     case file
-    
 }
 
 protocol NLRemoteLogger {
     
     func writeLog(urlRequest: URLRequest)
-    
 }
 
 extension NLRemoteLogger {

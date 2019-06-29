@@ -12,28 +12,22 @@ public class NLConsoleLogHandler: NLBaseLogHandler, NLLogHandler {
     
     private let logComposer = LogComposer()
     
+    public class func create() -> NLConsoleLogHandler {
+        return NLConsoleLogHandler()
+    }
+    
     public func logNetworkRequest(_ urlRequest: URLRequest) {
-        if self.filters.count > 0 {
-            for filter in self.filters where filter.isAllowed(urlRequest: urlRequest) {
-                print(logComposer.getRequestLog(from: urlRequest))
-                break
-            }
-        }
-        else {
+        
+        if isAllowed(urlRequest: urlRequest) {
             print(logComposer.getRequestLog(from: urlRequest))
         }
     }
     
     public func logNetworkResponse(for urlRequest: URLRequest, responseData: NLResponseData) {
-        if self.filters.count > 0 {
-            for filter in self.filters where filter.isAllowed(urlRequest: urlRequest) {
-                print(logComposer.getResponseLog(urlRequest: urlRequest, response: responseData))
-                break
-            }
-        } else {
+        
+        if isAllowed(urlRequest: urlRequest) {
             print(logComposer.getResponseLog(urlRequest: urlRequest, response: responseData))
         }
-        
     }
     
 }

@@ -10,9 +10,18 @@ import UIKit
 
 public class NLRemoteLogHandler: NSObject, NLLogHandler, NLRemoteLogger {
     
-    private let ipAddress: String = "127.1.1.2"
-    private let port: UInt = 443
+    private let host: String
+    private let port: UInt
     private let logComposer = LogComposer()
+    
+    public class func create(host: String, port: UInt) -> NLRemoteLogHandler {
+        return NLRemoteLogHandler(host: host, port: port)
+    }
+    
+    init(host: String, port: UInt) {
+        self.host = host
+        self.port = port
+    }
     
     public func logNetworkRequest(_ urlRequest: URLRequest) {
         

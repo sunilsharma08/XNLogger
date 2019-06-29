@@ -39,22 +39,12 @@ fileprivate extension NLURLProtocol {
     
     fileprivate class func shouldLog(_ request: URLRequest) -> Bool {
         
-        if let scheme = request.url?.scheme?.lowercased(),
-            scheme == NLSchemeType.http.rawValue || scheme == NLSchemeType.https.rawValue {
-            
-            if NetworkLogger.shared.filters.isEmpty {
-                return true
-            }
-            for skipUrls in NetworkLogger.shared.filters {
-                if skipUrls.isAllowed(urlRequest: request) {
-                    return true
-                }
-            }
+        if (NetworkLogger.shared.filterManager.isAllowed(urlRequest: request)) {
+            return true
+        } else {
             return false
         }
-        else {
-            return false
-        }
+        
     }
     
 }

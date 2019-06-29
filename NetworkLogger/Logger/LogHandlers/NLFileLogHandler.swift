@@ -21,6 +21,10 @@ class NLFileLogHandler: NLBaseLogHandler, NLLogHandler {
     // The max number of log file that will be stored. Once this point is reached, the oldest file is deleted.
     public var maxFileCount = 4
     
+    public class func create(fileName: String? = nil) -> NLFileLogHandler {
+        return NLFileLogHandler(fileName: fileName)
+    }
+    
     init(fileName: String?) {
         if let fileName = fileName, !fileName.isEmpty {
             self.fileName = fileName
@@ -164,28 +168,20 @@ class NLFileLogHandler: NLBaseLogHandler, NLLogHandler {
     
     //MARK: Logging delegates
     public func logNetworkRequest(_ urlRequest: URLRequest) {
-        self.fileWriteQueue.async {
-            if self.filters.count > 0 {
-                for filter in self.filters where filter.isAllowed(urlRequest: urlRequest) {
-                    self.write(self.logComposer.getRequestLog(from: urlRequest))
-                    break
-                }
-            }
-            else {
+        self.fileWriteQueue.async { [weak self] in
+            guard let self = self else { return }
+            
+            if self.isAllowed(urlRequest: urlRequest) {
                 self.write(self.logComposer.getRequestLog(from: urlRequest))
             }
         }
     }
     
     public func logNetworkResponse(for urlRequest: URLRequest, responseData: NLResponseData) {
-        self.fileWriteQueue.async {
-            if self.filters.count > 0 {
-                for filter in self.filters where filter.isAllowed(urlRequest: urlRequest) {
-                    self.write(self.logComposer.getResponseLog(urlRequest: urlRequest, response: responseData))
-                    break
-                }
-            } else {
-                debugPrint("Will write response log for \(urlRequest.url!.absoluteString)")
+        self.fileWriteQueue.async {[weak self] in
+            guard let self = self else { return }
+            
+            if self.isAllowed(urlRequest: urlRequest) {
                 self.write(self.logComposer.getResponseLog(urlRequest: urlRequest, response: responseData))
             }
         }
