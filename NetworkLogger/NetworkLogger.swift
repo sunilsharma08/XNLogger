@@ -31,17 +31,15 @@ import Foundation
         networkInterceptor.stopInterceptingNetwork()
     }
     
-    public func addLogHandler(_ handler: NLLogHandler) {
-        self.handlers.append(handler)
-    }
-    
     public func addLogHandlers(_ handlers: [NLLogHandler]) {
         self.handlers.append(contentsOf: handlers)
     }
     
-    public func removeHandler(_ handler: NLLogHandler) {
-        self.handlers = self.handlers.filter { (item) -> Bool in
-            return item !== handler
+    public func removeHandlers(_ handlers: [NLLogHandler]) {
+        for handler in handlers {
+            self.handlers = self.handlers.filter { (item) -> Bool in
+                return item !== handler
+            }
         }
     }
     
