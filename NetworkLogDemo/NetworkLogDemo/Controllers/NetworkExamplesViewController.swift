@@ -25,13 +25,25 @@ class NetworkExamplesViewController: UIViewController {
         super.viewDidLoad()
         
         configureViews()
+        
+        let classes = URLSessionConfiguration.default.protocolClasses
+        for cls in classes ?? []{
+            let className = cls.description()
+            if className == "NFXProtocol" {
+                print("Woh")
+            }
+            print(className)
+        }
     }
     
     func configureViews() {
         let buttonList = [dataHandler, dataDelegate, downloadHandler, downloadDelegate, uploadHandler, uploadDelegate, downloadResume, downloadBackground]
         
         for button in buttonList {
+            button?.backgroundColor = .white
             button?.titleLabel?.numberOfLines = 0
+            button?.titleLabel?.textColor = .black
+            button?.setTitleColor(UIColor.black, for: .normal)
         }
     }
     
@@ -176,9 +188,9 @@ extension NetworkExamplesViewController {
     @IBAction func clickedOnDataHandler(_ sender: Any) {
         print(#function)
         
-        let url = URL(string: "https://httpbin.org/get")!
+        let url = URL(string: "https://gorest.co.in/public-api/users?_format=json&access-token=Vy0X23HhPDdgNDNxVocmqv3NIkDTGdK93GfV")!
         
-        let session = URLSession(configuration: .ephemeral)
+        let session = URLSession.shared
         
         session.dataTask(with: url) { (data, urlResponse, error) in
             print(self.getJSONFrom(data: data) ?? "")

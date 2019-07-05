@@ -16,16 +16,16 @@ import NetworkLogger
     override private init() {}
     
     @objc func logNetworkRequests() {
-        let filterFactory = NLFilterFactory()
+//        let filterFactory = NLFilterFactory()
 //        let containFilter = filterFactory.exclude(.contains("vvalues"))
-        let anotherFilter = filterFactory.filter(.contains("publics"))
-        let logHandlerFactory = NLLogHandlerFactory()
+//        let anotherFilter = filterFactory.filter(.contains("publics"))
+//        let logHandlerFactory = NLLogHandlerFactory()
 //        NetworkLogger.shared.addLogHandler(logHandlerFactory.create(.slack("<slackwebhookurl>")))
-        let consoleHandler = logHandlerFactory.create(.console) as! NLConsoleLogHandler
-        
-        consoleHandler.addFilters([anotherFilter])
-        NetworkLogger.shared.addLogHandler(logHandlerFactory.create(.console))
-//        NetworkLogger.shared.startLogging()
+        let consoleHandler = NLConsoleLogHandler.create()
+//
+//        consoleHandler.addFilters([anotherFilter])
+        NetworkLogger.shared.addLogHandlers([consoleHandler])
+        NetworkLogger.shared.startLogging()
         
 //        print("Logging network tasks")
 //

@@ -7,10 +7,10 @@
 //
 
 import UIKit
-//#if DEBUG
+#if DEBUG
 ////import CocoaDebug
-//import netfox
-//#endif
+import netfox
+#endif
 
 
 //func print(_ items: Any..., separator: String = ", ", terminator: String = "\n") {

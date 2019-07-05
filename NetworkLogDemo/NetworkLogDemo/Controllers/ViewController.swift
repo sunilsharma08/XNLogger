@@ -19,6 +19,8 @@ class Model:Codable {
 }
 
 class ViewController: UIViewController {
+    
+    var urlRequestTest:URLRequest?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -97,8 +99,8 @@ class ViewController: UIViewController {
     }
     
     @IBAction func clickedOnUrlRequest(_ sender: Any) {
-//        performNetworkTask(requestType: .urlRequest)
-        register()
+        performNetworkTask(requestType: .urlRequest)
+//        register()
     }
     
     @IBAction func clickedOnNextButton(_ sender: Any) {
@@ -244,21 +246,29 @@ extension ViewController {
         print("============\(#function)============")
         var urlRequest = URLRequest(url: URL(string: "https://gorest.co.in:443/public-api/users?param=vvalue")!)
         urlRequest.addValue("Bearer ggolvSv4UpUH_a9Qk5x5KAC2YudbptpltVYZ", forHTTPHeaderField: "Authorization")
+        self.urlRequestTest = urlRequest
+        guard let mutableRequest = (urlRequest as NSURLRequest).mutableCopy() as? NSMutableURLRequest else {
+                return
+        }
+        
+        URLProtocol.setProperty("Heeelo", forKey: "hello", in: mutableRequest)
+        self.urlRequestTest = mutableRequest as URLRequest
 //        URLSession.shared.dataTask(with: urlRequest).resume()
 //        URLSession.shared.dataTask(with: URL(string: "https://gorest.co.in:443/public-api/users?param=vvalue")!).resume()
-//        let session = URLSession(configuration: .default)
-//        session.dataTask(with: urlRequest) { (data, urlResponse, error) in
-////            print("Response \(#function) \n \(String(describing: urlResponse))")
-//            do {
-//                let response = try JSONSerialization.jsonObject(with: data ?? Data(), options: []) as? [String: Any]
-//                print("Response JSON \(#function) \n \(String(describing: response))")
-//            } catch {
-//                print(error.localizedDescription)
-//            }
-//            }.resume()
+//        print("Value = \(URLProtocol.property(forKey: "hello", in: self.urlRequestTest!))")
+        let session = URLSession(configuration: .default)
+        session.dataTask(with: mutableRequest as URLRequest) { (data, urlResponse, error) in
+//            print("Response \(#function) \n \(String(describing: urlResponse))")
+            do {
+                let response = try JSONSerialization.jsonObject(with: data ?? Data(), options: []) as? [String: Any]
+                print("Response JSON \(#function) \n \(String(describing: response))")
+            } catch {
+                print(error.localizedDescription)
+            }
+            }.resume()
         
-        let session = URLSession(configuration: .background(withIdentifier: "123"), delegate: self, delegateQueue: nil)
-            session.dataTask(with: urlRequest).resume()
+//        let session = URLSession(configuration: .background(withIdentifier: "123"), delegate: self, delegateQueue: nil)
+//            session.dataTask(with: urlRequest).resume()
         
     }
     
