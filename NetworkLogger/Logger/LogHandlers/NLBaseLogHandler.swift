@@ -20,7 +20,7 @@ public class NLBaseLogHandler: NSObject {
         self.filterManager.removeAllFilters()
     }
     
-    func isAllowed(urlRequest: URLRequest) -> Bool {
+    public func isAllowed(urlRequest: URLRequest) -> Bool {
         return filterManager.isAllowed(urlRequest: urlRequest)
     }
 }

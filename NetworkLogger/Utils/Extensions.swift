@@ -36,3 +36,19 @@ extension NSObject {
         return String(describing: self).components(separatedBy: ".").last!
     }
 }
+
+extension URLRequest {
+    
+    func getNSMutableURLRequest() -> NSMutableURLRequest? {
+    guard let mutableRequest = (self as NSURLRequest).mutableCopy() as? NSMutableURLRequest
+    else { return nil }
+    return mutableRequest
+    }
+}
+
+extension NSMutableURLRequest {
+    
+    func setNLFlag(value: Any) {
+        URLProtocol.setProperty(value, forKey: AppConstants.NLRequestFlagKey, in: self)
+    }
+}

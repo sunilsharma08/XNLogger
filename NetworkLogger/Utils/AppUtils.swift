@@ -7,3 +7,24 @@
 //
 
 import Foundation
+
+class AppUtils {
+    
+    static let shared: AppUtils = AppUtils()
+    
+    private init() {}
+    
+    /**
+     Create URLRequest which skip Network Logger
+     */
+    func createNLRequest(_ request: URLRequest) -> URLRequest? {
+        let mutableURLRequest = request.getNSMutableURLRequest()
+        mutableURLRequest?.setNLFlag(value: true)
+        if let urlRequest = mutableURLRequest {
+            return urlRequest as URLRequest
+        } else {
+            return nil
+        }
+    }
+    
+}

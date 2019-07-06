@@ -30,7 +30,7 @@ class JSONUtils: NSObject {
         }
     }
     
-    func getDictionaryStringFrom(jsonData: Data) -> [String: Any]? {
+    func getDictionaryFrom(jsonData: Data) -> [String: Any]? {
         
         do {
             if let jsonObj = try getJsonObjectFrom(jsonData: jsonData) as? [String: Any] {

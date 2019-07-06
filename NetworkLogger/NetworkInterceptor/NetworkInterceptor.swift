@@ -14,6 +14,7 @@ internal class NetworkInterceptor: NSObject {
      Setup and start logging network calls.
      */
     func startInterceptingNetwork() {
+//        URLProtocol.registerClass(NLURLProtocol.self)
         /// Before swizzle checking if it's already not swizzled.
         /// If it already swizzled skip else swizzle for logging.
         /// This check make safe to call multiple times.
@@ -27,6 +28,7 @@ internal class NetworkInterceptor: NSObject {
      intercept network calls.
      */
     func stopInterceptingNetwork() {
+        URLProtocol.unregisterClass(NLURLProtocol.self)
         /// Check if already unswizzled for logging, if so then skip
         /// else unswizzle for logging i.e. it will stop logging.
         /// Check make it safe to call multiple times.
@@ -49,7 +51,7 @@ internal class NetworkInterceptor: NSObject {
         let instance = URLSessionConfiguration.default
         if let uRLSessionConfigurationClass: AnyClass = object_getClass(instance),
             let originalProtocolGetter: Method = class_getInstanceMethod(uRLSessionConfigurationClass, #selector(getter: uRLSessionConfigurationClass.protocolClasses)),
-            let customProtocolClass: Method = class_getInstanceMethod(URLSessionConfiguration.self, #selector(URLSessionConfiguration.nlProcotolClasses)){
+            let customProtocolClass: Method = class_getInstanceMethod(URLSessionConfiguration.self, #selector(URLSessionConfiguration.nlProcotolClasses)) {
             method_exchangeImplementations(originalProtocolGetter, customProtocolClass)
         } else {
             debugPrint("Failed to swizzle protocol classes")

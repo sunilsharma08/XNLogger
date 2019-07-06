@@ -15,8 +15,8 @@ import Foundation
     
     // Private variables
     private let networkInterceptor = NetworkInterceptor()
-    private(set) var handlers: [NLLogHandler] = []
     
+    private(set) var handlers: [NLLogHandler] = []
     let filterManager: NLFilterManager = NLFilterManager()
     
     override private init() {}
@@ -90,24 +90,24 @@ import Foundation
     }
     
     func logResponse(for urlRequest: URLRequest, responseData: NLResponseData) {
-        if !isRemoteLogRequest(urlRequest) {
+//        if !isRemoteLogRequest(urlRequest) {
             for handler in self.handlers {
                 handler.logNetworkResponse(for: urlRequest, responseData: responseData)
             }
-        }
+//        }
     }
     
     func logRequest(_ urlRequest: URLRequest) {
-        if !isRemoteLogRequest(urlRequest) {
+//        if !isRemoteLogRequest(urlRequest) {
             for handler in self.handlers {
                 handler.logNetworkRequest(urlRequest)
             }
-        }
+//        }
     }
     
     private func isRemoteLogRequest(_ urlRequest: URLRequest) -> Bool {
         
-        if let _ = urlRequest.allHTTPHeaderFields?[AppConstants.LogRequestKey] {
+        if let _ = urlRequest.allHTTPHeaderFields?[AppConstants.NLRequestFlagKey] {
             return true
         } else {
             return false

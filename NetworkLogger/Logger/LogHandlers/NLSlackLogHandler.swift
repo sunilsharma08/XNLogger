@@ -41,7 +41,7 @@ public class NLSlackLogHandler: NLBaseLogHandler, NLLogHandler, NLRemoteLogger {
         }
     }
     
-    func getSlackRequest(forRequest originalRequest:URLRequest, message: String) -> URLRequest {
+    func getSlackRequest(forRequest originalRequest: URLRequest, message: String) -> URLRequest {
         let request = self.createSlackRequest()
         var bodyJson: [String: Any] = [:]
         bodyJson["text"] = "```\(message)```"
