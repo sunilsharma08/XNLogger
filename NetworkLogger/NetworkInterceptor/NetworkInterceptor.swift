@@ -14,7 +14,6 @@ internal class NetworkInterceptor: NSObject {
      Setup and start logging network calls.
      */
     func startInterceptingNetwork() {
-//        URLProtocol.registerClass(NLURLProtocol.self)
         /// Before swizzle checking if it's already not swizzled.
         /// If it already swizzled skip else swizzle for logging.
         /// This check make safe to call multiple times.
@@ -28,7 +27,6 @@ internal class NetworkInterceptor: NSObject {
      intercept network calls.
      */
     func stopInterceptingNetwork() {
-        URLProtocol.unregisterClass(NLURLProtocol.self)
         /// Check if already unswizzled for logging, if so then skip
         /// else unswizzle for logging i.e. it will stop logging.
         /// Check make it safe to call multiple times.
