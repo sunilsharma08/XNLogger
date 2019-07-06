@@ -13,11 +13,6 @@ open class NLURLProtocol: URLProtocol {
     private var session: URLSession?
     private var sessionTask: URLSessionTask?
     
-    private var response: URLResponse?
-    private var receivedData: Data?
-    private var responseError: Error?
-    private var urlRequest: URLRequest?
-    
     open override class func canInit(with task: URLSessionTask) -> Bool {
         guard let request = task.currentRequest else {
             return false
@@ -53,7 +48,6 @@ open class NLURLProtocol: URLProtocol {
         guard let pSession = self.session,
             let urlRequest = AppUtils.shared.createNLRequest(self.request)
         else { return }
-        self.urlRequest = urlRequest
         NetworkLogger.shared.logRequest(urlRequest)
         self.sessionTask = pSession.dataTask(with: urlRequest) {[weak self] (data, urlResponse, error) in
             guard let self = self else { return }
@@ -91,13 +85,10 @@ extension NLURLProtocol: URLSessionDataDelegate {
     public func urlSession(_ session: URLSession, dataTask: URLSessionDataTask, didReceive data: Data) {
         
         client?.urlProtocol(self, didLoad: data)
-        self.receivedData?.append(data)
     }
 
     public func urlSession(_ session: URLSession, dataTask: URLSessionDataTask, didReceive response: URLResponse, completionHandler: @escaping (URLSession.ResponseDisposition) -> Void) {
         
-        self.response = response
-        self.receivedData = Data()
         let cachePolicy = URLCache.StoragePolicy(rawValue: request.cachePolicy.rawValue) ?? .notAllowed
         client?.urlProtocol(self, didReceive: response, cacheStoragePolicy: cachePolicy)
         completionHandler(.allow)
@@ -107,10 +98,8 @@ extension NLURLProtocol: URLSessionDataDelegate {
         
         if let error = error {
             client?.urlProtocol(self, didFailWithError: error)
-            self.responseError = error
         } else {
             client?.urlProtocolDidFinishLoading(self)
-            self.responseError = nil
         }
     }
 
@@ -127,11 +116,9 @@ extension NLURLProtocol: URLSessionDataDelegate {
         print(#function)
         guard let error = error
         else {
-            self.responseError = nil
             return
         }
         client?.urlProtocol(self, didFailWithError: error)
-        self.responseError = error
     }
 
     public func urlSession(_ session: URLSession, didReceive challenge: URLAuthenticationChallenge, completionHandler: @escaping (URLSession.AuthChallengeDisposition, URLCredential?) -> Void) {
