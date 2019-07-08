@@ -66,16 +66,16 @@ class NetworkExamplesViewController: UIViewController {
 extension NetworkExamplesViewController: URLSessionDataDelegate {
     
     func urlSessionDidFinishEvents(forBackgroundURLSession session: URLSession) {
-        print(#function)
+//        print(#function)
     }
 
     func urlSession(_ session: URLSession, didBecomeInvalidWithError error: Error?) {
-        print(#function)
+//        print(#function)
     }
 
     func urlSession(_ session: URLSession, didReceive challenge: URLAuthenticationChallenge, completionHandler: @escaping (URLSession.AuthChallengeDisposition, URLCredential?) -> Void) {
-        print(#function)
-        print("ljojojpo")
+//        print(#function)
+//        print("ljojojpo")
         completionHandler(.performDefaultHandling, nil)
     }
 
@@ -85,9 +85,9 @@ extension NetworkExamplesViewController: URLSessionDataDelegate {
 
     func urlSession(_ session: URLSession, task: URLSessionTask, didCompleteWithError error: Error?) {
         print(#function)
-        print(error.debugDescription)
-        print(task.error.debugDescription)
-        print(task.originalRequest.debugDescription)
+//        print(error.debugDescription)
+//        print(task.error.debugDescription)
+//        print(task.originalRequest.debugDescription)
     }
 
     func urlSession(_ session: URLSession, task: URLSessionTask, didFinishCollecting metrics: URLSessionTaskMetrics) {
@@ -96,16 +96,16 @@ extension NetworkExamplesViewController: URLSessionDataDelegate {
     }
 
     func urlSession(_ session: URLSession, task: URLSessionTask, needNewBodyStream completionHandler: @escaping (InputStream?) -> Void) {
-        print(#function)
+//        print(#function)
     }
 
     func urlSession(_ session: URLSession, task: URLSessionTask, willBeginDelayedRequest request: URLRequest, completionHandler: @escaping (URLSession.DelayedRequestDisposition, URLRequest?) -> Void) {
-        print(#function)
+//        print(#function)
         completionHandler(.continueLoading, request)
     }
 
     func urlSession(_ session: URLSession, task: URLSessionTask, didSendBodyData bytesSent: Int64, totalBytesSent: Int64, totalBytesExpectedToSend: Int64) {
-        print(#function)
+//        print(#function)
     }
 
     func urlSession(_ session: URLSession, task: URLSessionTask, didReceive challenge: URLAuthenticationChallenge, completionHandler: @escaping (URLSession.AuthChallengeDisposition, URLCredential?) -> Void) {
@@ -120,20 +120,20 @@ extension NetworkExamplesViewController: URLSessionDataDelegate {
     
     func urlSession(_ session: URLSession, dataTask: URLSessionDataTask, didReceive data: Data) {
         print(#function)
-        print(self.getJSONFrom(data: data) ?? "")
+//        print(self.getJSONFrom(data: data) ?? "")
     }
 
     func urlSession(_ session: URLSession, dataTask: URLSessionDataTask, didBecome streamTask: URLSessionStreamTask) {
-        print(#function)
+//        print(#function)
     }
 
     func urlSession(_ session: URLSession, dataTask: URLSessionDataTask, didBecome downloadTask: URLSessionDownloadTask) {
-        print(#function)
+//        print(#function)
     }
 
     private func urlSession(_ session: URLSession, dataTask: URLSessionDataTask, didReceive response: URLResponse, completionHandler: @escaping (URLSession.ResponseDisposition) -> Void) {
         print(#function)
-        print(response.debugDescription)
+//        print(response.debugDescription)
         completionHandler(.allow)
     }
 
@@ -152,7 +152,7 @@ extension NetworkExamplesViewController: URLSessionDownloadDelegate {
     }
     
     func urlSession(_ session: URLSession, downloadTask: URLSessionDownloadTask, didResumeAtOffset fileOffset: Int64, expectedTotalBytes: Int64) {
-        print(#function)
+//        print(#function)
     }
     
     func urlSession(_ session: URLSession, downloadTask: URLSessionDownloadTask, didWriteData bytesWritten: Int64, totalBytesWritten: Int64, totalBytesExpectedToWrite: Int64) {
@@ -164,19 +164,19 @@ extension NetworkExamplesViewController: URLSessionDownloadDelegate {
 extension NetworkExamplesViewController: URLSessionStreamDelegate {
     
     func urlSession(_ session: URLSession, readClosedFor streamTask: URLSessionStreamTask) {
-        print(#function)
+//        print(#function)
     }
     
     func urlSession(_ session: URLSession, writeClosedFor streamTask: URLSessionStreamTask) {
-        print(#function)
+//        print(#function)
     }
     
     func urlSession(_ session: URLSession, betterRouteDiscoveredFor streamTask: URLSessionStreamTask) {
-        print(#function)
+//        print(#function)
     }
     
     func urlSession(_ session: URLSession, streamTask: URLSessionStreamTask, didBecome inputStream: InputStream, outputStream: OutputStream) {
-        print(#function)
+//        print(#function)
     }
     
 }

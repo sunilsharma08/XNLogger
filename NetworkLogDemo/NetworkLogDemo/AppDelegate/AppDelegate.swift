@@ -8,7 +8,7 @@
 
 import UIKit
 #if DEBUG
-////import CocoaDebug
+//import CocoaDebug
 import netfox
 #endif
 
