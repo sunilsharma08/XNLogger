@@ -80,7 +80,7 @@ extension NetworkExamplesViewController: URLSessionDataDelegate {
     }
 
     func urlSession(_ session: URLSession, taskIsWaitingForConnectivity task: URLSessionTask) {
-        print(#function)
+//        print(#function)
     }
 
     func urlSession(_ session: URLSession, task: URLSessionTask, didCompleteWithError error: Error?) {
@@ -91,7 +91,7 @@ extension NetworkExamplesViewController: URLSessionDataDelegate {
     }
 
     func urlSession(_ session: URLSession, task: URLSessionTask, didFinishCollecting metrics: URLSessionTaskMetrics) {
-        print(#function)
+//        print(#function)
 //        print(metrics.debugDescription)
     }
 
@@ -109,17 +109,17 @@ extension NetworkExamplesViewController: URLSessionDataDelegate {
     }
 
     func urlSession(_ session: URLSession, task: URLSessionTask, didReceive challenge: URLAuthenticationChallenge, completionHandler: @escaping (URLSession.AuthChallengeDisposition, URLCredential?) -> Void) {
-        print(#function)
+//        print(#function)
     }
 
     func urlSession(_ session: URLSession, task: URLSessionTask, willPerformHTTPRedirection response: HTTPURLResponse, newRequest request: URLRequest, completionHandler: @escaping (URLRequest?) -> Void) {
-        print(#function)
-        print("New request = \(request.url?.absoluteString ?? "nil")")
+//        print(#function)
+//        print("New request = \(request.url?.absoluteString ?? "nil")")
         completionHandler(request)
     }
     
     func urlSession(_ session: URLSession, dataTask: URLSessionDataTask, didReceive data: Data) {
-        print(#function)
+//        print(#function)
 //        print(self.getJSONFrom(data: data) ?? "")
     }
 
@@ -132,13 +132,13 @@ extension NetworkExamplesViewController: URLSessionDataDelegate {
     }
 
     private func urlSession(_ session: URLSession, dataTask: URLSessionDataTask, didReceive response: URLResponse, completionHandler: @escaping (URLSession.ResponseDisposition) -> Void) {
-        print(#function)
+//        print(#function)
 //        print(response.debugDescription)
         completionHandler(.allow)
     }
 
     func urlSession(_ session: URLSession, dataTask: URLSessionDataTask, willCacheResponse proposedResponse: CachedURLResponse, completionHandler: @escaping (CachedURLResponse?) -> Void) {
-        print(#function)
+//        print(#function)
         completionHandler(nil)
     }
 
@@ -147,8 +147,8 @@ extension NetworkExamplesViewController: URLSessionDataDelegate {
 extension NetworkExamplesViewController: URLSessionDownloadDelegate {
     
     func urlSession(_ session: URLSession, downloadTask: URLSessionDownloadTask, didFinishDownloadingTo location: URL) {
-        print(#function)
-        print("location \(location.absoluteString)")
+//        print(#function)
+//        print("location \(location.absoluteString)")
     }
     
     func urlSession(_ session: URLSession, downloadTask: URLSessionDownloadTask, didResumeAtOffset fileOffset: Int64, expectedTotalBytes: Int64) {
@@ -156,7 +156,7 @@ extension NetworkExamplesViewController: URLSessionDownloadDelegate {
     }
     
     func urlSession(_ session: URLSession, downloadTask: URLSessionDownloadTask, didWriteData bytesWritten: Int64, totalBytesWritten: Int64, totalBytesExpectedToWrite: Int64) {
-        print(#function)
+//        print(#function)
     }
     
 }
@@ -186,7 +186,7 @@ extension NetworkExamplesViewController: URLSessionStreamDelegate {
 extension NetworkExamplesViewController {
     
     @IBAction func clickedOnDataHandler(_ sender: Any) {
-        print(#function)
+//        print(#function)
         
         let url = URL(string: "https://gorest.co.in/public-api/users?_format=json&access-token=Vy0X23HhPDdgNDNxVocmqv3NIkDTGdK93GfV")!
         
@@ -199,7 +199,7 @@ extension NetworkExamplesViewController {
     }
     
     @IBAction func clickedOnDataDelegate(_ sender: Any) {
-        print(#function)
+//        print(#function)
         
         let url = URL(string: "https://httpbin.org/get")!
         
@@ -240,7 +240,7 @@ extension NetworkExamplesViewController {
     }
     
     @IBAction func clickedOnResumeDownload(_ sender: Any) {
-        print(#function)
+//        print(#function)
         
         guard let button = sender as? UIButton
             else { return }
@@ -299,7 +299,7 @@ extension NetworkExamplesViewController {
     }
     
     @IBAction func clickedOnBackgroundDownload(_ sender: Any) {
-        print(#function)
+//        print(#function)
         
         let url = URL(string: "http://doanarae.com/doanarae/8880-5k-desktop-wallpaper_23842.jpg")!
         let configuration = URLSessionConfiguration.background(withIdentifier: "com.\(UUID().uuidString)")
@@ -314,7 +314,7 @@ extension NetworkExamplesViewController {
 extension NetworkExamplesViewController {
     
     @IBAction func clickedOnUploadHandler(_ sender: Any) {
-        print(#function)
+//        print(#function)
         
         let url = URL(string: "https://httpbin.org/post")!
         let uploadURLRequest = URLRequest(url: url)
@@ -342,7 +342,7 @@ extension NetworkExamplesViewController {
     }
     
     @IBAction func clickedOnUploadDelegate(_ sender: Any) {
-        print(#function)
+//        print(#function)
         
         let url = URL(string: "https://httpbin.org/post")!
         let uploadURLRequest = URLRequest(url: url)
