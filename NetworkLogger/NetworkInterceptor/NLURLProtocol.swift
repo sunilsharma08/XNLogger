@@ -86,10 +86,8 @@ open class NLURLProtocol: URLProtocol {
         
         print("Counter \(instCounter)")
         NetworkLogger.shared.logRequest(urlRequest)
-//        if (instCounter % 3) != 0 {
         self.sessionTask = pSession.dataTask(with: urlRequest)
         self.sessionTask?.resume()
-//        }
     }
     
     
@@ -102,7 +100,7 @@ open class NLURLProtocol: URLProtocol {
         print("Original = \(String(describing: self.sessionTask?.originalRequest?.cURL))")
         print("Current = \(String(describing: self.sessionTask?.currentRequest?.cURL))")
 //        self.sessionTask?.cancel()
-//        self.session?.invalidateAndCancel()
+        self.session?.invalidateAndCancel()
 //        self.sessionTask = nil
 //        self.session = nil
 
@@ -142,7 +140,7 @@ extension NLURLProtocol: URLSessionDataDelegate {
         self.receivedData = Data()
         print("First response = \(LogComposer().getResponseMetaData(response: response))")
         let cachePolicy = URLCache.StoragePolicy(rawValue: request.cachePolicy.rawValue) ?? .notAllowed
-        client?.urlProtocol(self, didReceive: response, cacheStoragePolicy: .allowed)
+        client?.urlProtocol(self, didReceive: response, cacheStoragePolicy: cachePolicy)
         completionHandler(.allow)
     }
 
@@ -168,7 +166,6 @@ extension NLURLProtocol: URLSessionDataDelegate {
             URLProtocol.removeProperty(forKey: AppConstants.NLRequestFlagKey, in: mutableRequest)
             print("Proterty removed \(String(describing: URLProtocol.property(forKey: AppConstants.NLRequestFlagKey, in: mutableRequest as URLRequest)))")
             client?.urlProtocol(self, wasRedirectedTo: mutableRequest as URLRequest, redirectResponse: response)
-            completionHandler(mutableRequest as URLRequest)
         }
     }
 
