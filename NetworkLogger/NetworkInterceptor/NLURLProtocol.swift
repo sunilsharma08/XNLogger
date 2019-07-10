@@ -55,10 +55,9 @@ open class NLURLProtocol: URLProtocol {
     
     open override func startLoading() {
         print("\(NLURLProtocol.className) \(#function)")
-//        if request.url == nil {
-//            debugPrint("NL: No URL found")
-//            return
-//        }
+        if request.url == nil {
+            debugPrint("NL: No URL found")
+        }
         
         if session == nil {
             self.session = URLSession(configuration: .default, delegate: self, delegateQueue: nil)
@@ -66,7 +65,7 @@ open class NLURLProtocol: URLProtocol {
         guard let pSession = self.session,
             let urlRequest = AppUtils.shared.createNLRequest(NLURLProtocol.canonicalRequest(for: self.request))
         else { return }
-        
+        self.
         self.logData?.urlRequest = urlRequest
         NetworkLogger.shared.logRequest(urlRequest)
         self.logData?.startTime = Date()
@@ -77,7 +76,7 @@ open class NLURLProtocol: URLProtocol {
     open override func stopLoading() {
         print("\(NLURLProtocol.className) \(#function)")
         print("\(String(describing: self.sessionTask?.state.rawValue))")
-        
+        print("data size \(String(describing: self.receivedData?.count))")
         self.logData?.setSessionState(self.sessionTask?.state)
         
         // Reason for log in console on cancel session
@@ -85,8 +84,10 @@ open class NLURLProtocol: URLProtocol {
         
         self.session?.invalidateAndCancel()
         self.sessionTask?.cancel()
-
-        NetworkLogger.shared.logResponse(for: self.request, responseData: NLResponseData(response: response, responseData: receivedData, error: responseError))
+        
+        let responseData = NLResponseData(response: self.response, responseData: self.receivedData, error: self.responseError)
+        self.logData?.responseData = responseData
+        NetworkLogger.shared.logResponse(for: self.request, responseData: responseData)
         self.response = nil
         self.receivedData = nil
         self.responseError = nil
@@ -168,7 +169,6 @@ fileprivate extension NLURLProtocol {
     fileprivate class func shouldHandle(request: URLRequest) -> Bool {
         
         if let _ = URLProtocol.property(forKey: AppConstants.NLRequestFlagKey, in: request) {
-//            print("Logger URL")
             return false
         }
         else if (NetworkLogger.shared.filterManager.isAllowed(urlRequest: request)) {

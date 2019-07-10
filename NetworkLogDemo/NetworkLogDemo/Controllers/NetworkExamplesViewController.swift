@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import WebKit
 
 class NetworkExamplesViewController: UIViewController {
 
@@ -18,6 +19,9 @@ class NetworkExamplesViewController: UIViewController {
     @IBOutlet weak var uploadDelegate: UIButton!
     @IBOutlet weak var downloadResume: UIButton!
     @IBOutlet weak var downloadBackground: UIButton!
+    @IBOutlet weak var webViewLoad: UIButton!
+    var webView = WKWebView(frame: .zero)
+    
     var resumeDownloadtask: URLSessionDownloadTask?
     var resumeData: Data?
     
@@ -25,7 +29,7 @@ class NetworkExamplesViewController: UIViewController {
         super.viewDidLoad()
         
         configureViews()
-        
+//        WKWebViewConfiguration().setURLSchemeHandler(<#T##urlSchemeHandler: WKURLSchemeHandler?##WKURLSchemeHandler?#>, forURLScheme: <#T##String#>)
         let classes = URLSessionConfiguration.default.protocolClasses
         for cls in classes ?? []{
             let className = cls.description()
@@ -34,10 +38,12 @@ class NetworkExamplesViewController: UIViewController {
             }
             print(className)
         }
+        
+        
     }
     
     func configureViews() {
-        let buttonList = [dataHandler, dataDelegate, downloadHandler, downloadDelegate, uploadHandler, uploadDelegate, downloadResume, downloadBackground]
+        let buttonList = [dataHandler, dataDelegate, downloadHandler, downloadDelegate, uploadHandler, uploadDelegate, downloadResume, downloadBackground, webViewLoad]
         
         for button in buttonList {
             button?.backgroundColor = .white
@@ -271,6 +277,7 @@ extension NetworkExamplesViewController {
                         print("Resume is not possible")
                         button.tag = 0
                         button.setTitle("Download - Resume", for: .normal)
+                        self.resumeDownloadtask?.cancel()
                         self.resumeDownloadtask = nil
                         self.resumeData = nil
                     }
@@ -284,6 +291,7 @@ extension NetworkExamplesViewController {
             })
         } else if button.tag == 2 {
             button.setTitle("Downloading...", for: .normal)
+//            print("Resume url = \(session.)")
             resumeDownloadtask = session.downloadTask(withResumeData: resumeData!, completionHandler: { (dataUrl, response, error) in
                 
                 DispatchQueue.main.async {
@@ -308,6 +316,18 @@ extension NetworkExamplesViewController {
         task.resume()
         
     }
+    
+    @IBAction func clickedOnWebView(_ sender: Any) {
+        guard let button = sender as? UIButton else { return }
+        webView.removeFromSuperview()
+        webView = WKWebView(frame: CGRect(x: 20, y: button.frame.maxY + 10, width: self.view.frame.width - 40, height: 300))
+        webView.backgroundColor = UIColor.orange
+        self.view.addSubview(webView)
+//        webView.loadRequest(URLRequest(url: URL(string: "https://source.unsplash.com/collection/400620/250x350")!))
+        webView.load(URLRequest(url: URL(string: "https://source.unsplash.com/collection/400620/250x350")!))
+        
+    }
+    
 }
 
 // Upload task

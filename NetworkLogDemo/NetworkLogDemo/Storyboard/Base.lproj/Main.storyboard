@@ -256,6 +256,9 @@
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                 <state key="normal" title="Later 😀"/>
+                                <connections>
+                                    <action selector="clickedOnWebView:" destination="S3p-aE-PyC" eventType="touchUpInside" id="43D-RH-F0W"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -300,6 +303,7 @@
                         <outlet property="downloadResume" destination="j1N-jW-zlK" id="Ezz-RB-mao"/>
                         <outlet property="uploadDelegate" destination="Kls-e1-w0S" id="yeQ-EE-HCb"/>
                         <outlet property="uploadHandler" destination="T2p-ns-gQG" id="zxi-uh-Hze"/>
+                        <outlet property="webViewLoad" destination="XLn-wc-zAS" id="qvC-Vh-NlF"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="d23-qP-cpq" userLabel="First Responder" sceneMemberID="firstResponder"/>
