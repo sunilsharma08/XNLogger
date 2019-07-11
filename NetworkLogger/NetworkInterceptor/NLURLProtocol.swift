@@ -10,14 +10,13 @@ import Foundation
 
 open class NLURLProtocol: URLProtocol {
     
-    var session: URLSession?
-    var sessionTask: URLSessionTask?
+    private var session: URLSession?
+    private var sessionTask: URLSessionTask?
     
-    var response: URLResponse?
-    var receivedData: Data?
-    var responseError: Error?
-    
-    var logData: NLLogData?
+    private var response: URLResponse?
+    private var receivedData: Data?
+    private var responseError: Error?
+    private var logData: NLLogData?
     
     public override init(request: URLRequest, cachedResponse: CachedURLResponse?, client: URLProtocolClient?) {
         super.init(request: request, cachedResponse: cachedResponse, client: client)
@@ -70,6 +69,10 @@ open class NLURLProtocol: URLProtocol {
         self.logData?.urlRequest = urlRequest
         NetworkLogger.shared.logRequest(urlRequest)
         self.logData?.startTime = Date()
+        if let logData = self.logData {
+            NetworkLogger.shared.delegate?.networkLogger?(didStartRequest: logData)
+        }
+        
         self.sessionTask = pSession.dataTask(with: urlRequest)
         self.sessionTask?.resume()
     }
@@ -87,13 +90,22 @@ open class NLURLProtocol: URLProtocol {
         self.sessionTask?.cancel()
         
         let responseData = NLResponseData(response: self.response, responseData: self.receivedData, error: self.responseError)
-        self.logData?.responseData = responseData
+        self.logData?.response = responseData.responseHeader
+        self.logData?.receivedData = responseData.responseData
+        self.logData?.error = responseData.error
         NetworkLogger.shared.logResponse(for: self.request, responseData: responseData)
+        
+        if let logData = self.logData {
+            NetworkLogger.shared.delegate?.networkLogger?(didReceiveResponse: logData)
+        }
+        
+        // Make sure to clear all data
         self.response = nil
         self.receivedData = nil
         self.responseError = nil
         self.sessionTask = nil
         self.session = nil
+        self.logData = nil
     }
     
     override open class func requestIsCacheEquivalent(_ a: URLRequest, to b: URLRequest) -> Bool {

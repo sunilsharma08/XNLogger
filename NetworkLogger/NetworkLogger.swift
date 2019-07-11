@@ -8,10 +8,17 @@
 
 import Foundation
 
+@objc public protocol NetworkLoggerDelegate: class {
+    
+    @objc optional func networkLogger(didStartRequest logData: NLLogData)
+    @objc optional func networkLogger(didReceiveResponse logData: NLLogData)
+}
+
 @objc public class NetworkLogger: NSObject {
     
     // Public variables
     @objc public static let shared = NetworkLogger()
+    @objc public var delegate: NetworkLoggerDelegate?
     
     // Private variables
     private let networkInterceptor = NetworkInterceptor()

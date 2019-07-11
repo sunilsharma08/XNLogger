@@ -8,7 +8,7 @@
 
 import Foundation
 
-enum NLSessionState: Int {
+public enum NLSessionState: Int {
     case running
     case suspended
     case canceling
@@ -31,14 +31,16 @@ enum NLSessionState: Int {
     }
 }
 
-class NLLogData {
+public class NLLogData: NSObject {
     
     private(set) var identifier: String?
-    var urlRequest: URLRequest?
-    var responseData: NLResponseData?
-    var startTime: Date?
-    var endTime: Data?
-    var redirectUrl: String?
+    internal(set) var urlRequest: URLRequest?
+    internal(set) var response: URLResponse?
+    internal(set) var receivedData: Data?
+    internal(set) var error: Error?
+    internal(set) var startTime: Date?
+    internal(set) var endTime: Data?
+    internal(set) var redirectUrl: String?
     private(set) var state: NLSessionState?
     
     init(identifier: String) {
