@@ -33,12 +33,17 @@ enum NLSessionState: Int {
 
 class NLLogData {
     
+    private(set) var identifier: String?
     var urlRequest: URLRequest?
     var responseData: NLResponseData?
     var startTime: Date?
     var endTime: Data?
     var redirectUrl: String?
     private(set) var state: NLSessionState?
+    
+    init(identifier: String) {
+        self.identifier = identifier
+    }
     
     func setSessionState(_ state: URLSessionTask.State?) {
         guard let state = state else {

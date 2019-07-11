@@ -11,6 +11,7 @@ import Foundation
 class AppUtils {
     
     static let shared: AppUtils = AppUtils()
+    static private var logIdentifier: UInt64 = 0
     
     private init() {}
     
@@ -27,4 +28,12 @@ class AppUtils {
         }
     }
     
+    func getLogIdentifier() -> String {
+        return "\(AppUtils.logIdentifier)"
+    }
+    
+    func nextLogIdentifier() -> String {
+        AppUtils.logIdentifier += 1
+        return "\(AppUtils.logIdentifier)"
+    }
 }

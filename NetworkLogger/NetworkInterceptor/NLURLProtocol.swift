@@ -66,6 +66,7 @@ open class NLURLProtocol: URLProtocol {
             let urlRequest = AppUtils.shared.createNLRequest(NLURLProtocol.canonicalRequest(for: self.request))
         else { return }
         
+        self.logData = NLLogData(identifier: AppUtils.shared.nextLogIdentifier())
         self.logData?.urlRequest = urlRequest
         NetworkLogger.shared.logRequest(urlRequest)
         self.logData?.startTime = Date()
