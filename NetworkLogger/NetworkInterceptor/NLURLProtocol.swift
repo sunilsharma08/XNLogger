@@ -67,8 +67,9 @@ open class NLURLProtocol: URLProtocol {
         
         self.logData = NLLogData(identifier: AppUtils.shared.nextLogIdentifier())
         self.logData?.urlRequest = urlRequest
-        NetworkLogger.shared.logRequest(urlRequest)
         self.logData?.startTime = Date()
+        
+        NetworkLogger.shared.logRequest(urlRequest)
         if let logData = self.logData {
             NetworkLogger.shared.delegate?.networkLogger?(didStartRequest: logData)
         }
@@ -89,17 +90,24 @@ open class NLURLProtocol: URLProtocol {
         self.session?.invalidateAndCancel()
         self.sessionTask?.cancel()
         
+        self.logData?.endTime = Date()
         let responseData = NLResponseData(response: self.response, responseData: self.receivedData, error: self.responseError)
         self.logData?.response = responseData.responseHeader
         self.logData?.receivedData = responseData.responseData
         self.logData?.error = responseData.error
-        NetworkLogger.shared.logResponse(for: self.request, responseData: responseData)
+        
+        if let urlRequest = self.logData?.urlRequest {
+            NetworkLogger.shared.logResponse(for: urlRequest, responseData: responseData)
+        } else {
+            // It should never come here. Just extra precautions.
+            NetworkLogger.shared.logResponse(for: self.request, responseData: responseData)
+        }
         
         if let logData = self.logData {
             NetworkLogger.shared.delegate?.networkLogger?(didReceiveResponse: logData)
         }
         
-        // Make sure to clear all data
+        // Make sure to clear all data. To avoid memory leaks.
         self.response = nil
         self.receivedData = nil
         self.responseError = nil
@@ -149,6 +157,7 @@ extension NLURLProtocol: URLSessionDataDelegate {
 
     public func urlSession(_ session: URLSession, task: URLSessionTask, willPerformHTTPRedirection response: HTTPURLResponse, newRequest request: URLRequest, completionHandler: @escaping (URLRequest?) -> Void) {
         print("\(NLURLProtocol.className) \(#function) state \(String(describing: self.sessionTask?.state.rawValue))")
+        self.logData?.redirectRequest = request
         self.response = response
         if let mutableRequest = request.getNSMutableURLRequest() {
             URLProtocol.removeProperty(forKey: AppConstants.NLRequestFlagKey, in: mutableRequest)

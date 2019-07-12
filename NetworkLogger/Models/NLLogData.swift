@@ -39,8 +39,8 @@ public class NLLogData: NSObject {
     internal(set) var receivedData: Data?
     internal(set) var error: Error?
     internal(set) var startTime: Date?
-    internal(set) var endTime: Data?
-    internal(set) var redirectUrl: String?
+    internal(set) var endTime: Date?
+    internal(set) var redirectRequest: URLRequest?
     private(set) var state: NLSessionState?
     
     init(identifier: String) {
