@@ -18,7 +18,7 @@ import Foundation
     
     // Public variables
     @objc public static let shared = NetworkLogger()
-    @objc public var delegate: NetworkLoggerDelegate?
+    @objc public weak var delegate: NetworkLoggerDelegate?
     
     // Private variables
     private let networkInterceptor = NetworkInterceptor()
