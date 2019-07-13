@@ -97,27 +97,14 @@ import Foundation
     }
     
     func logResponse(for urlRequest: URLRequest, responseData: NLResponseData) {
-//        if !isRemoteLogRequest(urlRequest) {
-            for handler in self.handlers {
-                handler.logNetworkResponse(for: urlRequest, responseData: responseData)
-            }
-//        }
+        for handler in self.handlers {
+            handler.logNetworkResponse(for: urlRequest, responseData: responseData)
+        }
     }
     
     func logRequest(_ urlRequest: URLRequest) {
-//        if !isRemoteLogRequest(urlRequest) {
-            for handler in self.handlers {
-                handler.logNetworkRequest(urlRequest)
-            }
-//        }
-    }
-    
-    private func isRemoteLogRequest(_ urlRequest: URLRequest) -> Bool {
-        
-        if let _ = urlRequest.allHTTPHeaderFields?[AppConstants.NLRequestFlagKey] {
-            return true
-        } else {
-            return false
+        for handler in self.handlers {
+            handler.logNetworkRequest(urlRequest)
         }
     }
     
