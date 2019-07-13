@@ -21,18 +21,18 @@ public class NLRemoteLogHandler: NLBaseLogHandler, NLLogHandler, NLRemoteLogger 
         self.urlRequest = urlRequest
     }
     
-    public func logNetworkRequest(_ urlRequest: URLRequest) {
-        if isAllowed(urlRequest: urlRequest) {
-            let message = logComposer.getRequestLog(from: urlRequest)
+    public func logNetworkRequest(from logData: NLLogData) {
+        if isAllowed(urlRequest: logData.urlRequest) {
+            let message = logComposer.getRequestLog(from: logData)
             let remoteRequest = appendLogInHttpBody(urlRequest, message: message)
             
             self.writeLog(urlRequest: remoteRequest)
         }
     }
     
-    public func logNetworkResponse(for urlRequest: URLRequest, responseData: NLResponseData) {
-        if isAllowed(urlRequest: urlRequest) {
-            let message = logComposer.getResponseLog(urlRequest: urlRequest, response: responseData)
+    public func logNetworkResponse(from logData: NLLogData) {
+        if isAllowed(urlRequest: logData.urlRequest) {
+            let message = logComposer.getResponseLog(from: logData)
             let remoteRequest = appendLogInHttpBody(urlRequest, message: message)
             
             self.writeLog(urlRequest: remoteRequest)

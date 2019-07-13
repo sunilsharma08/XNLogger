@@ -65,12 +65,11 @@ open class NLURLProtocol: URLProtocol {
             let urlRequest = AppUtils.shared.createNLRequest(NLURLProtocol.canonicalRequest(for: self.request))
         else { return }
         
-        self.logData = NLLogData(identifier: AppUtils.shared.nextLogIdentifier())
-        self.logData?.urlRequest = urlRequest
+        self.logData = NLLogData(identifier: AppUtils.shared.nextLogIdentifier(), request: urlRequest)
         self.logData?.startTime = Date()
         
-        NetworkLogger.shared.logRequest(urlRequest)
         if let logData = self.logData {
+            NetworkLogger.shared.logRequest(from: logData)
             NetworkLogger.shared.delegate?.networkLogger?(didStartRequest: logData)
         }
         
@@ -91,19 +90,12 @@ open class NLURLProtocol: URLProtocol {
         self.sessionTask?.cancel()
         
         self.logData?.endTime = Date()
-        let responseData = NLResponseData(response: self.response, responseData: self.receivedData, error: self.responseError)
-        self.logData?.response = responseData.responseHeader
-        self.logData?.receivedData = responseData.responseData
-        self.logData?.error = responseData.error
-        
-        if let urlRequest = self.logData?.urlRequest {
-            NetworkLogger.shared.logResponse(for: urlRequest, responseData: responseData)
-        } else {
-            // It should never come here. Just extra precautions.
-            NetworkLogger.shared.logResponse(for: self.request, responseData: responseData)
-        }
+        self.logData?.response = self.response
+        self.logData?.receivedData = self.receivedData
+        self.logData?.error = self.responseError
         
         if let logData = self.logData {
+            NetworkLogger.shared.logResponse(from: logData)
             NetworkLogger.shared.delegate?.networkLogger?(didReceiveResponse: logData)
         }
         

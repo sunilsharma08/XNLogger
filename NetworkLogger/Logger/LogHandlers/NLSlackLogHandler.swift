@@ -21,21 +21,21 @@ public class NLSlackLogHandler: NLBaseLogHandler, NLLogHandler, NLRemoteLogger {
         self.webhookUrl = webhookUrl
     }
     
-    public func logNetworkRequest(_ urlRequest: URLRequest) {
+    public func logNetworkRequest(from logData: NLLogData) {
         
-        if isAllowed(urlRequest: urlRequest) {
-            let message = logComposer.getRequestLog(from: urlRequest)
-            let slackRequest = getSlackRequest(forRequest: urlRequest, message: message)
+        if isAllowed(urlRequest: logData.urlRequest) {
+            let message = logComposer.getRequestLog(from: logData)
+            let slackRequest = getSlackRequest(forRequest: logData.urlRequest, message: message)
             
             self.writeLog(urlRequest: slackRequest)
         }
     }
     
-    public func logNetworkResponse(for urlRequest: URLRequest, responseData: NLResponseData) {
+    public func logNetworkResponse(from logData: NLLogData) {
         
-        if isAllowed(urlRequest: urlRequest) {
-            let message = logComposer.getResponseLog(urlRequest: urlRequest, response: responseData)
-            let slackRequest = getSlackRequest(forRequest: urlRequest, message: message)
+        if isAllowed(urlRequest: logData.urlRequest) {
+            let message = logComposer.getResponseLog(from: logData)
+            let slackRequest = getSlackRequest(forRequest: logData.urlRequest, message: message)
             
             self.writeLog(urlRequest: slackRequest)
         }

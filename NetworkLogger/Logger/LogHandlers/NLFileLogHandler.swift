@@ -167,22 +167,22 @@ class NLFileLogHandler: NLBaseLogHandler, NLLogHandler {
     }
     
     //MARK: Logging delegates
-    public func logNetworkRequest(_ urlRequest: URLRequest) {
+    public func logNetworkRequest(from logData: NLLogData) {
         self.fileWriteQueue.async { [weak self] in
             guard let self = self else { return }
             
-            if self.isAllowed(urlRequest: urlRequest) {
-                self.write(self.logComposer.getRequestLog(from: urlRequest))
+            if self.isAllowed(urlRequest: logData.urlRequest) {
+                self.write(self.logComposer.getRequestLog(from: logData))
             }
         }
     }
     
-    public func logNetworkResponse(for urlRequest: URLRequest, responseData: NLResponseData) {
+    public func logNetworkResponse(from logData: NLLogData) {
         self.fileWriteQueue.async {[weak self] in
             guard let self = self else { return }
             
-            if self.isAllowed(urlRequest: urlRequest) {
-                self.write(self.logComposer.getResponseLog(urlRequest: urlRequest, response: responseData))
+            if self.isAllowed(urlRequest: logData.urlRequest) {
+                self.write(self.logComposer.getResponseLog(from: logData))
             }
         }
     }

@@ -10,25 +10,25 @@ import Foundation
 
 internal class LogComposer {
     
-    func getResponseLog(urlRequest: URLRequest, response: NLResponseData) ->  String {
+    func getResponseLog(from logData: NLLogData) ->  String {
         
         var responseStr = "\n\(getBoundry(for: "Response"))\n"
-        responseStr += "\nResponse for Request\n\(urlRequest.cURL)\n"
+        responseStr += "\nResponse for Request\n\(logData.urlRequest.cURL)\n"
         let jsonUtils = JSONUtils.shared
         
-        if let metaData = response.responseHeader {
+        if let metaData = logData.response {
             responseStr += "\n\(getBoundry(for: "Response Metadata"))\n\n"
             responseStr += getResponseMetaData(response: metaData) + "\n"
             responseStr += "\n\(getBoundry(for: "Response Metadata End"))\n"
         }
         
-        if let error = response.error {
+        if let error = logData.error {
             responseStr += "\n\(getBoundry(for: "Response Error"))\n\n"
             responseStr += error.localizedDescription + "\n"
             responseStr += "\n\(getBoundry(for: "Response Error End"))\n"
         }
         
-        if let data = response.responseData {
+        if let data = logData.receivedData {
             responseStr += "\n\(getBoundry(for: "Response Content"))\n\n"
             responseStr += jsonUtils.getJsonStringFrom(jsonData: data) + "\n"
             responseStr += "\n\(getBoundry(for: "Response Content End"))\n"
@@ -38,7 +38,8 @@ internal class LogComposer {
         return responseStr
     }
     
-    func getRequestLog(from urlRequest: URLRequest) -> String {
+    func getRequestLog(from logData: NLLogData) -> String {
+        let urlRequest: URLRequest = logData.urlRequest
         var urlRequestStr = ""
         
         urlRequestStr += "\n\(getBoundry(for: "Request"))\n\n"

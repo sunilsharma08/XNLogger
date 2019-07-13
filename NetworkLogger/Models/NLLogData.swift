@@ -33,8 +33,8 @@ public enum NLSessionState: Int {
 
 public class NLLogData: NSObject {
     
-    private(set) var identifier: String?
-    internal(set) var urlRequest: URLRequest?
+    public let identifier: String
+    public let urlRequest: URLRequest
     internal(set) var response: URLResponse?
     internal(set) var receivedData: Data?
     internal(set) var error: Error?
@@ -43,14 +43,15 @@ public class NLLogData: NSObject {
     internal(set) var redirectRequest: URLRequest?
     private(set) var state: NLSessionState?
     
-    init(identifier: String) {
+    init(identifier: String, request: URLRequest) {
         self.identifier = identifier
+        self.urlRequest = request
     }
     
     func setSessionState(_ state: URLSessionTask.State?) {
         guard let state = state else {
             self.state = .unknown
-            return
+            return 
         }
         switch state {
         case .running:

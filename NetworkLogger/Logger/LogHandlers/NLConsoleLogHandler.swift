@@ -16,17 +16,16 @@ public class NLConsoleLogHandler: NLBaseLogHandler, NLLogHandler {
         return NLConsoleLogHandler()
     }
     
-    public func logNetworkRequest(_ urlRequest: URLRequest) {
-        
-        if isAllowed(urlRequest: urlRequest) {
-            print(logComposer.getRequestLog(from: urlRequest))
+    public func logNetworkRequest(from logData: NLLogData) {
+        if isAllowed(urlRequest: logData.urlRequest) {
+            print(logComposer.getRequestLog(from: logData))
         }
     }
     
-    public func logNetworkResponse(for urlRequest: URLRequest, responseData: NLResponseData) {
+    public func logNetworkResponse(from logData: NLLogData) {
         
-        if isAllowed(urlRequest: urlRequest) {
-            print(logComposer.getResponseLog(urlRequest: urlRequest, response: responseData))
+        if isAllowed(urlRequest: logData.urlRequest) {
+            print(logComposer.getResponseLog(from: logData))
         }
     }
     

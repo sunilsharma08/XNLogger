@@ -96,15 +96,15 @@ import Foundation
         }
     }
     
-    func logResponse(for urlRequest: URLRequest, responseData: NLResponseData) {
+    func logResponse(from logData: NLLogData) {
         for handler in self.handlers {
-            handler.logNetworkResponse(for: urlRequest, responseData: responseData)
+            handler.logNetworkResponse(from: logData)
         }
     }
     
-    func logRequest(_ urlRequest: URLRequest) {
+    func logRequest(from logData: NLLogData) {
         for handler in self.handlers {
-            handler.logNetworkRequest(urlRequest)
+            handler.logNetworkRequest(from: logData)
         }
     }
     
