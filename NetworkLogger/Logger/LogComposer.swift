@@ -46,13 +46,13 @@ internal class LogComposer {
         if let port = urlRequest.url?.port {
             urlRequestStr += "\nPort = \(port)"
         }
-//        urlRequestStr += "\nRequest Properties\n"
-//        urlRequestStr += "\nTimeout interval = \(urlRequest.timeoutInterval)"
-//        urlRequestStr += "\nMobile data access allowed = \(urlRequest.allowsCellularAccess)"
-//        urlRequestStr += "\nCache policy = \(urlRequest.cachePolicy.rawValue)"
-//        urlRequestStr += "\nNetwork service type = \(urlRequest.networkServiceType.rawValue)"
-//        urlRequestStr += "\nCookies will be handled = \(urlRequest.httpShouldHandleCookies)"
-//        urlRequestStr += "\nHTTP Pipelining will be used = \(urlRequest.httpShouldUsePipelining)"
+        urlRequestStr += "\nRequest Properties\n"
+        urlRequestStr += "\nTimeout interval = \(urlRequest.timeoutInterval)"
+        urlRequestStr += "\nMobile data access allowed = \(urlRequest.allowsCellularAccess)"
+        urlRequestStr += "\nCache policy = \(urlRequest.cachePolicy.rawValue)"
+        urlRequestStr += "\nNetwork service type = \(urlRequest.networkServiceType.rawValue)"
+        urlRequestStr += "\nCookies will be handled = \(urlRequest.httpShouldHandleCookies)"
+        urlRequestStr += "\nHTTP Pipelining will be used = \(urlRequest.httpShouldUsePipelining)"
         urlRequestStr += "\n\n\(getBoundry(for: "Request End"))\n"
         
         return urlRequestStr
