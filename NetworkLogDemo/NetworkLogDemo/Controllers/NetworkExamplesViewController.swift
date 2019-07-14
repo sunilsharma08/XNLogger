@@ -9,6 +9,61 @@
 import UIKit
 import WebKit
 
+func printTimeElapsedWhenRunningCode(title:String, operation:()->()) {
+    let startTime = CFAbsoluteTimeGetCurrent()
+    operation()
+    let timeElapsed = CFAbsoluteTimeGetCurrent() - startTime
+    print("Time elapsed for \(title): \(timeElapsed) s.")
+}
+
+
+@objc
+public enum NLRequestProperty: Int, CaseIterable {
+    case method
+    case httpHeaders
+    case httpBody
+    case timeoutInterval
+    case cellularAccess
+    case cachePolicy
+    case networkType
+    case CookieStatus
+    case httpPipeliningStatus
+    case requestStartTime
+}
+
+@objc
+public enum NLResponseMetaData: Int, CaseIterable {
+    case statusCode
+    case statusDescription
+    case mimeType
+    case contentLength
+    case textEncoding
+    case suggestedFileName
+    case headers
+    case requestStartTime
+    case duration
+    case redirectUrl
+}
+
+@objcMembers
+public class NLLogFormatter: NSObject {
+    
+    public var showRequest: Bool = true
+    public var showCurlCmd: Bool = true
+    public var showRequestProperties: [NLRequestProperty] = NLRequestProperty.allCases {
+        didSet {
+            print("hhggh")
+            showRequestProperties = Set(showRequestProperties).sorted(by: { (property1, property2) -> Bool in
+                return property1.rawValue < property2.rawValue
+            })
+        }
+    }
+    public var showResponse: Bool = true
+    public var showRequestInResponse: Bool = true
+    public var showResponseMetaData: [NLResponseMetaData] = NLResponseMetaData.allCases
+    public var logUnreadableResBody: Bool = false
+}
+
 class NetworkExamplesViewController: UIViewController {
 
     @IBOutlet weak var dataHandler: UIButton!
@@ -25,6 +80,24 @@ class NetworkExamplesViewController: UIViewController {
     var resumeDownloadtask: URLSessionDownloadTask?
     var resumeData: Data?
     
+    
+    var formatter = NLLogFormatter()
+    
+    var stored: String = "Hello" {
+        willSet {
+            print("willSet was called")
+            print("stored is now equal to \(self.stored)")
+            print("stored will be set to \(newValue)")
+        }
+        
+        didSet {
+            stored = stored.capitalized
+            print("didSet was called")
+            print("stored is now equal to \(self.stored)")
+            print("stored was previously set to \(oldValue)")
+        }
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -39,6 +112,28 @@ class NetworkExamplesViewController: UIViewController {
             print(className)
         }
         
+        stored = "welcome"
+        formatter.showRequestProperties = [.method, .cellularAccess, .cachePolicy, .CookieStatus, .httpBody, .httpHeaders, .httpPipeliningStatus, .method, .networkType, .timeoutInterval]
+        
+        printTimeElapsedWhenRunningCode(title: "sort") {
+//            for _ in 0...100 {
+            formatter.showRequestProperties = [.method, .cellularAccess, .cachePolicy, .CookieStatus, .httpBody, .httpHeaders, .httpPipeliningStatus, .method, .networkType, .timeoutInterval]
+            stored = "welcomuouuoiu"
+//            }
+        }
+        stored = "welcomuouo"
+        
+        printTimeElapsedWhenRunningCode(title: "sorto") {
+            //            for _ in 0...100 {
+            //            formatter.showRequestProperties = [.method, .cellularAccess, .cachePolicy, .CookieStatus, .httpBody, .httpHeaders, .httpPipeliningStatus, .method, .networkType, .timeoutInterval]
+            formatter.showRequestProperties.append(contentsOf: NLRequestProperty.allCases)
+            //            }
+        }
+        
+        
+        for value in formatter.showRequestProperties {
+            print(value.rawValue)
+        }
         
     }
     

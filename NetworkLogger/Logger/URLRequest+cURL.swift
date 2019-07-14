@@ -15,7 +15,7 @@ extension URLRequest {
     }
 }
 
-class RequestCurlCommand{
+class RequestCurlCommand {
     
     func toCurlString(request: URLRequest) -> String{
         

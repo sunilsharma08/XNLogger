@@ -35,6 +35,7 @@
 		10BF876021F046A2008AA336 /* NLConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10BF875F21F046A2008AA336 /* NLConfiguration.swift */; };
 		10C7268F222DA0BE00239900 /* NLFileLogHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10C7268E222DA0BE00239900 /* NLFileLogHandler.swift */; };
 		10C72691222DAC2D00239900 /* NLBaseLogHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10C72690222DAC2D00239900 /* NLBaseLogHandler.swift */; };
+		10F73E5D22DA011900257A7B /* NLLogFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10F73E5C22DA011900257A7B /* NLLogFormatter.swift */; };
 		810828F0BE75B409F66B3346 /* Pods_NetworkLoggerTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9290FC19A9F604788CF2BA30 /* Pods_NetworkLoggerTests.framework */; };
 		D1580A580636FA1A49686D54 /* Pods_NetworkLogger.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C1F8FC2C73F89A2A638E1F47 /* Pods_NetworkLogger.framework */; };
 /* End PBXBuildFile section */
@@ -81,6 +82,7 @@
 		10BF875F21F046A2008AA336 /* NLConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NLConfiguration.swift; sourceTree = "<group>"; };
 		10C7268E222DA0BE00239900 /* NLFileLogHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NLFileLogHandler.swift; sourceTree = "<group>"; };
 		10C72690222DAC2D00239900 /* NLBaseLogHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NLBaseLogHandler.swift; sourceTree = "<group>"; };
+		10F73E5C22DA011900257A7B /* NLLogFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NLLogFormatter.swift; sourceTree = "<group>"; };
 		21645FAD8427AE2A6A40555C /* Pods-NetworkLogger.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NetworkLogger.release.xcconfig"; path = "Pods/Target Support Files/Pods-NetworkLogger/Pods-NetworkLogger.release.xcconfig"; sourceTree = "<group>"; };
 		2403541FE129CA8495F890D4 /* Pods-NetworkLogger.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NetworkLogger.debug.xcconfig"; path = "Pods/Target Support Files/Pods-NetworkLogger/Pods-NetworkLogger.debug.xcconfig"; sourceTree = "<group>"; };
 		62644C211F75EBCE77D9D635 /* Pods-NetworkLoggerTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NetworkLoggerTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-NetworkLoggerTests/Pods-NetworkLoggerTests.release.xcconfig"; sourceTree = "<group>"; };
@@ -203,6 +205,7 @@
 				1085769821FDD662008ABD2B /* LogHandlers */,
 				1085769E21FDD662008ABD2B /* URLRequest+cURL.swift */,
 				1085769F21FDD662008ABD2B /* LogComposer.swift */,
+				10F73E5C22DA011900257A7B /* NLLogFormatter.swift */,
 			);
 			path = Logger;
 			sourceTree = "<group>";
@@ -450,6 +453,7 @@
 				108576AF21FDD662008ABD2B /* LogComposer.swift in Sources */,
 				10B4076822626644000FD18E /* NLURLProtocol.swift in Sources */,
 				1005807921C685000020288D /* NetworkLogger.swift in Sources */,
+				10F73E5D22DA011900257A7B /* NLLogFormatter.swift in Sources */,
 				108576B821FDD99A008ABD2B /* Extensions.swift in Sources */,
 				106DC65B22D4C9D10037DC28 /* NLLogData.swift in Sources */,
 			);

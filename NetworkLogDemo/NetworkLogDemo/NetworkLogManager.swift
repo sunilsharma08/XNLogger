@@ -26,7 +26,11 @@ import NetworkLogger
 //        consoleHandler.addFilters([anotherFilter])
         NetworkLogger.shared.addLogHandlers([consoleHandler])
         NetworkLogger.shared.startLogging()
-        
+//        let formatter = NLLogFormatter()
+//        formatter.showRequestProperties = NLRequestProperty.allCases
+//        for value in formatter.showRequestProperties {
+//            print(value.rawValue)
+//        }
 //        print("Logging network tasks")
 //
     }
