@@ -10,21 +10,22 @@ import Foundation
 
 public class NLBaseLogHandler: NSObject {
     
-    private(set) var filters: [NLFilter] = []
+    private var filterManager: NLFilterManager = NLFilterManager()
+    public let logFormatter: NLLogFormatter = NLLogFormatter()
     
     public func addFilters(_ filters: [NLFilter]) {
-        self.filters.append(contentsOf: filters)
-    }
-    
-    public func removeFilters(atIndex index: Int) {
-        if index < self.filters.count {
-            self.filters.remove(at: index)
-        } else {
-            debugPrint("Tried to remove filter at index \(index) which does not exist(index out of range).")
-        }
+        self.filterManager.addFilters(filters)
     }
     
     public func removeAllFilters() {
-        self.filters.removeAll()
+        self.filterManager.removeAllFilters()
+    }
+    
+    public func shouldLogRequest(logData: NLLogData) -> Bool {
+        return logFormatter.showRequest && filterManager.isAllowed(urlRequest: logData.urlRequest)
+    }
+    
+    public func shouldLogResponse(logData: NLLogData) -> Bool {
+        return logFormatter.showResponse && filterManager.isAllowed(urlRequest: logData.urlRequest)
     }
 }

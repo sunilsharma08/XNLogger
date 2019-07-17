@@ -8,119 +8,95 @@
 
 import Foundation
 
+/**
+ Filter priority order from highest to lowest are as:
+ Scheme - Highest
+ Host
+ Contains - Lowest
+ */
 public enum NLFilterType {
+    case scheme     // http or https
+    case host       // www.example.com
+    case contains   // any string in url
     
-    case scheme(String)
-    case domain(String)
-    case contains(String)
-    
-}
-
-public protocol NLFilter {
-    
-    func shouldLog(urlRequest: URLRequest) -> Bool
-    
-}
-
-protocol NLExcludableFilter: NLFilter {
-    
-    var shouldExclude: Bool {get}
-    func shouldExclude(_ value: Bool)
-    
-    func updateStatus(_ status: Bool) -> Bool
-    
-}
-
-extension NLExcludableFilter {
-    
-    func updateStatus(_ status: Bool) -> Bool {
-        if shouldExclude {
-            return !status
-        } else {
-            return status
+    func create(filterString: String) ->  NLFilter {
+        switch self {
+        case .scheme:
+            return NLSchemeFilter(scheme: filterString)
+        case .host:
+            return NLHostFilter(host: filterString)
+        case .contains:
+            return NLContainsFilter(filterString: filterString)
         }
     }
 }
 
-class NLSchemeFilter: NLExcludableFilter {
+public protocol NLFilter: class {
+    
+    func isAllowed(urlRequest: URLRequest) -> Bool
+}
+
+class NLSchemeFilter: NLFilter {
     
     private let scheme: String
-    internal var shouldExclude: Bool = false
     
     init(scheme: String) {
-        self.scheme = scheme
+        self.scheme = scheme.lowercased()
     }
     
-    func shouldExclude(_ value: Bool) {
-        self.shouldExclude = value
-    }
-    
-    public func shouldLog(urlRequest: URLRequest) -> Bool {
+    public func isAllowed(urlRequest: URLRequest) -> Bool {
         
         var status: Bool = false
         
         if let scheme = urlRequest.url?.scheme,
-            scheme == self.scheme {
+            scheme.lowercased() == self.scheme {
             status = true
         }
         
-        return updateStatus(status)
+        return status
     }
-    
 }
 
-class NLDomainFilter: NLExcludableFilter {
+class NLHostFilter: NLFilter {
     
-    private let domain: String
-    internal var shouldExclude: Bool = false
+    private let host: String
     
-    init(domain: String) {
-        self.domain = domain
+    init(host: String) {
+        self.host = host.lowercased()
     }
     
-    func shouldExclude(_ value: Bool) {
-        self.shouldExclude = value
-    }
-    
-    public func shouldLog(urlRequest: URLRequest) -> Bool {
+    public func isAllowed(urlRequest: URLRequest) -> Bool {
         
         var status: Bool = false
         
         if let host = urlRequest.url?.host,
-           host == self.domain {
+           host.lowercased() == self.host {
             status = true
         }
         
-        return updateStatus(status)
+        return status
     }
-    
 }
 
-class NLContainsFilter: NLExcludableFilter {
+class NLContainsFilter: NLFilter {
     
     private let filterString: String
-    internal var shouldExclude: Bool = false
     
     init(filterString: String) {
-        self.filterString = filterString
+        self.filterString = filterString.lowercased()
     }
     
-    func shouldExclude(_ value: Bool) {
-        self.shouldExclude = value
-    }
-    
-    func shouldLog(urlRequest: URLRequest) -> Bool {
+    func isAllowed(urlRequest: URLRequest) -> Bool {
         
         var status: Bool = false
         
-        if let url = urlRequest.url?.absoluteString,
+        if let url = urlRequest.url?.absoluteString.lowercased(),
             url.contains(filterString){
             status = true
         }
         
-        return updateStatus(status)
+        return status
     }
-    
 }
 
 

@@ -19,11 +19,18 @@ import NetworkLogger
 //        let filterFactory = NLFilterFactory()
 //        let containFilter = filterFactory.exclude(.contains("vvalues"))
 //        let anotherFilter = filterFactory.filter(.contains("publics"))
-        let logHandlerFactory = NLLogHandlerFactory()
+//        let logHandlerFactory = NLLogHandlerFactory()
 //        NetworkLogger.shared.addLogHandler(logHandlerFactory.create(.slack("<slackwebhookurl>")))
-        NetworkLogger.shared.addLogHandler(logHandlerFactory.create(.console))
-//        NetworkLogger.shared.startLogging()
-        
+        let consoleHandler = NLConsoleLogHandler.create()
+//
+//        consoleHandler.addFilters([anotherFilter])
+        NetworkLogger.shared.addLogHandlers([consoleHandler])
+        NetworkLogger.shared.startLogging()
+//        let formatter = NLLogFormatter()
+//        formatter.showRequestProperties = NLRequestProperty.allCases
+//        for value in formatter.showRequestProperties {
+//            print(value.rawValue)
+//        }
 //        print("Logging network tasks")
 //
     }
