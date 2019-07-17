@@ -10,3 +10,7 @@ There is two way to intercept all internet requests
  2. Swizzle network API's 
  This appraoch requires to lot of work but almost all cases can be covered. It require Network API's to swizzle with your own methods.
 
+ 
+ Reason it does not load WKWebView and background requests
+ https://stackoverflow.com/questions/34865414/custom-nsurlprotocol-subclasses-are-not-available-to-background-sessions
+

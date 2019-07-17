@@ -28,8 +28,10 @@ class NetworkLoggerTests: XCTestCase {
 
     func testPerformanceExample() {
         // This is an example of a performance test case.
+        var formatter = NLLogFormatter()
         self.measure {
             // Put the code you want to measure the time of here.
+            formatter.showRequestProperties = [.method, .cellularAccess, .cachePolicy, .CookieStatus, .httpBody, .httpHeaders, .httpPipeliningStatus, .method, .networkType, .timeoutInterval]
         }
     }
 

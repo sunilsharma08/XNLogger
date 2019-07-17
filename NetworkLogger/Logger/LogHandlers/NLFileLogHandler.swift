@@ -10,7 +10,7 @@ import Foundation
 
 class NLFileLogHandler: NLBaseLogHandler, NLLogHandler {
     
-    private let logComposer = LogComposer()
+    private var logComposer: LogComposer!
     private(set) var fileName: String = "NLNetworkLog"
     private let fileManager = FileManager.default
     private let fileWriteQueue = DispatchQueue(label: "com.nlNetworkLogger.fileHandler", qos: .utility)
@@ -21,7 +21,13 @@ class NLFileLogHandler: NLBaseLogHandler, NLLogHandler {
     // The max number of log file that will be stored. Once this point is reached, the oldest file is deleted.
     public var maxFileCount = 4
     
-    init(fileName: String?) {
+    public class func create(fileName: String? = nil) -> NLFileLogHandler {
+        let instance: NLFileLogHandler = NLFileLogHandler(fileName: fileName)
+        instance.logComposer = LogComposer(logFormatter: instance.logFormatter)
+        return instance
+    }
+    
+    private init(fileName: String?) {
         if let fileName = fileName, !fileName.isEmpty {
             self.fileName = fileName
         }
@@ -163,30 +169,22 @@ class NLFileLogHandler: NLBaseLogHandler, NLLogHandler {
     }
     
     //MARK: Logging delegates
-    public func logNetworkRequest(_ urlRequest: URLRequest) {
-        self.fileWriteQueue.async {
-            if self.filters.count > 0 {
-                for filter in self.filters where filter.shouldLog(urlRequest: urlRequest) {
-                    self.write(self.logComposer.getRequestLog(from: urlRequest))
-                    break
-                }
-            }
-            else {
-                self.write(self.logComposer.getRequestLog(from: urlRequest))
+    public func logNetworkRequest(from logData: NLLogData) {
+        self.fileWriteQueue.async { [weak self] in
+            guard let self = self else { return }
+            
+            if self.shouldLogRequest(logData: logData) {
+                self.write(self.logComposer.getRequestLog(from: logData))
             }
         }
     }
     
-    public func logNetworkResponse(for urlRequest: URLRequest, responseData: NLResponseData) {
-        self.fileWriteQueue.async {
-            if self.filters.count > 0 {
-                for filter in self.filters where filter.shouldLog(urlRequest: urlRequest) {
-                    self.write(self.logComposer.getResponseLog(urlRequest: urlRequest, response: responseData))
-                    break
-                }
-            } else {
-                debugPrint("Will write response log for \(urlRequest.url!.absoluteString)")
-                self.write(self.logComposer.getResponseLog(urlRequest: urlRequest, response: responseData))
+    public func logNetworkResponse(from logData: NLLogData) {
+        self.fileWriteQueue.async {[weak self] in
+            guard let self = self else { return }
+            
+            if self.shouldLogResponse(logData: logData) {
+                self.write(self.logComposer.getResponseLog(from: logData))
             }
         }
     }

@@ -8,5 +8,5 @@
 import Foundation
 
 struct AppConstants {
-    static let LogRequestKey = "NetworkLoggerRemoteLog"
+    static let NLRequestFlagKey = "com.networklogger.NLURLProtocol"
 }

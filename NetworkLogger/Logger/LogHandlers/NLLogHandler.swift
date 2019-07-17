@@ -10,31 +10,28 @@ import Foundation
 
 public protocol NLLogHandler: class {
     
-    func logNetworkRequest(_ urlRequest: URLRequest)
-    func logNetworkResponse(for urlRequest: URLRequest, responseData: NLResponseData)
-    
+    func logNetworkRequest(from logData: NLLogData)
+    func logNetworkResponse(from logData: NLLogData)
 }
 
 public enum NLLogHandlerType {
     
     case console
-    case slack(String)
+    case slack
     case remote
     case file
-    
 }
 
 protocol NLRemoteLogger {
     
     func writeLog(urlRequest: URLRequest)
-    
 }
 
 extension NLRemoteLogger {
     
     func writeLog(urlRequest: URLRequest) {
-        var request = urlRequest
-        request.addValue("true", forHTTPHeaderField: AppConstants.LogRequestKey)
+        guard let request = AppUtils.shared.createNLRequest(urlRequest)
+        else { return }
         URLSession.shared.dataTask(with: request).resume()
     }
     

@@ -19,6 +19,8 @@ class Model:Codable {
 }
 
 class ViewController: UIViewController {
+    
+    var urlRequestTest:URLRequest?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -31,6 +33,21 @@ class ViewController: UIViewController {
 //        let selector2 = #selector((TestClass.overloadingTest(with:)) as (TestClass) -> (URLRequest) -> Void)
 //        perform(selector)
 //        perform(selector2)
+//        URLProtocol.registerClass(CustomUrlProtocol.self)
+//        URLProtocol.registerClass(CustomUrlProtocol.self)
+//        URLProtocol.registerClass(CustomUrlProtocol.self)
+//        let status = URLProtocol.registerClass(CustomUrlProtocol.self)
+//        print("register status \(status)")
+//        print(URLSessionConfiguration.default.protocolClasses)
+        
+        let classes = URLSessionConfiguration.default.protocolClasses
+        for cls in classes ?? []{
+            let className = cls.description()
+            if className == "NFXProtocol" {
+                print("Woh")
+            }
+            print(className)
+        }
     }
     
     /**
@@ -83,6 +100,7 @@ class ViewController: UIViewController {
     
     @IBAction func clickedOnUrlRequest(_ sender: Any) {
         performNetworkTask(requestType: .urlRequest)
+//        register()
     }
     
     @IBAction func clickedOnNextButton(_ sender: Any) {
@@ -93,17 +111,48 @@ class ViewController: UIViewController {
     
     @IBAction func refreshButtonPressed(_ sender: UIButton) {
         performNetworkTask(requestType: .url)
+        
+    }
+    
+    func isSwizzled() -> Bool {
+        let protocolClasses: [AnyClass] = URLSessionConfiguration.default.protocolClasses ?? []
+        for protocolCls in protocolClasses {
+            if protocolCls == CustomUrlProtocol.self {
+                return true
+            }
+        }
+        return false
     }
     
     func register() {
-        let instance = URLSessionConfiguration.default
-        let uRLSessionConfigurationClass: AnyClass = object_getClass(instance)!
-        
-        let method1: Method = class_getInstanceMethod(uRLSessionConfigurationClass, #selector(getter: uRLSessionConfigurationClass.protocolClasses))!
-        let method2: Method = class_getInstanceMethod(URLSessionConfiguration.self, #selector(URLSessionConfiguration.fakeProcotolClasses))!
-        
-        method_exchangeImplementations(method1, method2)
-        swizzleDataTask()
+//        URLProtocol.registerClass(CustomUrlProtocol.self)
+//        let instance = URLSessionConfiguration.default
+//        let uRLSessionConfigurationClass: AnyClass = object_getClass(instance)!
+//        let fakeProtocolSel = #selector(URLSessionConfiguration.fakeProcotolClasses)
+//        let originalProtocolSel = #selector(getter: instance.protocolClasses)
+//
+//        print("Before \(isSwizzled())")
+//        if instance.responds(to: originalProtocolSel) {
+//            print("Original class")
+//        } else {
+//            print("Somethig is fishe")
+//        }
+//        if instance.responds(to: fakeProtocolSel) {
+//            print("Fake class")
+//        } else {
+//            print("it's ok")
+//        }
+//
+//        let method1: Method = class_getInstanceMethod(uRLSessionConfigurationClass, #selector(getter: uRLSessionConfigurationClass.protocolClasses))!
+//        print("original method \(method1.debugDescription) hash = \(method1.hashValue)")
+//        print(URLSessionConfiguration.default.protocolClasses!)
+//        let method2: Method = class_getInstanceMethod(URLSessionConfiguration.self, #selector(URLSessionConfiguration.fakeProcotolClasses))!
+//        print("fake method \(method2.debugDescription) hash = \(method2.hashValue)")
+//
+//        method_exchangeImplementations(method1, method2)
+//        print(URLSessionConfiguration.default.protocolClasses!)
+        print("After \(isSwizzled())")
+//        swizzleDataTask()
     }
 
 }
@@ -153,6 +202,7 @@ extension ViewController: URLSessionDataDelegate {
 extension URLSessionConfiguration {
     
     @objc func fakeProcotolClasses() -> [AnyClass]? {
+//        print(Thread.callStackSymbols)
         guard let fakeProcotolClasses = self.fakeProcotolClasses() else {
             return []
         }
@@ -180,7 +230,7 @@ extension ViewController {
     
     func loadDataUsingUrl() {
         print("============\(#function)============")
-        let session = URLSession(configuration: .default)
+        let session = URLSession.shared
         session.dataTask(with: URL(string: "https://gorest.co.in/public-api/users")!) { (data, urlResponse, error) in
 //            print("Response \(#function) \n \(String(describing: urlResponse.debugDescription))")
             do {
@@ -196,21 +246,29 @@ extension ViewController {
         print("============\(#function)============")
         var urlRequest = URLRequest(url: URL(string: "https://gorest.co.in:443/public-api/users?param=vvalue")!)
         urlRequest.addValue("Bearer ggolvSv4UpUH_a9Qk5x5KAC2YudbptpltVYZ", forHTTPHeaderField: "Authorization")
+        self.urlRequestTest = urlRequest
+        guard let mutableRequest = (urlRequest as NSURLRequest).mutableCopy() as? NSMutableURLRequest else {
+                return
+        }
+        
+        URLProtocol.setProperty("Heeelo", forKey: "hello", in: mutableRequest)
+        self.urlRequestTest = mutableRequest as URLRequest
 //        URLSession.shared.dataTask(with: urlRequest).resume()
 //        URLSession.shared.dataTask(with: URL(string: "https://gorest.co.in:443/public-api/users?param=vvalue")!).resume()
-//        let session = URLSession(configuration: .default)
-//        session.dataTask(with: urlRequest) { (data, urlResponse, error) in
-////            print("Response \(#function) \n \(String(describing: urlResponse))")
-//            do {
-//                let response = try JSONSerialization.jsonObject(with: data ?? Data(), options: []) as? [String: Any]
-//                print("Response JSON \(#function) \n \(String(describing: response))")
-//            } catch {
-//                print(error.localizedDescription)
-//            }
-//            }.resume()
+//        print("Value = \(URLProtocol.property(forKey: "hello", in: self.urlRequestTest!))")
+        let session = URLSession(configuration: .default)
+        session.dataTask(with: mutableRequest as URLRequest) { (data, urlResponse, error) in
+//            print("Response \(#function) \n \(String(describing: urlResponse))")
+            do {
+                let response = try JSONSerialization.jsonObject(with: data ?? Data(), options: []) as? [String: Any]
+                print("Response JSON \(#function) \n \(String(describing: response))")
+            } catch {
+                print(error.localizedDescription)
+            }
+            }.resume()
         
-        let session = URLSession(configuration: .background(withIdentifier: "123"), delegate: self, delegateQueue: nil)
-            session.dataTask(with: urlRequest).resume()
+//        let session = URLSession(configuration: .background(withIdentifier: "123"), delegate: self, delegateQueue: nil)
+//            session.dataTask(with: urlRequest).resume()
         
     }
     

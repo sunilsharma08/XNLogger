@@ -10,30 +10,30 @@ import UIKit
 
 public class NLConsoleLogHandler: NLBaseLogHandler, NLLogHandler {
     
-    private let logComposer = LogComposer()
+    private var logComposer: LogComposer!
     
-    public func logNetworkRequest(_ urlRequest: URLRequest) {
-        if self.filters.count > 0 {
-            for filter in self.filters where filter.shouldLog(urlRequest: urlRequest) {
-                print(logComposer.getRequestLog(from: urlRequest))
-                break
-            }
-        }
-        else {
-            print(logComposer.getRequestLog(from: urlRequest))
+    public class func create() -> NLConsoleLogHandler {
+        let instance: NLConsoleLogHandler = NLConsoleLogHandler()
+        instance.logComposer = LogComposer(logFormatter: instance.logFormatter)
+        return instance
+    }
+    
+    private override init() {
+        super.init()
+    }
+    
+    public func logNetworkRequest(from logData: NLLogData) {
+        
+        if shouldLogRequest(logData: logData) {
+            print(logComposer.getRequestLog(from: logData))
         }
     }
     
-    public func logNetworkResponse(for urlRequest: URLRequest, responseData: NLResponseData) {
-        if self.filters.count > 0 {
-            for filter in self.filters where filter.shouldLog(urlRequest: urlRequest) {
-                print(logComposer.getResponseLog(urlRequest: urlRequest, response: responseData))
-                break
-            }
-        } else {
-            print(logComposer.getResponseLog(urlRequest: urlRequest, response: responseData))
-        }
+    public func logNetworkResponse(from logData: NLLogData) {
         
+        if shouldLogResponse(logData: logData) {
+            print(logComposer.getResponseLog(from: logData))
+        }
     }
     
 }

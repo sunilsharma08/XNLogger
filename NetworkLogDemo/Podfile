@@ -1,5 +1,5 @@
 # Uncomment the next line to define a global platform for your project
-# platform :ios, '9.0'
+platform :ios, '9.0'
 
 target 'NetworkLogDemo' do
   # Comment the next line if you're not using Swift and don't want to use dynamic frameworks
@@ -7,6 +7,10 @@ target 'NetworkLogDemo' do
 
   # Pods for NetworkLogDemo
   pod 'NetworkLogger', :path => "../"
+#  pod 'Wormholy', :configurations => ['Debug']
+#  pod 'CocoaDebug', '~>0.5.9', :configurations => ['Debug']
+#  pod 'FLEX', '~> 2.0', :configurations => ['Debug']
+  pod 'netfox', :configurations => ['Debug']
 
   target 'NetworkLogDemoTests' do
     inherit! :search_paths
