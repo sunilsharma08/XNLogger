@@ -86,7 +86,7 @@ internal class LogComposer {
             case .cachePolicy:
                 urlRequestStr += "\nCache policy: \(urlRequest.getCachePolicyName())"
             case .networkType:
-                urlRequestStr += "\nNetwork service type: \(urlRequest.networkServiceType.rawValue)"
+                urlRequestStr += "\nNetwork service type: \(urlRequest.getNetworkTypeName())"
             case .httpPipeliningStatus:
                 urlRequestStr += "\nHTTP Pipelining will be used: \(urlRequest.httpShouldUsePipelining)"
             case .cookieStatus:
@@ -101,6 +101,9 @@ internal class LogComposer {
         }
         
         urlRequestStr += "\n\n\(getBoundry(for: "Request End"))\n"
+        
+        var ret = URLRequest(url: URL(string: "hlgjg")!)
+        ret.networkServiceType = .responsiveData
         
         return urlRequestStr
     }

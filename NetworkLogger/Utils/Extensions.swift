@@ -60,9 +60,31 @@ internal extension URLRequest {
             return "ReturnCacheDataDontLoad"
         case .reloadRevalidatingCacheData:
             return "ReloadRevalidatingCacheData"
+        default:
+            return "Unknown"
         }
     }
     
+    func getNetworkTypeName() -> String {
+        switch networkServiceType {
+        case .default:
+            return "Default - Standard internet traffic"
+        case .voip:
+            return "VOIP traffic"
+        case .video:
+            return "Video traffic"
+        case .background:
+            return "Background traffic"
+        case .voice:
+            return "Voice data traffic"
+        case .responsiveData:
+            return "Responsive data traffic"
+        case .callSignaling:
+            return "Call Signaling traffic"
+        default:
+            return "Unknown"
+        }
+    }
 }
 
 extension NSMutableURLRequest {
