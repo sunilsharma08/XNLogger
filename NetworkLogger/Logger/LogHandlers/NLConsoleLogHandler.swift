@@ -10,21 +10,28 @@ import UIKit
 
 public class NLConsoleLogHandler: NLBaseLogHandler, NLLogHandler {
     
-    private let logComposer = LogComposer()
+    private var logComposer: LogComposer!
     
     public class func create() -> NLConsoleLogHandler {
-        return NLConsoleLogHandler()
+        let instance: NLConsoleLogHandler = NLConsoleLogHandler()
+        instance.logComposer = LogComposer(logFormatter: instance.logFormatter)
+        return instance
+    }
+    
+    private override init() {
+        super.init()
     }
     
     public func logNetworkRequest(from logData: NLLogData) {
-        if isAllowed(urlRequest: logData.urlRequest) {
+        
+        if shouldLogRequest(logData: logData) {
             print(logComposer.getRequestLog(from: logData))
         }
     }
     
     public func logNetworkResponse(from logData: NLLogData) {
         
-        if isAllowed(urlRequest: logData.urlRequest) {
+        if shouldLogResponse(logData: logData) {
             print(logComposer.getResponseLog(from: logData))
         }
     }

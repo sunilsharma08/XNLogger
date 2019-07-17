@@ -10,13 +10,17 @@ import Foundation
 
 internal class LogComposer {
     
+    let formatter: NLLogFormatter
+    
+    init(logFormatter: NLLogFormatter) {
+        self.formatter = logFormatter
+    }
+    
     func getResponseLog(from logData: NLLogData) ->  String {
         
         var responseStr = "\n\(getBoundry(for: "Response"))\n"
         responseStr += "\(getIdentifierString(logData.identifier))"
         responseStr += "\nResponse for Request\n\(logData.urlRequest.cURL)\n"
-        
-        let jsonUtils = JSONUtils.shared
         
         if let metaData = logData.response {
             responseStr += "\n\(getBoundry(for: "Response Metadata"))\n\n"
@@ -30,9 +34,13 @@ internal class LogComposer {
             responseStr += "\n\(getBoundry(for: "Response Error End"))\n"
         }
         
-        if let data = logData.receivedData {
+        if let data = logData.receivedData, data.isEmpty == false {
             responseStr += "\n\(getBoundry(for: "Response Content"))\n\n"
-            responseStr += jsonUtils.getJsonStringFrom(jsonData: data) + "\n"
+            if formatter.prettyPrintJSON, let str = JSONUtils.shared.getJSONPrettyPrintORStringFrom(jsonData: data) {
+                responseStr.append("\n\(str)")
+            } else {
+                responseStr.append("\n\(JSONUtils.shared.getStringFrom(data: data))")
+            }
             responseStr += "\n\(getBoundry(for: "Response Content End"))\n"
         }
         
@@ -44,14 +52,28 @@ internal class LogComposer {
         let urlRequest: URLRequest = logData.urlRequest
         var urlRequestStr = ""
         urlRequestStr += "\n\(getBoundry(for: "Request"))\n"
-        urlRequestStr += "\nId - \(getIdentifierString(logData.identifier))"
-        urlRequestStr += "\nURL: \(urlRequest.url?.absoluteString ?? "No URL found")"
-        urlRequestStr += "\nMethod: \(urlRequest.httpMethod ?? "-")"
-        urlRequestStr += "\n\(urlRequest.cURL)"
+        urlRequestStr += "\nId: \(getIdentifierString(logData.identifier))"
+        urlRequestStr += "\nURL: \(urlRequest.url?.absoluteString ?? "-")"
         if let port = urlRequest.url?.port {
-            urlRequestStr += "\nPort = \(port)"
+            urlRequestStr += "\nPort: \(port)"
         }
-        urlRequestStr += "\nRequest Properties\n"
+        urlRequestStr += "\nMethod: \(urlRequest.httpMethod ?? "-")"
+        if let headerFields = urlRequest.allHTTPHeaderFields, headerFields.isEmpty == false {
+            urlRequestStr += "\n\nHeaders fields:"
+            for (key, value) in headerFields {
+                urlRequestStr.append("\n\(key) = \(value)")
+            }
+        }
+        
+        if let httpBody = urlRequest.httpBodyString(prettyPrint: true) {
+            urlRequestStr.append("\n\nHttp Body:")
+            urlRequestStr.append("\n\(httpBody)")
+        }
+        
+        if formatter.showCurlWithReqst {
+            urlRequestStr += "\nCURL: \(urlRequest.cURL)"
+        }
+        
         urlRequestStr += "\nTimeout interval = \(urlRequest.timeoutInterval)"
         urlRequestStr += "\nMobile data access allowed = \(urlRequest.allowsCellularAccess)"
         urlRequestStr += "\nCache policy = \(urlRequest.cachePolicy.rawValue)"
@@ -59,10 +81,7 @@ internal class LogComposer {
         urlRequestStr += "\nCookies will be handled = \(urlRequest.httpShouldHandleCookies)"
         urlRequestStr += "\nHTTP Pipelining will be used = \(urlRequest.httpShouldUsePipelining)"
         
-        urlRequestStr += "\n\nHeaders fields\n"
-        for (key, value) in urlRequest.allHTTPHeaderFields ?? [:] {
-            urlRequestStr.append("\n\(key) => \(value)")
-        }
+        
         urlRequestStr += "\n\n\(getBoundry(for: "Request End"))\n"
         
         return urlRequestStr

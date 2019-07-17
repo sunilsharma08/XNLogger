@@ -11,19 +11,21 @@ import UIKit
 public class NLSlackLogHandler: NLBaseLogHandler, NLLogHandler, NLRemoteLogger {
     
     private let webhookUrl: String
-    private let logComposer = LogComposer()
+    private var logComposer: LogComposer!
     
     public class func create(webhookUrl: String) -> NLSlackLogHandler {
-        return NLSlackLogHandler(webhookUrl: webhookUrl)
+        let instance: NLSlackLogHandler = NLSlackLogHandler(webhookUrl: webhookUrl)
+        instance.logComposer = LogComposer(logFormatter: instance.logFormatter)
+        return instance
     }
     
-    init(webhookUrl: String) {
+    private init(webhookUrl: String) {
         self.webhookUrl = webhookUrl
     }
     
     public func logNetworkRequest(from logData: NLLogData) {
         
-        if isAllowed(urlRequest: logData.urlRequest) {
+        if shouldLogRequest(logData: logData) {
             let message = logComposer.getRequestLog(from: logData)
             let slackRequest = getSlackRequest(forRequest: logData.urlRequest, message: message)
             
@@ -33,7 +35,7 @@ public class NLSlackLogHandler: NLBaseLogHandler, NLLogHandler, NLRemoteLogger {
     
     public func logNetworkResponse(from logData: NLLogData) {
         
-        if isAllowed(urlRequest: logData.urlRequest) {
+        if shouldLogResponse(logData: logData) {
             let message = logComposer.getResponseLog(from: logData)
             let slackRequest = getSlackRequest(forRequest: logData.urlRequest, message: message)
             

@@ -282,20 +282,119 @@ extension NetworkExamplesViewController: URLSessionStreamDelegate {
     
 }
 
+extension String {
+    
+    func fromBase64() -> String? {
+        guard let data = Data(base64Encoded: self)
+            else { return nil }
+        
+        return String(data: data, encoding: .utf8)
+    }
+    
+    func toBase64() -> String {
+        return Data(self.utf8).base64EncodedString()
+    }
+    
+    func urlEncoded() -> String {
+        return self.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed) ?? ""
+    }
+    
+}
+
+extension Data {
+    mutating func appendString(_ string: String) {
+        let data = string.data(using: String.Encoding.utf8, allowLossyConversion: true)
+        append(data!)
+    }
+}
 
 // Data task
 extension NetworkExamplesViewController {
+    
+    func generateBoundaryString() -> String {
+        return "Boundary-\(UUID().uuidString)"
+    }
+    
+    func dataUploadBodyWithParameters(_ parameters: [String: Any]?, filename: String, mimetype: String, dataKey: String, data: Data, boundary: String) -> Data {
+        var body = Data()
+        // encode parameters first
+        if parameters != nil {
+            for (key, value) in parameters! {
+                body.appendString("--\(boundary)\r\n")
+                body.appendString("Content-Disposition: form-data; name=\"\(key)\"\r\n\r\n")
+                body.appendString("\(value)\r\n")
+            }
+        }
+        
+        body.appendString("--\(boundary)\r\n")
+        body.appendString("Content-Disposition: form-data; name=\"\(dataKey)\"; filename=\"\(filename)\"\r\n")
+        body.appendString("Content-Type: \(mimetype)\r\n\r\n")
+        body.append(data)
+        body.appendString("\r\n")
+        body.appendString("--\(boundary)--\r\n")
+        
+        return body
+    }
+    
+    func uploadData(_ data: Data, toURL urlString: String, withFileKey fileKey: String, completion: ((_ success: Bool, _ result: Any?) -> Void)?) {
+        if let url = URL(string: urlString) {
+            // build request
+            let boundary = generateBoundaryString()
+            var request = URLRequest(url: url)
+            request.httpMethod = "POST"
+            request.setValue("multipart/form-data; boundary=\(boundary)", forHTTPHeaderField: "Content-Type")
+//            request.setValue("application/json", forHTTPHeaderField: "Accept")
+            
+            // build body
+            let body = dataUploadBodyWithParameters(nil, filename: "uploadimage.png", mimetype: "image/png", dataKey: fileKey, data: data, boundary: boundary)
+            request.httpBody = body
+            
+            // UIApplication.shared.isNetworkActivityIndicatorVisible = true
+            URLSession.shared.dataTask(with: request, completionHandler: { (data, response, error) -> Void in
+                if data != nil && error == nil {
+                    do {
+                        let result = try JSONSerialization.jsonObject(with: data!, options: [])
+                        DispatchQueue.main.async(execute: { completion?(true, result) })
+                    } catch {
+                        DispatchQueue.main.async(execute: { completion?(false, nil) })
+                    }
+                } else { DispatchQueue.main.async(execute: { completion?(false, nil) }) }
+                // UIApplication.shared.isNetworkActivityIndicatorVisible = false
+            }).resume()
+        } else { DispatchQueue.main.async(execute: { completion?(false, nil) }) }
+    }
+
     
     @IBAction func clickedOnDataHandler(_ sender: Any) {
 //        print(#function)
         
         let url = URL(string: "https://gorest.co.in/public-api/users?_format=json&access-token=Vy0X23HhPDdgNDNxVocmqv3NIkDTGdK93GfV")!
         
+        var urlRequest: URLRequest = URLRequest(url: url)
+        urlRequest.httpMethod = "POST"
+        urlRequest.addValue("alloo", forHTTPHeaderField: "sabji")
+        urlRequest.setValue("gjghj", forHTTPHeaderField: "llnlnoln")
+        let json: [String: Any] = ["title": "AB'C",
+                                   "dict": ["1":"First", "2":"Second"]]
+        
+        let jsonData = try? JSONSerialization.data(withJSONObject: json)
+        let dataString = Data(base64Encoded: "khikhi jubbbibbikbi biubiub".toBase64())
+        var myInt = 77
+        var dataNumber = Data(bytes: &myInt,
+                             count: MemoryLayout.size(ofValue: myInt))
+        urlRequest.httpBody = jsonData
         let session = URLSession.shared
         
-        session.dataTask(with: url) { (data, urlResponse, error) in
+        session.dataTask(with: urlRequest) { (data, urlResponse, error) in
             print(self.getJSONFrom(data: data) ?? "")
             }.resume()
+//        let url = "http://server/upload"
+//        let img = UIImage(named: "water.png") ?? UIImage()
+//        let data: Data = img.pngData() ?? Data()
+//        
+//        uploadData(data, toURL: "https://httpbin.org/post", withFileKey: "profileImage", completion: nil)
+        
+//        uploadImageToServerFromApp(nameOfApi: "https://gorest.co.in/public-api/users?_format=json&access-token=Vy0X23HhPDdgNDNxVocmqv3NIkDTGdK93GfV", uploadedImage: UIImage(named: "water.png") ?? UIImage())
         
     }
     

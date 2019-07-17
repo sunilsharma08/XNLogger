@@ -10,7 +10,7 @@ import Foundation
 
 class NLFileLogHandler: NLBaseLogHandler, NLLogHandler {
     
-    private let logComposer = LogComposer()
+    private var logComposer: LogComposer!
     private(set) var fileName: String = "NLNetworkLog"
     private let fileManager = FileManager.default
     private let fileWriteQueue = DispatchQueue(label: "com.nlNetworkLogger.fileHandler", qos: .utility)
@@ -22,10 +22,12 @@ class NLFileLogHandler: NLBaseLogHandler, NLLogHandler {
     public var maxFileCount = 4
     
     public class func create(fileName: String? = nil) -> NLFileLogHandler {
-        return NLFileLogHandler(fileName: fileName)
+        let instance: NLFileLogHandler = NLFileLogHandler(fileName: fileName)
+        instance.logComposer = LogComposer(logFormatter: instance.logFormatter)
+        return instance
     }
     
-    init(fileName: String?) {
+    private init(fileName: String?) {
         if let fileName = fileName, !fileName.isEmpty {
             self.fileName = fileName
         }
@@ -171,7 +173,7 @@ class NLFileLogHandler: NLBaseLogHandler, NLLogHandler {
         self.fileWriteQueue.async { [weak self] in
             guard let self = self else { return }
             
-            if self.isAllowed(urlRequest: logData.urlRequest) {
+            if self.shouldLogRequest(logData: logData) {
                 self.write(self.logComposer.getRequestLog(from: logData))
             }
         }
@@ -181,7 +183,7 @@ class NLFileLogHandler: NLBaseLogHandler, NLLogHandler {
         self.fileWriteQueue.async {[weak self] in
             guard let self = self else { return }
             
-            if self.isAllowed(urlRequest: logData.urlRequest) {
+            if self.shouldLogResponse(logData: logData) {
                 self.write(self.logComposer.getResponseLog(from: logData))
             }
         }

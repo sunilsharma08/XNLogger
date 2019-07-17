@@ -11,18 +11,20 @@ import UIKit
 public class NLRemoteLogHandler: NLBaseLogHandler, NLLogHandler, NLRemoteLogger {
     
     private let urlRequest: URLRequest
-    private let logComposer = LogComposer()
+    private var logComposer: LogComposer!
     
     public class func create(urlRequest: URLRequest) -> NLRemoteLogHandler {
-        return NLRemoteLogHandler(urlRequest: urlRequest)
+        let instance: NLRemoteLogHandler = NLRemoteLogHandler(urlRequest: urlRequest)
+        instance.logComposer = LogComposer(logFormatter: instance.logFormatter)
+        return instance
     }
     
-    init(urlRequest: URLRequest) {
+    private init(urlRequest: URLRequest) {
         self.urlRequest = urlRequest
     }
     
     public func logNetworkRequest(from logData: NLLogData) {
-        if isAllowed(urlRequest: logData.urlRequest) {
+        if shouldLogRequest(logData: logData) {
             let message = logComposer.getRequestLog(from: logData)
             let remoteRequest = appendLogInHttpBody(urlRequest, message: message)
             
@@ -31,7 +33,7 @@ public class NLRemoteLogHandler: NLBaseLogHandler, NLLogHandler, NLRemoteLogger 
     }
     
     public func logNetworkResponse(from logData: NLLogData) {
-        if isAllowed(urlRequest: logData.urlRequest) {
+        if shouldLogResponse(logData: logData) {
             let message = logComposer.getResponseLog(from: logData)
             let remoteRequest = appendLogInHttpBody(urlRequest, message: message)
             
