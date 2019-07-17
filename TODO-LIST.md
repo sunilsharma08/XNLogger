@@ -6,6 +6,7 @@
 * Detect response is text or not
 * Guess MIME type
 * Encoding type
+* Enable for formatter variable "logUnreadableResponseData"
 * Redirect URLs
 * Cache policy for logger - Enable/Change change cache policy for all REST API via logger
 * Writing test cases
