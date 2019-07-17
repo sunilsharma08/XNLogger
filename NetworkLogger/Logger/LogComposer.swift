@@ -65,11 +65,12 @@ internal class LogComposer {
             for (key, value) in headerFields {
                 urlRequestStr.append("\n\(key) = \(value)")
             }
+            urlRequestStr += "\n"
         }
         
         if let httpBody = urlRequest.httpBodyString(prettyPrint: true) {
-            urlRequestStr.append("\n\nHttp Body:")
-            urlRequestStr.append("\n\(httpBody)")
+            urlRequestStr.append("\nHttp Body:")
+            urlRequestStr.append("\n\(httpBody)\n")
         }
         
         if formatter.showCurlWithReqst {
