@@ -27,13 +27,13 @@ public enum NLResponseMetaInfo: Int, CaseIterable {
     case statusCode
     case statusDescription
     case mimeType
-    case contentLength
     case textEncoding
+    case contentLength
     case suggestedFileName
-    case headers
     case requestStartTime
     case duration
     case threadName
+    case headers
 }
 
 @objcMembers
@@ -42,10 +42,11 @@ public class NLLogFormatter: NSObject {
     public var showRequest: Bool = true
     public var showResponse: Bool = true
     
+    public var showReqstWithResp: Bool = false
+    
     public var showCurlWithReqst: Bool = true
     public var showCurlWithResp: Bool = true
     
-    public var showReqstWithResp: Bool = false
     public var prettyPrintJSON: Bool = true
     public var logUnreadableRespBody: Bool = false
     

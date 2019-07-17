@@ -18,39 +18,11 @@ internal class LogComposer {
         self.dateFormatter.dateFormat = "yyyy-MM-dd H:m:ss.SSSS"
     }
     
-    func getResponseLog(from logData: NLLogData) ->  String {
-        
-        var responseStr = "\n\(getBoundry(for: "Response"))\n"
-        responseStr += "\(getIdentifierString(logData.identifier))"
-        responseStr += "\nResponse for Request\n\(logData.urlRequest.cURL)\n"
-        
-        if let metaData = logData.response {
-            responseStr += "\n\(getBoundry(for: "Response Metadata"))\n\n"
-            responseStr += getResponseMetaData(response: metaData) + "\n"
-            responseStr += "\n\(getBoundry(for: "Response Metadata End"))\n"
-        }
-        
-        if let error = logData.error {
-            responseStr += "\n\(getBoundry(for: "Response Error"))\n\n"
-            responseStr += error.localizedDescription + "\n"
-            responseStr += "\n\(getBoundry(for: "Response Error End"))\n"
-        }
-        
-        if let data = logData.receivedData, data.isEmpty == false {
-            responseStr += "\n\(getBoundry(for: "Response Content"))\n\n"
-            if formatter.prettyPrintJSON, let str = JSONUtils.shared.getJSONPrettyPrintORStringFrom(jsonData: data) {
-                responseStr.append("\n\(str)")
-            } else {
-                responseStr.append("\n\(JSONUtils.shared.getStringFrom(data: data))")
-            }
-            responseStr += "\n\(getBoundry(for: "Response Content End"))\n"
-        }
-        
-        responseStr += "\n\(getBoundry(for: "Response End"))"
-        return responseStr
+    func getRequestLog(from logData: NLLogData) -> String {
+        return getRequestLog(from: logData, isResponseLog: false)
     }
     
-    func getRequestLog(from logData: NLLogData) -> String {
+    private func getRequestLog(from logData: NLLogData, isResponseLog: Bool) -> String {
         let urlRequest: URLRequest = logData.urlRequest
         var urlRequestStr = ""
         urlRequestStr += "\n\(getBoundry(for: "Request"))\n"
@@ -65,19 +37,22 @@ internal class LogComposer {
             for (key, value) in headerFields {
                 urlRequestStr.append("\n\(key) = \(value)")
             }
-            urlRequestStr += "\n"
         }
         
         if let httpBody = urlRequest.httpBodyString(prettyPrint: true) {
-            urlRequestStr.append("\nHttp Body:")
+            urlRequestStr.append("\n\nHttp Body:")
             urlRequestStr.append("\n\(httpBody)\n")
         }
         
-        if formatter.showCurlWithReqst {
+        let showCurl: Bool = isResponseLog ? formatter.showCurlWithResp : formatter.showCurlWithReqst
+        
+        if showCurl {
             urlRequestStr += "\nCURL: \(urlRequest.cURL)"
         }
         
-        for metaInfo in formatter.showReqstMetaInfo {
+        let reqstMetaInfo: [NLRequestMetaInfo] = isResponseLog ? formatter.showReqstMetaInfoWithResp : formatter.showReqstMetaInfo
+        
+        for metaInfo in reqstMetaInfo {
             
             switch metaInfo {
             case .timeoutInterval:
@@ -103,45 +78,91 @@ internal class LogComposer {
         
         urlRequestStr += "\n\n\(getBoundry(for: "Request End"))\n"
         
-        var ret = URLRequest(url: URL(string: "hlgjg")!)
-        ret.networkServiceType = .responsiveData
-        
         return urlRequestStr
+    }
+    
+    func getResponseLog(from logData: NLLogData) ->  String {
+        
+        var responseStr: String = ""
+        
+        if formatter.showReqstWithResp {
+            responseStr.append(getRequestLog(from: logData, isResponseLog: true))
+        }
+        
+        responseStr += "\n\(getBoundry(for: "Response"))\n"
+        responseStr += "\nId: \(getIdentifierString(logData.identifier))"
+        
+        // Response Meta Info
+        if let response = logData.response, formatter.showRespMetaInfo.isEmpty == false {
+            responseStr += "\nResponse Meta Info:"
+            
+            for property in formatter.showRespMetaInfo {
+                
+                switch property {
+                case .statusCode:
+                    if let httpResponse = response as? HTTPURLResponse {
+                        responseStr += "\nStatus Code: \(httpResponse.statusCode)"
+                    }
+                case .statusDescription:
+                    if let httpResponse = response as? HTTPURLResponse {
+                        responseStr += "\nStatus Code description: \(HTTPURLResponse.localizedString(forStatusCode: httpResponse.statusCode))"
+                    }
+                case .mimeType:
+                    responseStr += "\nMime type: \(response.mimeType ?? "-")"
+                case .textEncoding:
+                    responseStr += "\nText encoding name: \(response.textEncodingName ?? "-")"
+                case .contentLength:
+                    responseStr += "\nExpected content length: \(response.expectedContentLength)"
+                case .suggestedFileName:
+                    responseStr += "\nSuggested file name: \(response.suggestedFilename ?? "-")"
+                case .headers:
+                    if let httpResponse = response as? HTTPURLResponse,
+                        httpResponse.allHeaderFields.isEmpty == false {
+                        
+                        responseStr += "\n\nResponse headers fields:"
+                        for (key, value) in httpResponse.allHeaderFields {
+                            responseStr.append("\n\(key) = \(value)")
+                        }
+                    }
+                case .requestStartTime:
+                    if let startDate: Date = logData.startTime {
+                        responseStr.append("\nStart time: \(dateFormatter.string(from: startDate))")
+                    }
+                case .duration:
+                    if let durationStr: String = logData.getDurationString() {
+                        responseStr.append("\nDuration: " + durationStr)
+                    } else {
+                        responseStr.append("\nDuration: -")
+                    }
+                case .threadName:
+                    responseStr.append("\nThread: Coming soon...")
+                }
+            }
+        }
+        
+        if let error = logData.error {
+            responseStr += "\n\nResponse Error:\n"
+            responseStr += error.localizedDescription
+        }
+        
+        if let data = logData.receivedData, data.isEmpty == false {
+            responseStr += "\n\nResponse Content: \n"
+            if formatter.prettyPrintJSON, let str = JSONUtils.shared.getJSONPrettyPrintORStringFrom(jsonData: data) {
+                responseStr.append(str)
+            } else {
+                responseStr.append(JSONUtils.shared.getStringFrom(data: data))
+            }
+        }
+        
+        responseStr += "\n\n\(getBoundry(for: "Response End"))"
+        return responseStr
+    }
+    
+    private func getIdentifierString(_ identifier: String) -> String {
+        return "\(identifier) (Generated by NetworkLogger)"
     }
     
     private func getBoundry(for message: String) -> String {
         return "====== \(message) ======"
     }
-    
-    func getResponseMetaData(response: URLResponse) -> String {
-        var responseStr = ""
-        responseStr += "\nURL => \(response.url?.absoluteString ?? "Nil")"
-        if let port = response.url?.port {
-            responseStr += "\nPort => \(port)"
-        }
-        
-        if let httpResponse = response as? HTTPURLResponse {
-            responseStr += "\nStatus Code => \(httpResponse.statusCode)"
-            responseStr += "\nStatus Code description => \(HTTPURLResponse.localizedString(forStatusCode: httpResponse.statusCode))"
-        }
-        
-        responseStr += "\nMime type => \(response.mimeType ?? "Nil")"
-        responseStr += "\nExpected content length => \(response.expectedContentLength)"
-        responseStr += "\nText encoding name => \(response.textEncodingName ?? "Nil")"
-        responseStr += "\nSuggested file name => \(response.suggestedFilename ?? "Nil")"
-        
-        if let httpResponse = response as? HTTPURLResponse {
-            responseStr += "\n\nHeaders fields\n"
-            for (key, value) in httpResponse.allHeaderFields {
-                responseStr.append("\n\(key) => \(value)")
-            }
-        }
-        
-        return responseStr
-    }
-    
-    func getIdentifierString(_ identifier: String) -> String {
-        return "\(identifier) (Generated by NetworkLogger)"
-    }
-    
 }

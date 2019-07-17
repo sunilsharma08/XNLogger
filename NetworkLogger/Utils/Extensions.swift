@@ -93,3 +93,35 @@ extension NSMutableURLRequest {
         URLProtocol.setProperty(value, forKey: AppConstants.NLRequestFlagKey, in: self)
     }
 }
+
+extension TimeInterval {
+    
+    func toReadableString() -> String {
+        
+        
+        // Milliseconds
+        let ms = Int((self.truncatingRemainder(dividingBy: 1)) * 1000)
+        // Seconds
+        let s = Int(self) % 60
+        // Minutes
+        let mn = (Int(self) / 60) % 60
+        // Hours
+        let hr = (Int(self) / 3600)
+        
+        var readableStr = ""
+        if hr != 0 {
+            readableStr += String(format: "%0.2dhr ", hr)
+        }
+        if mn != 0 {
+            readableStr += String(format: "%0.2dmn ", mn)
+        }
+        if s != 0 {
+            readableStr += String(format: "%0.2ds ", s)
+        }
+        if ms != 0 {
+            readableStr += String(format: "%0.3dms ", ms)
+        }
+        
+        return readableStr
+    }
+}
