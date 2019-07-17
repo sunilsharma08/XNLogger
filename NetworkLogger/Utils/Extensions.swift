@@ -37,13 +37,32 @@ extension NSObject {
     }
 }
 
-extension URLRequest {
+internal extension URLRequest {
     
     func getNSMutableURLRequest() -> NSMutableURLRequest? {
     guard let mutableRequest = (self as NSURLRequest).mutableCopy() as? NSMutableURLRequest
     else { return nil }
     return mutableRequest
     }
+    
+    func getCachePolicyName() -> String {
+        
+        switch cachePolicy {
+        case .useProtocolCachePolicy:
+            return "UseProtocolCachePolicy"
+        case .reloadIgnoringLocalCacheData:
+            return "ReloadIgnoringLocalCacheData"
+        case .reloadIgnoringLocalAndRemoteCacheData:
+            return "ReloadIgnoringLocalAndRemoteCacheData"
+        case .returnCacheDataElseLoad:
+            return "ReturnCacheDataElseLoad"
+        case .returnCacheDataDontLoad:
+            return "ReturnCacheDataDontLoad"
+        case .reloadRevalidatingCacheData:
+            return "ReloadRevalidatingCacheData"
+        }
+    }
+    
 }
 
 extension NSMutableURLRequest {

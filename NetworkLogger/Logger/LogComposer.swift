@@ -84,7 +84,7 @@ internal class LogComposer {
             case .cellularAccess:
                 urlRequestStr += "\nMobile data access allowed: \(urlRequest.allowsCellularAccess)"
             case .cachePolicy:
-                urlRequestStr += "\nCache policy: \(urlRequest.cachePolicy.rawValue)"
+                urlRequestStr += "\nCache policy: \(urlRequest.getCachePolicyName())"
             case .networkType:
                 urlRequestStr += "\nNetwork service type: \(urlRequest.networkServiceType.rawValue)"
             case .httpPipeliningStatus:
