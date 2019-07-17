@@ -11,9 +11,11 @@ import Foundation
 internal class LogComposer {
     
     let formatter: NLLogFormatter
+    let dateFormatter = DateFormatter()
     
     init(logFormatter: NLLogFormatter) {
         self.formatter = logFormatter
+        self.dateFormatter.dateFormat = "yyyy-MM-dd H:m:ss.SSSS"
     }
     
     func getResponseLog(from logData: NLLogData) ->  String {
@@ -74,13 +76,29 @@ internal class LogComposer {
             urlRequestStr += "\nCURL: \(urlRequest.cURL)"
         }
         
-        urlRequestStr += "\nTimeout interval = \(urlRequest.timeoutInterval)"
-        urlRequestStr += "\nMobile data access allowed = \(urlRequest.allowsCellularAccess)"
-        urlRequestStr += "\nCache policy = \(urlRequest.cachePolicy.rawValue)"
-        urlRequestStr += "\nNetwork service type = \(urlRequest.networkServiceType.rawValue)"
-        urlRequestStr += "\nCookies will be handled = \(urlRequest.httpShouldHandleCookies)"
-        urlRequestStr += "\nHTTP Pipelining will be used = \(urlRequest.httpShouldUsePipelining)"
-        
+        for metaInfo in formatter.showReqstMetaInfo {
+            
+            switch metaInfo {
+            case .timeoutInterval:
+                urlRequestStr += "\nTimeout interval: \(urlRequest.timeoutInterval)"
+            case .cellularAccess:
+                urlRequestStr += "\nMobile data access allowed: \(urlRequest.allowsCellularAccess)"
+            case .cachePolicy:
+                urlRequestStr += "\nCache policy: \(urlRequest.cachePolicy.rawValue)"
+            case .networkType:
+                urlRequestStr += "\nNetwork service type: \(urlRequest.networkServiceType.rawValue)"
+            case .httpPipeliningStatus:
+                urlRequestStr += "\nHTTP Pipelining will be used: \(urlRequest.httpShouldUsePipelining)"
+            case .cookieStatus:
+                urlRequestStr += "\nCookies will be handled: \(urlRequest.httpShouldHandleCookies)"
+            case .requestStartTime:
+                if let startDate: Date = logData.startTime {
+                    urlRequestStr += "\nStart time: \(dateFormatter.string(from: startDate))"
+                }
+            case .threadName:
+                urlRequestStr += "\nThread: Coming soon..."
+            }
+        }
         
         urlRequestStr += "\n\n\(getBoundry(for: "Request End"))\n"
         
