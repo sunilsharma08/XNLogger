@@ -35,6 +35,7 @@
 		10BF876021F046A2008AA336 /* NLConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10BF875F21F046A2008AA336 /* NLConfiguration.swift */; };
 		10C7268F222DA0BE00239900 /* NLFileLogHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10C7268E222DA0BE00239900 /* NLFileLogHandler.swift */; };
 		10C72691222DAC2D00239900 /* NLBaseLogHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10C72690222DAC2D00239900 /* NLBaseLogHandler.swift */; };
+		10D094C422E4EE0A0020D9DB /* NLLoader.m in Sources */ = {isa = PBXBuildFile; fileRef = 10D094C322E4EE0A0020D9DB /* NLLoader.m */; };
 		10F73E5D22DA011900257A7B /* NLLogFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10F73E5C22DA011900257A7B /* NLLogFormatter.swift */; };
 		810828F0BE75B409F66B3346 /* Pods_NetworkLoggerTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9290FC19A9F604788CF2BA30 /* Pods_NetworkLoggerTests.framework */; };
 		D1580A580636FA1A49686D54 /* Pods_NetworkLogger.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C1F8FC2C73F89A2A638E1F47 /* Pods_NetworkLogger.framework */; };
@@ -82,6 +83,7 @@
 		10BF875F21F046A2008AA336 /* NLConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NLConfiguration.swift; sourceTree = "<group>"; };
 		10C7268E222DA0BE00239900 /* NLFileLogHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NLFileLogHandler.swift; sourceTree = "<group>"; };
 		10C72690222DAC2D00239900 /* NLBaseLogHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NLBaseLogHandler.swift; sourceTree = "<group>"; };
+		10D094C322E4EE0A0020D9DB /* NLLoader.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NLLoader.m; sourceTree = "<group>"; };
 		10F73E5C22DA011900257A7B /* NLLogFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NLLogFormatter.swift; sourceTree = "<group>"; };
 		21645FAD8427AE2A6A40555C /* Pods-NetworkLogger.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NetworkLogger.release.xcconfig"; path = "Pods/Target Support Files/Pods-NetworkLogger/Pods-NetworkLogger.release.xcconfig"; sourceTree = "<group>"; };
 		2403541FE129CA8495F890D4 /* Pods-NetworkLogger.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NetworkLogger.debug.xcconfig"; path = "Pods/Target Support Files/Pods-NetworkLogger/Pods-NetworkLogger.debug.xcconfig"; sourceTree = "<group>"; };
@@ -195,6 +197,7 @@
 				1085769621FDD662008ABD2B /* NetworkInterceptor.swift */,
 				10B4076722626644000FD18E /* NLURLProtocol.swift */,
 				10BC314722CD2FD20020167D /* NLAuthenticationChallengeSender.swift */,
+				10D094C322E4EE0A0020D9DB /* NLLoader.m */,
 			);
 			path = NetworkInterceptor;
 			sourceTree = "<group>";
@@ -449,6 +452,7 @@
 				108576AA21FDD662008ABD2B /* NLRemoteLogHandler.swift in Sources */,
 				108576A921FDD662008ABD2B /* NLLogHandler.swift in Sources */,
 				108576A821FDD662008ABD2B /* NetworkInterceptor.swift in Sources */,
+				10D094C422E4EE0A0020D9DB /* NLLoader.m in Sources */,
 				1047D7FA22CA7BAF000A7B6C /* AppUtils.swift in Sources */,
 				108576AF21FDD662008ABD2B /* LogComposer.swift in Sources */,
 				10B4076822626644000FD18E /* NLURLProtocol.swift in Sources */,
@@ -517,6 +521,7 @@
 				COPY_PHASE_STRIP = NO;
 				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEFINES_MODULE = YES;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
@@ -537,6 +542,7 @@
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_MODULE_NAME = "$(PRODUCT_NAME)";
 				SDKROOT = iphoneos;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -581,6 +587,7 @@
 				COPY_PHASE_STRIP = NO;
 				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEFINES_MODULE = YES;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
@@ -594,6 +601,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
+				PRODUCT_MODULE_NAME = "$(PRODUCT_NAME)";
 				SDKROOT = iphoneos;
 				SWIFT_COMPILATION_MODE = wholemodule;
 				SWIFT_OPTIMIZATION_LEVEL = "-O";
