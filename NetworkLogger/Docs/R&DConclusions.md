@@ -14,3 +14,12 @@ There is two way to intercept all internet requests
  Reason it does not load WKWebView and background requests
  https://stackoverflow.com/questions/34865414/custom-nsurlprotocol-subclasses-are-not-available-to-background-sessions
 
+## Possible values for HTTP “Content-Type” header
+https://stackoverflow.com/questions/23714383/what-are-all-the-possible-values-for-http-content-type-header
+
+
+## Determine MIME type from Data
+https://stackoverflow.com/questions/21789770/determine-mime-type-from-nsdata
+
+## Array to store weak references
+https://marcosantadev.com/swift-arrays-holding-elements-weak-references/

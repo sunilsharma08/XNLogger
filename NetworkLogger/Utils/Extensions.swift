@@ -85,6 +85,21 @@ internal extension URLRequest {
             return "Unknown"
         }
     }
+    
+    func getMimeType() -> String? {
+        let contType: String? = value(forHTTPHeaderField: "Content-Type")
+        if let contentType = contType, contentType.isEmpty == false {
+            let components = contentType.split(separator: ";")
+            if components.count > 0 {
+                let mimeType = components[0].replacingOccurrences(of: ";", with: "")
+                return mimeType
+            } else {
+                return nil
+            }
+        } else {
+            return nil
+        }
+    }
 }
 
 extension NSMutableURLRequest {

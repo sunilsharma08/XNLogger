@@ -31,31 +31,75 @@ public enum NLSessionState: Int {
     }
 }
 
+internal enum NLContentType {
+    case text
+    case json
+    case image
+    case pdf
+    case audio
+    case video
+    case unknown(String?)
+    
+    func getName() -> String {
+        switch self {
+        case .text:
+            return "Text"
+        case .json:
+            return "JSON"
+        case .image:
+            return "Image"
+        case .pdf:
+            return "PDF"
+        case .audio:
+            return "Audio"
+        case .video:
+            return "Video"
+        case .unknown(let name):
+            if let title = name {
+                return title
+            }
+            return "Unknown"
+        }
+    }
+}
+
+/**
+ NLLogData model is exposed as READ only i.e. variables can be read from
+ outside module but variables cannot be WRITTEN or UPDATED from outside of module.
+ */
 public class NLLogData: NSObject {
     
     public let identifier: String
     public let urlRequest: URLRequest
     internal(set) public var response: URLResponse?
-    internal(set) var receivedData: Data?
-    internal(set) var error: Error?
-    internal(set) var startTime: Date?
-    internal(set) var endTime: Date? {
+    internal(set) public var receivedData: Data?
+    internal(set) public var error: Error?
+    internal(set) public var startTime: Date?
+    internal(set) internal var endTime: Date? {
         didSet {
             if let startDate = startTime, let endDate = endTime {
                 duration = endDate.timeIntervalSince(startDate)
             }
         }
     }
-    internal(set) var redirectRequest: URLRequest?
-    private(set) var state: NLSessionState?
-    public var duration: Double?
+    internal(set) public var redirectRequest: URLRequest?
+    private(set) public var state: NLSessionState?
+    internal(set) public var duration: Double?
     
-    init(identifier: String, request: URLRequest) {
+    internal(set) lazy var respContentType: NLContentType = {
+        return AppUtils.shared.getContentType(fromMIMEType: response?.mimeType)
+    }()
+    
+    internal(set) lazy var reqstContentType: NLContentType = {
+        return AppUtils.shared.getContentType(fromMIMEType: urlRequest.getMimeType())
+    }()
+    
+    internal init(identifier: String, request: URLRequest) {
         self.identifier = identifier
         self.urlRequest = request
     }
     
-    func setSessionState(_ state: URLSessionTask.State?) {
+    internal func setSessionState(_ state: URLSessionTask.State?) {
         guard let state = state else {
             self.state = .unknown
             return 
@@ -72,7 +116,7 @@ public class NLLogData: NSObject {
         }
     }
     
-    func getDurationString() -> String? {
+    internal func getDurationString() -> String? {
         
         guard let timeInterval: Double = duration else { return nil }
         

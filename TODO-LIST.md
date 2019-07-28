@@ -1,6 +1,7 @@
 ## Task/Feature TODO list:
 
-* Library load logic should be inside framework
+* Library load logic should be inside framework - done
+
 * Example inside framework
 * UI for logger
 * Detect response is text or not

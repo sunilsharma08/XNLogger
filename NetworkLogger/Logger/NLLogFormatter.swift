@@ -48,8 +48,9 @@ public class NLLogFormatter: NSObject {
     public var showCurlWithResp: Bool = true
     
     public var prettyPrintJSON: Bool = true
-    // Coming soon...
-    //public var logUnreadableRespBody: Bool = false
+    
+    public var logUnreadableRespBody: Bool = false
+    public var logUnreadableReqstBody: Bool = false
     
     public var showReqstMetaInfo: [NLRequestMetaInfo] = NLRequestMetaInfo.allCases {
         didSet {
