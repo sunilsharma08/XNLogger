@@ -112,8 +112,8 @@ class NLFilterManager {
         var isFilterAllowed: Bool = false
         for filter in filterData.filters {
             /**
-            It performs XOR operation means for same result log in not
-            allowed whereas for opposite allowed.
+            It performs XOR operation means for same result log is not allowed
+            whereas for opposite allowed.
              
              Case 1: When isAllowed return true mean given url contains the current filter value and at that time if filter invert is false means this url should be logged.
              Case 2: When isAllowed return false and invert filter is false then it should not be allowed to log.

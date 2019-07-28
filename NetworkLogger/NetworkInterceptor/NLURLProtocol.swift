@@ -84,7 +84,7 @@ open class NLURLProtocol: URLProtocol {
         self.logData?.setSessionState(self.sessionTask?.state)
         
         // Reason for log in console on cancel session
-        //https://forums.developer.apple.com/thread/88020
+        // https://forums.developer.apple.com/thread/88020
         
         self.session?.invalidateAndCancel()
         self.sessionTask?.cancel()
