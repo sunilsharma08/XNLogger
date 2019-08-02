@@ -8,6 +8,38 @@
 
 import Foundation
 
+enum NLContentType {
+    case text
+    case json
+    case image
+    case pdf
+    case audio
+    case video
+    case unknown(String?)
+    
+    func getName() -> String {
+        switch self {
+        case .text:
+            return "Text"
+        case .json:
+            return "JSON"
+        case .image:
+            return "Image"
+        case .pdf:
+            return "PDF"
+        case .audio:
+            return "Audio"
+        case .video:
+            return "Video"
+        case .unknown(let name):
+            if let title = name {
+                return title
+            }
+            return "Unknown"
+        }
+    }
+}
+
 fileprivate struct FileSignature {
     let offset: Int
     let signature: [UInt8]

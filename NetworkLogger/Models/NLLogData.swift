@@ -31,38 +31,6 @@ public enum NLSessionState: Int {
     }
 }
 
-internal enum NLContentType {
-    case text
-    case json
-    case image
-    case pdf
-    case audio
-    case video
-    case unknown(String?)
-    
-    func getName() -> String {
-        switch self {
-        case .text:
-            return "Text"
-        case .json:
-            return "JSON"
-        case .image:
-            return "Image"
-        case .pdf:
-            return "PDF"
-        case .audio:
-            return "Audio"
-        case .video:
-            return "Video"
-        case .unknown(let name):
-            if let title = name {
-                return title
-            }
-            return "Unknown"
-        }
-    }
-}
-
 /**
  NLLogData model is exposed as READ only i.e. variables can be read from
  outside module but variables cannot be WRITTEN or UPDATED from outside of module.
