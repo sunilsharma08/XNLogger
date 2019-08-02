@@ -14,3 +14,5 @@
 * Check logger works for NSOperations
 * Check it works with other network libarary
 * Thread name
+* Path filter
+

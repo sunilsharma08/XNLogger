@@ -33,7 +33,6 @@
 		10B4076822626644000FD18E /* NLURLProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10B4076722626644000FD18E /* NLURLProtocol.swift */; };
 		10BC314822CD2FD20020167D /* NLAuthenticationChallengeSender.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10BC314722CD2FD20020167D /* NLAuthenticationChallengeSender.swift */; };
 		10BE806B2233C8B800A147BC /* TestUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10BE806A2233C8B800A147BC /* TestUtils.swift */; };
-		10BF876021F046A2008AA336 /* NLConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10BF875F21F046A2008AA336 /* NLConfiguration.swift */; };
 		10C7268F222DA0BE00239900 /* NLFileLogHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10C7268E222DA0BE00239900 /* NLFileLogHandler.swift */; };
 		10C72691222DAC2D00239900 /* NLBaseLogHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10C72690222DAC2D00239900 /* NLBaseLogHandler.swift */; };
 		10D094C422E4EE0A0020D9DB /* NLLoader.m in Sources */ = {isa = PBXBuildFile; fileRef = 10D094C322E4EE0A0020D9DB /* NLLoader.m */; };
@@ -82,7 +81,6 @@
 		10B4076722626644000FD18E /* NLURLProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NLURLProtocol.swift; sourceTree = "<group>"; };
 		10BC314722CD2FD20020167D /* NLAuthenticationChallengeSender.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NLAuthenticationChallengeSender.swift; sourceTree = "<group>"; };
 		10BE806A2233C8B800A147BC /* TestUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestUtils.swift; sourceTree = "<group>"; };
-		10BF875F21F046A2008AA336 /* NLConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NLConfiguration.swift; sourceTree = "<group>"; };
 		10C7268E222DA0BE00239900 /* NLFileLogHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NLFileLogHandler.swift; sourceTree = "<group>"; };
 		10C72690222DAC2D00239900 /* NLBaseLogHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NLBaseLogHandler.swift; sourceTree = "<group>"; };
 		10D094C322E4EE0A0020D9DB /* NLLoader.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NLLoader.m; sourceTree = "<group>"; };
@@ -141,7 +139,6 @@
 			children = (
 				10AA00D621FE34E6006E4A48 /* Docs */,
 				1005807821C685000020288D /* NetworkLogger.swift */,
-				10BF875F21F046A2008AA336 /* NLConfiguration.swift */,
 				1085768B21FDD662008ABD2B /* Filters */,
 				1085769721FDD662008ABD2B /* Logger */,
 				1085768821FDD661008ABD2B /* Models */,
@@ -446,7 +443,6 @@
 				108576AC21FDD662008ABD2B /* NLSlackLogHandler.swift in Sources */,
 				1017F84122C1C9F4000D185E /* NLFilterManager.swift in Sources */,
 				108576A621FDD662008ABD2B /* JSONUtils.swift in Sources */,
-				10BF876021F046A2008AA336 /* NLConfiguration.swift in Sources */,
 				10C7268F222DA0BE00239900 /* NLFileLogHandler.swift in Sources */,
 				108576A221FDD662008ABD2B /* NLFilter.swift in Sources */,
 				108576AB21FDD662008ABD2B /* NLConsoleLogHandler.swift in Sources */,

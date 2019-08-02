@@ -52,35 +52,10 @@ internal class NetworkInterceptor: NSObject {
             let customProtocolClass: Method = class_getInstanceMethod(URLSessionConfiguration.self, #selector(URLSessionConfiguration.nlProcotolClasses)) {
             method_exchangeImplementations(originalProtocolGetter, customProtocolClass)
         } else {
-            debugPrint("Failed to swizzle protocol classes")
+            print("NL: Failed to swizzle protocol classes")
         }
     }
     
-    /**
-     Now not used. Should be removed
-     Swizzle original Data task method with Interceptable Data task method.
- 
-    func swizzleDataTask() {
-        
-        let sessionInstance = URLSession(configuration: .default)
-        guard let urlSessionClass: AnyClass = object_getClass(sessionInstance) else {
-            debugPrint("Failed to get URLSession Class")
-            return
-        }
-        
-        let dataTaskSel = #selector((URLSession.dataTask(with:completionHandler:)) as (URLSession) -> (URLRequest, @escaping (Data?, URLResponse?, Error?) -> Void) -> URLSessionDataTask)
-        
-        let interceptableDataTaskSel = #selector((URLSession.interceptableDataTask(with:completionHandler:)) as (URLSession) -> (URLRequest, @escaping (Data?, URLResponse?, Error?) -> Void) -> URLSessionDataTask)
-        
-        if let originalMethod = class_getInstanceMethod(urlSessionClass, dataTaskSel),
-            let interceptableMethod = class_getInstanceMethod(URLSession.self, interceptableDataTaskSel) {
-            method_exchangeImplementations(originalMethod, interceptableMethod)
-        }
-        else {
-            debugPrint("Failed to get data task method instance")
-        }
-    }
-     */
 }
 
 extension URLSessionConfiguration {
@@ -101,26 +76,4 @@ extension URLSessionConfiguration {
         return originalProtocolClasses
     }
 }
-
-/**
- Implement interceptable data task method.
- 
-internal extension URLSession {
-    
-    @objc func interceptableDataTask(with request: URLRequest, completionHandler: ((Data?, URLResponse?, Error?) -> Void)?) -> URLSessionDataTask {
-        
-        NetworkLogger.shared.logRequest(request)
-        
-        let sessionDataTask = self.interceptableDataTask(with: request) { (data, response, error) in
-            
-            let responseData = NLResponseData(response: response, responseData: data, error: error)
-            NetworkLogger.shared.logResponse(for: request, responseData: responseData)
-            
-            completionHandler?(data, response, error)
-        }
-        return sessionDataTask
-    }
-    
-}
- */
 
