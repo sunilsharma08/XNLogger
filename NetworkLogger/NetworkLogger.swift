@@ -29,12 +29,12 @@ import Foundation
     override private init() {}
     
     @objc public func startLogging() {
-        debugPrint("Started logging network traffic")
+        print("NL: Started logging network traffic")
         networkInterceptor.startInterceptingNetwork()
     }
     
     @objc public func stopLogging() {
-        debugPrint("Stopped logging network traffic")
+        print("NL: Stopped logging network traffic")
         networkInterceptor.stopInterceptingNetwork()
     }
     

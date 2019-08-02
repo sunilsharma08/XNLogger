@@ -22,12 +22,12 @@ class JSONUtils: NSObject {
             let jsonObj = try getJsonObjectFrom(jsonData: data)
             let jsonData = try JSONSerialization.data(withJSONObject: jsonObj, options: [.prettyPrinted])
             guard let jsonString = String(data: jsonData, encoding: String.Encoding.utf8) else {
-                debugPrint("Can't create string with data.")
+                print("NL: Can't create string with data.")
                 return nil
             }
             return jsonString
         } catch let parseError {
-            debugPrint("JSON serialization error: \(parseError)")
+            print("NL: JSON serialization error: \(parseError)")
             return nil
         }
     }
@@ -57,7 +57,7 @@ class JSONUtils: NSObject {
                 return nil
             }
         } catch let parseError {
-            debugPrint("JSON serialization error: \(parseError)")
+            print("NL: JSON serialization error: \(parseError)")
             return nil
         }
     }
@@ -68,7 +68,7 @@ class JSONUtils: NSObject {
             let jsonObj = try JSONSerialization.jsonObject(with: jsonData, options: [.allowFragments, .mutableLeaves, .mutableContainers])
             return jsonObj
         } catch let parseError {
-            debugPrint("JSON serialization error: \(parseError)")
+            print("NL: JSON serialization error: \(parseError)")
             throw parseError
         }
     }
