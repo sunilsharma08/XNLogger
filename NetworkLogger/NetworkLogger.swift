@@ -14,26 +14,27 @@ import Foundation
     @objc optional func networkLogger(didReceiveResponse logData: NLLogData)
 }
 
-@objc public class NetworkLogger: NSObject {
+@objcMembers
+public class NetworkLogger: NSObject {
     
     // Public variables
-    @objc public static let shared = NetworkLogger()
-    @objc public weak var delegate: NetworkLoggerDelegate?
+    public static let shared = NetworkLogger()
+    public weak var delegate: NetworkLoggerDelegate?
     
     // Private variables
     private let networkInterceptor = NetworkInterceptor()
     
-    private(set) var handlers: [NLLogHandler] = []
+    private(set) public var handlers: [NLLogHandler] = []
     let filterManager: NLFilterManager = NLFilterManager()
     
     override private init() {}
     
-    @objc public func startLogging() {
+    public func startLogging() {
         print("NL: Started logging network traffic")
         networkInterceptor.startInterceptingNetwork()
     }
     
-    @objc public func stopLogging() {
+    public func stopLogging() {
         print("NL: Stopped logging network traffic")
         networkInterceptor.stopInterceptingNetwork()
     }
@@ -50,7 +51,7 @@ import Foundation
         }
     }
     
-    @objc public func removeAllHandlers() {
+    public func removeAllHandlers() {
         self.handlers.removeAll()
     }
     
@@ -88,7 +89,7 @@ import Foundation
     /**
      Clear all logs in-memory and disk cache
      */
-    @objc public func clearLogs() {
+    public func clearLogs() {
         for handler in handlers {
             if let fileHandler = handler as? NLFileLogHandler {
                 fileHandler.clearLogFiles()
