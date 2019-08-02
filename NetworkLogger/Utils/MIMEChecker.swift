@@ -48,13 +48,6 @@ fileprivate struct FileSignature {
         self.offset = offset
         self.signature = signature
     }
-    
-    func contains(signature: [UInt8]) -> Bool {
-        if signature == self.signature {
-            return true
-        }
-        return false
-    }
 }
 
 class MIMEChecker {
