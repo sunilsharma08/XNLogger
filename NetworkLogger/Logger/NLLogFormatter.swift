@@ -18,7 +18,6 @@ public enum NLRequestMetaInfo: Int, CaseIterable {
     case cookieStatus
     case httpPipeliningStatus
     case requestStartTime
-    case threadName
 }
 
 @objc
@@ -32,7 +31,6 @@ public enum NLResponseMetaInfo: Int, CaseIterable {
     case suggestedFileName
     case requestStartTime
     case duration
-    case threadName
     case headers
 }
 

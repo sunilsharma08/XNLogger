@@ -81,8 +81,6 @@ internal class LogComposer {
                 if let startDate: Date = logData.startTime {
                     urlRequestStr += "\nStart time: \(dateFormatter.string(from: startDate))"
                 }
-            case .threadName:
-                urlRequestStr += "\nThread: Coming soon..."
             }
         }
         
@@ -145,8 +143,6 @@ internal class LogComposer {
                         } else {
                             responseStr.append("\nDuration: -")
                         }
-                    case .threadName:
-                        responseStr.append("\nThread: Coming soon...")
                     }
                 }
             } else {

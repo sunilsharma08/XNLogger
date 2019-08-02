@@ -1,8 +1,8 @@
 ## Task/Feature TODO list:
 
 * Library load logic should be inside framework - done
+* Guess MIME type - done
 
-* Guess MIME type
 * Example inside framework
 * UI for logger
 * Encoding type
@@ -13,3 +13,4 @@
 * Check how to log background session
 * Check logger works for NSOperations
 * Check it works with other network libarary
+* Thread name
