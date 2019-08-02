@@ -25,7 +25,7 @@ import NetworkLogger
 //
 //        consoleHandler.addFilters([anotherFilter])
         NetworkLogger.shared.addLogHandlers([consoleHandler])
-        NetworkLogger.shared.startLogging()
+//        NetworkLogger.shared.stopLogging()
 //        let formatter = NLLogFormatter()
 //        formatter.showRequestProperties = NLRequestProperty.allCases
 //        for value in formatter.showRequestProperties {

@@ -31,31 +31,53 @@ public enum NLSessionState: Int {
     }
 }
 
+/**
+ NLLogData model is exposed as READ only i.e. variables can be read from
+ outside module but variables cannot be WRITTEN or UPDATED from outside of module.
+ */
 public class NLLogData: NSObject {
     
     public let identifier: String
     public let urlRequest: URLRequest
     internal(set) public var response: URLResponse?
-    internal(set) var receivedData: Data?
-    internal(set) var error: Error?
-    internal(set) var startTime: Date?
-    internal(set) var endTime: Date? {
+    internal(set) public var receivedData: Data?
+    internal(set) public var error: Error?
+    internal(set) public var startTime: Date?
+    internal(set) internal var endTime: Date? {
         didSet {
             if let startDate = startTime, let endDate = endTime {
                 duration = endDate.timeIntervalSince(startDate)
             }
         }
     }
-    internal(set) var redirectRequest: URLRequest?
-    private(set) var state: NLSessionState?
-    public var duration: Double?
+    internal(set) public var redirectRequest: URLRequest?
+    private(set) public var state: NLSessionState?
+    internal(set) public var duration: Double?
     
-    init(identifier: String, request: URLRequest) {
+    internal(set) lazy var respContentType: NLContentType = {
+        if let mimeStr = response?.mimeType {
+            return AppUtils.shared.getMimeEnum(from: mimeStr)
+        } else if receivedData != nil {
+            return receivedData!.sniffMimeEnum()
+        } else {
+            return .unknown(nil)
+        }
+    }()
+    
+    internal(set) lazy var reqstContentType: NLContentType = {
+        if let mimeStr = urlRequest.getMimeType() {
+            return AppUtils.shared.getMimeEnum(from: mimeStr)
+        } else {
+            return urlRequest.sniffMimeEnum()
+        }
+    }()
+    
+    internal init(identifier: String, request: URLRequest) {
         self.identifier = identifier
         self.urlRequest = request
     }
     
-    func setSessionState(_ state: URLSessionTask.State?) {
+    internal func setSessionState(_ state: URLSessionTask.State?) {
         guard let state = state else {
             self.state = .unknown
             return 
@@ -72,7 +94,7 @@ public class NLLogData: NSObject {
         }
     }
     
-    func getDurationString() -> String? {
+    internal func getDurationString() -> String? {
         
         guard let timeInterval: Double = duration else { return nil }
         

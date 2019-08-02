@@ -8,6 +8,7 @@
 
 import UIKit
 import WebKit
+import NetworkLogger
 
 func printTimeElapsedWhenRunningCode(title:String, operation:()->()) {
     let startTime = CFAbsoluteTimeGetCurrent()
@@ -64,7 +65,30 @@ public class NLLogFormatter: NSObject {
     public var logUnreadableResBody: Bool = false
 }
 
-class NetworkExamplesViewController: UIViewController {
+class CustomLogger: NLLogHandler {
+    func logNetworkRequest(from logData: NLLogData) {
+        print("CustomLogger \(#function)")
+    }
+    
+    func logNetworkResponse(from logData: NLLogData) {
+        print("CustomLogger \(#function)")
+    }
+    
+    deinit {
+        print("CustomLogger \(#function)")
+    }
+    
+}
+
+class NetworkExamplesViewController: UIViewController,NLLogHandler {
+    func logNetworkRequest(from logData: NLLogData) {
+        print("CustomLoggerVC \(#function)")
+    }
+    
+    func logNetworkResponse(from logData: NLLogData) {
+        print("CustomLoggerVC \(#function)")
+    }
+    
 
     @IBOutlet weak var dataHandler: UIButton!
     @IBOutlet weak var dataDelegate: UIButton!
@@ -80,8 +104,9 @@ class NetworkExamplesViewController: UIViewController {
     var resumeDownloadtask: URLSessionDownloadTask?
     var resumeData: Data?
     
-    
+//    var customLogger: CustomLogger? = CustomLogger()
     var formatter = NLLogFormatter()
+    var logger: CustomLogger? = nil
     
     var stored: String = "Hello" {
         willSet {
@@ -135,7 +160,30 @@ class NetworkExamplesViewController: UIViewController {
             print(value.rawValue)
         }
         
+        
+        
     }
+    
+//    override func viewWillAppear(_ animated: Bool) {
+//        super.viewWillAppear(animated)
+//        print(#function)
+//        if logger != nil {
+//            print(CFGetRetainCount(logger))
+//        }
+//
+//    }
+    
+//    override func viewDidAppear(_ animated: Bool) {
+//        super.viewDidAppear(animated)
+//        print(#function)
+//        if self.logger != nil {
+//            DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+//                print(CFGetRetainCount(self.logger))
+//            }
+//        }
+//
+//    }
+    
     
     func configureViews() {
         let buttonList = [dataHandler, dataDelegate, downloadHandler, downloadDelegate, uploadHandler, uploadDelegate, downloadResume, downloadBackground, webViewLoad]
@@ -342,7 +390,7 @@ extension NetworkExamplesViewController {
             let boundary = generateBoundaryString()
             var request = URLRequest(url: url)
             request.httpMethod = "POST"
-            request.setValue("multipart/form-data; boundary=\(boundary)", forHTTPHeaderField: "Content-Type")
+//            request.setValue("multipart/form-data; boundary=\(boundary)", forHTTPHeaderField: "Content-Type")
 //            request.setValue("application/json", forHTTPHeaderField: "Accept")
             
             // build body
@@ -387,11 +435,11 @@ extension NetworkExamplesViewController {
         
         session.dataTask(with: urlRequest) { (data, urlResponse, error) in
             print(self.getJSONFrom(data: data) ?? "")
-            }.resume()
+        }.resume()
 //        let url = "http://server/upload"
 //        let img = UIImage(named: "water.png") ?? UIImage()
 //        let data: Data = img.pngData() ?? Data()
-//        
+////
 //        uploadData(data, toURL: "https://httpbin.org/post", withFileKey: "profileImage", completion: nil)
         
 //        uploadImageToServerFromApp(nameOfApi: "https://gorest.co.in/public-api/users?_format=json&access-token=Vy0X23HhPDdgNDNxVocmqv3NIkDTGdK93GfV", uploadedImage: UIImage(named: "water.png") ?? UIImage())
@@ -409,6 +457,12 @@ extension NetworkExamplesViewController {
         
         let task = session.dataTask(with: URLRequest(url: url))
         task.resume()
+        
+//        if let logger = customLogger {
+//            NetworkLogger.shared.removeHandlers([logger])
+//        }
+//        customLogger = nil
+//        customLogger = nil
     }
     
     
@@ -427,6 +481,11 @@ extension NetworkExamplesViewController {
             print("Downloaded file url \(fileUrl?.absoluteString ?? "nil")")
         }
         task.resume()
+        
+//        if let viewController = self.storyboard?.instantiateViewController(withIdentifier: "SecondViewController") as? SecondViewController {
+//            viewController.controller = self
+//            self.navigationController?.pushViewController(viewController, animated: true)
+//        }
         
     }
     
@@ -531,7 +590,8 @@ extension NetworkExamplesViewController {
 //        print(#function)
         
         let url = URL(string: "https://httpbin.org/post")!
-        let uploadURLRequest = URLRequest(url: url)
+        var uploadURLRequest = URLRequest(url: url)
+        uploadURLRequest.httpMethod = "POST"
         let configuration = URLSessionConfiguration.default
         let session = URLSession(configuration: configuration)
         
@@ -559,7 +619,8 @@ extension NetworkExamplesViewController {
 //        print(#function)
         
         let url = URL(string: "https://httpbin.org/post")!
-        let uploadURLRequest = URLRequest(url: url)
+        var uploadURLRequest = URLRequest(url: url)
+        uploadURLRequest.httpMethod = "POST"
         let configuration = URLSessionConfiguration.default
         let session = URLSession(configuration: configuration)
         

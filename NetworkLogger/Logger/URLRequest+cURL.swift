@@ -25,7 +25,7 @@ internal extension URLRequest {
         return nil
     }
     
-    private func getHttpBodyStream(prettyPrint: Bool) -> String? {
+    func getHttpBodyStreamData() -> Data? {
         guard let httpBodyStream = self.httpBodyStream else {
             return nil
         }
@@ -43,7 +43,14 @@ internal extension URLRequest {
             }
         }
         httpBodyStream.close()
-        return getJSONPrettyPrintORString(data: data, prettyPrint: prettyPrint)
+        return data
+    }
+    
+    private func getHttpBodyStream(prettyPrint: Bool) -> String? {
+        guard let httpBodyData = getHttpBodyStreamData() else {
+            return nil
+        }
+        return getJSONPrettyPrintORString(data: httpBodyData, prettyPrint: prettyPrint)
     }
     
     private func getHttpBody(prettyPrint: Bool) -> String? {
@@ -102,62 +109,5 @@ class RequestCurlCommand {
         }
         return command.joined(separator: " ")
     }
-    
-    /**
-    internal func getHttpBodyString(request: URLRequest) -> String? {
-        if let httpBodyString = self.getHttpBodyStream(request: request) {
-            return httpBodyString
-        }
-        if let httpBodyString = self.getHttpBody(request: request) {
-            return httpBodyString
-        }
-        return nil
-    }
-    
-    fileprivate func getHttpBodyStream(request: URLRequest) -> String? {
-        guard let httpBodyStream = request.httpBodyStream else {
-            return nil
-        }
-        let data = NSMutableData()
-        var buffer = [UInt8](repeating: 0, count: 4096)
-        
-        httpBodyStream.open()
-        while httpBodyStream.hasBytesAvailable {
-            let length = httpBodyStream.read(&buffer, maxLength: 4096)
-            if length == 0 {
-                break
-            } else {
-                data.append(&buffer, length: length)
-            }
-        }
-        return NSString(data: data as Data, encoding: String.Encoding.utf8.rawValue) as String?
-    }
-    
-    fileprivate func getHttpBody(request: URLRequest) -> String? {
-        guard let httpBody = request.httpBody, httpBody.count > 0 else {
-            return nil
-        }
-        guard let httpBodyString = self.getStringFromHttpBody(httpBody: httpBody) else {
-            return nil
-        }
-        let escapedHttpBody = self.escapeAllSingleQuotes(httpBodyString)
-        return escapedHttpBody
-    }
-    
-    fileprivate func getStringFromHttpBody(httpBody: Data) -> String? {
-        if httpBody.isGzipped {
-            
-            return String(data: try! httpBody.gunzipped(), encoding: .utf8)
-        }
-        if let httpBodyString = String(data: httpBody, encoding: String.Encoding.utf8) {
-            return httpBodyString
-        }
-        return nil
-    }
-    
-    fileprivate func escapeAllSingleQuotes(_ value: String) -> String {
-        return value.replacingOccurrences(of: "'", with: "'\\''")
-    }
- **/
     
 }

@@ -12,6 +12,9 @@ class AppUtils {
     
     static let shared: AppUtils = AppUtils()
     static private var logIdentifier: UInt64 = 0
+    lazy var mimeChecker: MIMEChecker = {
+        return MIMEChecker()
+    }()
     
     private init() {}
     
@@ -35,5 +38,13 @@ class AppUtils {
     func nextLogIdentifier() -> String {
         AppUtils.logIdentifier += 1
         return "\(AppUtils.logIdentifier)"
+    }
+    
+    func getMimeEnum(from dataBytes: [UInt8]) -> NLContentType {
+        return mimeChecker.getMimeType(from: dataBytes)
+    }
+    
+    func getMimeEnum(from mimeString: String?) -> NLContentType {
+        return mimeChecker.getMimeType(from: mimeString)
     }
 }

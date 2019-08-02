@@ -85,6 +85,33 @@ internal extension URLRequest {
             return "Unknown"
         }
     }
+    
+    func getMimeType() -> String? {
+        let contType: String? = value(forHTTPHeaderField: "Content-Type")
+        if let contentType = contType, contentType.isEmpty == false {
+            let components = contentType.split(separator: ";")
+            if components.count > 0 {
+                let mimeType = components[0].replacingOccurrences(of: ";", with: "")
+                return mimeType
+            } else {
+                return nil
+            }
+        } else {
+            return nil
+        }
+    }
+    
+    func sniffMimeEnum() -> NLContentType {
+        if let data = httpBody, data.isEmpty == false {
+            return data.sniffMimeEnum()
+        }
+        else if let data = getHttpBodyStreamData() {
+            return data.sniffMimeEnum()
+        }
+        else {
+            return .unknown(nil)
+        }
+    }
 }
 
 extension NSMutableURLRequest {
@@ -123,5 +150,15 @@ extension TimeInterval {
         }
         
         return readableStr
+    }
+}
+
+
+extension Data {
+    
+    func sniffMimeEnum() -> NLContentType {
+        var magicNumbers = [UInt8](repeating: 0, count: MIMEChecker.maxDataNeed)
+        copyBytes(to: &magicNumbers, count: MIMEChecker.maxDataNeed)
+        return AppUtils.shared.getMimeEnum(from: magicNumbers)
     }
 }

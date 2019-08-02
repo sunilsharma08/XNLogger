@@ -7,14 +7,43 @@
 //
 
 import UIKit
+import NetworkLogger
 
 class SecondViewController: UIViewController {
 
+    var customLogger: CustomLogger? = CustomLogger()
+    var controller: NetworkExamplesViewController? = nil
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        print("beforeee adding")
+        print(CFGetRetainCount(customLogger))
+        
+        if let logger = customLogger {
+//            weak var weakLogger = customLogger
+            NetworkLogger.shared.addLogHandlers([logger])
+        }
+        
+        print("after adding")
+        print(CFGetRetainCount(customLogger))
+        controller?.logger = customLogger
+        print("after assign")
+        print(CFGetRetainCount(customLogger))
+//        if let logger = customLogger {
+//            NetworkLogger.shared.removeHandlers([logger])
+//        }
+//        customLogger = nil
+//        customLogger = nil
+        
+        
+
     }
     
 
+    deinit {
+        print("Second View Controller")
+    }
     @IBAction func clickedOnBackButton(_ sender: UIButton) {
         self.navigationController?.popViewController(animated: true)
     }

@@ -53,7 +53,6 @@ open class NLURLProtocol: URLProtocol {
     }
     
     open override func startLoading() {
-        print("\(NLURLProtocol.className) \(#function)")
         if request.url == nil {
             debugPrint("NL: No URL found")
         }
@@ -78,13 +77,10 @@ open class NLURLProtocol: URLProtocol {
     }
     
     open override func stopLoading() {
-        print("\(NLURLProtocol.className) \(#function)")
-        print("\(String(describing: self.sessionTask?.state.rawValue))")
-        print("data size \(String(describing: self.receivedData?.count))")
         self.logData?.setSessionState(self.sessionTask?.state)
         
         // Reason for log in console on cancel session
-        //https://forums.developer.apple.com/thread/88020
+        // https://forums.developer.apple.com/thread/88020
         
         self.session?.invalidateAndCancel()
         self.sessionTask?.cancel()
@@ -112,22 +108,16 @@ open class NLURLProtocol: URLProtocol {
         return super.requestIsCacheEquivalent(a, to: b)
     }
     
-    deinit {
-        print("\(NLURLProtocol.className) \(#function)")
-    }
-    
 }
 
 extension NLURLProtocol: URLSessionDataDelegate {
 
     public func urlSession(_ session: URLSession, dataTask: URLSessionDataTask, didReceive data: Data) {
-        print("\(NLURLProtocol.className) \(#function) state \(String(describing: self.sessionTask?.state.rawValue))")
         client?.urlProtocol(self, didLoad: data)
         self.receivedData?.append(data)
     }
 
     public func urlSession(_ session: URLSession, dataTask: URLSessionDataTask, didReceive response: URLResponse, completionHandler: @escaping (URLSession.ResponseDisposition) -> Void) {
-        print("\(NLURLProtocol.className) \(#function) state \(String(describing: self.sessionTask?.state.rawValue))")
         self.response = response
         self.receivedData = Data()
         let cachePolicy = URLCache.StoragePolicy(rawValue: request.cachePolicy.rawValue) ?? .notAllowed
@@ -136,19 +126,15 @@ extension NLURLProtocol: URLSessionDataDelegate {
     }
 
     public func urlSession(_ session: URLSession, task: URLSessionTask, didCompleteWithError error: Error?) {
-        print("\(NLURLProtocol.className) \(#function) state \(String(describing: self.sessionTask?.state.rawValue))")
         if let error = error {
             client?.urlProtocol(self, didFailWithError: error)
             self.responseError = error
-            print("Erroror - \(error.localizedDescription)")
         } else {
             client?.urlProtocolDidFinishLoading(self)
-            print("Erroror - no error")
         }
     }
 
     public func urlSession(_ session: URLSession, task: URLSessionTask, willPerformHTTPRedirection response: HTTPURLResponse, newRequest request: URLRequest, completionHandler: @escaping (URLRequest?) -> Void) {
-        print("\(NLURLProtocol.className) \(#function) state \(String(describing: self.sessionTask?.state.rawValue))")
         self.logData?.redirectRequest = request
         self.response = response
         if let mutableRequest = request.getNSMutableURLRequest() {
@@ -158,19 +144,15 @@ extension NLURLProtocol: URLSessionDataDelegate {
     }
 
     public func urlSession(_ session: URLSession, didBecomeInvalidWithError error: Error?) {
-        print("\(NLURLProtocol.className) \(#function) state \(String(describing: self.sessionTask?.state.rawValue))")
         guard let error = error
-        else {
-            print("Erkorjojo - No error")
-            return
-        }
+        else { return }
+        
         client?.urlProtocol(self, didFailWithError: error)
         self.responseError = error
-        print("Erkorjojo - \(error.localizedDescription)")
     }
 
     public func urlSession(_ session: URLSession, didReceive challenge: URLAuthenticationChallenge, completionHandler: @escaping (URLSession.AuthChallengeDisposition, URLCredential?) -> Void) {
-        print("\(NLURLProtocol.className) \(#function) state \(String(describing: self.sessionTask?.state.rawValue))")
+        
         let challengeHandler = URLAuthenticationChallenge(authenticationChallenge: challenge, sender: NLAuthenticationChallengeSender(handler: completionHandler))
         client?.urlProtocol(self, didReceive: challengeHandler)
     }
