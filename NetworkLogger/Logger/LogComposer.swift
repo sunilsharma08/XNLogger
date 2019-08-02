@@ -44,13 +44,14 @@ internal class LogComposer {
         urlRequestStr.append("\n\nHttp body:")
         
         if let httpBody = urlRequest.httpBodyString(prettyPrint: formatter.prettyPrintJSON), httpBody.isEmpty == false {
+            // Log HTTP body either `logUnreadableReqstBody` is true or when content is readable.
             if formatter.logUnreadableReqstBody || isContentTypeReadable(logData.reqstContentType) {
                 urlRequestStr.append("\n\(httpBody)\n")
             } else {
                 urlRequestStr.append("\n\(logData.reqstContentType.getName())\n")
             }
         } else {
-            urlRequestStr.append("\n\(getEmptyDataBoundary(for: "*** Http body is empty ***"))\n")
+            urlRequestStr.append("\n\(getEmptyDataBoundary(for: "Http body is empty"))\n")
         }
         
         let showCurl: Bool = isResponseLog ? formatter.showCurlWithResp : formatter.showCurlWithReqst

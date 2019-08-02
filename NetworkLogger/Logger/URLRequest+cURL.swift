@@ -25,7 +25,7 @@ internal extension URLRequest {
         return nil
     }
     
-    private func getHttpBodyStream(prettyPrint: Bool) -> String? {
+    func getHttpBodyStreamData() -> Data? {
         guard let httpBodyStream = self.httpBodyStream else {
             return nil
         }
@@ -43,7 +43,14 @@ internal extension URLRequest {
             }
         }
         httpBodyStream.close()
-        return getJSONPrettyPrintORString(data: data, prettyPrint: prettyPrint)
+        return data
+    }
+    
+    private func getHttpBodyStream(prettyPrint: Bool) -> String? {
+        guard let httpBodyData = getHttpBodyStreamData() else {
+            return nil
+        }
+        return getJSONPrettyPrintORString(data: httpBodyData, prettyPrint: prettyPrint)
     }
     
     private func getHttpBody(prettyPrint: Bool) -> String? {

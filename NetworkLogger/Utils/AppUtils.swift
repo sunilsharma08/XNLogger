@@ -12,6 +12,9 @@ class AppUtils {
     
     static let shared: AppUtils = AppUtils()
     static private var logIdentifier: UInt64 = 0
+    lazy var mimeChecker: MIMEChecker = {
+        return MIMEChecker()
+    }()
     
     private init() {}
     
@@ -37,43 +40,11 @@ class AppUtils {
         return "\(AppUtils.logIdentifier)"
     }
     
-    func getContentType(fromMIMEType mimeString: String?) -> NLContentType {
-        guard let mimeType = mimeString, mimeType.isEmpty == false
-            else { return .unknown(nil) }
-        let typeList: [String] = mimeType.components(separatedBy: "/")
-        if typeList.count < 2 {
-            return .unknown(nil)
-        }
-        let type: String = typeList[0].lowercased()
-        let subType: String = typeList[1].lowercased()
-        if type.isEmpty == true || subType.isEmpty == true {
-            return .unknown(nil)
-        }
-        
-        switch type {
-        case "application":
-            return getApplicationType(subType)
-        case "text":
-            return .text
-        case "image":
-            return .image
-        case "audio":
-            return .audio
-        case "video":
-            return .video
-        default:
-            return .unknown("\(type)/\(subType)")
-        }
+    func getMimeEnum(from dataBytes: [UInt8]) -> NLContentType {
+        return mimeChecker.getMimeType(from: dataBytes)
     }
     
-    func getApplicationType(_ subTypeString: String) -> NLContentType {
-        switch subTypeString {
-        case "pdf":
-            return .pdf
-        case "json":
-            return .json
-        default:
-            return .unknown("application/\(subTypeString)")
-        }
+    func getMimeEnum(from mimeString: String?) -> NLContentType {
+        return mimeChecker.getMimeType(from: mimeString)
     }
 }

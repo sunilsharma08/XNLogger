@@ -100,6 +100,18 @@ internal extension URLRequest {
             return nil
         }
     }
+    
+    func sniffMimeEnum() -> NLContentType {
+        if let data = httpBody, data.isEmpty == false {
+            return data.sniffMimeEnum()
+        }
+        else if let data = getHttpBodyStreamData() {
+            return data.sniffMimeEnum()
+        }
+        else {
+            return .unknown(nil)
+        }
+    }
 }
 
 extension NSMutableURLRequest {
@@ -138,5 +150,15 @@ extension TimeInterval {
         }
         
         return readableStr
+    }
+}
+
+
+extension Data {
+    
+    func sniffMimeEnum() -> NLContentType {
+        var magicNumbers = [UInt8](repeating: 0, count: MIMEChecker.maxDataNeed)
+        copyBytes(to: &magicNumbers, count: MIMEChecker.maxDataNeed)
+        return AppUtils.shared.getMimeEnum(from: magicNumbers)
     }
 }

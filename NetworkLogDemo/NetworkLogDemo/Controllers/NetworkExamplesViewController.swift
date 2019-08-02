@@ -390,7 +390,7 @@ extension NetworkExamplesViewController {
             let boundary = generateBoundaryString()
             var request = URLRequest(url: url)
             request.httpMethod = "POST"
-            request.setValue("multipart/form-data; boundary=\(boundary)", forHTTPHeaderField: "Content-Type")
+//            request.setValue("multipart/form-data; boundary=\(boundary)", forHTTPHeaderField: "Content-Type")
 //            request.setValue("application/json", forHTTPHeaderField: "Accept")
             
             // build body
@@ -433,14 +433,14 @@ extension NetworkExamplesViewController {
         urlRequest.httpBody = jsonData
         let session = URLSession.shared
         
-//        session.dataTask(with: urlRequest) { (data, urlResponse, error) in
-//            print(self.getJSONFrom(data: data) ?? "")
-//            }.resume()
+        session.dataTask(with: urlRequest) { (data, urlResponse, error) in
+            print(self.getJSONFrom(data: data) ?? "")
+        }.resume()
 //        let url = "http://server/upload"
-        let img = UIImage(named: "water.png") ?? UIImage()
-        let data: Data = img.pngData() ?? Data()
-//
-        uploadData(data, toURL: "https://httpbin.org/post", withFileKey: "profileImage", completion: nil)
+//        let img = UIImage(named: "water.png") ?? UIImage()
+//        let data: Data = img.pngData() ?? Data()
+////
+//        uploadData(data, toURL: "https://httpbin.org/post", withFileKey: "profileImage", completion: nil)
         
 //        uploadImageToServerFromApp(nameOfApi: "https://gorest.co.in/public-api/users?_format=json&access-token=Vy0X23HhPDdgNDNxVocmqv3NIkDTGdK93GfV", uploadedImage: UIImage(named: "water.png") ?? UIImage())
         

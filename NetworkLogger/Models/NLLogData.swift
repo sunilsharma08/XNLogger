@@ -87,11 +87,21 @@ public class NLLogData: NSObject {
     internal(set) public var duration: Double?
     
     internal(set) lazy var respContentType: NLContentType = {
-        return AppUtils.shared.getContentType(fromMIMEType: response?.mimeType)
+        if let mimeStr = response?.mimeType {
+            return AppUtils.shared.getMimeEnum(from: mimeStr)
+        } else if receivedData != nil {
+            return receivedData!.sniffMimeEnum()
+        } else {
+            return .unknown(nil)
+        }
     }()
     
     internal(set) lazy var reqstContentType: NLContentType = {
-        return AppUtils.shared.getContentType(fromMIMEType: urlRequest.getMimeType())
+        if let mimeStr = urlRequest.getMimeType() {
+            return AppUtils.shared.getMimeEnum(from: mimeStr)
+        } else {
+            return urlRequest.sniffMimeEnum()
+        }
     }()
     
     internal init(identifier: String, request: URLRequest) {

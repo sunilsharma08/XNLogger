@@ -11,6 +11,7 @@
 		1005806D21C65F4A0020288D /* NetworkLoggerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1005806C21C65F4A0020288D /* NetworkLoggerTests.swift */; };
 		1005806F21C65F4A0020288D /* NetworkLogger.h in Headers */ = {isa = PBXBuildFile; fileRef = 1005806121C65F490020288D /* NetworkLogger.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		1005807921C685000020288D /* NetworkLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1005807821C685000020288D /* NetworkLogger.swift */; };
+		10142E0522F4710100217BF2 /* MIMEChecker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10142E0422F4710100217BF2 /* MIMEChecker.swift */; };
 		1017F84122C1C9F4000D185E /* NLFilterManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1017F84022C1C9F4000D185E /* NLFilterManager.swift */; };
 		10301A4E2213334B00BCB339 /* NetworkAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10301A4D2213334B00BCB339 /* NetworkAPI.swift */; };
 		10398B39220B557100EDFC05 /* NetworkInterceptorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10398B38220B557100EDFC05 /* NetworkInterceptorTests.swift */; };
@@ -59,6 +60,7 @@
 		1005806C21C65F4A0020288D /* NetworkLoggerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkLoggerTests.swift; sourceTree = "<group>"; };
 		1005806E21C65F4A0020288D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1005807821C685000020288D /* NetworkLogger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkLogger.swift; sourceTree = "<group>"; };
+		10142E0422F4710100217BF2 /* MIMEChecker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MIMEChecker.swift; sourceTree = "<group>"; };
 		1017F84022C1C9F4000D185E /* NLFilterManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NLFilterManager.swift; sourceTree = "<group>"; };
 		10301A4D2213334B00BCB339 /* NetworkAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkAPI.swift; sourceTree = "<group>"; };
 		10398B38220B557100EDFC05 /* NetworkInterceptorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkInterceptorTests.swift; sourceTree = "<group>"; };
@@ -183,6 +185,7 @@
 		1085769221FDD662008ABD2B /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				10142E0422F4710100217BF2 /* MIMEChecker.swift */,
 				108576B721FDD99A008ABD2B /* Extensions.swift */,
 				1085769321FDD662008ABD2B /* JSONUtils.swift */,
 				1085769421FDD662008ABD2B /* AppConstants.swift */,
@@ -455,6 +458,7 @@
 				10D094C422E4EE0A0020D9DB /* NLLoader.m in Sources */,
 				1047D7FA22CA7BAF000A7B6C /* AppUtils.swift in Sources */,
 				108576AF21FDD662008ABD2B /* LogComposer.swift in Sources */,
+				10142E0522F4710100217BF2 /* MIMEChecker.swift in Sources */,
 				10B4076822626644000FD18E /* NLURLProtocol.swift in Sources */,
 				1005807921C685000020288D /* NetworkLogger.swift in Sources */,
 				10F73E5D22DA011900257A7B /* NLLogFormatter.swift in Sources */,

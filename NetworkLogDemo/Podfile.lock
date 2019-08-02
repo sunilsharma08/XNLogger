@@ -1,6 +1,6 @@
 PODS:
   - GzipSwift (4.1.0)
-  - netfox (1.15.0)
+  - netfox (1.16.0)
   - NetworkLogger (0.0.1):
     - GzipSwift (~> 4.1.0)
 
@@ -19,7 +19,7 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   GzipSwift: df1636fa095bd8f21d98db14e7393ecc9e230fed
-  netfox: 6ddcca687ad0a58550054fea481cb487461b5e0c
+  netfox: 4590811e5b02e392c72a924c73e000a60ee1f0c7
   NetworkLogger: 6b91a432ff9e7825a40f569ea583d3d3450120fd
 
 PODFILE CHECKSUM: a4c8f6f816b6133b57931c67f3177bf3946471e5
