@@ -23,7 +23,7 @@ public class NLRemoteLogHandler: NLBaseLogHandler, NLLogHandler, NLRemoteLogger 
         self.urlRequest = urlRequest
     }
     
-    public func logNetworkRequest(from logData: NLLogData) {
+    public func networkLogger(logRequest logData: NLLogData) {
         if shouldLogRequest(logData: logData) {
             let message = logComposer.getRequestLog(from: logData)
             let remoteRequest = appendLogInHttpBody(urlRequest, message: message)
@@ -32,7 +32,7 @@ public class NLRemoteLogHandler: NLBaseLogHandler, NLLogHandler, NLRemoteLogger 
         }
     }
     
-    public func logNetworkResponse(from logData: NLLogData) {
+    public func networkLogger(logResponse logData: NLLogData) {
         if shouldLogResponse(logData: logData) {
             let message = logComposer.getResponseLog(from: logData)
             let remoteRequest = appendLogInHttpBody(urlRequest, message: message)

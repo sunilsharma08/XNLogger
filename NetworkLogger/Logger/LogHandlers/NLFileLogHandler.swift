@@ -169,7 +169,7 @@ class NLFileLogHandler: NLBaseLogHandler, NLLogHandler {
     }
     
     //MARK: Logging delegates
-    public func logNetworkRequest(from logData: NLLogData) {
+    public func networkLogger(logRequest logData: NLLogData) {
         self.fileWriteQueue.async { [weak self] in
             guard let self = self else { return }
             
@@ -179,7 +179,7 @@ class NLFileLogHandler: NLBaseLogHandler, NLLogHandler {
         }
     }
     
-    public func logNetworkResponse(from logData: NLLogData) {
+    public func networkLogger(logResponse logData: NLLogData) {
         self.fileWriteQueue.async {[weak self] in
             guard let self = self else { return }
             
