@@ -22,14 +22,14 @@ public class NLConsoleLogHandler: NLBaseLogHandler, NLLogHandler {
         super.init()
     }
     
-    public func logNetworkRequest(from logData: NLLogData) {
+    public func networkLogger(logRequest logData: NLLogData) {
         
         if shouldLogRequest(logData: logData) {
             print(logComposer.getRequestLog(from: logData))
         }
     }
     
-    public func logNetworkResponse(from logData: NLLogData) {
+    public func networkLogger(logResponse logData: NLLogData) {
         
         if shouldLogResponse(logData: logData) {
             print(logComposer.getResponseLog(from: logData))

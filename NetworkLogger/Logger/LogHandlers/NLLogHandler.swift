@@ -8,10 +8,10 @@
 
 import Foundation
 
-public protocol NLLogHandler: class {
+@objc public protocol NLLogHandler: class {
     
-    func logNetworkRequest(from logData: NLLogData)
-    func logNetworkResponse(from logData: NLLogData)
+    @objc optional func networkLogger(logRequest logData: NLLogData)
+    @objc optional func networkLogger(logResponse logData: NLLogData)
 }
 
 public enum NLLogHandlerType {

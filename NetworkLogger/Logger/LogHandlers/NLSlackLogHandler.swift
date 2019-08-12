@@ -23,7 +23,7 @@ public class NLSlackLogHandler: NLBaseLogHandler, NLLogHandler, NLRemoteLogger {
         self.webhookUrl = webhookUrl
     }
     
-    public func logNetworkRequest(from logData: NLLogData) {
+    public func networkLogger(logRequest logData: NLLogData) {
         
         if shouldLogRequest(logData: logData) {
             let message = logComposer.getRequestLog(from: logData)
@@ -33,7 +33,7 @@ public class NLSlackLogHandler: NLBaseLogHandler, NLLogHandler, NLRemoteLogger {
         }
     }
     
-    public func logNetworkResponse(from logData: NLLogData) {
+    public func networkLogger(logResponse logData: NLLogData) {
         
         if shouldLogResponse(logData: logData) {
             let message = logComposer.getResponseLog(from: logData)

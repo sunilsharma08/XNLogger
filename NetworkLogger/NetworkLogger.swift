@@ -99,13 +99,13 @@ public class NetworkLogger: NSObject {
     
     func logResponse(from logData: NLLogData) {
         for handler in self.handlers {
-            handler.logNetworkResponse(from: logData)
+            handler.networkLogger?(logResponse: logData)
         }
     }
     
     func logRequest(from logData: NLLogData) {
         for handler in self.handlers {
-            handler.logNetworkRequest(from: logData)
+            handler.networkLogger?(logRequest: logData)
         }
     }
     
