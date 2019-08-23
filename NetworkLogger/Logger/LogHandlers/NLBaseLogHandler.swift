@@ -8,24 +8,32 @@
 
 import Foundation
 
-public class NLBaseLogHandler: NSObject {
+/**
+ Base class for log handler. Not necessary to subclasss if you create your own handler.
+ It just provide some convient methods to child class.
+ */
+@objc open class NLBaseLogHandler: NSObject {
     
     private var filterManager: NLFilterManager = NLFilterManager()
     public let logFormatter: NLLogFormatter = NLLogFormatter()
     
-    public func addFilters(_ filters: [NLFilter]) {
+    open func addFilters(_ filters: [NLFilter]) {
         self.filterManager.addFilters(filters)
     }
     
-    public func removeAllFilters() {
+    open func removeFilters(_ filters: [NLFilter]) {
+        self.filterManager.removeFilters(filters)
+    }
+    
+    open func removeAllFilters() {
         self.filterManager.removeAllFilters()
     }
     
-    public func shouldLogRequest(logData: NLLogData) -> Bool {
+    open func shouldLogRequest(logData: NLLogData) -> Bool {
         return logFormatter.showRequest && filterManager.isAllowed(urlRequest: logData.urlRequest)
     }
     
-    public func shouldLogResponse(logData: NLLogData) -> Bool {
+    open func shouldLogResponse(logData: NLLogData) -> Bool {
         return logFormatter.showResponse && filterManager.isAllowed(urlRequest: logData.urlRequest)
     }
 }

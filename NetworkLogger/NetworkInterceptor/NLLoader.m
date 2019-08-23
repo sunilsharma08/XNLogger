@@ -17,6 +17,7 @@
 
 + (void)load {
     [[NetworkLogger shared] startLogging];
+    (void)[NLUIManager shared];
 }
 
 

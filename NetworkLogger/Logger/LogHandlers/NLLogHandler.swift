@@ -8,6 +8,9 @@
 
 import Foundation
 
+/**
+ Log handler protocol. All log handler must adopt this protocol.
+ */
 @objc public protocol NLLogHandler: class {
     
     @objc optional func networkLogger(logRequest logData: NLLogData)

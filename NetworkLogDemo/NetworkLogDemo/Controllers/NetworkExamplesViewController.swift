@@ -46,24 +46,24 @@ public enum NLResponseMetaData: Int, CaseIterable {
     case redirectUrl
 }
 
-@objcMembers
-public class NLLogFormatter: NSObject {
-    
-    public var showRequest: Bool = true
-    public var showCurlCmd: Bool = true
-    public var showRequestProperties: [NLRequestProperty] = NLRequestProperty.allCases {
-        didSet {
-            print("hhggh")
-            showRequestProperties = Set(showRequestProperties).sorted(by: { (property1, property2) -> Bool in
-                return property1.rawValue < property2.rawValue
-            })
-        }
-    }
-    public var showResponse: Bool = true
-    public var showRequestInResponse: Bool = true
-    public var showResponseMetaData: [NLResponseMetaData] = NLResponseMetaData.allCases
-    public var logUnreadableResBody: Bool = false
-}
+//@objcMembers
+//public class NLLogFormatter: NSObject {
+//
+//    public var showRequest: Bool = true
+//    public var showCurlCmd: Bool = true
+//    public var showRequestProperties: [NLRequestProperty] = NLRequestProperty.allCases {
+//        didSet {
+//            print("hhggh")
+//            showRequestProperties = Set(showRequestProperties).sorted(by: { (property1, property2) -> Bool in
+//                return property1.rawValue < property2.rawValue
+//            })
+//        }
+//    }
+//    public var showResponse: Bool = true
+//    public var showRequestInResponse: Bool = true
+//    public var showResponseMetaData: [NLResponseMetaData] = NLResponseMetaData.allCases
+//    public var logUnreadableResBody: Bool = false
+//}
 
 class CustomLogger: NLLogHandler {
     func logNetworkRequest(from logData: NLLogData) {
@@ -105,7 +105,7 @@ class NetworkExamplesViewController: UIViewController,NLLogHandler {
     var resumeData: Data?
     
 //    var customLogger: CustomLogger? = CustomLogger()
-    var formatter = NLLogFormatter()
+//    var formatter = NLLogFormatter()
     var logger: CustomLogger? = nil
     
     var stored: String = "Hello" {
@@ -138,11 +138,11 @@ class NetworkExamplesViewController: UIViewController,NLLogHandler {
         }
         
         stored = "welcome"
-        formatter.showRequestProperties = [.method, .cellularAccess, .cachePolicy, .CookieStatus, .httpBody, .httpHeaders, .httpPipeliningStatus, .method, .networkType, .timeoutInterval]
+//        formatter.showRequestProperties = [.method, .cellularAccess, .cachePolicy, .CookieStatus, .httpBody, .httpHeaders, .httpPipeliningStatus, .method, .networkType, .timeoutInterval]
         
         printTimeElapsedWhenRunningCode(title: "sort") {
 //            for _ in 0...100 {
-            formatter.showRequestProperties = [.method, .cellularAccess, .cachePolicy, .CookieStatus, .httpBody, .httpHeaders, .httpPipeliningStatus, .method, .networkType, .timeoutInterval]
+//            formatter.showRequestProperties = [.method, .cellularAccess, .cachePolicy, .CookieStatus, .httpBody, .httpHeaders, .httpPipeliningStatus, .method, .networkType, .timeoutInterval]
             stored = "welcomuouuoiu"
 //            }
         }
@@ -151,14 +151,14 @@ class NetworkExamplesViewController: UIViewController,NLLogHandler {
         printTimeElapsedWhenRunningCode(title: "sorto") {
             //            for _ in 0...100 {
             //            formatter.showRequestProperties = [.method, .cellularAccess, .cachePolicy, .CookieStatus, .httpBody, .httpHeaders, .httpPipeliningStatus, .method, .networkType, .timeoutInterval]
-            formatter.showRequestProperties.append(contentsOf: NLRequestProperty.allCases)
+//            formatter.showRequestProperties.append(contentsOf: NLRequestProperty.allCases)
             //            }
         }
         
         
-        for value in formatter.showRequestProperties {
-            print(value.rawValue)
-        }
+//        for value in formatter.showRequestProperties {
+//            print(value.rawValue)
+//        }
         
         
         
