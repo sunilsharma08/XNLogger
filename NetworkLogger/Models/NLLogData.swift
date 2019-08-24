@@ -98,8 +98,12 @@ public class NLLogData: NSObject {
         
         guard let timeInterval: Double = duration else { return nil }
         
+        var readableStr = ""
         // Milliseconds
         let ms = Int((timeInterval.truncatingRemainder(dividingBy: 1)) * 1000)
+        
+        readableStr = "\(ms)ms"
+        /** Currently formatting in unnecessary
         // Seconds
         let s = Int(timeInterval) % 60
         // Minutes
@@ -107,7 +111,6 @@ public class NLLogData: NSObject {
         // Hours
         let hr = (Int(timeInterval) / 3600)
         
-        var readableStr = ""
         if hr != 0 {
             readableStr += String(format: "%0.2dhr ", hr)
         }
@@ -120,6 +123,7 @@ public class NLLogData: NSObject {
         if ms != 0 {
             readableStr += String(format: "%0.3dms ", ms)
         }
+        */
         
         return readableStr
     }

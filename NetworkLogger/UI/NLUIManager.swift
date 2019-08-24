@@ -43,9 +43,8 @@ public final class NLUIManager: NSObject {
     @objc public func presentNetworkLogUI() {
         
         if let presentingViewController = self.presentingViewController, !(presentingViewController is NLUIBaseTabBarController) {
-            let storyboard = UIStoryboard(name: "NLMainUI", bundle: Bundle.current())
             
-            if let tabbarVC = storyboard.instantiateViewController(withIdentifier: "nlMainTabBarController") as? UITabBarController {
+            if let tabbarVC = UIStoryboard.mainStoryboard().instantiateViewController(withIdentifier: "nlMainTabBarController") as? UITabBarController {
                 presentingViewController.present(tabbarVC, animated: true, completion: nil)
             }
         }

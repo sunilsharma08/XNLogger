@@ -67,13 +67,14 @@ open class NLURLProtocol: URLProtocol {
         self.logData = NLLogData(identifier: AppUtils.shared.nextLogIdentifier(), request: urlRequest)
         self.logData?.startTime = Date()
         
+        self.sessionTask = pSession.dataTask(with: urlRequest)
+        self.sessionTask?.resume()
+        self.logData?.setSessionState(self.sessionTask?.state)
+        
         if let logData = self.logData {
             NetworkLogger.shared.logRequest(from: logData)
             NetworkLogger.shared.delegate?.networkLogger?(didStartRequest: logData)
         }
-        
-        self.sessionTask = pSession.dataTask(with: urlRequest)
-        self.sessionTask?.resume()
     }
     
     open override func stopLoading() {

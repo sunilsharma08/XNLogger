@@ -28,3 +28,39 @@ extension Bundle {
     }
     
 }
+
+extension UIStoryboard {
+    
+    class func mainStoryboard() -> UIStoryboard {
+        return UIStoryboard(name: "NLMainUI", bundle: Bundle.current())
+    }
+    
+    func instantiateViewController<T: UIViewController>(ofType _: T.Type, withIdentifier identifier: String? = nil) -> T {
+        let identifier = identifier ?? String(describing: T.self)
+        if let viewController = instantiateViewController(withIdentifier: identifier) as? T {
+            return viewController
+        } else {
+            fatalError("Failed to load ViewController with identifier \(identifier) from storyboard")
+        }
+    }
+    
+}
+
+extension UITableViewCell: ReusableView, NibLoadableView {}
+
+extension UITableView {
+    
+    func register<T: UITableViewCell>(ofType _: T.Type) {
+        let bundle = Bundle(for: T.self)
+        let nib = UINib(nibName: T.nibName, bundle: bundle)
+        register(nib, forCellReuseIdentifier: T.defaultReuseIdentifier)
+    }
+    
+    func dequeueReusableCell<T: UITableViewCell>(for indexPath: IndexPath) -> T {
+        
+        guard let cell = dequeueReusableCell(withIdentifier: T.defaultReuseIdentifier, for: indexPath) as? T else {
+            fatalError("Could not dequeue cell with identifier: \(T.defaultReuseIdentifier)")
+        }
+        return cell
+    }
+}

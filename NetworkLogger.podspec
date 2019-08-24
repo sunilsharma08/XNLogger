@@ -106,7 +106,7 @@ Pod::Spec.new do |s|
   #
 
   # s.resource  = "icon.png"
-  s.resources = "NetworkLogger/UI/*.storyboard"
+  s.resources = "NetworkLogger/UI/**/*.{storyboard,xib}"
 
   # s.preserve_paths = "FilesToSave", "MoreFilesToSave"
 

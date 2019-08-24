@@ -31,6 +31,7 @@ class NLLogListViewController: NLUIBaseViewController {
         self.navigationItem.rightBarButtonItems = [doneButton]
         
         self.logListTableView.tableFooterView = UIView()
+        self.logListTableView.register(ofType: NLUILogListTableViewCell.self)
         self.logListTableView.dataSource = self
         
     }
@@ -48,7 +49,12 @@ extension NLLogListViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        return UITableViewCell()
+        let cell: NLUILogListTableViewCell = tableView.dequeueReusableCell(for: indexPath)
+        if let logData = self.logsDataDict[logsIdArray[indexPath.row]] {
+            cell.configureViews(withData: logData)
+        }
+        
+        return cell
     }
     
 }
