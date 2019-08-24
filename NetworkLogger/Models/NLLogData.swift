@@ -51,6 +51,8 @@ public class NLLogData: NSObject {
         }
     }
     internal(set) public var redirectRequest: URLRequest?
+    /** Store Request state like running or completed.
+        Not very reliable in some case it persist wrong value like in redirect case. */
     private(set) public var state: NLSessionState?
     internal(set) public var duration: Double?
     

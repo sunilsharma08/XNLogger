@@ -50,7 +50,7 @@ extension NLLogListViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell: NLUILogListTableViewCell = tableView.dequeueReusableCell(for: indexPath)
-        if let logData = self.logsDataDict[logsIdArray[indexPath.row]] {
+        if let logData = self.logsDataDict[logsIdArray[logsIdArray.count - 1 - indexPath.row]] {
             cell.configureViews(withData: logData)
         }
         

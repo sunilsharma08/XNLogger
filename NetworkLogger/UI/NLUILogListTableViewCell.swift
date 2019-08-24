@@ -55,6 +55,27 @@ class NLUILogListTableViewCell: UITableViewCell {
             self.httpStatusLbl.backgroundColor = color
             self.httpStatusLbl.text = message
         }
+        
+        func updateStatusFromResponse() {
+            if let httpResponse = response as? HTTPURLResponse {
+                let statusCode = httpResponse.statusCode
+                if 100...299 ~= statusCode {
+                    updateStatusLabel(color: NLUIHTTPStatusColor.status2xx, message: "\(statusCode)")
+                } else if 300...399 ~= httpResponse.statusCode {
+                    updateStatusLabel(color: NLUIHTTPStatusColor.status3xx, message: "\(statusCode)")
+                } else {
+                    updateStatusLabel(color: NLUIHTTPStatusColor.status4xx5xx, message: "\(statusCode)")
+                }
+            } else {
+                updateStatusLabel(color: NLUIHTTPStatusColor.cancelled, message: "?")
+            }
+        }
+        
+        if response != nil {
+            updateStatusFromResponse()
+            return
+        }
+        
         guard let reqtStatus = status
         else {
             updateStatusLabel(color: NLUIHTTPStatusColor.cancelled, message: "?")
@@ -71,16 +92,7 @@ class NLUILogListTableViewCell: UITableViewCell {
         case .unknown:
             updateStatusLabel(color: NLUIHTTPStatusColor.cancelled, message: "?")
         case .completed:
-            if let httpResponse = response as? HTTPURLResponse {
-                let statusCode = httpResponse.statusCode
-                if 100...299 ~= statusCode {
-                    updateStatusLabel(color: NLUIHTTPStatusColor.status2xx, message: "\(statusCode)")
-                } else if 300...399 ~= httpResponse.statusCode {
-                    updateStatusLabel(color: NLUIHTTPStatusColor.status3xx, message: "\(statusCode)")
-                } else {
-                    updateStatusLabel(color: NLUIHTTPStatusColor.status4xx5xx, message: "\(statusCode)")
-                }
-            }
+            updateStatusFromResponse()
         }
         
     }
