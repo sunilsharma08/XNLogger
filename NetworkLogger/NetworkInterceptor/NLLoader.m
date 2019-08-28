@@ -17,6 +17,8 @@
 
 + (void)load {
     [[NetworkLogger shared] startLogging];
+    NLConsoleLogHandler *consoleHandler = [NLConsoleLogHandler create];
+    [[NetworkLogger shared] addLogHandlers: @[consoleHandler]];
     (void)[NLUIManager shared];
 }
 

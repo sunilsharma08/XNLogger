@@ -1,5 +1,5 @@
 //
-//  NLSettingsViewController.swift
+//  NLFiltersViewController.swift
 //  NetworkLogger
 //
 //  Created by Sunil Sharma on 16/08/19.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class NLSettingsViewController: NLUIBaseViewController {
+class NLUIFiltersVC: NLUIBaseViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()

@@ -13,7 +13,7 @@
         <!--Network Logs-->
         <scene sceneID="hXp-Fz-Gco">
             <objects>
-                <viewController id="ALm-8y-hsn" customClass="NLLogListViewController" customModule="NetworkLogger" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="ALm-8y-hsn" customClass="NLUILogListVC" customModule="NetworkLogger" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="ehX-ww-Y4Q">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -32,7 +32,9 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="yfi-o1-kSR"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Network Logs" id="MVF-Wh-oJd"/>
+                    <navigationItem key="navigationItem" title="Network Logs" id="MVF-Wh-oJd">
+                        <barButtonItem key="backBarButtonItem" title=" " id="Txn-zx-KtC"/>
+                    </navigationItem>
                     <connections>
                         <outlet property="logListTableView" destination="qjk-kd-DrC" id="c1k-Rl-pCN"/>
                     </connections>
@@ -44,7 +46,7 @@
         <!--Filters-->
         <scene sceneID="q1D-Wa-t2I">
             <objects>
-                <viewController id="mGd-7n-ug5" customClass="NLFiltersViewController" customModule="NetworkLogger" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="mGd-7n-ug5" customClass="NLUIFiltersVC" customModule="NetworkLogger" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="iIM-kB-H7G">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -60,7 +62,7 @@
         <!--Settings-->
         <scene sceneID="hXm-ah-E87">
             <objects>
-                <viewController id="97Q-Dw-GpS" customClass="NLSettingsViewController" customModule="NetworkLogger" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="97Q-Dw-GpS" customClass="NLUISettingsVC" customModule="NetworkLogger" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="g01-Ol-hZM">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -71,7 +73,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="eHn-od-0Mn" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="506" y="764"/>
+            <point key="canvasLocation" x="49" y="908"/>
         </scene>
         <!--Base Tab Bar Controller-->
         <scene sceneID="22G-xP-7rc">

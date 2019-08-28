@@ -14,8 +14,4 @@ class  NLUIBaseTabBarController: UITabBarController {
 
 class NLUIBaseViewController: UIViewController {
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
-    }
-
 }

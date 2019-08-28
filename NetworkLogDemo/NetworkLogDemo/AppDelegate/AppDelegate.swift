@@ -9,7 +9,7 @@
 import UIKit
 #if DEBUG
 //import CocoaDebug
-//import netfox
+import netfox
 #endif
 
 
@@ -34,7 +34,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         #if DEBUG
 //        CocoaDebug.enable()
-//        NFX.sharedInstance().start()
+        NFX.sharedInstance().start()
         #endif
         
         

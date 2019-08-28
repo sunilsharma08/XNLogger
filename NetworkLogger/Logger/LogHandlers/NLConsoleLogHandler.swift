@@ -12,7 +12,7 @@ public class NLConsoleLogHandler: NLBaseLogHandler, NLLogHandler {
     
     private var logComposer: LogComposer!
     
-    public class func create() -> NLConsoleLogHandler {
+    @objc public class func create() -> NLConsoleLogHandler {
         let instance: NLConsoleLogHandler = NLConsoleLogHandler()
         instance.logComposer = LogComposer(logFormatter: instance.logFormatter)
         return instance

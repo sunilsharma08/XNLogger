@@ -27,6 +27,9 @@ https://marcosantadev.com/swift-arrays-holding-elements-weak-references/
 ## About HTTP status code
 https://www.w3.org/Protocols/HTTP/HTRESP.html
 
+## Try different color combinations
+http://colorsafe.co/
+
 
 Tools used
 Design - https://vectr.com/
