@@ -47,4 +47,13 @@ class AppUtils {
     func getMimeEnum(from mimeString: String?) -> NLContentType {
         return mimeChecker.getMimeType(from: mimeString)
     }
+    
+    func isContentTypeReadable(_ contentType: NLContentType) -> Bool {
+        switch contentType {
+        case .json, .text:
+            return true
+        default:
+            return false
+        }
+    }
 }

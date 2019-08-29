@@ -45,7 +45,7 @@ internal class LogComposer {
         
         if let httpBody = urlRequest.httpBodyString(prettyPrint: formatter.prettyPrintJSON), httpBody.isEmpty == false {
             // Log HTTP body either `logUnreadableReqstBody` is true or when content is readable.
-            if formatter.logUnreadableReqstBody || isContentTypeReadable(logData.reqstContentType) {
+            if formatter.logUnreadableReqstBody || AppUtils.shared.isContentTypeReadable(logData.reqstContentType) {
                 urlRequestStr.append("\n\(httpBody)\n")
             } else {
                 urlRequestStr.append("\n\(logData.reqstContentType.getName())\n")
@@ -159,7 +159,7 @@ internal class LogComposer {
         responseStr += "\n\nResponse Content: \n"
         if let data = logData.receivedData, data.isEmpty == false {
             
-            if formatter.logUnreadableRespBody || isContentTypeReadable(logData.respContentType) {
+            if formatter.logUnreadableRespBody || AppUtils.shared.isContentTypeReadable(logData.respContentType) {
                 if formatter.prettyPrintJSON, let str = JSONUtils.shared.getJSONPrettyPrintORStringFrom(jsonData: data) {
                     responseStr.append(str)
                 } else {
@@ -175,15 +175,6 @@ internal class LogComposer {
         
         responseStr += "\n\n\(getBoundry(for: "Response End"))"
         return responseStr
-    }
-    
-    func isContentTypeReadable(_ contentType: NLContentType) -> Bool {
-        switch contentType {
-        case .json, .text:
-            return true
-        default:
-            return false
-        }
     }
     
     private func getIdentifierString(_ identifier: String) -> String {

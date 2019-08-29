@@ -56,11 +56,26 @@ extension UITableView {
         register(nib, forCellReuseIdentifier: T.defaultReuseIdentifier)
     }
     
+    func registerForHeaderFooterView<T: UITableViewCell>(ofType _: T.Type) {
+        let bundle = Bundle(for: T.self)
+        let nib = UINib(nibName: T.nibName, bundle: bundle)
+        register(nib, forHeaderFooterViewReuseIdentifier: T.defaultReuseIdentifier)
+    }
+    
     func dequeueReusableCell<T: UITableViewCell>(for indexPath: IndexPath) -> T {
         
         guard let cell = dequeueReusableCell(withIdentifier: T.defaultReuseIdentifier, for: indexPath) as? T else {
             fatalError("Could not dequeue cell with identifier: \(T.defaultReuseIdentifier)")
         }
         return cell
+    }
+}
+
+extension UIView {
+    
+    class func loadNib() -> UIView? {
+        let nibName: String = String(describing: self)
+        let nib = UINib(nibName: nibName, bundle: Bundle.current())
+        return nib.instantiate(withOwner: self, options: nil).first as? UIView
     }
 }

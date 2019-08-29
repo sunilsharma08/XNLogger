@@ -18,7 +18,6 @@ class NLUILogListVC: NLUIBaseViewController {
     private var logsDataDict: [String: NLLogData] = [:]
     private var logsIdArray: [String] = []
     
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         configureViews()
