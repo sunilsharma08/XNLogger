@@ -8,10 +8,6 @@
 
 import UIKit
 
-protocol NLUILogListDelegate: class {
-    func receivedLogData(_ logData: NLLogData, isResponse: Bool)
-}
-
 class NLUILogListVC: NLUIBaseViewController {
 
     @IBOutlet weak var logListTableView: UITableView!
@@ -21,13 +17,19 @@ class NLUILogListVC: NLUIBaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         configureViews()
-        logsDataDict = NLUIManager.shared.logsDataDict
-        logsIdArray = NLUIManager.shared.logsIdArray
+        self.tabBarController?.tabBar.isHidden = true
+        self.hidesBottomBarWhenPushed = true
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(reloadLogData), name: NLUIConstants.logDataUpdtNotificationName, object: nil)
+        reloadLogData()
     }
     
     func configureViews() {
         let doneButton = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(dismissNetworkUI))
         self.navigationItem.rightBarButtonItems = [doneButton]
+        navigationController?.navigationBar.barTintColor = .white
+        tabBarController?.tabBar.barTintColor = .white
+        self.navigationController?.view.backgroundColor = .white
         
         self.logListTableView.tableFooterView = UIView()
         self.logListTableView.register(ofType: NLUILogListTableViewCell.self)
@@ -43,7 +45,18 @@ class NLUILogListVC: NLUIBaseViewController {
     func getLogData(indexPath: IndexPath) -> NLLogData? {
         return self.logsDataDict[logsIdArray[logsIdArray.count - 1 - indexPath.row]]
     }
+    
+    @objc func reloadLogData() {
+        DispatchQueue.main.async {
+            self.logsDataDict = NLUIManager.shared.logsDataDict
+            self.logsIdArray = NLUIManager.shared.logsIdArray
+            self.logListTableView.reloadData()
+        }
+    }
 
+    deinit {
+        NotificationCenter.default.removeObserver(self, name: NLUIConstants.logDataUpdtNotificationName, object: nil)
+    }
 }
 
 extension NLUILogListVC: UITableViewDataSource {

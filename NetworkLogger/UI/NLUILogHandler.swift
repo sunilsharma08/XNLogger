@@ -11,7 +11,7 @@ import Foundation
 @objc public class NLUILogHandler: NLBaseLogHandler, NLLogHandler {
     
     private var logComposer: LogComposer!
-    weak var delegate: NLUILogListDelegate?
+    weak var delegate: NLUILogDataDelegate?
     
     public class func create() -> NLUILogHandler {
         let instance: NLUILogHandler = NLUILogHandler()
@@ -20,11 +20,15 @@ import Foundation
     }
     
     public func networkLogger(logRequest logData: NLLogData) {
-        delegate?.receivedLogData(logData, isResponse: false)
+        if shouldLogRequest(logData: logData) || logFormatter.showReqstWithResp {
+            delegate?.receivedLogData(logData, isResponse: false)
+        }
     }
     
     public func networkLogger(logResponse logData: NLLogData) {
-        delegate?.receivedLogData(logData, isResponse: true)
+        if shouldLogResponse(logData: logData) {
+            delegate?.receivedLogData(logData, isResponse: true)
+        }
     }
     
 }

@@ -39,13 +39,18 @@ class NLUILogDetailView: UIView, NibLoadableView {
             fatalError("Failed to load xib file \(NLUILogDetailView.nibName)")
         }
         contentView = xibView
-        addSubview(contentView)
+        self.contentView.frame = self.bounds
         contentView.autoresizingMask = [.flexibleHeight, .flexibleWidth]
         contentView.translatesAutoresizingMaskIntoConstraints = true
+        addSubview(contentView)
     }
     
     func configureViews() {
         self.logDetailsTableView.tableFooterView = UIView()
+        self.logDetailsTableView.sectionHeaderHeight = UITableView.automaticDimension
+        self.logDetailsTableView.estimatedSectionHeaderHeight = 45;
+        self.logDetailsTableView.rowHeight = UITableView.automaticDimension
+        
         self.logDetailsTableView.registerForHeaderFooterView(ofType: NLUILogDetailHeaderCell.self)
         self.logDetailsTableView.register(ofType: NLUILogDetailCell.self)
         self.logDetailsTableView.dataSource = self

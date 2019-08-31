@@ -24,13 +24,14 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kdo-az-mVv">
-                    <rect key="frame" x="0.0" y="20" width="375" height="50"/>
+                    <rect key="frame" x="0.0" y="20" width="375" height="42"/>
                     <subviews>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FsR-Tn-Z5Q">
-                            <rect key="frame" x="0.0" y="0.0" width="187.5" height="50"/>
+                            <rect key="frame" x="0.0" y="0.0" width="187.5" height="42"/>
                             <subviews>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="m9H-kb-koW">
-                                    <rect key="frame" x="0.0" y="0.0" width="187.5" height="50"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="187.5" height="42"/>
+                                    <fontDescription key="fontDescription" type="system" weight="medium" pointSize="18"/>
                                     <state key="normal" title="Request">
                                         <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </state>
@@ -39,7 +40,6 @@
                                     </connections>
                                 </button>
                             </subviews>
-                            <color key="backgroundColor" red="1" green="0.61960784310000006" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                             <constraints>
                                 <constraint firstAttribute="bottom" secondItem="m9H-kb-koW" secondAttribute="bottom" id="9xo-7r-cTI"/>
                                 <constraint firstAttribute="trailing" secondItem="m9H-kb-koW" secondAttribute="trailing" id="KmO-LY-Gvn"/>
@@ -48,10 +48,11 @@
                             </constraints>
                         </view>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="IMV-EC-CWv">
-                            <rect key="frame" x="187.5" y="0.0" width="187.5" height="50"/>
+                            <rect key="frame" x="187.5" y="0.0" width="187.5" height="42"/>
                             <subviews>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Usb-Nd-Roa">
-                                    <rect key="frame" x="0.0" y="0.0" width="187.5" height="50"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="187.5" height="42"/>
+                                    <fontDescription key="fontDescription" type="system" weight="medium" pointSize="18"/>
                                     <state key="normal" title="Reponse">
                                         <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </state>
@@ -60,7 +61,6 @@
                                     </connections>
                                 </button>
                             </subviews>
-                            <color key="backgroundColor" red="1" green="0.0" blue="0.093431760880000006" alpha="1" colorSpace="calibratedRGB"/>
                             <constraints>
                                 <constraint firstItem="Usb-Nd-Roa" firstAttribute="leading" secondItem="IMV-EC-CWv" secondAttribute="leading" id="Uhu-FT-rGk"/>
                                 <constraint firstItem="Usb-Nd-Roa" firstAttribute="top" secondItem="IMV-EC-CWv" secondAttribute="top" id="rnZ-q4-X3l"/>
@@ -74,7 +74,7 @@
                         <constraint firstAttribute="bottom" secondItem="IMV-EC-CWv" secondAttribute="bottom" id="24z-Rj-P6T"/>
                         <constraint firstItem="IMV-EC-CWv" firstAttribute="top" secondItem="kdo-az-mVv" secondAttribute="top" id="CqH-Dq-IDv"/>
                         <constraint firstItem="IMV-EC-CWv" firstAttribute="width" secondItem="FsR-Tn-Z5Q" secondAttribute="width" id="DrN-Gn-d8L"/>
-                        <constraint firstAttribute="height" constant="50" id="EEg-lP-Og2"/>
+                        <constraint firstAttribute="height" constant="42" id="EEg-lP-Og2"/>
                         <constraint firstAttribute="trailing" secondItem="IMV-EC-CWv" secondAttribute="trailing" id="EFU-P7-ja0"/>
                         <constraint firstItem="IMV-EC-CWv" firstAttribute="leading" secondItem="FsR-Tn-Z5Q" secondAttribute="trailing" id="bOg-dy-G2e"/>
                         <constraint firstItem="FsR-Tn-Z5Q" firstAttribute="top" secondItem="kdo-az-mVv" secondAttribute="top" id="ic9-EA-ek7"/>
@@ -83,7 +83,7 @@
                     </constraints>
                 </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ir6-Ni-XN5">
-                    <rect key="frame" x="0.0" y="70" width="375" height="597"/>
+                    <rect key="frame" x="0.0" y="62" width="375" height="605"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                 </view>
             </subviews>

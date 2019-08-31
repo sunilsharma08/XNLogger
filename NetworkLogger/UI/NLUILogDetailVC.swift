@@ -29,6 +29,8 @@ class NLUILogDetailVC: NLUIBaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         edgesForExtendedLayout = []
+        self.automaticallyAdjustsScrollViewInsets = false
+        self.tabBarController?.tabBar.isHidden = true
         
         configureViews()
         if let logData = self.logData {
@@ -63,6 +65,8 @@ class NLUILogDetailVC: NLUIBaseViewController {
         self.responseView?.isHidden = true
         self.requestView?.isHidden = false
         self.requestView?.upadteView(with: logDataConverter?.getRequestLogDetails() ?? [])
+        self.responseView?.upadteView(with: logDataConverter?.getResponseLogDetails() ?? [])
+        clickedOnRequest(UIButton(type: .custom))
     }
     
     @IBAction func clickedOnRequest(_ sender: Any) {
@@ -71,6 +75,11 @@ class NLUILogDetailVC: NLUIBaseViewController {
         }
         self.requestView?.isHidden = false
         self.isResponseSelected = false
+        
+        self.requestBtn.backgroundColor = NLUIHTTPStatusColor.running
+        self.requestBtn.setTitleColor(.white, for: .normal)
+        self.responseBtn.backgroundColor = .white
+        self.responseBtn.setTitleColor(.black, for: .normal)
     }
     
     @IBAction func clickedOnResponse(_ sender: Any) {
@@ -79,6 +88,11 @@ class NLUILogDetailVC: NLUIBaseViewController {
         }
         self.responseView?.isHidden = false
         self.isResponseSelected = true
+        
+        self.responseBtn.backgroundColor = NLUIHTTPStatusColor.running
+        self.responseBtn.setTitleColor(.white, for: .normal)
+        self.requestBtn.backgroundColor = .white
+        self.requestBtn.setTitleColor(.black, for: .normal)
     }
 
 }
@@ -87,15 +101,17 @@ class NLUILogDataConverter {
     
     private var logData: NLLogData!
     private var formatter: NLLogFormatter!
+    let dateFormatter = DateFormatter()
     
     init(logData: NLLogData, formatter: NLLogFormatter) {
         self.logData = logData
         self.formatter = formatter
+        self.dateFormatter.dateFormat = "yyyy-MM-dd H:m:ss.SSSS"
     }
     
     func getRequestLogDetails() -> [NLUILogDetail] {
         var requestLogs: [NLUILogDetail] = []
-        if formatter.showRequest {
+        if formatter.showRequest || formatter.showReqstWithResp {
             let urlInfo: NLUILogDetail = NLUILogDetail(title: "URL")
             urlInfo.messages.append(logData.urlRequest.url?.absoluteString ?? "-")
             requestLogs.append(urlInfo)
@@ -103,7 +119,7 @@ class NLUILogDataConverter {
                 requestLogs.append(NLUILogDetail(title: "Port", message: "\(port)"))
             }
             requestLogs.append(NLUILogDetail(title: "Method", message: logData.urlRequest.httpMethod ?? "-"))
-            let headerInfo: NLUILogDetail = NLUILogDetail(title: "Headers field")
+            let headerInfo: NLUILogDetail = NLUILogDetail(title: "Header fields")
             if let headerFields = logData.urlRequest.allHTTPHeaderFields, headerFields.isEmpty == false {
                 for (key, value) in headerFields {
                     headerInfo.messages.append("\(key) = \(value)")
@@ -111,6 +127,7 @@ class NLUILogDataConverter {
             } else {
                 headerInfo.messages.append("Header field is empty")
             }
+            requestLogs.append(headerInfo)
             
             let httpBodyInfo: NLUILogDetail = NLUILogDetail(title: "Http body")
             
@@ -151,7 +168,6 @@ class NLUILogDataConverter {
                     requestLogs.append(NLUILogDetail(title: "Cookies will be handled", message: "\(logData.urlRequest.httpShouldHandleCookies)"))
                 case .requestStartTime:
                     if let startDate: Date = logData.startTime {
-                        let dateFormatter = DateFormatter()
                         requestLogs.append(NLUILogDetail(title: "Start time", message: "\(dateFormatter.string(from: startDate))"))
                     }
                 }
@@ -159,5 +175,89 @@ class NLUILogDataConverter {
         }
         
         return requestLogs
+    }
+    
+    func getResponseLogDetails() -> [NLUILogDetail] {
+        var responseLogs: [NLUILogDetail] = []
+        if formatter.showResponse {
+            let respMetaInfo: NLUILogDetail = NLUILogDetail(title: "Response Meta Info")
+            if formatter.showRespMetaInfo.isEmpty == false {
+                let respHeaderInfo: NLUILogDetail = NLUILogDetail(title: "Response headers fields:")
+                let response = logData.response
+                for property in formatter.showRespMetaInfo {
+                    
+                    switch property {
+                    case .statusCode:
+                        if let httpResponse = response as? HTTPURLResponse {
+                            respMetaInfo.messages.append("Status Code: \(httpResponse.statusCode)")
+                        }
+                    case .statusDescription:
+                        if let httpResponse = response as? HTTPURLResponse {
+                            respMetaInfo.messages.append("Status Code description: \(HTTPURLResponse.localizedString(forStatusCode: httpResponse.statusCode))")
+                        }
+                    case .mimeType:
+                        respMetaInfo.messages.append("Mime type: \(response?.mimeType ?? "-")")
+                    case .textEncoding:
+                        respMetaInfo.messages.append("Text encoding name: \(response?.textEncodingName ?? "-")")
+                    case .contentLength:
+                        if let expectedContentLength = response?.expectedContentLength {
+                            respMetaInfo.messages.append("Expected content length: \(expectedContentLength)")
+                        } else {
+                            respMetaInfo.messages.append("Expected content length: -")
+                        }
+                    case .suggestedFileName:
+                        respMetaInfo.messages.append("Suggested file name: \(response?.suggestedFilename ?? "-")")
+                    case .headers:
+                        if let httpResponse = response as? HTTPURLResponse,
+                            httpResponse.allHeaderFields.isEmpty == false {
+                            
+                            for (key, value) in httpResponse.allHeaderFields {
+                                respHeaderInfo.messages.append("\(key) = \(value)")
+                            }
+                        }
+                    case .requestStartTime:
+                        if let startDate: Date = logData.startTime {
+                            respMetaInfo.messages.append("Start time: \(dateFormatter.string(from: startDate))")
+                        }
+                    case .duration:
+                        if let durationStr: String = logData.getDurationString() {
+                            respMetaInfo.messages.append("Duration: " + durationStr)
+                        } else {
+                            respMetaInfo.messages.append("Duration: -")
+                        }
+                    }
+                }
+                responseLogs.append(respMetaInfo)
+                if respHeaderInfo.messages.isEmpty == false {
+                    responseLogs.append(respHeaderInfo)
+                }
+            }
+            else {
+                respMetaInfo.messages.append("Response meta info is empty")
+            }
+            
+            if let error = logData.error {
+                responseLogs.append(NLUILogDetail(title: "Response Error", message: error.localizedDescription))
+            }
+            
+            let responseInfo: NLUILogDetail = NLUILogDetail(title: "Response Content")
+            if let data = logData.receivedData, data.isEmpty == false {
+                
+                if formatter.logUnreadableRespBody || AppUtils.shared.isContentTypeReadable(logData.respContentType) {
+                    if formatter.prettyPrintJSON, let str = JSONUtils.shared.getJSONPrettyPrintORStringFrom(jsonData: data) {
+                        responseInfo.messages.append(str)
+                    } else {
+                        responseInfo.messages.append(JSONUtils.shared.getStringFrom(data: data))
+                    }
+                } else {
+                    responseInfo.messages.append(logData.respContentType.getName())
+                }
+            }
+            else {
+                responseInfo.messages.append("Respose data is empty")
+            }
+            responseLogs.append(responseInfo)
+        }
+        return responseLogs
     }
 }

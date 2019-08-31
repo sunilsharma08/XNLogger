@@ -15,6 +15,10 @@ public enum NLGestureType: Int {
     case custom
 }
 
+protocol NLUILogDataDelegate: class {
+    func receivedLogData(_ logData: NLLogData, isResponse: Bool)
+}
+
 @objc
 public final class NLUIManager: NSObject {
     
@@ -59,13 +63,14 @@ public final class NLUIManager: NSObject {
     }
 }
 
-extension NLUIManager: NLUILogListDelegate {
+extension NLUIManager: NLUILogDataDelegate {
     
     func receivedLogData(_ logData: NLLogData, isResponse: Bool) {
         if isResponse == false {
             self.logsIdArray.append(logData.identifier)
         }
         self.logsDataDict[logData.identifier] = logData
+        NotificationCenter.default.post(name: NLUIConstants.logDataUpdtNotificationName, object: nil, userInfo: nil)
     }
     
 }

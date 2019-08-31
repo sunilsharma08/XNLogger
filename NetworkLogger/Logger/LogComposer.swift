@@ -32,7 +32,7 @@ internal class LogComposer {
             urlRequestStr += "\nPort: \(port)"
         }
         urlRequestStr += "\nMethod: \(urlRequest.httpMethod ?? "-")"
-        urlRequestStr += "\n\nHeaders field:"
+        urlRequestStr += "\n\nHeader fields:"
         if let headerFields = urlRequest.allHTTPHeaderFields, headerFields.isEmpty == false {
             for (key, value) in headerFields {
                 urlRequestStr.append("\n\(key) = \(value)")

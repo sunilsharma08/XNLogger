@@ -47,6 +47,10 @@ struct NLUIAppColor {
     static let subtitleColor: UIColor = UIColor(red: 52/255.0, green: 73/255.0, blue: 94/255.0, alpha: 1)
 }
 
+final class NLUIConstants {
+    static let logDataUpdtNotificationName = NSNotification.Name(rawValue: "com.networkLogger.logDataUpdateNotification")
+}
+
 class NLUIHelper {
     
 }
