@@ -8,17 +8,17 @@
 
 import UIKit
 
-class NLUILogDetailHeaderCell: UITableViewCell {
+class NLUILogDetailHeaderCell: UITableViewHeaderFooterView {
 
+    @IBOutlet weak var titleLbl: UILabel!
+    @IBOutlet weak var showHideLbl: UILabel!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
     }
 
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
+    func updateViews(with mesaage: String) {
+        self.titleLbl.text = mesaage
     }
     
 }

@@ -12,10 +12,36 @@ class NLUILogDetailView: UIView, NibLoadableView {
 
     @IBOutlet weak var logDetailsTableView: UITableView!
     var detailsArray: [NLUILogDetail] = []
+    @IBOutlet weak var contentView: UIView!
     
     override func awakeFromNib() {
         super.awakeFromNib()
+        setupView()
         configureViews()
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        setupView()
+        configureViews()
+    }
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        setupView()
+        configureViews()
+    }
+    
+    func setupView() {
+        let nib = UINib(nibName: NLUILogDetailView.className, bundle: Bundle.current())
+        guard let xibView = nib.instantiate(withOwner: self, options: nil).first as? UIView
+        else {
+            fatalError("Failed to load xib file \(NLUILogDetailView.nibName)")
+        }
+        contentView = xibView
+        addSubview(contentView)
+        contentView.autoresizingMask = [.flexibleHeight, .flexibleWidth]
+        contentView.translatesAutoresizingMaskIntoConstraints = true
     }
     
     func configureViews() {
@@ -45,7 +71,16 @@ extension NLUILogDetailView: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell: NLUILogDetailCell = tableView.dequeueReusableCell(for: indexPath)
+        cell.logDetailMsg.text = self.detailsArray[indexPath.section].messages[indexPath.row]
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        guard let headerView: NLUILogDetailHeaderCell = tableView.dequeueReusableHeaderFooterView(withIdentifier: NLUILogDetailHeaderCell.defaultReuseIdentifier) as? NLUILogDetailHeaderCell
+        else { return UIView() }
+        let logData: NLUILogDetail = self.detailsArray[section]
+        headerView.titleLbl.text = logData.title
+        return headerView
     }
     
 }

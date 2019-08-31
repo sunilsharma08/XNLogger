@@ -28,6 +28,8 @@ class NLUILogDetailVC: NLUIBaseViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        edgesForExtendedLayout = []
+        
         configureViews()
         if let logData = self.logData {
             self.logDataConverter = NLUILogDataConverter(logData: logData, formatter: NLUIManager.shared.uiLogHandler.logFormatter)
@@ -39,16 +41,18 @@ class NLUILogDetailVC: NLUIBaseViewController {
         self.navigationItem.title = "Log details"
         self.view.layoutIfNeeded()
         if (requestView == nil) {
-            requestView = NLUILogDetailView.loadNib() as? NLUILogDetailView
-            requestView?.frame = contentView.bounds
+            requestView = NLUILogDetailView(frame: contentView.bounds)
+            requestView?.autoresizingMask = [.flexibleHeight, .flexibleWidth]
+            requestView?.translatesAutoresizingMaskIntoConstraints = true
             if let subView = requestView {
                 self.contentView.addSubview(subView)
             }
         }
         
         if (responseView == nil) {
-            responseView = NLUILogDetailView.loadNib() as? NLUILogDetailView
-            responseView?.frame = contentView.bounds
+            responseView = NLUILogDetailView(frame: contentView.bounds)
+            responseView?.autoresizingMask = [.flexibleHeight, .flexibleWidth]
+            responseView?.translatesAutoresizingMaskIntoConstraints = true
             if let subView = responseView {
                 self.contentView.addSubview(subView)
             }

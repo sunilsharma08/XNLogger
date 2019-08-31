@@ -28,6 +28,12 @@ extension ReusableView where Self: UITableViewCell {
     }
 }
 
+extension ReusableView where Self: UITableViewHeaderFooterView {
+    static var defaultReuseIdentifier: String {
+        return String(describing: self)
+    }
+}
+
 struct NLUIHTTPStatusColor {
     static let status2xx: UIColor = UIColor(red: 0.156, green: 0.854, blue: 0.066, alpha: 1)
     static let status4xx5xx: UIColor = UIColor(red: 1, green: 0.372, blue: 0.168, alpha: 1)

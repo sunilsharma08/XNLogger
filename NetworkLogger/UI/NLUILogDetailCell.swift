@@ -10,6 +10,10 @@ import UIKit
 
 class NLUILogDetailCell: UITableViewCell {
 
+    
+    @IBOutlet weak var logDetailMsg: UILabel!
+    
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
