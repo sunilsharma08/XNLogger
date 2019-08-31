@@ -19,23 +19,24 @@
                 <rect key="frame" x="0.0" y="0.0" width="320" height="54.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aYT-rx-cjU">
-                        <rect key="frame" x="7" y="10" width="306" height="34.5"/>
+                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" bounces="NO" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" bouncesZoom="NO" editable="NO" text="Lorem ipsum dolor sit er" translatesAutoresizingMaskIntoConstraints="NO" id="n3y-Oh-acb">
+                        <rect key="frame" x="10" y="10" width="300" height="34.5"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                        <nil key="textColor"/>
-                        <nil key="highlightedColor"/>
-                    </label>
+                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                    </textView>
                 </subviews>
                 <constraints>
-                    <constraint firstAttribute="trailing" secondItem="aYT-rx-cjU" secondAttribute="trailing" constant="7" id="3ez-eQ-W8i"/>
-                    <constraint firstItem="aYT-rx-cjU" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="7" id="Hij-hI-W5x"/>
-                    <constraint firstItem="aYT-rx-cjU" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="10" id="QLq-r7-Ntx"/>
-                    <constraint firstAttribute="bottom" secondItem="aYT-rx-cjU" secondAttribute="bottom" constant="10" id="hLr-wB-uwa"/>
+                    <constraint firstItem="n3y-Oh-acb" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="10" id="Xs7-Ja-b7p"/>
+                    <constraint firstItem="n3y-Oh-acb" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="10" id="YfD-Kg-p5D"/>
+                    <constraint firstAttribute="trailing" secondItem="n3y-Oh-acb" secondAttribute="trailing" constant="10" id="irs-Pd-Uqc"/>
+                    <constraint firstAttribute="bottom" secondItem="n3y-Oh-acb" secondAttribute="bottom" constant="10" id="voe-Kg-AMg"/>
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
-                <outlet property="logDetailMsg" destination="aYT-rx-cjU" id="O5h-qY-DKr"/>
+                <outlet property="logDetailMsg" destination="n3y-Oh-acb" id="CHt-4t-7PS"/>
             </connections>
         </tableViewCell>
     </objects>

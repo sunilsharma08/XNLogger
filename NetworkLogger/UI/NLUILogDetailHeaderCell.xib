@@ -20,13 +20,13 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ayn-Im-gTm">
-                        <rect key="frame" x="8" y="6" width="260" height="31.5"/>
+                        <rect key="frame" x="10" y="6" width="253" height="31.5"/>
                         <fontDescription key="fontDescription" type="system" weight="medium" pointSize="15"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nI0-eI-lSI">
-                        <rect key="frame" x="273" y="5" width="42" height="33.5"/>
+                        <rect key="frame" x="268" y="5" width="42" height="33.5"/>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
@@ -37,9 +37,9 @@
                     <constraint firstItem="nI0-eI-lSI" firstAttribute="leading" secondItem="Ayn-Im-gTm" secondAttribute="trailing" constant="5" id="3Rh-nx-lw1"/>
                     <constraint firstItem="nI0-eI-lSI" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="5" id="61C-kQ-H5y"/>
                     <constraint firstItem="Ayn-Im-gTm" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="6" id="6Jn-gE-gYh"/>
-                    <constraint firstItem="Ayn-Im-gTm" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="8" id="V8K-rT-XX9"/>
+                    <constraint firstItem="Ayn-Im-gTm" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="10" id="V8K-rT-XX9"/>
                     <constraint firstAttribute="bottom" secondItem="nI0-eI-lSI" secondAttribute="bottom" constant="5" id="Vdv-f8-ywk"/>
-                    <constraint firstAttribute="trailing" secondItem="nI0-eI-lSI" secondAttribute="trailing" constant="5" id="epe-6O-CZZ"/>
+                    <constraint firstAttribute="trailing" secondItem="nI0-eI-lSI" secondAttribute="trailing" constant="10" id="epe-6O-CZZ"/>
                     <constraint firstAttribute="bottom" secondItem="Ayn-Im-gTm" secondAttribute="bottom" constant="6" id="zlM-36-h8x"/>
                 </constraints>
             </tableViewCellContentView>
