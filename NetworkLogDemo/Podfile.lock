@@ -1,17 +1,14 @@
 PODS:
   - GzipSwift (4.1.0)
-  - netfox (1.16.0)
   - NetworkLogger (0.0.1):
     - GzipSwift (~> 4.1.0)
 
 DEPENDENCIES:
-  - netfox
   - NetworkLogger (from `../`)
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
     - GzipSwift
-    - netfox
 
 EXTERNAL SOURCES:
   NetworkLogger:
@@ -19,9 +16,8 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   GzipSwift: df1636fa095bd8f21d98db14e7393ecc9e230fed
-  netfox: 4590811e5b02e392c72a924c73e000a60ee1f0c7
   NetworkLogger: 067538706938e7a2011630df3553e67601ea0af6
 
-PODFILE CHECKSUM: a4c8f6f816b6133b57931c67f3177bf3946471e5
+PODFILE CHECKSUM: ead3621823e7aec1ebb80717852bd70fda0a58f2
 
 COCOAPODS: 1.7.0

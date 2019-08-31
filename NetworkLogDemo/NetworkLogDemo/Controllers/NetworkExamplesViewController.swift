@@ -608,8 +608,8 @@ extension NetworkExamplesViewController {
             print("Unable to create upload data")
             return
         }
-        
-        let uploadTask = session.uploadTask(with: uploadURLRequest, from: data) { (receivedData, response, error) in
+        let jsonData = try? JSONSerialization.data(withJSONObject: uploadDict)
+        let uploadTask = session.uploadTask(with: uploadURLRequest, from: jsonData) { (receivedData, response, error) in
             print(self.getJSONFrom(data: data) ?? "")
         }
         uploadTask.resume()
@@ -630,7 +630,8 @@ extension NetworkExamplesViewController {
             "RedBull": "Daniel Ricciardo"
         ]
         
-        
+        let jsonData = try? JSONSerialization.data(withJSONObject: uploadDict)
+        uploadURLRequest.httpBody = jsonData
         let uploadData = try? JSONEncoder().encode(uploadDict)
         
         guard let data = uploadData
@@ -638,8 +639,10 @@ extension NetworkExamplesViewController {
                 print("Unable to create upload data")
                 return
         }
+        let task = session.dataTask(with: uploadURLRequest)
+        task.resume()
         
-        let uploadTask = session.uploadTask(with: uploadURLRequest, from: data)
-        uploadTask.resume()
+//        let uploadTask = session.uploadTask(with: uploadURLRequest, from: data)
+//        uploadTask.resume()
     }
 }

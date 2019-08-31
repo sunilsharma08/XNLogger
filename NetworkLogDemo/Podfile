@@ -10,7 +10,7 @@ target 'NetworkLogDemo' do
 #  pod 'Wormholy', :configurations => ['Debug']
 #  pod 'CocoaDebug', '~>0.5.9', :configurations => ['Debug']
 #  pod 'FLEX', '~> 2.0', :configurations => ['Debug']
-  pod 'netfox', :configurations => ['Debug']
+#  pod 'netfox', :configurations => ['Debug']
 
   target 'NetworkLogDemoTests' do
     inherit! :search_paths
