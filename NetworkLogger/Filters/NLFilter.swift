@@ -31,16 +31,16 @@ public enum NLFilterType {
     }
 }
 
-public protocol NLFilter: class {
+@objc public protocol NLFilter: class {
     
     func isAllowed(urlRequest: URLRequest) -> Bool
 }
 
-class NLSchemeFilter: NLFilter {
+@objc public class NLSchemeFilter: NSObject, NLFilter {
     
     private let scheme: String
     
-    init(scheme: String) {
+    @objc public init(scheme: String) {
         self.scheme = scheme.lowercased()
     }
     
@@ -57,11 +57,11 @@ class NLSchemeFilter: NLFilter {
     }
 }
 
-class NLHostFilter: NLFilter {
+@objc public class NLHostFilter: NSObject, NLFilter {
     
     private let host: String
     
-    init(host: String) {
+    @objc public init(host: String) {
         self.host = host.lowercased()
     }
     
@@ -78,15 +78,15 @@ class NLHostFilter: NLFilter {
     }
 }
 
-class NLContainsFilter: NLFilter {
+@objc public class NLContainsFilter: NSObject, NLFilter {
     
     private let filterString: String
     
-    init(filterString: String) {
+    @objc public init(filterString: String) {
         self.filterString = filterString.lowercased()
     }
     
-    func isAllowed(urlRequest: URLRequest) -> Bool {
+    public func isAllowed(urlRequest: URLRequest) -> Bool {
         
         var status: Bool = false
         

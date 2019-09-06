@@ -79,7 +79,7 @@ internal extension URLRequest {
             return "Voice data traffic"
         case .responsiveData:
             return "Responsive data traffic"
-        case .callSignaling:
+        case .networkServiceTypeCallSignaling:
             return "Call Signaling traffic"
         default:
             return "Unknown"

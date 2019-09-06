@@ -44,8 +44,9 @@ public class NLRemoteLogHandler: NLBaseLogHandler, NLLogHandler, NLRemoteLogger 
     private func appendLogInHttpBody(_ request: URLRequest, message: String) -> URLRequest {
         var urlRequest = request
         var bodyJson: [String: Any] = [:]
+        // TODO: Handle different conditions like if httpStream and is exsiting is not dictionary
         if let httpData = urlRequest.httpBody,
-            let json = JSONUtils.shared.getDictionaryFrom(jsonData: httpData) {
+            let json = JSONUtils().getDictionaryFrom(jsonData: httpData) {
             bodyJson = json
         }
         

@@ -43,6 +43,13 @@ internal extension URLRequest {
             }
         }
         httpBodyStream.close()
+        if data.isGzipped {
+            do {
+                return try data.gunzipped()
+            } catch let error as NSError {
+                print(error.localizedDescription)
+            }
+        }
         return data
     }
     
@@ -50,7 +57,7 @@ internal extension URLRequest {
         guard let httpBodyData = getHttpBodyStreamData() else {
             return nil
         }
-        return getJSONPrettyPrintORString(data: httpBodyData, prettyPrint: prettyPrint)
+        return getJSONStringORString(data: httpBodyData, prettyPrint: prettyPrint)
     }
     
     private func getHttpBody(prettyPrint: Bool) -> String? {
@@ -61,27 +68,23 @@ internal extension URLRequest {
     }
 
     private func getStringFromHttpBody(prettyPrint: Bool) -> String? {
-        guard let httpBody = httpBody, httpBody.count > 0 else {
+        guard let httpBody = httpBody, httpBody.isEmpty == false else {
             return nil
         }
         
         if httpBody.isGzipped {
             do {
                 let unzippedData = try httpBody.gunzipped()
-                return getJSONPrettyPrintORString(data: unzippedData, prettyPrint: prettyPrint)
+                return getJSONStringORString(data: unzippedData, prettyPrint: prettyPrint)
             } catch let error as NSError {
                 print(error.localizedDescription)
             }
         }
-        return getJSONPrettyPrintORString(data: httpBody, prettyPrint: prettyPrint)
+        return getJSONStringORString(data: httpBody, prettyPrint: prettyPrint)
     }
     
-    private func getJSONPrettyPrintORString(data: Data, prettyPrint: Bool) -> String? {
-        if prettyPrint {
-            return JSONUtils.shared.getJSONPrettyPrintORStringFrom(jsonData: data)
-        } else {
-            return JSONUtils.shared.getStringFrom(data: data)
-        }
+    private func getJSONStringORString(data: Data, prettyPrint: Bool) -> String? {
+        return JSONUtils().getJSONStringORStringFrom(jsonData: data, prettyPrint: prettyPrint)
     }
     
 }

@@ -42,7 +42,7 @@ internal class LogComposer {
         }
         
         urlRequestStr.append("\n\nHttp body:")
-        
+        print("hkhkhh = \(urlRequest.url?.absoluteString)")
         if let httpBody = urlRequest.httpBodyString(prettyPrint: formatter.prettyPrintJSON), httpBody.isEmpty == false {
             // Log HTTP body either `logUnreadableReqstBody` is true or when content is readable.
             if formatter.logUnreadableReqstBody || AppUtils.shared.isContentTypeReadable(logData.reqstContentType) {
@@ -160,11 +160,8 @@ internal class LogComposer {
         if let data = logData.receivedData, data.isEmpty == false {
             
             if formatter.logUnreadableRespBody || AppUtils.shared.isContentTypeReadable(logData.respContentType) {
-                if formatter.prettyPrintJSON, let str = JSONUtils.shared.getJSONPrettyPrintORStringFrom(jsonData: data) {
-                    responseStr.append(str)
-                } else {
-                    responseStr.append(JSONUtils.shared.getStringFrom(data: data))
-                }
+                let str = JSONUtils().getJSONStringORStringFrom(jsonData: data, prettyPrint: formatter.prettyPrintJSON)
+                responseStr.append(str)
             } else {
                 responseStr.append(logData.respContentType.getName())
             }

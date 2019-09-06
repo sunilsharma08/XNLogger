@@ -60,7 +60,7 @@ public class NetworkLogger: NSObject {
     /**
      URL filter added will not go through Network Logger.
     */
-    public func addFilters(_ filters: [NLFilter]) {
+    @objc public func addFilters(_ filters: [NLFilter]) {
         self.filterManager.addFilters(filters)
     }
     

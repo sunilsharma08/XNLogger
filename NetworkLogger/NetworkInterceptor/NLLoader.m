@@ -19,6 +19,8 @@
     [[NetworkLogger shared] startLogging];
     NLConsoleLogHandler *consoleHandler = [NLConsoleLogHandler create];
     [[NetworkLogger shared] addLogHandlers: @[consoleHandler]];
+    NLHostFilter *hostFilter = [[NLHostFilter alloc] initWithHost: @"t.appsflyer.com"];
+    [[NetworkLogger shared] addFilters: @[hostFilter]];
     (void)[NLUIManager shared];
 }
 

@@ -10,17 +10,19 @@ import UIKit
 
 class JSONUtils: NSObject {
     
-    static let shared: JSONUtils = JSONUtils()
-    
-    private override init() {}
-    
-    func getJSONPrettyPrintFrom(jsonData data: Data) -> String? {
-        if data.count == 0 {
+    func getJSONStringFrom(jsonData data: Data, prettyPrint: Bool) -> String? {
+        if data.isEmpty {
             return nil
         }
         do {
             let jsonObj = try getJsonObjectFrom(jsonData: data)
-            let jsonData = try JSONSerialization.data(withJSONObject: jsonObj, options: [.prettyPrinted])
+            var jsonWriteOption: JSONSerialization.WritingOptions = []
+            if prettyPrint {
+                jsonWriteOption = [.prettyPrinted]
+            }
+            
+            let jsonData = try JSONSerialization.data(withJSONObject: jsonObj, options: jsonWriteOption)
+            
             guard let jsonString = String(data: jsonData, encoding: String.Encoding.utf8) else {
                 print("NL: Can't create string with data.")
                 return nil
@@ -32,14 +34,11 @@ class JSONUtils: NSObject {
         }
     }
     
-    func getJSONPrettyPrintORStringFrom(jsonData data: Data) -> String? {
+    func getJSONStringORStringFrom(jsonData data: Data, prettyPrint: Bool) -> String {
         
-        if let jsonStr = getJSONPrettyPrintFrom(jsonData: data) {
+        if let jsonStr = getJSONStringFrom(jsonData: data, prettyPrint: prettyPrint) {
             return jsonStr
         } else {
-            if data.count == 0 {
-                return nil
-            }
             return getStringFrom(data: data)
         }
     }
@@ -63,9 +62,8 @@ class JSONUtils: NSObject {
     }
     
     func getJsonObjectFrom(jsonData: Data) throws -> Any {
-        
         do {
-            let jsonObj = try JSONSerialization.jsonObject(with: jsonData, options: [.allowFragments, .mutableLeaves, .mutableContainers])
+            let jsonObj = try JSONSerialization.jsonObject(with: jsonData, options: [])
             return jsonObj
         } catch let parseError {
             print("NL: JSON serialization error: \(parseError)")
