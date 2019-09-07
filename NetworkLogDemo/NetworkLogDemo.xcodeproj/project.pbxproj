@@ -677,7 +677,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "NetworkLogDemo/NetworkLogger-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -702,7 +702,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.sunil.NetworkLogDemo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "NetworkLogDemo/NetworkLogger-Bridging-Header.h";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;

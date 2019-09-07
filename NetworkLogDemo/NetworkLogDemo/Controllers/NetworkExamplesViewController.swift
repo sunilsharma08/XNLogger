@@ -426,7 +426,26 @@ extension NetworkExamplesViewController {
                                    "dict": ["1":"First", "2":"Second"]]
         
         let jsonData = try? JSONSerialization.data(withJSONObject: json)
-        let dataString = Data(base64Encoded: "khikhi jubbbibbikbi biubiub".toBase64())
+        let dataString = Data(base64Encoded: "{\"u\":\"uiuiui\"}%".toBase64())
+        func getJsonObjectFrom(jsonData: Data) throws -> Any {
+            if (!JSONSerialization.isValidJSONObject(jsonData)) {
+                print("is not a valid json object")
+            }
+            do {
+                let jsonObj = try JSONSerialization.jsonObject(with: jsonData, options: [.allowFragments])
+                return jsonObj
+            } catch let parseError {
+                print("NL: JSON serialization error: \(parseError)")
+                throw parseError
+            }
+        }
+        do {
+            let test = try getJsonObjectFrom(jsonData: dataString ?? Data())
+        }
+        catch let error as NSError {
+            print("Rtuigug = \(error.localizedDescription)")
+        }
+        
         var myInt = 77
         var dataNumber = Data(bytes: &myInt,
                              count: MemoryLayout.size(ofValue: myInt))

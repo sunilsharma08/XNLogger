@@ -47,9 +47,9 @@ class NLUILogDetailView: UIView, NibLoadableView {
     
     func configureViews() {
         self.logDetailsTableView.tableFooterView = UIView()
-        self.logDetailsTableView.sectionHeaderHeight = UITableView.automaticDimension
+        self.logDetailsTableView.sectionHeaderHeight = UITableViewAutomaticDimension
         self.logDetailsTableView.estimatedSectionHeaderHeight = 45;
-        self.logDetailsTableView.rowHeight = UITableView.automaticDimension
+        self.logDetailsTableView.rowHeight = UITableViewAutomaticDimension
         
         self.logDetailsTableView.registerForHeaderFooterView(ofType: NLUILogDetailHeaderCell.self)
         self.logDetailsTableView.register(ofType: NLUILogDetailCell.self)

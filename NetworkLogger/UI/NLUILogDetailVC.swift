@@ -242,13 +242,10 @@ class NLUILogDataConverter {
             
             let responseInfo: NLUILogDetail = NLUILogDetail(title: "Response Content")
             if let data = logData.receivedData, data.isEmpty == false {
-                
+                let jsonUtil = JSONUtils()
                 if formatter.logUnreadableRespBody || AppUtils.shared.isContentTypeReadable(logData.respContentType) {
-                    if formatter.prettyPrintJSON, let str = JSONUtils.shared.getJSONPrettyPrintORStringFrom(jsonData: data) {
-                        responseInfo.messages.append(str)
-                    } else {
-                        responseInfo.messages.append(JSONUtils.shared.getStringFrom(data: data))
-                    }
+                    let str = jsonUtil.getJSONStringORStringFrom(jsonData: data, prettyPrint: formatter.prettyPrintJSON)
+                    responseInfo.messages.append(str)
                 } else {
                     responseInfo.messages.append(logData.respContentType.getName())
                 }
