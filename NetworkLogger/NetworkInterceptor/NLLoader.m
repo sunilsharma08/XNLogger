@@ -6,7 +6,6 @@
 //  Copyright © 2019 Sunil Sharma. All rights reserved.
 //
 
-//#import "NLLoader.h"
 #import "NetworkLogger/NetworkLogger-Swift.h"
 
 @interface NLLoader : NSObject
@@ -17,10 +16,8 @@
 
 + (void)load {
     [[NetworkLogger shared] startLogging];
-    NLConsoleLogHandler *consoleHandler = [NLConsoleLogHandler create];
-    [[NetworkLogger shared] addLogHandlers: @[consoleHandler]];
-    NLHostFilter *hostFilter = [[NLHostFilter alloc] initWithHost: @"t.appsflyer.com"];
-    [[NetworkLogger shared] addFilters: @[hostFilter]];
+//    NLConsoleLogHandler *consoleHandler = [NLConsoleLogHandler create];
+//    [[NetworkLogger shared] addLogHandlers: @[consoleHandler]];
     (void)[NLUIManager shared];
 }
 
