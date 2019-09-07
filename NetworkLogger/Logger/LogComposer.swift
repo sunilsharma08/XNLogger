@@ -42,7 +42,6 @@ internal class LogComposer {
         }
         
         urlRequestStr.append("\n\nHttp body:")
-        print("hkhkhh = \(urlRequest.url?.absoluteString)")
         if let httpBody = urlRequest.httpBodyString(prettyPrint: formatter.prettyPrintJSON), httpBody.isEmpty == false {
             // Log HTTP body either `logUnreadableReqstBody` is true or when content is readable.
             if formatter.logUnreadableReqstBody || AppUtils.shared.isContentTypeReadable(logData.reqstContentType) {
