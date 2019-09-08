@@ -203,20 +203,21 @@
 			path = NetworkLoggerTests;
 			sourceTree = "<group>";
 		};
-		103B7F7F2317CCBB003DDDCB /* NLUIModels */ = {
+		103B7F7F2317CCBB003DDDCB /* UIModels */ = {
 			isa = PBXGroup;
 			children = (
 				103B7F802317CD64003DDDCB /* NLUILogDetail.swift */,
 			);
-			path = NLUIModels;
+			path = UIModels;
 			sourceTree = "<group>";
 		};
 		106BB6922304A882007968A8 /* UI */ = {
 			isa = PBXGroup;
 			children = (
-				103B7F7F2317CCBB003DDDCB /* NLUIModels */,
+				10E411862324A24D004E0C1F /* LogDetailScreen */,
+				10E411852324A1AA004E0C1F /* LogsListScreen */,
+				103B7F7F2317CCBB003DDDCB /* UIModels */,
 				106BB6932304A91D007968A8 /* NLUIMain.storyboard */,
-				1090C205230724DC00575550 /* NLUILogListVC.swift */,
 				1090C2072307250E00575550 /* NLUIFiltersVC.swift */,
 				1090C2092307252200575550 /* NLUISettingsVC.swift */,
 				1090C20B2307403900575550 /* NLUIHelper.swift */,
@@ -224,16 +225,6 @@
 				10F8A9BC230E761400C17B4A /* NLUIExtensions.swift */,
 				101CA0B2230F23300063B0CF /* NLUIBaseViewController.swift */,
 				10289E75230FCE4A00FDE204 /* NLUILogHandler.swift */,
-				10289E7723105D5800FDE204 /* NLUILogListTableViewCell.swift */,
-				10289E7823105D5800FDE204 /* NLUILogListTableViewCell.xib */,
-				10FC10E9231501D900F347BF /* NLUILogDetailVC.swift */,
-				10FC10EA231501D900F347BF /* NLUILogDetailVC.xib */,
-				104D12EA2317131D0089D7FE /* NLUILogDetailView.swift */,
-				104D12EC2317132D0089D7FE /* NLUILogDetailView.xib */,
-				104D12EE231714E70089D7FE /* NLUILogDetailHeaderCell.swift */,
-				104D12EF231714E70089D7FE /* NLUILogDetailHeaderCell.xib */,
-				104D12F2231715190089D7FE /* NLUILogDetailCell.swift */,
-				104D12F3231715190089D7FE /* NLUILogDetailCell.xib */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -309,6 +300,31 @@
 				10AA00D821FE34E6006E4A48 /* Technical.md */,
 			);
 			path = Docs;
+			sourceTree = "<group>";
+		};
+		10E411852324A1AA004E0C1F /* LogsListScreen */ = {
+			isa = PBXGroup;
+			children = (
+				10289E7823105D5800FDE204 /* NLUILogListTableViewCell.xib */,
+				10289E7723105D5800FDE204 /* NLUILogListTableViewCell.swift */,
+				1090C205230724DC00575550 /* NLUILogListVC.swift */,
+			);
+			path = LogsListScreen;
+			sourceTree = "<group>";
+		};
+		10E411862324A24D004E0C1F /* LogDetailScreen */ = {
+			isa = PBXGroup;
+			children = (
+				10FC10E9231501D900F347BF /* NLUILogDetailVC.swift */,
+				10FC10EA231501D900F347BF /* NLUILogDetailVC.xib */,
+				104D12EA2317131D0089D7FE /* NLUILogDetailView.swift */,
+				104D12EC2317132D0089D7FE /* NLUILogDetailView.xib */,
+				104D12EE231714E70089D7FE /* NLUILogDetailHeaderCell.swift */,
+				104D12EF231714E70089D7FE /* NLUILogDetailHeaderCell.xib */,
+				104D12F2231715190089D7FE /* NLUILogDetailCell.swift */,
+				104D12F3231715190089D7FE /* NLUILogDetailCell.xib */,
+			);
+			path = LogDetailScreen;
 			sourceTree = "<group>";
 		};
 		5EF4AC20FDA5093C4C97ACF3 /* Pods */ = {
