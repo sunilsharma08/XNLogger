@@ -217,6 +217,7 @@
 				10E411862324A24D004E0C1F /* LogDetailScreen */,
 				10E411852324A1AA004E0C1F /* LogsListScreen */,
 				103B7F7F2317CCBB003DDDCB /* UIModels */,
+				10D094C322E4EE0A0020D9DB /* NLLoader.m */,
 				106BB6932304A91D007968A8 /* NLUIMain.storyboard */,
 				1090C2072307250E00575550 /* NLUIFiltersVC.swift */,
 				1090C2092307252200575550 /* NLUISettingsVC.swift */,
@@ -264,7 +265,6 @@
 				1085769621FDD662008ABD2B /* NetworkInterceptor.swift */,
 				10B4076722626644000FD18E /* NLURLProtocol.swift */,
 				10BC314722CD2FD20020167D /* NLAuthenticationChallengeSender.swift */,
-				10D094C322E4EE0A0020D9DB /* NLLoader.m */,
 			);
 			path = NetworkInterceptor;
 			sourceTree = "<group>";
