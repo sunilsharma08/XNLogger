@@ -58,7 +58,7 @@ public class NLLogData: NSObject {
     
     internal(set) lazy var respContentType: NLContentType = {
         if let mimeStr = response?.mimeType {
-            return AppUtils.shared.getMimeEnum(from: mimeStr)
+            return NLAppUtils.shared.getMimeEnum(from: mimeStr)
         } else if receivedData != nil {
             return receivedData!.sniffMimeEnum()
         } else {
@@ -68,7 +68,7 @@ public class NLLogData: NSObject {
     
     internal(set) lazy var reqstContentType: NLContentType = {
         if let mimeStr = urlRequest.getMimeType() {
-            return AppUtils.shared.getMimeEnum(from: mimeStr)
+            return NLAppUtils.shared.getMimeEnum(from: mimeStr)
         } else {
             return urlRequest.sniffMimeEnum()
         }

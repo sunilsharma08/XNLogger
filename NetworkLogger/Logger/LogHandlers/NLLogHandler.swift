@@ -33,7 +33,7 @@ protocol NLRemoteLogger {
 extension NLRemoteLogger {
     
     func writeLog(urlRequest: URLRequest) {
-        guard let request = AppUtils.shared.createNLRequest(urlRequest)
+        guard let request = NLAppUtils.shared.createNLRequest(urlRequest)
         else { return }
         URLSession.shared.dataTask(with: request).resume()
     }

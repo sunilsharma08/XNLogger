@@ -8,7 +8,7 @@
 
 import Foundation
 
-internal class LogComposer {
+internal class NLLogComposer {
     
     let formatter: NLLogFormatter
     let dateFormatter = DateFormatter()
@@ -44,7 +44,7 @@ internal class LogComposer {
         urlRequestStr.append("\n\nHttp body:")
         if let httpBody = urlRequest.httpBodyString(prettyPrint: formatter.prettyPrintJSON), httpBody.isEmpty == false {
             // Log HTTP body either `logUnreadableReqstBody` is true or when content is readable.
-            if formatter.logUnreadableReqstBody || AppUtils.shared.isContentTypeReadable(logData.reqstContentType) {
+            if formatter.logUnreadableReqstBody || NLAppUtils.shared.isContentTypeReadable(logData.reqstContentType) {
                 urlRequestStr.append("\n\(httpBody)\n")
             } else {
                 urlRequestStr.append("\n\(logData.reqstContentType.getName())\n")
@@ -158,8 +158,8 @@ internal class LogComposer {
         responseStr += "\n\nResponse Content: \n"
         if let data = logData.receivedData, data.isEmpty == false {
             
-            if formatter.logUnreadableRespBody || AppUtils.shared.isContentTypeReadable(logData.respContentType) {
-                let str = JSONUtils().getJSONStringORStringFrom(jsonData: data, prettyPrint: formatter.prettyPrintJSON)
+            if formatter.logUnreadableRespBody || NLAppUtils.shared.isContentTypeReadable(logData.respContentType) {
+                let str = NLJSONUtils().getJSONStringORStringFrom(jsonData: data, prettyPrint: formatter.prettyPrintJSON)
                 responseStr.append(str)
             } else {
                 responseStr.append(logData.respContentType.getName())

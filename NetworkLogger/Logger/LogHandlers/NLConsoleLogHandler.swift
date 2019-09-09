@@ -10,11 +10,11 @@ import UIKit
 
 public class NLConsoleLogHandler: NLBaseLogHandler, NLLogHandler {
     
-    private var logComposer: LogComposer!
+    private var logComposer: NLLogComposer!
     
     @objc public class func create() -> NLConsoleLogHandler {
         let instance: NLConsoleLogHandler = NLConsoleLogHandler()
-        instance.logComposer = LogComposer(logFormatter: instance.logFormatter)
+        instance.logComposer = NLLogComposer(logFormatter: instance.logFormatter)
         return instance
     }
     

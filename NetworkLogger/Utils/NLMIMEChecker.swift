@@ -1,5 +1,5 @@
 //
-//  MIMEChecker.swift
+//  NLMIMEChecker.swift
 //  NetworkLogger
 //
 //  Created by Sunil Sharma on 02/08/19.
@@ -50,7 +50,7 @@ fileprivate struct FileSignature {
     }
 }
 
-class MIMEChecker {
+class NLMIMEChecker {
     
     private static let imagesSignature: [FileSignature] = [
         FileSignature(signature: [0x89, 0x50, 0x4E, 0x47, 0x0D, 0x0A, 0x1A, 0x0A]) /*PNG*/,
@@ -109,23 +109,23 @@ class MIMEChecker {
     
     func getMimeType(from dataBytes: [UInt8]) -> NLContentType {
         // Check for JSON
-        if (compareSignatures(MIMEChecker.jsonSignatures, with: dataBytes)) {
+        if (compareSignatures(NLMIMEChecker.jsonSignatures, with: dataBytes)) {
             return .json
         }
         // Check for PDF
-        else if (compareSignatures(MIMEChecker.pdfSignatures, with: dataBytes)) {
+        else if (compareSignatures(NLMIMEChecker.pdfSignatures, with: dataBytes)) {
             return .pdf
         }
         // Check for Images
-        else if compareSignatures(MIMEChecker.imagesSignature, with: dataBytes) {
+        else if compareSignatures(NLMIMEChecker.imagesSignature, with: dataBytes) {
             return .image
         }
         // Check for Videos
-        else if compareSignatures(MIMEChecker.videoSignatures, with: dataBytes) {
+        else if compareSignatures(NLMIMEChecker.videoSignatures, with: dataBytes) {
             return .video
         }
         // Check for Audio
-        else if compareSignatures(MIMEChecker.audioSignature, with: dataBytes) {
+        else if compareSignatures(NLMIMEChecker.audioSignature, with: dataBytes) {
             return .audio
         } else {
             return .unknown(nil)

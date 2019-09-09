@@ -11,11 +11,11 @@ import UIKit
 public class NLRemoteLogHandler: NLBaseLogHandler, NLLogHandler, NLRemoteLogger {
     
     private let urlRequest: URLRequest
-    private var logComposer: LogComposer!
+    private var logComposer: NLLogComposer!
     
     public class func create(urlRequest: URLRequest) -> NLRemoteLogHandler {
         let instance: NLRemoteLogHandler = NLRemoteLogHandler(urlRequest: urlRequest)
-        instance.logComposer = LogComposer(logFormatter: instance.logFormatter)
+        instance.logComposer = NLLogComposer(logFormatter: instance.logFormatter)
         return instance
     }
     
@@ -46,7 +46,7 @@ public class NLRemoteLogHandler: NLBaseLogHandler, NLLogHandler, NLRemoteLogger 
         var bodyJson: [String: Any] = [:]
         // TODO: Handle different conditions like if httpStream and is exsiting is not dictionary
         if let httpData = urlRequest.httpBody,
-            let json = JSONUtils().getDictionaryFrom(jsonData: httpData) {
+            let json = NLJSONUtils().getDictionaryFrom(jsonData: httpData) {
             bodyJson = json
         }
         

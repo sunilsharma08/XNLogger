@@ -10,12 +10,12 @@ import Foundation
 
 @objc public class NLUILogHandler: NLBaseLogHandler, NLLogHandler {
     
-    private var logComposer: LogComposer!
+    private var logComposer: NLLogComposer!
     weak var delegate: NLUILogDataDelegate?
     
     public class func create() -> NLUILogHandler {
         let instance: NLUILogHandler = NLUILogHandler()
-        instance.logComposer = LogComposer(logFormatter: instance.logFormatter)
+        instance.logComposer = NLLogComposer(logFormatter: instance.logFormatter)
         return instance
     }
     

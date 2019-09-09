@@ -1,5 +1,5 @@
 //
-//  JSONUtils.swift
+//  NLJSONUtils.swift
 //  NetworkLogger
 //
 //  Created by Sunil Sharma on 07/01/19.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class JSONUtils: NSObject {
+class NLJSONUtils: NSObject {
     
     func getJSONStringFrom(jsonData data: Data, prettyPrint: Bool) -> String? {
         if data.isEmpty {

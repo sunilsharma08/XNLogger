@@ -10,7 +10,7 @@ import Foundation
 
 class NLFileLogHandler: NLBaseLogHandler, NLLogHandler {
     
-    private var logComposer: LogComposer!
+    private var logComposer: NLLogComposer!
     private(set) var fileName: String = "NLNetworkLog"
     private let fileManager = FileManager.default
     private let fileWriteQueue = DispatchQueue(label: "com.nlNetworkLogger.fileHandler", qos: .utility)
@@ -23,7 +23,7 @@ class NLFileLogHandler: NLBaseLogHandler, NLLogHandler {
     
     public class func create(fileName: String? = nil) -> NLFileLogHandler {
         let instance: NLFileLogHandler = NLFileLogHandler(fileName: fileName)
-        instance.logComposer = LogComposer(logFormatter: instance.logFormatter)
+        instance.logComposer = NLLogComposer(logFormatter: instance.logFormatter)
         return instance
     }
     

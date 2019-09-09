@@ -11,11 +11,11 @@ import UIKit
 public class NLSlackLogHandler: NLBaseLogHandler, NLLogHandler, NLRemoteLogger {
     
     private let webhookUrl: String
-    private var logComposer: LogComposer!
+    private var logComposer: NLLogComposer!
     
     public class func create(webhookUrl: String) -> NLSlackLogHandler {
         let instance: NLSlackLogHandler = NLSlackLogHandler(webhookUrl: webhookUrl)
-        instance.logComposer = LogComposer(logFormatter: instance.logFormatter)
+        instance.logComposer = NLLogComposer(logFormatter: instance.logFormatter)
         return instance
     }
     

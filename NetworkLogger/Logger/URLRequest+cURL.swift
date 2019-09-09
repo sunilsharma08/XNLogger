@@ -10,6 +10,7 @@ import Foundation
 import Gzip
 
 internal extension URLRequest {
+    
     internal var cURL: String {
         return RequestCurlCommand().toCurlString(request: self)
     }
@@ -84,7 +85,7 @@ internal extension URLRequest {
     }
     
     private func getJSONStringORString(data: Data, prettyPrint: Bool) -> String? {
-        return JSONUtils().getJSONStringORStringFrom(jsonData: data, prettyPrint: prettyPrint)
+        return NLJSONUtils().getJSONStringORStringFrom(jsonData: data, prettyPrint: prettyPrint)
     }
     
 }

@@ -133,7 +133,7 @@ class NLUILogDataConverter {
             
             if let httpBody = logData.urlRequest.httpBodyString(prettyPrint: formatter.prettyPrintJSON), httpBody.isEmpty == false {
                 // Log HTTP body either `logUnreadableReqstBody` is true or when content is readable.
-                if formatter.logUnreadableReqstBody || AppUtils.shared.isContentTypeReadable(logData.reqstContentType) {
+                if formatter.logUnreadableReqstBody || NLAppUtils.shared.isContentTypeReadable(logData.reqstContentType) {
                     httpBodyInfo.messages.append("\(httpBody)")
                 } else {
                     httpBodyInfo.messages.append("\(logData.reqstContentType.getName())")
@@ -242,8 +242,8 @@ class NLUILogDataConverter {
             
             let responseInfo: NLUILogDetail = NLUILogDetail(title: "Response Content")
             if let data = logData.receivedData, data.isEmpty == false {
-                let jsonUtil = JSONUtils()
-                if formatter.logUnreadableRespBody || AppUtils.shared.isContentTypeReadable(logData.respContentType) {
+                let jsonUtil = NLJSONUtils()
+                if formatter.logUnreadableRespBody || NLAppUtils.shared.isContentTypeReadable(logData.respContentType) {
                     let str = jsonUtil.getJSONStringORStringFrom(jsonData: data, prettyPrint: formatter.prettyPrintJSON)
                     responseInfo.messages.append(str)
                 } else {

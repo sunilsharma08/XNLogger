@@ -61,10 +61,10 @@ open class NLURLProtocol: URLProtocol {
             self.session = URLSession(configuration: .default, delegate: self, delegateQueue: nil)
         }
         guard let pSession = self.session,
-            let urlRequest = AppUtils.shared.createNLRequest(NLURLProtocol.canonicalRequest(for: self.request))
+            let urlRequest = NLAppUtils.shared.createNLRequest(NLURLProtocol.canonicalRequest(for: self.request))
         else { return }
         
-        self.logData = NLLogData(identifier: AppUtils.shared.nextLogIdentifier(), request: urlRequest)
+        self.logData = NLLogData(identifier: NLAppUtils.shared.nextLogIdentifier(), request: urlRequest)
         self.logData?.startTime = Date()
         
         self.sessionTask = pSession.dataTask(with: urlRequest)
@@ -139,7 +139,7 @@ extension NLURLProtocol: URLSessionDataDelegate {
         self.logData?.redirectRequest = request
         self.response = response
         if let mutableRequest = request.getNSMutableURLRequest() {
-            URLProtocol.removeProperty(forKey: AppConstants.NLRequestFlagKey, in: mutableRequest)
+            URLProtocol.removeProperty(forKey: NLAppConstants.NLRequestFlagKey, in: mutableRequest)
             client?.urlProtocol(self, wasRedirectedTo: mutableRequest as URLRequest, redirectResponse: response)
         }
     }
@@ -165,7 +165,7 @@ fileprivate extension NLURLProtocol {
     
     fileprivate class func shouldHandle(request: URLRequest) -> Bool {
         
-        if let _ = URLProtocol.property(forKey: AppConstants.NLRequestFlagKey, in: request) {
+        if let _ = URLProtocol.property(forKey: NLAppConstants.NLRequestFlagKey, in: request) {
             return false
         }
         else if (NetworkLogger.shared.filterManager.isAllowed(urlRequest: request)) {

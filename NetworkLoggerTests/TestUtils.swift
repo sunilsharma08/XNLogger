@@ -31,7 +31,7 @@ class TestUtils {
             
             let jsonData = try! JSONSerialization.data(withJSONObject: subStringDict, options: .prettyPrinted)
             // here "jsonData" is the dictionary encoded in JSON data
-            return JSONUtils.shared.getJsonStringFrom(jsonData:  jsonData)
+            return NLJSONUtils.shared.getJsonStringFrom(jsonData:  jsonData)
         }
         return nil
     }

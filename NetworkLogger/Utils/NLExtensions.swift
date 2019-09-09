@@ -117,7 +117,7 @@ internal extension URLRequest {
 extension NSMutableURLRequest {
     
     func setNLFlag(value: Any) {
-        URLProtocol.setProperty(value, forKey: AppConstants.NLRequestFlagKey, in: self)
+        URLProtocol.setProperty(value, forKey: NLAppConstants.NLRequestFlagKey, in: self)
     }
 }
 
@@ -157,8 +157,8 @@ extension TimeInterval {
 extension Data {
     
     func sniffMimeEnum() -> NLContentType {
-        var magicNumbers = [UInt8](repeating: 0, count: MIMEChecker.maxDataNeed)
-        copyBytes(to: &magicNumbers, count: MIMEChecker.maxDataNeed)
-        return AppUtils.shared.getMimeEnum(from: magicNumbers)
+        var magicNumbers = [UInt8](repeating: 0, count: NLMIMEChecker.maxDataNeed)
+        copyBytes(to: &magicNumbers, count: NLMIMEChecker.maxDataNeed)
+        return NLAppUtils.shared.getMimeEnum(from: magicNumbers)
     }
 }

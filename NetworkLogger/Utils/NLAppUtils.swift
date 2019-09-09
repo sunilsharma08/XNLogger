@@ -1,5 +1,5 @@
 //
-//  AppUtils.swift
+//  NLAppUtils.swift
 //  NetworkLogger
 //
 //  Created by Sunil Sharma on 01/07/19.
@@ -8,12 +8,12 @@
 
 import Foundation
 
-class AppUtils {
+class NLAppUtils {
     
-    static let shared: AppUtils = AppUtils()
+    static let shared: NLAppUtils = NLAppUtils()
     static private var logIdentifier: UInt64 = 0
-    lazy var mimeChecker: MIMEChecker = {
-        return MIMEChecker()
+    lazy var mimeChecker: NLMIMEChecker = {
+        return NLMIMEChecker()
     }()
     
     private init() {}
@@ -32,12 +32,12 @@ class AppUtils {
     }
     
     func getLogIdentifier() -> String {
-        return "\(AppUtils.logIdentifier)"
+        return "\(NLAppUtils.logIdentifier)"
     }
     
     func nextLogIdentifier() -> String {
-        AppUtils.logIdentifier += 1
-        return "\(AppUtils.logIdentifier)"
+        NLAppUtils.logIdentifier += 1
+        return "\(NLAppUtils.logIdentifier)"
     }
     
     func getMimeEnum(from dataBytes: [UInt8]) -> NLContentType {
