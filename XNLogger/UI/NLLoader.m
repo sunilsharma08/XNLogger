@@ -6,7 +6,7 @@
 //  Copyright © 2019 Sunil Sharma. All rights reserved.
 //
 
-#import "NetworkLogger/NetworkLogger-Swift.h"
+#import "XNLogger/XNLogger-Swift.h"
 
 @interface NLLoader : NSObject
 

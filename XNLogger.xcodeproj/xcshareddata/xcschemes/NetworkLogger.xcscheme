@@ -15,9 +15,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "1005805D21C65F490020288D"
-               BuildableName = "NetworkLogger.framework"
-               BlueprintName = "NetworkLogger"
-               ReferencedContainer = "container:NetworkLogger.xcodeproj">
+               BuildableName = "XNLogger.framework"
+               BlueprintName = "XNLogger"
+               ReferencedContainer = "container:XNLogger.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -34,9 +34,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "1005806621C65F4A0020288D"
-               BuildableName = "NetworkLoggerTests.xctest"
-               BlueprintName = "NetworkLoggerTests"
-               ReferencedContainer = "container:NetworkLogger.xcodeproj">
+               BuildableName = "XNLoggerTests.xctest"
+               BlueprintName = "XNLoggerTests"
+               ReferencedContainer = "container:XNLogger.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
@@ -44,9 +44,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "1005805D21C65F490020288D"
-            BuildableName = "NetworkLogger.framework"
-            BlueprintName = "NetworkLogger"
-            ReferencedContainer = "container:NetworkLogger.xcodeproj">
+            BuildableName = "XNLogger.framework"
+            BlueprintName = "XNLogger"
+            ReferencedContainer = "container:XNLogger.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
       <AdditionalOptions>
@@ -66,9 +66,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "1005805D21C65F490020288D"
-            BuildableName = "NetworkLogger.framework"
-            BlueprintName = "NetworkLogger"
-            ReferencedContainer = "container:NetworkLogger.xcodeproj">
+            BuildableName = "XNLogger.framework"
+            BlueprintName = "XNLogger"
+            ReferencedContainer = "container:XNLogger.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
       <AdditionalOptions>
@@ -84,9 +84,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "1005805D21C65F490020288D"
-            BuildableName = "NetworkLogger.framework"
-            BlueprintName = "NetworkLogger"
-            ReferencedContainer = "container:NetworkLogger.xcodeproj">
+            BuildableName = "XNLogger.framework"
+            BlueprintName = "XNLogger"
+            ReferencedContainer = "container:XNLogger.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
    </ProfileAction>
