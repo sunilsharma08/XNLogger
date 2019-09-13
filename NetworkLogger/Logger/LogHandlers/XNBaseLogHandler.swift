@@ -1,6 +1,6 @@
 //
-//  NLBaseLogHandler.swift
-//  NetworkLogger
+//  XNBaseLogHandler.swift
+//  XNLogger
 //
 //  Created by Sunil Sharma on 05/03/19.
 //  Copyright © 2019 Sunil Sharma. All rights reserved.
@@ -12,10 +12,10 @@ import Foundation
  Base class for log handler. Not necessary to subclasss if you create your own handler.
  It just provide some convient methods to child class.
  */
-@objc open class NLBaseLogHandler: NSObject {
+@objc open class XNBaseLogHandler: NSObject {
     
-    private var filterManager: NLFilterManager = NLFilterManager()
-    public let logFormatter: NLLogFormatter = NLLogFormatter()
+    private var filterManager: XNFilterManager = XNFilterManager()
+    public let logFormatter: XNLogFormatter = XNLogFormatter()
     
     open func addFilters(_ filters: [NLFilter]) {
         self.filterManager.addFilters(filters)
@@ -29,11 +29,11 @@ import Foundation
         self.filterManager.removeAllFilters()
     }
     
-    open func shouldLogRequest(logData: NLLogData) -> Bool {
+    open func shouldLogRequest(logData: XNLogData) -> Bool {
         return logFormatter.showRequest && filterManager.isAllowed(urlRequest: logData.urlRequest)
     }
     
-    open func shouldLogResponse(logData: NLLogData) -> Bool {
+    open func shouldLogResponse(logData: XNLogData) -> Bool {
         return logFormatter.showResponse && filterManager.isAllowed(urlRequest: logData.urlRequest)
     }
 }

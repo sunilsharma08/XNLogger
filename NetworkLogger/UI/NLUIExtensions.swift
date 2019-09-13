@@ -1,6 +1,6 @@
 //
 //  NLUIExtensions.swift
-//  NetworkLogger
+//  XNLogger
 //
 //  Created by Sunil Sharma on 22/08/19.
 //  Copyright © 2019 Sunil Sharma. All rights reserved.

@@ -1,6 +1,6 @@
 //
-//  NLFileLogHandler.swift
-//  NetworkLogger
+//  XNFileLogHandler.swift
+//  XNLogger
 //
 //  Created by Sunil Sharma on 04/03/19.
 //  Copyright © 2019 Sunil Sharma. All rights reserved.
@@ -8,9 +8,9 @@
 
 import Foundation
 
-class NLFileLogHandler: NLBaseLogHandler, NLLogHandler {
+class XNFileLogHandler: XNBaseLogHandler, XNLogHandler {
     
-    private var logComposer: NLLogComposer!
+    private var logComposer: XNLogComposer!
     private(set) var fileName: String = "NLNetworkLog"
     private let fileManager = FileManager.default
     private let fileWriteQueue = DispatchQueue(label: "com.nlNetworkLogger.fileHandler", qos: .utility)
@@ -21,9 +21,9 @@ class NLFileLogHandler: NLBaseLogHandler, NLLogHandler {
     // The max number of log file that will be stored. Once this point is reached, the oldest file is deleted.
     public var maxFileCount = 4
     
-    public class func create(fileName: String? = nil) -> NLFileLogHandler {
-        let instance: NLFileLogHandler = NLFileLogHandler(fileName: fileName)
-        instance.logComposer = NLLogComposer(logFormatter: instance.logFormatter)
+    public class func create(fileName: String? = nil) -> XNFileLogHandler {
+        let instance: XNFileLogHandler = XNFileLogHandler(fileName: fileName)
+        instance.logComposer = XNLogComposer(logFormatter: instance.logFormatter)
         return instance
     }
     
@@ -34,7 +34,7 @@ class NLFileLogHandler: NLBaseLogHandler, NLLogHandler {
     }
     
     // The directory in which the log files will be written
-    open var directory = NLFileLogHandler.defaultDirectory() {
+    open var directory = XNFileLogHandler.defaultDirectory() {
         didSet {
             directory = NSString(string: directory).expandingTildeInPath
             createLogDirectory()
@@ -169,7 +169,7 @@ class NLFileLogHandler: NLBaseLogHandler, NLLogHandler {
     }
     
     //MARK: Logging delegates
-    public func networkLogger(logRequest logData: NLLogData) {
+    public func networkLogger(logRequest logData: XNLogData) {
         self.fileWriteQueue.async { [weak self] in
             guard let self = self else { return }
             
@@ -179,7 +179,7 @@ class NLFileLogHandler: NLBaseLogHandler, NLLogHandler {
         }
     }
     
-    public func networkLogger(logResponse logData: NLLogData) {
+    public func networkLogger(logResponse logData: XNLogData) {
         self.fileWriteQueue.async {[weak self] in
             guard let self = self else { return }
             

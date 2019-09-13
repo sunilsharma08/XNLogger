@@ -1,6 +1,6 @@
 //
-//  NLJSONUtils.swift
-//  NetworkLogger
+//  XNJSONUtils.swift
+//  XNLogger
 //
 //  Created by Sunil Sharma on 07/01/19.
 //  Copyright © 2019 Sunil Sharma. All rights reserved.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class NLJSONUtils: NSObject {
+class XNJSONUtils: NSObject {
     
     func getJSONStringFrom(jsonData data: Data, prettyPrint: Bool) -> String? {
         if data.isEmpty {

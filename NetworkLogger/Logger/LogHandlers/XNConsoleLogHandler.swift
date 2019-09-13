@@ -1,6 +1,6 @@
 //
-//  ConsoleLogHandler.swift
-//  NetworkLogger
+//  XNConsoleLogHandler.swift
+//  XNLogger
 //
 //  Created by Sunil Sharma on 10/01/19.
 //  Copyright © 2019 Sunil Sharma. All rights reserved.
@@ -8,13 +8,13 @@
 
 import UIKit
 
-public class NLConsoleLogHandler: NLBaseLogHandler, NLLogHandler {
+public class XNConsoleLogHandler: XNBaseLogHandler, XNLogHandler {
     
-    private var logComposer: NLLogComposer!
+    private var logComposer: XNLogComposer!
     
-    @objc public class func create() -> NLConsoleLogHandler {
-        let instance: NLConsoleLogHandler = NLConsoleLogHandler()
-        instance.logComposer = NLLogComposer(logFormatter: instance.logFormatter)
+    @objc public class func create() -> XNConsoleLogHandler {
+        let instance: XNConsoleLogHandler = XNConsoleLogHandler()
+        instance.logComposer = XNLogComposer(logFormatter: instance.logFormatter)
         return instance
     }
     
@@ -22,14 +22,14 @@ public class NLConsoleLogHandler: NLBaseLogHandler, NLLogHandler {
         super.init()
     }
     
-    public func networkLogger(logRequest logData: NLLogData) {
+    public func networkLogger(logRequest logData: XNLogData) {
         
         if shouldLogRequest(logData: logData) {
             print(logComposer.getRequestLog(from: logData))
         }
     }
     
-    public func networkLogger(logResponse logData: NLLogData) {
+    public func networkLogger(logResponse logData: XNLogData) {
         
         if shouldLogResponse(logData: logData) {
             print(logComposer.getResponseLog(from: logData))

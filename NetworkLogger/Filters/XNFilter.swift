@@ -1,6 +1,6 @@
 //
-//  NLFilter.swift
-//  NetworkLogger
+//  XNFilter.swift
+//  XNLogger
 //
 //  Created by Sunil Sharma on 17/01/19.
 //  Copyright © 2019 Sunil Sharma. All rights reserved.
@@ -14,7 +14,7 @@ import Foundation
  Host
  Contains - Lowest
  */
-public enum NLFilterType {
+public enum XNFilterType {
     case scheme     // http or https
     case host       // www.example.com
     case contains   // any string in url

@@ -1,6 +1,6 @@
 //
-//  NLFilterManager.swift
-//  NetworkLogger
+//  XNFilterManager.swift
+//  XNLogger
 //
 //  Created by Sunil Sharma on 25/06/19.
 //  Copyright © 2019 Sunil Sharma. All rights reserved.
@@ -8,7 +8,7 @@
 
 import Foundation
 
-class NLFilterManager {
+class XNFilterManager {
     
     private class FilterData {
         var filters: [NLFilter] = []
@@ -129,15 +129,15 @@ class NLFilterManager {
     }
     
     // MARK: Filter invert and revert methods
-    func invert(filterType: NLFilterType) {
+    func invert(filterType: XNFilterType) {
         update(filterType: filterType, toInvertMode: true)
     }
     
-    func revert(filterType: NLFilterType) {
+    func revert(filterType: XNFilterType) {
         update(filterType: filterType, toInvertMode: false)
     }
     
-    func update(filterType: NLFilterType, toInvertMode state: Bool) {
+    func update(filterType: XNFilterType, toInvertMode state: Bool) {
         switch filterType {
         case .scheme:
             self.schemeFilter.invert = state

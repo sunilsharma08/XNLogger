@@ -1,6 +1,6 @@
 //
 //  NLUILogDetailViewController.swift
-//  NetworkLogger
+//  XNLogger
 //
 //  Created by Sunil Sharma on 27/08/19.
 //  Copyright © 2019 Sunil Sharma. All rights reserved.
@@ -20,7 +20,7 @@ class NLUILogDetailVC: NLUIBaseViewController {
     @IBOutlet weak var responseBtn: UIButton!
     @IBOutlet weak var contentView: UIView!
     
-    var logData: NLLogData?
+    var logData: XNLogData?
     private var requestView: NLUILogDetailView?
     private var responseView: NLUILogDetailView?
     private var isResponseSelected: Bool = false
@@ -99,11 +99,11 @@ class NLUILogDetailVC: NLUIBaseViewController {
 
 class NLUILogDataConverter {
     
-    private var logData: NLLogData!
-    private var formatter: NLLogFormatter!
+    private var logData: XNLogData!
+    private var formatter: XNLogFormatter!
     let dateFormatter = DateFormatter()
     
-    init(logData: NLLogData, formatter: NLLogFormatter) {
+    init(logData: XNLogData, formatter: XNLogFormatter) {
         self.logData = logData
         self.formatter = formatter
         self.dateFormatter.dateFormat = "yyyy-MM-dd H:m:ss.SSSS"
@@ -133,7 +133,7 @@ class NLUILogDataConverter {
             
             if let httpBody = logData.urlRequest.httpBodyString(prettyPrint: formatter.prettyPrintJSON), httpBody.isEmpty == false {
                 // Log HTTP body either `logUnreadableReqstBody` is true or when content is readable.
-                if formatter.logUnreadableReqstBody || NLAppUtils.shared.isContentTypeReadable(logData.reqstContentType) {
+                if formatter.logUnreadableReqstBody || XNAppUtils.shared.isContentTypeReadable(logData.reqstContentType) {
                     httpBodyInfo.messages.append("\(httpBody)")
                 } else {
                     httpBodyInfo.messages.append("\(logData.reqstContentType.getName())")
@@ -149,7 +149,7 @@ class NLUILogDataConverter {
                 requestLogs.append(NLUILogDetail(title: "CURL", message: logData.urlRequest.cURL))
             }
             
-            let reqstMetaInfo: [NLRequestMetaInfo] = formatter.showReqstMetaInfo
+            let reqstMetaInfo: [XNRequestMetaInfo] = formatter.showReqstMetaInfo
             
             for metaInfo in reqstMetaInfo {
                 
@@ -242,8 +242,8 @@ class NLUILogDataConverter {
             
             let responseInfo: NLUILogDetail = NLUILogDetail(title: "Response Content")
             if let data = logData.receivedData, data.isEmpty == false {
-                let jsonUtil = NLJSONUtils()
-                if formatter.logUnreadableRespBody || NLAppUtils.shared.isContentTypeReadable(logData.respContentType) {
+                let jsonUtil = XNJSONUtils()
+                if formatter.logUnreadableRespBody || XNAppUtils.shared.isContentTypeReadable(logData.respContentType) {
                     let str = jsonUtil.getJSONStringORStringFrom(jsonData: data, prettyPrint: formatter.prettyPrintJSON)
                     responseInfo.messages.append(str)
                 } else {

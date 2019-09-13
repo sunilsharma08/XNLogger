@@ -1,6 +1,6 @@
 //
-//  NetworkLogger.swift
-//  NetworkLogger
+//  XNLogger.swift
+//  XNLogger
 //
 //  Created by Sunil Sharma on 16/12/18.
 //  Copyright © 2018 Sunil Sharma. All rights reserved.
@@ -10,22 +10,22 @@ import Foundation
 
 @objc public protocol NetworkLoggerDelegate: class {
     
-    @objc optional func networkLogger(didStartRequest logData: NLLogData)
-    @objc optional func networkLogger(didReceiveResponse logData: NLLogData)
+    @objc optional func networkLogger(didStartRequest logData: XNLogData)
+    @objc optional func networkLogger(didReceiveResponse logData: XNLogData)
 }
 
 @objcMembers
-public class NetworkLogger: NSObject {
+public class XNLogger: NSObject {
     
     // Public variables
-    public static let shared = NetworkLogger()
+    public static let shared = XNLogger()
     public weak var delegate: NetworkLoggerDelegate?
     
     // Private variables
-    private let networkInterceptor = NetworkInterceptor()
+    private let networkInterceptor = XNInterceptor()
     
-    private(set) public var handlers: [NLLogHandler] = []
-    let filterManager: NLFilterManager = NLFilterManager()
+    private(set) public var handlers: [XNLogHandler] = []
+    let filterManager: XNFilterManager = XNFilterManager()
     
     override private init() {}
     
@@ -39,11 +39,11 @@ public class NetworkLogger: NSObject {
         networkInterceptor.stopInterceptingNetwork()
     }
     
-    public func addLogHandlers(_ handlers: [NLLogHandler]) {
+    public func addLogHandlers(_ handlers: [XNLogHandler]) {
         self.handlers.append(contentsOf: handlers)
     }
     
-    public func removeHandlers(_ handlers: [NLLogHandler]) {
+    public func removeHandlers(_ handlers: [XNLogHandler]) {
         for handler in handlers {
             self.handlers = self.handlers.filter { (item) -> Bool in
                 return item !== handler
@@ -82,7 +82,7 @@ public class NetworkLogger: NSObject {
         return filterManager.getFilters()
     }
     
-    public func update(filterType: NLFilterType, toInvertMode state: Bool) {
+    public func update(filterType: XNFilterType, toInvertMode state: Bool) {
         filterManager.update(filterType: filterType, toInvertMode: state)
     }
     
@@ -91,19 +91,19 @@ public class NetworkLogger: NSObject {
      */
     public func clearLogs() {
         for handler in handlers {
-            if let fileHandler = handler as? NLFileLogHandler {
+            if let fileHandler = handler as? XNFileLogHandler {
                 fileHandler.clearLogFiles()
             }
         }
     }
     
-    func logResponse(from logData: NLLogData) {
+    func logResponse(from logData: XNLogData) {
         for handler in self.handlers {
             handler.networkLogger?(logResponse: logData)
         }
     }
     
-    func logRequest(from logData: NLLogData) {
+    func logRequest(from logData: XNLogData) {
         for handler in self.handlers {
             handler.networkLogger?(logRequest: logData)
         }

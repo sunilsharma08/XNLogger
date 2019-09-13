@@ -1,6 +1,6 @@
 //
-//  NLMIMEChecker.swift
-//  NetworkLogger
+//  XNMIMEChecker.swift
+//  XNLogger
 //
 //  Created by Sunil Sharma on 02/08/19.
 //  Copyright © 2019 Sunil Sharma. All rights reserved.
@@ -8,7 +8,7 @@
 
 import Foundation
 
-enum NLContentType {
+enum XNContentType {
     case text
     case json
     case image
@@ -107,7 +107,7 @@ class NLMIMEChecker {
     static let maxDataNeed: Int = 16
     
     
-    func getMimeType(from dataBytes: [UInt8]) -> NLContentType {
+    func getMimeType(from dataBytes: [UInt8]) -> XNContentType {
         // Check for JSON
         if (compareSignatures(NLMIMEChecker.jsonSignatures, with: dataBytes)) {
             return .json
@@ -160,7 +160,7 @@ class NLMIMEChecker {
         return false
     }
     
-    func getMimeType(from mimeString: String?) -> NLContentType {
+    func getMimeType(from mimeString: String?) -> XNContentType {
         guard let mimeType = mimeString, mimeType.isEmpty == false
             else { return .unknown(nil) }
         let typeList: [String] = mimeType.components(separatedBy: "/")
@@ -189,7 +189,7 @@ class NLMIMEChecker {
         }
     }
     
-    private func getApplicationType(_ subTypeString: String) -> NLContentType {
+    private func getApplicationType(_ subTypeString: String) -> XNContentType {
         switch subTypeString {
         case "pdf":
             return .pdf

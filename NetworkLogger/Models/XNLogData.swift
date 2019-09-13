@@ -1,6 +1,6 @@
 //
-//  NLLogData.swift
-//  NetworkLogger
+//  XNLogData.swift
+//  XNLogger
 //
 //  Created by Sunil Sharma on 09/07/19.
 //  Copyright © 2019 Sunil Sharma. All rights reserved.
@@ -8,7 +8,7 @@
 
 import Foundation
 
-public enum NLSessionState: Int {
+public enum XNSessionState: Int {
     case running
     case suspended
     case canceling
@@ -32,10 +32,10 @@ public enum NLSessionState: Int {
 }
 
 /**
- NLLogData model is exposed as READ only i.e. variables can be read from
+ XNLogData model is exposed as READ only i.e. variables can be read from
  outside module but variables cannot be WRITTEN or UPDATED from outside of module.
  */
-public class NLLogData: NSObject {
+public class XNLogData: NSObject {
     
     public let identifier: String
     public let urlRequest: URLRequest
@@ -53,12 +53,12 @@ public class NLLogData: NSObject {
     internal(set) public var redirectRequest: URLRequest?
     /** Store Request state like running or completed.
         Not very reliable in some case it persist wrong value like in redirect case. */
-    private(set) public var state: NLSessionState?
+    private(set) public var state: XNSessionState?
     internal(set) public var duration: Double?
     
-    internal(set) lazy var respContentType: NLContentType = {
+    internal(set) lazy var respContentType: XNContentType = {
         if let mimeStr = response?.mimeType {
-            return NLAppUtils.shared.getMimeEnum(from: mimeStr)
+            return XNAppUtils.shared.getMimeEnum(from: mimeStr)
         } else if receivedData != nil {
             return receivedData!.sniffMimeEnum()
         } else {
@@ -66,9 +66,9 @@ public class NLLogData: NSObject {
         }
     }()
     
-    internal(set) lazy var reqstContentType: NLContentType = {
+    internal(set) lazy var reqstContentType: XNContentType = {
         if let mimeStr = urlRequest.getMimeType() {
-            return NLAppUtils.shared.getMimeEnum(from: mimeStr)
+            return XNAppUtils.shared.getMimeEnum(from: mimeStr)
         } else {
             return urlRequest.sniffMimeEnum()
         }

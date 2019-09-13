@@ -1,6 +1,6 @@
 //
 //  NLLoader.m
-//  NetworkLogger
+//  XNLogger
 //
 //  Created by Sunil Sharma on 22/07/19.
 //  Copyright © 2019 Sunil Sharma. All rights reserved.
@@ -15,7 +15,7 @@
 @implementation NLLoader
 
 + (void)load {
-    [[NetworkLogger shared] startLogging];
+    [[XNLogger shared] startLogging];
     (void)[NLUIManager shared];
 }
 

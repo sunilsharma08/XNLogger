@@ -1,8 +1,9 @@
 //
-//  StringExtensions.swift
-//  NetworkLogger
+//  XNExtensions.swift
+//  XNLogger
 //
 //  Created by Sunil Sharma on 26/01/19.
+//  Copyright © 2019 Sunil Sharma. All rights reserved.
 //
 
 import Foundation
@@ -101,7 +102,7 @@ internal extension URLRequest {
         }
     }
     
-    func sniffMimeEnum() -> NLContentType {
+    func sniffMimeEnum() -> XNContentType {
         if let data = httpBody, data.isEmpty == false {
             return data.sniffMimeEnum()
         }
@@ -117,7 +118,7 @@ internal extension URLRequest {
 extension NSMutableURLRequest {
     
     func setNLFlag(value: Any) {
-        URLProtocol.setProperty(value, forKey: NLAppConstants.NLRequestFlagKey, in: self)
+        URLProtocol.setProperty(value, forKey: XNAppConstants.NLRequestFlagKey, in: self)
     }
 }
 
@@ -156,9 +157,9 @@ extension TimeInterval {
 
 extension Data {
     
-    func sniffMimeEnum() -> NLContentType {
+    func sniffMimeEnum() -> XNContentType {
         var magicNumbers = [UInt8](repeating: 0, count: NLMIMEChecker.maxDataNeed)
         copyBytes(to: &magicNumbers, count: NLMIMEChecker.maxDataNeed)
-        return NLAppUtils.shared.getMimeEnum(from: magicNumbers)
+        return XNAppUtils.shared.getMimeEnum(from: magicNumbers)
     }
 }

@@ -16,7 +16,7 @@ public enum NLGestureType: Int {
 }
 
 protocol NLUILogDataDelegate: class {
-    func receivedLogData(_ logData: NLLogData, isResponse: Bool)
+    func receivedLogData(_ logData: XNLogData, isResponse: Bool)
 }
 
 @objc
@@ -25,12 +25,12 @@ public final class NLUIManager: NSObject {
     @objc public static let shared: NLUIManager = NLUIManager()
     public var startGesture: NLGestureType? = .shake
     var uiLogHandler: NLUILogHandler = NLUILogHandler()
-    var logsDataDict: [String: NLLogData] = [:]
+    var logsDataDict: [String: XNLogData] = [:]
     var logsIdArray: [String] = []
     
     private override init() {
         super.init()
-        NetworkLogger.shared.addLogHandlers([uiLogHandler])
+        XNLogger.shared.addLogHandlers([uiLogHandler])
         self.uiLogHandler.delegate = self
     }
     
@@ -65,7 +65,7 @@ public final class NLUIManager: NSObject {
 
 extension NLUIManager: NLUILogDataDelegate {
     
-    func receivedLogData(_ logData: NLLogData, isResponse: Bool) {
+    func receivedLogData(_ logData: XNLogData, isResponse: Bool) {
         if isResponse == false {
             self.logsIdArray.append(logData.identifier)
         }

@@ -1,6 +1,6 @@
 //
-//  SlackLogHandler.swift
-//  NetworkLogger
+//  XNSlackLogHandler.swift
+//  XNLogger
 //
 //  Created by Sunil Sharma on 10/01/19.
 //  Copyright © 2019 Sunil Sharma. All rights reserved.
@@ -8,14 +8,14 @@
 
 import UIKit
 
-public class NLSlackLogHandler: NLBaseLogHandler, NLLogHandler, NLRemoteLogger {
+public class XNSlackLogHandler: XNBaseLogHandler, XNLogHandler, XNRemoteLogger {
     
     private let webhookUrl: String
-    private var logComposer: NLLogComposer!
+    private var logComposer: XNLogComposer!
     
-    public class func create(webhookUrl: String) -> NLSlackLogHandler {
-        let instance: NLSlackLogHandler = NLSlackLogHandler(webhookUrl: webhookUrl)
-        instance.logComposer = NLLogComposer(logFormatter: instance.logFormatter)
+    public class func create(webhookUrl: String) -> XNSlackLogHandler {
+        let instance: XNSlackLogHandler = XNSlackLogHandler(webhookUrl: webhookUrl)
+        instance.logComposer = XNLogComposer(logFormatter: instance.logFormatter)
         return instance
     }
     
@@ -23,7 +23,7 @@ public class NLSlackLogHandler: NLBaseLogHandler, NLLogHandler, NLRemoteLogger {
         self.webhookUrl = webhookUrl
     }
     
-    public func networkLogger(logRequest logData: NLLogData) {
+    public func networkLogger(logRequest logData: XNLogData) {
         
         if shouldLogRequest(logData: logData) {
             let message = logComposer.getRequestLog(from: logData)
@@ -33,7 +33,7 @@ public class NLSlackLogHandler: NLBaseLogHandler, NLLogHandler, NLRemoteLogger {
         }
     }
     
-    public func networkLogger(logResponse logData: NLLogData) {
+    public func networkLogger(logResponse logData: XNLogData) {
         
         if shouldLogResponse(logData: logData) {
             let message = logComposer.getResponseLog(from: logData)

@@ -1,6 +1,6 @@
 //
-//  NLAuthenticationChallengeSender.swift
-//  NetworkLogger
+//  XNAuthenticationChallengeSender.swift
+//  XNLogger
 //
 //  Created by Sunil Sharma on 04/07/19.
 //  Copyright © 2019 Sunil Sharma. All rights reserved.
@@ -8,13 +8,13 @@
 
 import Foundation
 
-internal class NLAuthenticationChallengeSender: NSObject, URLAuthenticationChallengeSender {
+internal class XNAuthenticationChallengeSender: NSObject, URLAuthenticationChallengeSender {
     
-    typealias NLAuthenticationChallengeHandler = (URLSession.AuthChallengeDisposition, URLCredential?) -> Void
+    typealias XNAuthenticationChallengeHandler = (URLSession.AuthChallengeDisposition, URLCredential?) -> Void
     
-    fileprivate var handler: NLAuthenticationChallengeHandler
+    fileprivate var handler: XNAuthenticationChallengeHandler
     
-    init(handler: @escaping NLAuthenticationChallengeHandler) {
+    init(handler: @escaping XNAuthenticationChallengeHandler) {
         self.handler = handler
         super.init()
     }

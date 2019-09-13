@@ -13,7 +13,7 @@ import Swifter
 class NetworkInterceptorTests: XCTestCase {
     
     var server: HttpServer? = HttpServer()
-    var fileLogHandler: NLFileLogHandler?
+    var fileLogHandler: XNFileLogHandler?
     let apisToTest: [API] = [.defaultSession, .sharedSession, .ephemeralSession]
     
     override func setUp() {
@@ -30,17 +30,17 @@ class NetworkInterceptorTests: XCTestCase {
         print(#function)
         let logHandlerFactory = NLLogHandlerFactory()
         fileLogHandler = logHandlerFactory.create(.file) as? NLFileLogHandler
-        NetworkLogger.shared.addLogHandler(fileLogHandler!)
-        NetworkLogger.shared.clearLogs()
-        NetworkLogger.shared.startLogging()
+        XNLogger.shared.addLogHandler(fileLogHandler!)
+        XNLogger.shared.clearLogs()
+        XNLogger.shared.startLogging()
     }
     
     override func tearDown() {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
         print(#function)
         server?.stop()
-        NetworkLogger.shared.stopLogging()
-        NetworkLogger.shared.removeHandler(fileLogHandler!)
+        XNLogger.shared.stopLogging()
+        XNLogger.shared.removeHandler(fileLogHandler!)
         fileLogHandler = nil
     }
     

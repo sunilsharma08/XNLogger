@@ -1,6 +1,6 @@
 //
-//  NLURLProtocol.swift
-//  NetworkLogger
+//  XNURLProtocol.swift
+//  XNLogger
 //
 //  Created by Sunil Sharma on 14/04/19.
 //  Copyright © 2019 Sunil Sharma. All rights reserved.
@@ -8,7 +8,7 @@
 
 import Foundation
 
-open class NLURLProtocol: URLProtocol {
+open class XNURLProtocol: URLProtocol {
     
     private var session: URLSession?
     private var sessionTask: URLSessionTask?
@@ -16,7 +16,7 @@ open class NLURLProtocol: URLProtocol {
     private var response: URLResponse?
     private var receivedData: Data?
     private var responseError: Error?
-    private var logData: NLLogData?
+    private var logData: XNLogData?
     
     public override init(request: URLRequest, cachedResponse: CachedURLResponse?, client: URLProtocolClient?) {
         super.init(request: request, cachedResponse: cachedResponse, client: client)
@@ -61,10 +61,10 @@ open class NLURLProtocol: URLProtocol {
             self.session = URLSession(configuration: .default, delegate: self, delegateQueue: nil)
         }
         guard let pSession = self.session,
-            let urlRequest = NLAppUtils.shared.createNLRequest(NLURLProtocol.canonicalRequest(for: self.request))
+            let urlRequest = XNAppUtils.shared.createNLRequest(XNURLProtocol.canonicalRequest(for: self.request))
         else { return }
         
-        self.logData = NLLogData(identifier: NLAppUtils.shared.nextLogIdentifier(), request: urlRequest)
+        self.logData = XNLogData(identifier: XNAppUtils.shared.nextLogIdentifier(), request: urlRequest)
         self.logData?.startTime = Date()
         
         self.sessionTask = pSession.dataTask(with: urlRequest)
@@ -72,8 +72,8 @@ open class NLURLProtocol: URLProtocol {
         self.logData?.setSessionState(self.sessionTask?.state)
         
         if let logData = self.logData {
-            NetworkLogger.shared.logRequest(from: logData)
-            NetworkLogger.shared.delegate?.networkLogger?(didStartRequest: logData)
+            XNLogger.shared.logRequest(from: logData)
+            XNLogger.shared.delegate?.networkLogger?(didStartRequest: logData)
         }
     }
     
@@ -92,8 +92,8 @@ open class NLURLProtocol: URLProtocol {
         self.logData?.error = self.responseError
         
         if let logData = self.logData {
-            NetworkLogger.shared.logResponse(from: logData)
-            NetworkLogger.shared.delegate?.networkLogger?(didReceiveResponse: logData)
+            XNLogger.shared.logResponse(from: logData)
+            XNLogger.shared.delegate?.networkLogger?(didReceiveResponse: logData)
         }
         
         // Make sure to clear all data. To avoid memory leaks.
@@ -111,7 +111,7 @@ open class NLURLProtocol: URLProtocol {
     
 }
 
-extension NLURLProtocol: URLSessionDataDelegate {
+extension XNURLProtocol: URLSessionDataDelegate {
 
     public func urlSession(_ session: URLSession, dataTask: URLSessionDataTask, didReceive data: Data) {
         client?.urlProtocol(self, didLoad: data)
@@ -139,7 +139,7 @@ extension NLURLProtocol: URLSessionDataDelegate {
         self.logData?.redirectRequest = request
         self.response = response
         if let mutableRequest = request.getNSMutableURLRequest() {
-            URLProtocol.removeProperty(forKey: NLAppConstants.NLRequestFlagKey, in: mutableRequest)
+            URLProtocol.removeProperty(forKey: XNAppConstants.NLRequestFlagKey, in: mutableRequest)
             client?.urlProtocol(self, wasRedirectedTo: mutableRequest as URLRequest, redirectResponse: response)
         }
     }
@@ -154,21 +154,21 @@ extension NLURLProtocol: URLSessionDataDelegate {
 
     public func urlSession(_ session: URLSession, didReceive challenge: URLAuthenticationChallenge, completionHandler: @escaping (URLSession.AuthChallengeDisposition, URLCredential?) -> Void) {
         
-        let challengeHandler = URLAuthenticationChallenge(authenticationChallenge: challenge, sender: NLAuthenticationChallengeSender(handler: completionHandler))
+        let challengeHandler = URLAuthenticationChallenge(authenticationChallenge: challenge, sender: XNAuthenticationChallengeSender(handler: completionHandler))
         client?.urlProtocol(self, didReceive: challengeHandler)
     }
 
 }
 
 // Helper private methods
-fileprivate extension NLURLProtocol {
+fileprivate extension XNURLProtocol {
     
     fileprivate class func shouldHandle(request: URLRequest) -> Bool {
         
-        if let _ = URLProtocol.property(forKey: NLAppConstants.NLRequestFlagKey, in: request) {
+        if let _ = URLProtocol.property(forKey: XNAppConstants.NLRequestFlagKey, in: request) {
             return false
         }
-        else if (NetworkLogger.shared.filterManager.isAllowed(urlRequest: request)) {
+        else if (XNLogger.shared.filterManager.isAllowed(urlRequest: request)) {
             return true
         }
         else {

@@ -1,6 +1,6 @@
 //
-//  RemoteLogHandler.swift
-//  NetworkLogger
+//  XNRemoteLogHandler.swift
+//  XNLogger
 //
 //  Created by Sunil Sharma on 10/01/19.
 //  Copyright © 2019 Sunil Sharma. All rights reserved.
@@ -8,14 +8,14 @@
 
 import UIKit
 
-public class NLRemoteLogHandler: NLBaseLogHandler, NLLogHandler, NLRemoteLogger {
+public class XNRemoteLogHandler: XNBaseLogHandler, XNLogHandler, XNRemoteLogger {
     
     private let urlRequest: URLRequest
-    private var logComposer: NLLogComposer!
+    private var logComposer: XNLogComposer!
     
-    public class func create(urlRequest: URLRequest) -> NLRemoteLogHandler {
-        let instance: NLRemoteLogHandler = NLRemoteLogHandler(urlRequest: urlRequest)
-        instance.logComposer = NLLogComposer(logFormatter: instance.logFormatter)
+    public class func create(urlRequest: URLRequest) -> XNRemoteLogHandler {
+        let instance: XNRemoteLogHandler = XNRemoteLogHandler(urlRequest: urlRequest)
+        instance.logComposer = XNLogComposer(logFormatter: instance.logFormatter)
         return instance
     }
     
@@ -23,7 +23,7 @@ public class NLRemoteLogHandler: NLBaseLogHandler, NLLogHandler, NLRemoteLogger 
         self.urlRequest = urlRequest
     }
     
-    public func networkLogger(logRequest logData: NLLogData) {
+    public func networkLogger(logRequest logData: XNLogData) {
         if shouldLogRequest(logData: logData) {
             let message = logComposer.getRequestLog(from: logData)
             let remoteRequest = appendLogInHttpBody(urlRequest, message: message)
@@ -32,7 +32,7 @@ public class NLRemoteLogHandler: NLBaseLogHandler, NLLogHandler, NLRemoteLogger 
         }
     }
     
-    public func networkLogger(logResponse logData: NLLogData) {
+    public func networkLogger(logResponse logData: XNLogData) {
         if shouldLogResponse(logData: logData) {
             let message = logComposer.getResponseLog(from: logData)
             let remoteRequest = appendLogInHttpBody(urlRequest, message: message)
@@ -46,7 +46,7 @@ public class NLRemoteLogHandler: NLBaseLogHandler, NLLogHandler, NLRemoteLogger 
         var bodyJson: [String: Any] = [:]
         // TODO: Handle different conditions like if httpStream and is exsiting is not dictionary
         if let httpData = urlRequest.httpBody,
-            let json = NLJSONUtils().getDictionaryFrom(jsonData: httpData) {
+            let json = XNJSONUtils().getDictionaryFrom(jsonData: httpData) {
             bodyJson = json
         }
         

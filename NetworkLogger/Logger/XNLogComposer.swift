@@ -1,6 +1,6 @@
 //
-//  LogComposer.swift
-//  NetworkLogger
+//  XNLogComposer.swift
+//  XNLogger
 //
 //  Created by Sunil Sharma on 17/01/19.
 //  Copyright © 2019 Sunil Sharma. All rights reserved.
@@ -8,21 +8,21 @@
 
 import Foundation
 
-internal class NLLogComposer {
+internal class XNLogComposer {
     
-    let formatter: NLLogFormatter
+    let formatter: XNLogFormatter
     let dateFormatter = DateFormatter()
     
-    init(logFormatter: NLLogFormatter) {
+    init(logFormatter: XNLogFormatter) {
         self.formatter = logFormatter
         self.dateFormatter.dateFormat = "yyyy-MM-dd H:m:ss.SSSS"
     }
     
-    func getRequestLog(from logData: NLLogData) -> String {
+    func getRequestLog(from logData: XNLogData) -> String {
         return getRequestLog(from: logData, isResponseLog: false)
     }
     
-    private func getRequestLog(from logData: NLLogData, isResponseLog: Bool) -> String {
+    private func getRequestLog(from logData: XNLogData, isResponseLog: Bool) -> String {
         let urlRequest: URLRequest = logData.urlRequest
         var urlRequestStr = ""
         urlRequestStr += "\n\(getBoundry(for: "Request"))\n"
@@ -44,7 +44,7 @@ internal class NLLogComposer {
         urlRequestStr.append("\n\nHttp body:")
         if let httpBody = urlRequest.httpBodyString(prettyPrint: formatter.prettyPrintJSON), httpBody.isEmpty == false {
             // Log HTTP body either `logUnreadableReqstBody` is true or when content is readable.
-            if formatter.logUnreadableReqstBody || NLAppUtils.shared.isContentTypeReadable(logData.reqstContentType) {
+            if formatter.logUnreadableReqstBody || XNAppUtils.shared.isContentTypeReadable(logData.reqstContentType) {
                 urlRequestStr.append("\n\(httpBody)\n")
             } else {
                 urlRequestStr.append("\n\(logData.reqstContentType.getName())\n")
@@ -59,7 +59,7 @@ internal class NLLogComposer {
             urlRequestStr += "\nCURL: \(urlRequest.cURL)"
         }
         
-        let reqstMetaInfo: [NLRequestMetaInfo] = isResponseLog ? formatter.showReqstMetaInfoWithResp : formatter.showReqstMetaInfo
+        let reqstMetaInfo: [XNRequestMetaInfo] = isResponseLog ? formatter.showReqstMetaInfoWithResp : formatter.showReqstMetaInfo
         
         for metaInfo in reqstMetaInfo {
             
@@ -88,7 +88,7 @@ internal class NLLogComposer {
         return urlRequestStr
     }
     
-    func getResponseLog(from logData: NLLogData) ->  String {
+    func getResponseLog(from logData: XNLogData) ->  String {
         
         var responseStr: String = ""
         
@@ -158,8 +158,8 @@ internal class NLLogComposer {
         responseStr += "\n\nResponse Content: \n"
         if let data = logData.receivedData, data.isEmpty == false {
             
-            if formatter.logUnreadableRespBody || NLAppUtils.shared.isContentTypeReadable(logData.respContentType) {
-                let str = NLJSONUtils().getJSONStringORStringFrom(jsonData: data, prettyPrint: formatter.prettyPrintJSON)
+            if formatter.logUnreadableRespBody || XNAppUtils.shared.isContentTypeReadable(logData.respContentType) {
+                let str = XNJSONUtils().getJSONStringORStringFrom(jsonData: data, prettyPrint: formatter.prettyPrintJSON)
                 responseStr.append(str)
             } else {
                 responseStr.append(logData.respContentType.getName())

@@ -1,6 +1,6 @@
 //
-//  NLLogFormatter.swift
-//  NetworkLogger
+//  XNLogFormatter.swift
+//  XNLogger
 //
 //  Created by Sunil Sharma on 13/07/19.
 //  Copyright © 2019 Sunil Sharma. All rights reserved.
@@ -9,7 +9,7 @@
 import Foundation
 
 @objc
-public enum NLRequestMetaInfo: Int, CaseIterable {
+public enum XNRequestMetaInfo: Int, CaseIterable {
     
     case timeoutInterval
     case cellularAccess
@@ -21,7 +21,7 @@ public enum NLRequestMetaInfo: Int, CaseIterable {
 }
 
 @objc
-public enum NLResponseMetaInfo: Int, CaseIterable {
+public enum XNResponseMetaInfo: Int, CaseIterable {
     
     case statusCode
     case statusDescription
@@ -35,7 +35,7 @@ public enum NLResponseMetaInfo: Int, CaseIterable {
 }
 
 @objcMembers
-public class NLLogFormatter: NSObject {
+public class XNLogFormatter: NSObject {
     
     public var showRequest: Bool = true
     public var showResponse: Bool = true
@@ -50,7 +50,7 @@ public class NLLogFormatter: NSObject {
     public var logUnreadableRespBody: Bool = false
     public var logUnreadableReqstBody: Bool = false
     
-    public var showReqstMetaInfo: [NLRequestMetaInfo] = NLRequestMetaInfo.allCases {
+    public var showReqstMetaInfo: [XNRequestMetaInfo] = XNRequestMetaInfo.allCases {
         didSet {
             showReqstMetaInfo = Set(showReqstMetaInfo).sorted(by: { (property1, property2) -> Bool in
                 return property1.rawValue < property2.rawValue
@@ -58,7 +58,7 @@ public class NLLogFormatter: NSObject {
         }
     }
     
-    public var showRespMetaInfo: [NLResponseMetaInfo] = NLResponseMetaInfo.allCases{
+    public var showRespMetaInfo: [XNResponseMetaInfo] = XNResponseMetaInfo.allCases{
         didSet {
             showRespMetaInfo = Set(showRespMetaInfo).sorted(by: { (property1, property2) -> Bool in
                 return property1.rawValue < property2.rawValue
@@ -66,7 +66,7 @@ public class NLLogFormatter: NSObject {
         }
     }
     
-    public var showReqstMetaInfoWithResp: [NLRequestMetaInfo] = NLRequestMetaInfo.allCases {
+    public var showReqstMetaInfoWithResp: [XNRequestMetaInfo] = XNRequestMetaInfo.allCases {
         didSet {
             showReqstMetaInfo = Set(showReqstMetaInfo).sorted(by: { (property1, property2) -> Bool in
                 return property1.rawValue < property2.rawValue

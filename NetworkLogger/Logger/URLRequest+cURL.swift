@@ -1,6 +1,6 @@
 //
 //  URLRequest+cURL.swift
-//  NetworkLogger
+//  XNLogger
 //
 //  Created by Sunil Sharma on 18/01/19.
 //  Copyright © 2019 Sunil Sharma. All rights reserved.
@@ -85,7 +85,7 @@ internal extension URLRequest {
     }
     
     private func getJSONStringORString(data: Data, prettyPrint: Bool) -> String? {
-        return NLJSONUtils().getJSONStringORStringFrom(jsonData: data, prettyPrint: prettyPrint)
+        return XNJSONUtils().getJSONStringORStringFrom(jsonData: data, prettyPrint: prettyPrint)
     }
     
 }

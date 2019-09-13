@@ -1,6 +1,6 @@
 //
 //  NLLogListViewController.swift
-//  NetworkLogger
+//  XNLogger
 //
 //  Created by Sunil Sharma on 16/08/19.
 //  Copyright © 2019 Sunil Sharma. All rights reserved.
@@ -11,7 +11,7 @@ import UIKit
 class NLUILogListVC: NLUIBaseViewController {
 
     @IBOutlet weak var logListTableView: UITableView!
-    private var logsDataDict: [String: NLLogData] = [:]
+    private var logsDataDict: [String: XNLogData] = [:]
     private var logsIdArray: [String] = []
     
     override func viewDidLoad() {
@@ -42,7 +42,7 @@ class NLUILogListVC: NLUIBaseViewController {
         NLUIManager.shared.dismissNetworkUI()
     }
     
-    func getLogData(indexPath: IndexPath) -> NLLogData? {
+    func getLogData(indexPath: IndexPath) -> XNLogData? {
         return self.logsDataDict[logsIdArray[logsIdArray.count - 1 - indexPath.row]]
     }
     

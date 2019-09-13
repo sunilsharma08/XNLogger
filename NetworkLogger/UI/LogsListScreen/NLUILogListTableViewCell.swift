@@ -1,6 +1,6 @@
 //
 //  NLUILogListTableViewCell.swift
-//  NetworkLogger
+//  XNLogger
 //
 //  Created by Sunil Sharma on 23/08/19.
 //  Copyright © 2019 Sunil Sharma. All rights reserved.
@@ -27,7 +27,7 @@ class NLUILogListTableViewCell: UITableViewCell {
         self.dateFormatter.dateFormat = "hh:mm:ss a"
     }
     
-    func configureViews(withData data: NLLogData) {
+    func configureViews(withData data: XNLogData) {
         
         if let scheme = data.urlRequest.url?.scheme,
             let host = data.urlRequest.url?.host {
@@ -49,7 +49,7 @@ class NLUILogListTableViewCell: UITableViewCell {
         self.selectionStyle = UITableViewCell.SelectionStyle.none
     }
     
-    private func updateHTTPStatus(_ status: NLSessionState?, response: URLResponse?) {
+    private func updateHTTPStatus(_ status: XNSessionState?, response: URLResponse?) {
         
         func updateStatusLabel(color: UIColor, message: String) {
             self.httpStatusLbl.backgroundColor = color

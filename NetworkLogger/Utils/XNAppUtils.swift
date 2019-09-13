@@ -1,6 +1,6 @@
 //
-//  NLAppUtils.swift
-//  NetworkLogger
+//  XNAppUtils.swift
+//  XNLogger
 //
 //  Created by Sunil Sharma on 01/07/19.
 //  Copyright © 2019 Sunil Sharma. All rights reserved.
@@ -8,9 +8,9 @@
 
 import Foundation
 
-class NLAppUtils {
+class XNAppUtils {
     
-    static let shared: NLAppUtils = NLAppUtils()
+    static let shared: XNAppUtils = XNAppUtils()
     static private var logIdentifier: UInt64 = 0
     lazy var mimeChecker: NLMIMEChecker = {
         return NLMIMEChecker()
@@ -32,23 +32,23 @@ class NLAppUtils {
     }
     
     func getLogIdentifier() -> String {
-        return "\(NLAppUtils.logIdentifier)"
+        return "\(XNAppUtils.logIdentifier)"
     }
     
     func nextLogIdentifier() -> String {
-        NLAppUtils.logIdentifier += 1
-        return "\(NLAppUtils.logIdentifier)"
+        XNAppUtils.logIdentifier += 1
+        return "\(XNAppUtils.logIdentifier)"
     }
     
-    func getMimeEnum(from dataBytes: [UInt8]) -> NLContentType {
+    func getMimeEnum(from dataBytes: [UInt8]) -> XNContentType {
         return mimeChecker.getMimeType(from: dataBytes)
     }
     
-    func getMimeEnum(from mimeString: String?) -> NLContentType {
+    func getMimeEnum(from mimeString: String?) -> XNContentType {
         return mimeChecker.getMimeType(from: mimeString)
     }
     
-    func isContentTypeReadable(_ contentType: NLContentType) -> Bool {
+    func isContentTypeReadable(_ contentType: XNContentType) -> Bool {
         switch contentType {
         case .json, .text:
             return true

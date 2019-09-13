@@ -1,6 +1,6 @@
 //
-//  NetworkInterceptor.swift
-//  NetworkLogger
+//  XNInterceptor.swift
+//  XNLogger
 //
 //  Created by Sunil Sharma on 03/01/19.
 //  Copyright © 2019 Sunil Sharma. All rights reserved.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-internal class NetworkInterceptor: NSObject {
+internal class XNInterceptor: NSObject {
     
     /**
      Setup and start logging network calls.
@@ -38,7 +38,7 @@ internal class NetworkInterceptor: NSObject {
     func isProtocolSwizzled() -> Bool {
         let protocolClasses: [AnyClass] = URLSessionConfiguration.default.protocolClasses ?? []
         for protocolCls in protocolClasses {
-            if protocolCls == NLURLProtocol.self {
+            if protocolCls == XNURLProtocol.self {
                 return true
             }
         }
@@ -69,10 +69,10 @@ extension URLSessionConfiguration {
             return []
         }
         var originalProtocolClasses = nlProcotolClasses.filter {
-            return $0 != NLURLProtocol.self
+            return $0 != XNURLProtocol.self
         }
-        // Make sure NLURLProtocol class is at top in protocol classes list.
-        originalProtocolClasses.insert(NLURLProtocol.self, at: 0)
+        // Make sure XNURLProtocol class is at top in protocol classes list.
+        originalProtocolClasses.insert(XNURLProtocol.self, at: 0)
         return originalProtocolClasses
     }
 }
