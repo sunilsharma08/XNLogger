@@ -1,2 +1,2 @@
-# NetworkLogger
+# XNLogger
 Log network traffic
