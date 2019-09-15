@@ -12,8 +12,8 @@ class XNAppUtils {
     
     static let shared: XNAppUtils = XNAppUtils()
     static private var logIdentifier: UInt64 = 0
-    lazy var mimeChecker: NLMIMEChecker = {
-        return NLMIMEChecker()
+    lazy var mimeChecker: XNMIMEChecker = {
+        return XNMIMEChecker()
     }()
     
     private init() {}

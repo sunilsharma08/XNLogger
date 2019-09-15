@@ -158,8 +158,8 @@ extension TimeInterval {
 extension Data {
     
     func sniffMimeEnum() -> XNContentType {
-        var magicNumbers = [UInt8](repeating: 0, count: NLMIMEChecker.maxDataNeed)
-        copyBytes(to: &magicNumbers, count: NLMIMEChecker.maxDataNeed)
+        var magicNumbers = [UInt8](repeating: 0, count: XNMIMEChecker.maxDataNeed)
+        copyBytes(to: &magicNumbers, count: XNMIMEChecker.maxDataNeed)
         return XNAppUtils.shared.getMimeEnum(from: magicNumbers)
     }
 }

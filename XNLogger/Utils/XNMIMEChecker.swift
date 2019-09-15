@@ -50,7 +50,7 @@ fileprivate struct FileSignature {
     }
 }
 
-class NLMIMEChecker {
+class XNMIMEChecker {
     
     private static let imagesSignature: [FileSignature] = [
         FileSignature(signature: [0x89, 0x50, 0x4E, 0x47, 0x0D, 0x0A, 0x1A, 0x0A]) /*PNG*/,
@@ -109,23 +109,23 @@ class NLMIMEChecker {
     
     func getMimeType(from dataBytes: [UInt8]) -> XNContentType {
         // Check for JSON
-        if (compareSignatures(NLMIMEChecker.jsonSignatures, with: dataBytes)) {
+        if (compareSignatures(XNMIMEChecker.jsonSignatures, with: dataBytes)) {
             return .json
         }
         // Check for PDF
-        else if (compareSignatures(NLMIMEChecker.pdfSignatures, with: dataBytes)) {
+        else if (compareSignatures(XNMIMEChecker.pdfSignatures, with: dataBytes)) {
             return .pdf
         }
         // Check for Images
-        else if compareSignatures(NLMIMEChecker.imagesSignature, with: dataBytes) {
+        else if compareSignatures(XNMIMEChecker.imagesSignature, with: dataBytes) {
             return .image
         }
         // Check for Videos
-        else if compareSignatures(NLMIMEChecker.videoSignatures, with: dataBytes) {
+        else if compareSignatures(XNMIMEChecker.videoSignatures, with: dataBytes) {
             return .video
         }
         // Check for Audio
-        else if compareSignatures(NLMIMEChecker.audioSignature, with: dataBytes) {
+        else if compareSignatures(XNMIMEChecker.audioSignature, with: dataBytes) {
             return .audio
         } else {
             return .unknown(nil)
