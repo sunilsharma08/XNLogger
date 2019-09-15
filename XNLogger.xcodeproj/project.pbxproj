@@ -57,8 +57,8 @@
 		10F8A9BD230E761400C17B4A /* NLUIExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10F8A9BC230E761400C17B4A /* NLUIExtensions.swift */; };
 		10FC10EB231501D900F347BF /* NLUILogDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10FC10E9231501D900F347BF /* NLUILogDetailVC.swift */; };
 		10FC10EC231501D900F347BF /* NLUILogDetailVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 10FC10EA231501D900F347BF /* NLUILogDetailVC.xib */; };
-		810828F0BE75B409F66B3346 /* Pods_NetworkLoggerTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9290FC19A9F604788CF2BA30 /* Pods_NetworkLoggerTests.framework */; };
-		D1580A580636FA1A49686D54 /* Pods_NetworkLogger.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C1F8FC2C73F89A2A638E1F47 /* Pods_NetworkLogger.framework */; };
+		4AB65FD2711F23689A523C45 /* Pods_XNLogger.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6E2A8787D51D4750F5E58B0D /* Pods_XNLogger.framework */; };
+		975BF47A0FBC015433F3A430 /* Pods_XNLoggerTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DD1DC70CEE51FE911722686D /* Pods_XNLoggerTests.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -128,9 +128,13 @@
 		21645FAD8427AE2A6A40555C /* Pods-NetworkLogger.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NetworkLogger.release.xcconfig"; path = "Pods/Target Support Files/Pods-NetworkLogger/Pods-NetworkLogger.release.xcconfig"; sourceTree = "<group>"; };
 		2403541FE129CA8495F890D4 /* Pods-NetworkLogger.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NetworkLogger.debug.xcconfig"; path = "Pods/Target Support Files/Pods-NetworkLogger/Pods-NetworkLogger.debug.xcconfig"; sourceTree = "<group>"; };
 		62644C211F75EBCE77D9D635 /* Pods-NetworkLoggerTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NetworkLoggerTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-NetworkLoggerTests/Pods-NetworkLoggerTests.release.xcconfig"; sourceTree = "<group>"; };
+		6E2A8787D51D4750F5E58B0D /* Pods_XNLogger.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_XNLogger.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		7131FAE48986EDB635C3304F /* Pods-XNLogger.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-XNLogger.debug.xcconfig"; path = "Pods/Target Support Files/Pods-XNLogger/Pods-XNLogger.debug.xcconfig"; sourceTree = "<group>"; };
 		916282C86F8A8E7A7A6EAF88 /* Pods-NetworkLoggerTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NetworkLoggerTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-NetworkLoggerTests/Pods-NetworkLoggerTests.debug.xcconfig"; sourceTree = "<group>"; };
-		9290FC19A9F604788CF2BA30 /* Pods_NetworkLoggerTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_NetworkLoggerTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		C1F8FC2C73F89A2A638E1F47 /* Pods_NetworkLogger.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_NetworkLogger.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		DB2B06FE5CCDD620F9C71535 /* Pods-XNLoggerTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-XNLoggerTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-XNLoggerTests/Pods-XNLoggerTests.debug.xcconfig"; sourceTree = "<group>"; };
+		DC94A182B8660FE9407C4F6A /* Pods-XNLogger.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-XNLogger.release.xcconfig"; path = "Pods/Target Support Files/Pods-XNLogger/Pods-XNLogger.release.xcconfig"; sourceTree = "<group>"; };
+		DD1DC70CEE51FE911722686D /* Pods_XNLoggerTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_XNLoggerTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		F5C6874AF03B577DF413BA4B /* Pods-XNLoggerTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-XNLoggerTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-XNLoggerTests/Pods-XNLoggerTests.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -138,7 +142,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D1580A580636FA1A49686D54 /* Pods_NetworkLogger.framework in Frameworks */,
+				4AB65FD2711F23689A523C45 /* Pods_XNLogger.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -147,7 +151,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				1005806821C65F4A0020288D /* XNLogger.framework in Frameworks */,
-				810828F0BE75B409F66B3346 /* Pods_NetworkLoggerTests.framework in Frameworks */,
+				975BF47A0FBC015433F3A430 /* Pods_XNLoggerTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -334,6 +338,10 @@
 				21645FAD8427AE2A6A40555C /* Pods-NetworkLogger.release.xcconfig */,
 				916282C86F8A8E7A7A6EAF88 /* Pods-NetworkLoggerTests.debug.xcconfig */,
 				62644C211F75EBCE77D9D635 /* Pods-NetworkLoggerTests.release.xcconfig */,
+				7131FAE48986EDB635C3304F /* Pods-XNLogger.debug.xcconfig */,
+				DC94A182B8660FE9407C4F6A /* Pods-XNLogger.release.xcconfig */,
+				DB2B06FE5CCDD620F9C71535 /* Pods-XNLoggerTests.debug.xcconfig */,
+				F5C6874AF03B577DF413BA4B /* Pods-XNLoggerTests.release.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -341,8 +349,8 @@
 		E8915F63EF3B82F0FF848A17 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				C1F8FC2C73F89A2A638E1F47 /* Pods_NetworkLogger.framework */,
-				9290FC19A9F604788CF2BA30 /* Pods_NetworkLoggerTests.framework */,
+				6E2A8787D51D4750F5E58B0D /* Pods_XNLogger.framework */,
+				DD1DC70CEE51FE911722686D /* Pods_XNLoggerTests.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -478,7 +486,7 @@
 			outputFileListPaths = (
 			);
 			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-NetworkLoggerTests-checkManifestLockResult.txt",
+				"$(DERIVED_FILE_DIR)/Pods-XNLoggerTests-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -500,7 +508,7 @@
 			outputFileListPaths = (
 			);
 			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-NetworkLogger-checkManifestLockResult.txt",
+				"$(DERIVED_FILE_DIR)/Pods-XNLogger-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -513,15 +521,15 @@
 			files = (
 			);
 			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-NetworkLoggerTests/Pods-NetworkLoggerTests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-XNLoggerTests/Pods-XNLoggerTests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-NetworkLoggerTests/Pods-NetworkLoggerTests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-XNLoggerTests/Pods-XNLoggerTests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-NetworkLoggerTests/Pods-NetworkLoggerTests-frameworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-XNLoggerTests/Pods-XNLoggerTests-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -720,7 +728,7 @@
 		};
 		1005807321C65F4A0020288D /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 2403541FE129CA8495F890D4 /* Pods-NetworkLogger.debug.xcconfig */;
+			baseConfigurationReference = 7131FAE48986EDB635C3304F /* Pods-XNLogger.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(inherited)";
 				CLANG_ENABLE_MODULES = YES;
@@ -748,7 +756,7 @@
 		};
 		1005807421C65F4A0020288D /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 21645FAD8427AE2A6A40555C /* Pods-NetworkLogger.release.xcconfig */;
+			baseConfigurationReference = DC94A182B8660FE9407C4F6A /* Pods-XNLogger.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(inherited)";
 				CLANG_ENABLE_MODULES = YES;
@@ -775,7 +783,7 @@
 		};
 		1005807621C65F4A0020288D /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 916282C86F8A8E7A7A6EAF88 /* Pods-NetworkLoggerTests.debug.xcconfig */;
+			baseConfigurationReference = DB2B06FE5CCDD620F9C71535 /* Pods-XNLoggerTests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(inherited)";
 				CODE_SIGN_STYLE = Automatic;
@@ -794,7 +802,7 @@
 		};
 		1005807721C65F4A0020288D /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 62644C211F75EBCE77D9D635 /* Pods-NetworkLoggerTests.release.xcconfig */;
+			baseConfigurationReference = F5C6874AF03B577DF413BA4B /* Pods-XNLoggerTests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(inherited)";
 				CODE_SIGN_STYLE = Automatic;
