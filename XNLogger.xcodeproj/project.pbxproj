@@ -46,6 +46,11 @@
 		1090C20C2307403900575550 /* XNUIHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1090C20B2307403900575550 /* XNUIHelper.swift */; };
 		10AA00D921FE34E6006E4A48 /* R&DConclusions.md in Resources */ = {isa = PBXBuildFile; fileRef = 10AA00D721FE34E6006E4A48 /* R&DConclusions.md */; };
 		10AA00DA21FE34E6006E4A48 /* Technical.md in Resources */ = {isa = PBXBuildFile; fileRef = 10AA00D821FE34E6006E4A48 /* Technical.md */; };
+		10B2CF0F232EACED00CD1D80 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10B2CF0E232EACED00CD1D80 /* AppDelegate.swift */; };
+		10B2CF11232EACED00CD1D80 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10B2CF10232EACED00CD1D80 /* ViewController.swift */; };
+		10B2CF14232EACED00CD1D80 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 10B2CF12232EACED00CD1D80 /* Main.storyboard */; };
+		10B2CF16232EACEF00CD1D80 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 10B2CF15232EACEF00CD1D80 /* Assets.xcassets */; };
+		10B2CF19232EACEF00CD1D80 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 10B2CF17232EACEF00CD1D80 /* LaunchScreen.storyboard */; };
 		10B4076822626644000FD18E /* XNURLProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10B4076722626644000FD18E /* XNURLProtocol.swift */; };
 		10BC314822CD2FD20020167D /* XNAuthenticationChallengeSender.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10BC314722CD2FD20020167D /* XNAuthenticationChallengeSender.swift */; };
 		10BE806B2233C8B800A147BC /* TestUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10BE806A2233C8B800A147BC /* TestUtils.swift */; };
@@ -114,6 +119,13 @@
 		1090C20B2307403900575550 /* XNUIHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XNUIHelper.swift; sourceTree = "<group>"; };
 		10AA00D721FE34E6006E4A48 /* R&DConclusions.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = "R&DConclusions.md"; sourceTree = "<group>"; };
 		10AA00D821FE34E6006E4A48 /* Technical.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = Technical.md; sourceTree = "<group>"; };
+		10B2CF0C232EACEC00CD1D80 /* XNLoggerExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = XNLoggerExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		10B2CF0E232EACED00CD1D80 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		10B2CF10232EACED00CD1D80 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		10B2CF13232EACED00CD1D80 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		10B2CF15232EACEF00CD1D80 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		10B2CF18232EACEF00CD1D80 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		10B2CF1A232EACEF00CD1D80 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		10B4076722626644000FD18E /* XNURLProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XNURLProtocol.swift; sourceTree = "<group>"; };
 		10BC314722CD2FD20020167D /* XNAuthenticationChallengeSender.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XNAuthenticationChallengeSender.swift; sourceTree = "<group>"; };
 		10BE806A2233C8B800A147BC /* TestUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestUtils.swift; sourceTree = "<group>"; };
@@ -155,6 +167,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		10B2CF09232EACEC00CD1D80 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -163,6 +182,7 @@
 			children = (
 				1005806021C65F490020288D /* XNLogger */,
 				1005806B21C65F4A0020288D /* XNLoggerTests */,
+				10B2CF0D232EACED00CD1D80 /* XNLoggerExample */,
 				1005805F21C65F490020288D /* Products */,
 				5EF4AC20FDA5093C4C97ACF3 /* Pods */,
 				E8915F63EF3B82F0FF848A17 /* Frameworks */,
@@ -174,6 +194,7 @@
 			children = (
 				1005805E21C65F490020288D /* XNLogger.framework */,
 				1005806721C65F4A0020288D /* XNLoggerTests.xctest */,
+				10B2CF0C232EACEC00CD1D80 /* XNLoggerExample.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -314,6 +335,19 @@
 			path = Core;
 			sourceTree = "<group>";
 		};
+		10B2CF0D232EACED00CD1D80 /* XNLoggerExample */ = {
+			isa = PBXGroup;
+			children = (
+				10B2CF0E232EACED00CD1D80 /* AppDelegate.swift */,
+				10B2CF10232EACED00CD1D80 /* ViewController.swift */,
+				10B2CF12232EACED00CD1D80 /* Main.storyboard */,
+				10B2CF15232EACEF00CD1D80 /* Assets.xcassets */,
+				10B2CF17232EACEF00CD1D80 /* LaunchScreen.storyboard */,
+				10B2CF1A232EACEF00CD1D80 /* Info.plist */,
+			);
+			path = XNLoggerExample;
+			sourceTree = "<group>";
+		};
 		10E411852324A1AA004E0C1F /* LogsListScreen */ = {
 			isa = PBXGroup;
 			children = (
@@ -416,6 +450,23 @@
 			productReference = 1005806721C65F4A0020288D /* XNLoggerTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
+		10B2CF0B232EACEC00CD1D80 /* XNLoggerExample */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 10B2CF31232EACEF00CD1D80 /* Build configuration list for PBXNativeTarget "XNLoggerExample" */;
+			buildPhases = (
+				10B2CF08232EACEC00CD1D80 /* Sources */,
+				10B2CF09232EACEC00CD1D80 /* Frameworks */,
+				10B2CF0A232EACEC00CD1D80 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = XNLoggerExample;
+			productName = XNLoggerExample;
+			productReference = 10B2CF0C232EACEC00CD1D80 /* XNLoggerExample.app */;
+			productType = "com.apple.product-type.application";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -433,6 +484,9 @@
 					1005806621C65F4A0020288D = {
 						CreatedOnToolsVersion = 10.1;
 					};
+					10B2CF0B232EACEC00CD1D80 = {
+						CreatedOnToolsVersion = 10.1;
+					};
 				};
 			};
 			buildConfigurationList = 1005805821C65F490020288D /* Build configuration list for PBXProject "XNLogger" */;
@@ -441,6 +495,7 @@
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
+				Base,
 			);
 			mainGroup = 1005805421C65F490020288D;
 			productRefGroup = 1005805F21C65F490020288D /* Products */;
@@ -449,6 +504,7 @@
 			targets = (
 				1005805D21C65F490020288D /* XNLogger */,
 				1005806621C65F4A0020288D /* XNLoggerTests */,
+				10B2CF0B232EACEC00CD1D80 /* XNLoggerExample */,
 			);
 		};
 /* End PBXProject section */
@@ -473,6 +529,16 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		10B2CF0A232EACEC00CD1D80 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				10B2CF19232EACEF00CD1D80 /* LaunchScreen.storyboard in Resources */,
+				10B2CF16232EACEF00CD1D80 /* Assets.xcassets in Resources */,
+				10B2CF14232EACED00CD1D80 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -597,6 +663,15 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		10B2CF08232EACEC00CD1D80 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				10B2CF11232EACED00CD1D80 /* ViewController.swift in Sources */,
+				10B2CF0F232EACED00CD1D80 /* AppDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -606,6 +681,25 @@
 			targetProxy = 1005806921C65F4A0020288D /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		10B2CF12232EACED00CD1D80 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				10B2CF13232EACED00CD1D80 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		10B2CF17232EACEF00CD1D80 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				10B2CF18232EACEF00CD1D80 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		1005807021C65F4A0020288D /* Debug */ = {
@@ -827,6 +921,42 @@
 			};
 			name = Release;
 		};
+		10B2CF32232EACEF00CD1D80 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = XNLoggerExample/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.sunilsharma.XNLoggerExample;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.2;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		10B2CF33232EACEF00CD1D80 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = XNLoggerExample/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.sunilsharma.XNLoggerExample;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.2;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -853,6 +983,15 @@
 			buildConfigurations = (
 				1005807621C65F4A0020288D /* Debug */,
 				1005807721C65F4A0020288D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		10B2CF31232EACEF00CD1D80 /* Build configuration list for PBXNativeTarget "XNLoggerExample" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				10B2CF32232EACEF00CD1D80 /* Debug */,
+				10B2CF33232EACEF00CD1D80 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
