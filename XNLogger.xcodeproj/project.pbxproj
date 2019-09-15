@@ -181,14 +181,9 @@
 		1005806021C65F490020288D /* XNLogger */ = {
 			isa = PBXGroup;
 			children = (
+				10B2CF07232EAA2200CD1D80 /* Core */,
 				106BB6922304A882007968A8 /* UI */,
 				10AA00D621FE34E6006E4A48 /* Docs */,
-				1005807821C685000020288D /* XNLogger.swift */,
-				1085768B21FDD662008ABD2B /* Filters */,
-				1085769721FDD662008ABD2B /* Logger */,
-				1085768821FDD661008ABD2B /* Models */,
-				1085769521FDD662008ABD2B /* NetworkInterceptor */,
-				1085769221FDD662008ABD2B /* Utils */,
 				1005806121C65F490020288D /* XNLogger.h */,
 				1005806221C65F490020288D /* Info.plist */,
 			);
@@ -304,6 +299,19 @@
 				10AA00D821FE34E6006E4A48 /* Technical.md */,
 			);
 			path = Docs;
+			sourceTree = "<group>";
+		};
+		10B2CF07232EAA2200CD1D80 /* Core */ = {
+			isa = PBXGroup;
+			children = (
+				1085769221FDD662008ABD2B /* Utils */,
+				1085769521FDD662008ABD2B /* NetworkInterceptor */,
+				1085768821FDD661008ABD2B /* Models */,
+				1085769721FDD662008ABD2B /* Logger */,
+				1085768B21FDD662008ABD2B /* Filters */,
+				1005807821C685000020288D /* XNLogger.swift */,
+			);
+			path = Core;
 			sourceTree = "<group>";
 		};
 		10E411852324A1AA004E0C1F /* LogsListScreen */ = {
