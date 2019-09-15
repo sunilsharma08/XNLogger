@@ -1,5 +1,5 @@
 //
-//  NLUILogListTableViewCell.swift
+//  XNUILogListTableViewCell.swift
 //  XNLogger
 //
 //  Created by Sunil Sharma on 23/08/19.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class NLUILogListTableViewCell: UITableViewCell {
+class XNUILogListTableViewCell: UITableViewCell {
 
     @IBOutlet weak var httpStatusLbl: UILabel!
     @IBOutlet weak var urlPathLbl: UILabel!
@@ -20,7 +20,7 @@ class NLUILogListTableViewCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        self.urlPathLbl.textColor = NLUIAppColor.titleColor
+        self.urlPathLbl.textColor = XNUIAppColor.titleColor
         self.httpMethodLbl.textColor = UIColor.gray
         self.requestStartTimeLbl.textColor = UIColor.gray
         self.requestDurationLbl.textColor = UIColor.gray
@@ -60,14 +60,14 @@ class NLUILogListTableViewCell: UITableViewCell {
             if let httpResponse = response as? HTTPURLResponse {
                 let statusCode = httpResponse.statusCode
                 if 100...299 ~= statusCode {
-                    updateStatusLabel(color: NLUIHTTPStatusColor.status2xx, message: "\(statusCode)")
+                    updateStatusLabel(color: XNUIHTTPStatusColor.status2xx, message: "\(statusCode)")
                 } else if 300...399 ~= httpResponse.statusCode {
-                    updateStatusLabel(color: NLUIHTTPStatusColor.status3xx, message: "\(statusCode)")
+                    updateStatusLabel(color: XNUIHTTPStatusColor.status3xx, message: "\(statusCode)")
                 } else {
-                    updateStatusLabel(color: NLUIHTTPStatusColor.status4xx5xx, message: "\(statusCode)")
+                    updateStatusLabel(color: XNUIHTTPStatusColor.status4xx5xx, message: "\(statusCode)")
                 }
             } else {
-                updateStatusLabel(color: NLUIHTTPStatusColor.cancelled, message: "?")
+                updateStatusLabel(color: XNUIHTTPStatusColor.cancelled, message: "?")
             }
         }
         
@@ -78,19 +78,19 @@ class NLUILogListTableViewCell: UITableViewCell {
         
         guard let reqtStatus = status
         else {
-            updateStatusLabel(color: NLUIHTTPStatusColor.cancelled, message: "?")
+            updateStatusLabel(color: XNUIHTTPStatusColor.cancelled, message: "?")
             return
         }
         
         switch reqtStatus {
         case .running:
-            updateStatusLabel(color: NLUIHTTPStatusColor.running, message: "\u{29D6}")
+            updateStatusLabel(color: XNUIHTTPStatusColor.running, message: "\u{29D6}")
         case .canceling:
-            updateStatusLabel(color: NLUIHTTPStatusColor.cancelled, message: "Cancelled")
+            updateStatusLabel(color: XNUIHTTPStatusColor.cancelled, message: "Cancelled")
         case .suspended:
-            updateStatusLabel(color: NLUIHTTPStatusColor.cancelled, message: "Suspended")
+            updateStatusLabel(color: XNUIHTTPStatusColor.cancelled, message: "Suspended")
         case .unknown:
-            updateStatusLabel(color: NLUIHTTPStatusColor.cancelled, message: "?")
+            updateStatusLabel(color: XNUIHTTPStatusColor.cancelled, message: "?")
         case .completed:
             updateStatusFromResponse()
         }

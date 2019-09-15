@@ -1,5 +1,5 @@
 //
-//  NLLogListViewController.swift
+//  NLLogListVC.swift
 //  XNLogger
 //
 //  Created by Sunil Sharma on 16/08/19.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class NLUILogListVC: NLUIBaseViewController {
+class XNUILogListVC: NLUIBaseViewController {
 
     @IBOutlet weak var logListTableView: UITableView!
     private var logsDataDict: [String: XNLogData] = [:]
@@ -20,7 +20,7 @@ class NLUILogListVC: NLUIBaseViewController {
         self.tabBarController?.tabBar.isHidden = true
         self.hidesBottomBarWhenPushed = true
         
-        NotificationCenter.default.addObserver(self, selector: #selector(reloadLogData), name: NLUIConstants.logDataUpdtNotificationName, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(reloadLogData), name: XNUIConstants.logDataUpdtNotificationName, object: nil)
         reloadLogData()
     }
     
@@ -32,14 +32,14 @@ class NLUILogListVC: NLUIBaseViewController {
         self.navigationController?.view.backgroundColor = .white
         
         self.logListTableView.tableFooterView = UIView()
-        self.logListTableView.register(ofType: NLUILogListTableViewCell.self)
+        self.logListTableView.register(ofType: XNUILogListTableViewCell.self)
         self.logListTableView.dataSource = self
         self.logListTableView.delegate = self
         
     }
     
     @objc func dismissNetworkUI() {
-        NLUIManager.shared.dismissNetworkUI()
+        XNUIManager.shared.dismissNetworkUI()
     }
     
     func getLogData(indexPath: IndexPath) -> XNLogData? {
@@ -48,25 +48,25 @@ class NLUILogListVC: NLUIBaseViewController {
     
     @objc func reloadLogData() {
         DispatchQueue.main.async {
-            self.logsDataDict = NLUIManager.shared.logsDataDict
-            self.logsIdArray = NLUIManager.shared.logsIdArray
+            self.logsDataDict = XNUIManager.shared.logsDataDict
+            self.logsIdArray = XNUIManager.shared.logsIdArray
             self.logListTableView.reloadData()
         }
     }
 
     deinit {
-        NotificationCenter.default.removeObserver(self, name: NLUIConstants.logDataUpdtNotificationName, object: nil)
+        NotificationCenter.default.removeObserver(self, name: XNUIConstants.logDataUpdtNotificationName, object: nil)
     }
 }
 
-extension NLUILogListVC: UITableViewDataSource {
+extension XNUILogListVC: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return logsIdArray.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell: NLUILogListTableViewCell = tableView.dequeueReusableCell(for: indexPath)
+        let cell: XNUILogListTableViewCell = tableView.dequeueReusableCell(for: indexPath)
         if let logData = getLogData(indexPath: indexPath) {
             cell.configureViews(withData: logData)
         }
@@ -75,11 +75,11 @@ extension NLUILogListVC: UITableViewDataSource {
     }
 }
 
-extension NLUILogListVC: UITableViewDelegate {
+extension XNUILogListVC: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if let logData = getLogData(indexPath: indexPath),
-            let detailController = NLUILogDetailVC.instance() {
+            let detailController = XNUILogDetailVC.instance() {
             detailController.logData = logData
             self.navigationController?.pushViewController(detailController, animated: true)
         }

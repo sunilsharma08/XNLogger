@@ -1,5 +1,5 @@
 //
-//  NLLoader.m
+//  XNLoader.m
 //  XNLogger
 //
 //  Created by Sunil Sharma on 22/07/19.
@@ -8,15 +8,15 @@
 
 #import "XNLogger/XNLogger-Swift.h"
 
-@interface NLLoader : NSObject
+@interface XNLoader : NSObject
 
 @end
 
-@implementation NLLoader
+@implementation XNLoader
 
 + (void)load {
     [[XNLogger shared] startLogging];
-    (void)[NLUIManager shared];
+    (void)[XNUIManager shared];
 }
 
 

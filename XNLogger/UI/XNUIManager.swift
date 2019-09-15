@@ -1,5 +1,5 @@
 //
-//  NLUIManager.swift
+//  XNUIManager.swift
 //  Predicator
 //
 //  Created by Sunil Sharma on 21/08/19.
@@ -10,21 +10,21 @@ import Foundation
 import UIKit
 
 @objc
-public enum NLGestureType: Int {
+public enum XNGestureType: Int {
     case shake
     case custom
 }
 
-protocol NLUILogDataDelegate: class {
+protocol XNUILogDataDelegate: class {
     func receivedLogData(_ logData: XNLogData, isResponse: Bool)
 }
 
 @objc
-public final class NLUIManager: NSObject {
+public final class XNUIManager: NSObject {
     
-    @objc public static let shared: NLUIManager = NLUIManager()
-    public var startGesture: NLGestureType? = .shake
-    var uiLogHandler: NLUILogHandler = NLUILogHandler()
+    @objc public static let shared: XNUIManager = XNUIManager()
+    public var startGesture: XNGestureType? = .shake
+    var uiLogHandler: XNUILogHandler = XNUILogHandler()
     var logsDataDict: [String: XNLogData] = [:]
     var logsIdArray: [String] = []
     
@@ -46,7 +46,7 @@ public final class NLUIManager: NSObject {
     // Preset network logger UI to user. This is start point of UI
     @objc public func presentNetworkLogUI() {
         
-        if let presentingViewController = self.presentingViewController, !(presentingViewController is NLUIBaseTabBarController) {
+        if let presentingViewController = self.presentingViewController, !(presentingViewController is XNUIBaseTabBarController) {
             
             if let tabbarVC = UIStoryboard.mainStoryboard().instantiateViewController(withIdentifier: "nlMainTabBarController") as? UITabBarController {
                 presentingViewController.present(tabbarVC, animated: true, completion: nil)
@@ -57,20 +57,20 @@ public final class NLUIManager: NSObject {
     // Dismiss network logger UI
     @objc public func dismissNetworkUI() {
         
-        if let presentingViewController = self.presentingViewController as? NLUIBaseTabBarController {
+        if let presentingViewController = self.presentingViewController as? XNUIBaseTabBarController {
             presentingViewController.dismiss(animated: true, completion: nil)
         }
     }
 }
 
-extension NLUIManager: NLUILogDataDelegate {
+extension XNUIManager: XNUILogDataDelegate {
     
     func receivedLogData(_ logData: XNLogData, isResponse: Bool) {
         if isResponse == false {
             self.logsIdArray.append(logData.identifier)
         }
         self.logsDataDict[logData.identifier] = logData
-        NotificationCenter.default.post(name: NLUIConstants.logDataUpdtNotificationName, object: nil, userInfo: nil)
+        NotificationCenter.default.post(name: XNUIConstants.logDataUpdtNotificationName, object: nil, userInfo: nil)
     }
     
 }

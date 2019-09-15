@@ -8,7 +8,7 @@
 
 import Foundation
 
-class NLUILogDetail {
+class XNUILogDetail {
     var title: String
     var messages: [String] = []
     var isExpended: Bool = false

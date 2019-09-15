@@ -1,5 +1,5 @@
 //
-//  NLUILogDetailView.swift
+//  XNUILogDetailView.swift
 //  XNLogger
 //
 //  Created by Sunil Sharma on 29/08/19.
@@ -8,10 +8,10 @@
 
 import UIKit
 
-class NLUILogDetailView: UIView, NibLoadableView {
+class XNUILogDetailView: UIView, NibLoadableView {
 
     @IBOutlet weak var logDetailsTableView: UITableView!
-    var detailsArray: [NLUILogDetail] = []
+    var detailsArray: [XNUILogDetail] = []
     @IBOutlet weak var contentView: UIView!
     
     override func awakeFromNib() {
@@ -33,10 +33,10 @@ class NLUILogDetailView: UIView, NibLoadableView {
     }
     
     func setupView() {
-        let nib = UINib(nibName: NLUILogDetailView.className, bundle: Bundle.current())
+        let nib = UINib(nibName: XNUILogDetailView.className, bundle: Bundle.current())
         guard let xibView = nib.instantiate(withOwner: self, options: nil).first as? UIView
         else {
-            fatalError("Failed to load xib file \(NLUILogDetailView.nibName)")
+            fatalError("Failed to load xib file \(XNUILogDetailView.nibName)")
         }
         contentView = xibView
         self.contentView.frame = self.bounds
@@ -51,19 +51,19 @@ class NLUILogDetailView: UIView, NibLoadableView {
         self.logDetailsTableView.estimatedSectionHeaderHeight = 45;
         self.logDetailsTableView.rowHeight = UITableViewAutomaticDimension
         
-        self.logDetailsTableView.registerForHeaderFooterView(ofType: NLUILogDetailHeaderCell.self)
-        self.logDetailsTableView.register(ofType: NLUILogDetailCell.self)
+        self.logDetailsTableView.registerForHeaderFooterView(ofType: XNUILogDetailHeaderCell.self)
+        self.logDetailsTableView.register(ofType: XNUILogDetailCell.self)
         self.logDetailsTableView.dataSource = self
         self.logDetailsTableView.delegate = self
     }
     
-    func upadteView(with logDetails: [NLUILogDetail]) {
+    func upadteView(with logDetails: [XNUILogDetail]) {
         self.detailsArray = logDetails
         self.logDetailsTableView.reloadData()
     }
 }
 
-extension NLUILogDetailView: UITableViewDataSource {
+extension XNUILogDetailView: UITableViewDataSource {
     
     func numberOfSections(in tableView: UITableView) -> Int {
         return detailsArray.count
@@ -75,22 +75,22 @@ extension NLUILogDetailView: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell: NLUILogDetailCell = tableView.dequeueReusableCell(for: indexPath)
+        let cell: XNUILogDetailCell = tableView.dequeueReusableCell(for: indexPath)
         cell.logDetailMsg.text = self.detailsArray[indexPath.section].messages[indexPath.row]
         return cell
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        guard let headerView: NLUILogDetailHeaderCell = tableView.dequeueReusableHeaderFooterView(withIdentifier: NLUILogDetailHeaderCell.defaultReuseIdentifier) as? NLUILogDetailHeaderCell
+        guard let headerView: XNUILogDetailHeaderCell = tableView.dequeueReusableHeaderFooterView(withIdentifier: XNUILogDetailHeaderCell.defaultReuseIdentifier) as? XNUILogDetailHeaderCell
         else { return UIView() }
-        let logData: NLUILogDetail = self.detailsArray[section]
+        let logData: XNUILogDetail = self.detailsArray[section]
         headerView.titleLbl.text = logData.title
         return headerView
     }
     
 }
 
-extension NLUILogDetailView: UITableViewDelegate {
+extension XNUILogDetailView: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         

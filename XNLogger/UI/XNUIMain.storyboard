@@ -13,7 +13,7 @@
         <!--Network Logs-->
         <scene sceneID="hXp-Fz-Gco">
             <objects>
-                <viewController id="ALm-8y-hsn" customClass="NLUILogListVC" customModule="NetworkLogger" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="ALm-8y-hsn" customClass="XNUILogListVC" customModule="XNLogger" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="ehX-ww-Y4Q">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -46,7 +46,7 @@
         <!--Filters-->
         <scene sceneID="q1D-Wa-t2I">
             <objects>
-                <viewController id="mGd-7n-ug5" customClass="NLUIFiltersVC" customModule="NetworkLogger" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="mGd-7n-ug5" customClass="XNUIFiltersVC" customModule="XNLogger" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="iIM-kB-H7G">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -62,7 +62,7 @@
         <!--Settings-->
         <scene sceneID="hXm-ah-E87">
             <objects>
-                <viewController id="97Q-Dw-GpS" customClass="NLUISettingsVC" customModule="NetworkLogger" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="97Q-Dw-GpS" customClass="XNUISettingsVC" customModule="XNLogger" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="g01-Ol-hZM">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -78,7 +78,7 @@
         <!--Base Tab Bar Controller-->
         <scene sceneID="22G-xP-7rc">
             <objects>
-                <tabBarController storyboardIdentifier="nlMainTabBarController" automaticallyAdjustsScrollViewInsets="NO" id="xzs-xp-vNi" customClass="NLUIBaseTabBarController" customModule="NetworkLogger" customModuleProvider="target" sceneMemberID="viewController">
+                <tabBarController storyboardIdentifier="nlMainTabBarController" automaticallyAdjustsScrollViewInsets="NO" id="xzs-xp-vNi" customClass="XNUIBaseTabBarController" customModule="XNLogger" customModuleProvider="target" sceneMemberID="viewController">
                     <toolbarItems/>
                     <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="qmM-hv-jHO">
                         <rect key="frame" x="0.0" y="0.0" width="1000" height="1000"/>

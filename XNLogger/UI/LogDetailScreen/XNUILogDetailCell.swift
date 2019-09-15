@@ -1,5 +1,5 @@
 //
-//  NLUILogDetailCell.swift
+//  XNUILogDetailCell.swift
 //  XNLogger
 //
 //  Created by Sunil Sharma on 29/08/19.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class NLUILogDetailCell: UITableViewCell {
+class XNUILogDetailCell: UITableViewCell {
     
     @IBOutlet weak var logDetailMsg: UITextView!
     

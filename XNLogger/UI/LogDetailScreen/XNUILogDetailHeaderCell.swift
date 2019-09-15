@@ -1,5 +1,5 @@
 //
-//  NLUILogDetailHeaderCell.swift
+//  XNUILogDetailHeaderCell.swift
 //  XNLogger
 //
 //  Created by Sunil Sharma on 29/08/19.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class NLUILogDetailHeaderCell: UITableViewHeaderFooterView {
+class XNUILogDetailHeaderCell: UITableViewHeaderFooterView {
 
     @IBOutlet weak var titleLbl: UILabel!
     @IBOutlet weak var showHideLbl: UILabel!

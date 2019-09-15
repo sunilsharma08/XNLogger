@@ -1,5 +1,5 @@
 //
-//  NLUIExtensions.swift
+//  XNUIExtensions.swift
 //  XNLogger
 //
 //  Created by Sunil Sharma on 22/08/19.
@@ -12,9 +12,9 @@ extension UIWindow {
     
     override open func motionEnded(_ motion: UIEvent.EventSubtype, with event: UIEvent?) {
         
-        if NLUIManager.shared.startGesture == .shake,
+        if XNUIManager.shared.startGesture == .shake,
             motion == .motionShake {
-            NLUIManager.shared.presentNetworkLogUI()
+            XNUIManager.shared.presentNetworkLogUI()
         } else {
             super.motionEnded(motion, with: event)
         }
@@ -24,7 +24,7 @@ extension UIWindow {
 extension Bundle {
     
     class func current() -> Bundle {
-        return Bundle(for: NLUIManager.self)
+        return Bundle(for: XNUIManager.self)
     }
     
 }

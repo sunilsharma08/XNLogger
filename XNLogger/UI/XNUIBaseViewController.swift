@@ -1,5 +1,5 @@
 //
-//  NLUIBaseViewController.swift
+//  XNUIBaseTabBarController.swift
 //  XNLogger
 //
 //  Created by Sunil Sharma on 23/08/19.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class  NLUIBaseTabBarController: UITabBarController {
+class  XNUIBaseTabBarController: UITabBarController {
     
 }
 

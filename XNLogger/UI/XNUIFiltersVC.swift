@@ -1,5 +1,5 @@
 //
-//  NLSettingsViewController.swift
+//  XNUIFiltersVC.swift
 //  XNLogger
 //
 //  Created by Sunil Sharma on 16/08/19.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class NLUISettingsVC: NLUIBaseViewController {
+class XNUIFiltersVC: NLUIBaseViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
