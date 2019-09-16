@@ -1,6 +1,6 @@
 //
 //  CustomUrl.swift
-//  NetworkLogDemo
+//  XNLoggerExample
 //
 //  Created by Sunil Sharma on 17/12/18.
 //  Copyright © 2018 Sunil Sharma. All rights reserved.

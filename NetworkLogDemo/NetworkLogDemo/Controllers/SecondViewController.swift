@@ -1,13 +1,13 @@
 //
 //  SecondViewController.swift
-//  NetworkLogDemo
+//  XNLoggerExample
 //
 //  Created by Sunil Sharma on 19/12/18.
 //  Copyright © 2018 Sunil Sharma. All rights reserved.
 //
 
 import UIKit
-import NetworkLogger
+import XNLogger
 
 class SecondViewController: UIViewController {
 
@@ -22,7 +22,7 @@ class SecondViewController: UIViewController {
         
         if let logger = customLogger {
 //            weak var weakLogger = customLogger
-            NetworkLogger.shared.addLogHandlers([logger])
+            XNLogger.shared.addLogHandlers([logger])
         }
         
         print("after adding")

@@ -1,6 +1,6 @@
 //
 //  NetworkExamplesViewController.swift
-//  NetworkLogDemo
+//  XNLoggerExample
 //
 //  Created by Sunil Sharma on 07/04/19.
 //  Copyright © 2019 Sunil Sharma. All rights reserved.
@@ -8,7 +8,7 @@
 
 import UIKit
 import WebKit
-import NetworkLogger
+import XNLogger
 
 func printTimeElapsedWhenRunningCode(title:String, operation:()->()) {
     let startTime = CFAbsoluteTimeGetCurrent()
@@ -65,12 +65,12 @@ public enum NLResponseMetaData: Int, CaseIterable {
 //    public var logUnreadableResBody: Bool = false
 //}
 
-class CustomLogger: NLLogHandler {
-    func logNetworkRequest(from logData: NLLogData) {
+class CustomLogger: XNLogHandler {
+    func logNetworkRequest(from logData: XNLogData) {
         print("CustomLogger \(#function)")
     }
     
-    func logNetworkResponse(from logData: NLLogData) {
+    func logNetworkResponse(from logData: XNLogData) {
         print("CustomLogger \(#function)")
     }
     
@@ -80,12 +80,12 @@ class CustomLogger: NLLogHandler {
     
 }
 
-class NetworkExamplesViewController: UIViewController,NLLogHandler {
-    func logNetworkRequest(from logData: NLLogData) {
+class NetworkExamplesViewController: UIViewController,XNLogHandler {
+    func logNetworkRequest(from logData: XNLogData) {
         print("CustomLoggerVC \(#function)")
     }
     
-    func logNetworkResponse(from logData: NLLogData) {
+    func logNetworkResponse(from logData: XNLogData) {
         print("CustomLoggerVC \(#function)")
     }
     

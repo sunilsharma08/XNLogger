@@ -13,7 +13,7 @@
         <!--View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="NetworkLogDemo" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="XNLoggerExample" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -22,7 +22,7 @@
                                 <rect key="frame" x="16" y="50" width="132" height="60"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="60" id="04a-G5-MDI"/>
-                                    <constraint firstAttribute="width" constant="132" id="ayk-2g-4s2"/>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="132" id="ayk-2g-4s2"/>
                                 </constraints>
                                 <state key="normal" title="URL">
                                     <color key="titleColor" red="0.88867872950000004" green="0.24163281919999999" blue="0.14498847719999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
@@ -35,7 +35,7 @@
                                 <rect key="frame" x="111" y="300" width="153" height="67"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="67" id="5Jd-3A-bgm"/>
-                                    <constraint firstAttribute="width" constant="153" id="nwh-uF-pnm"/>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="153" id="nwh-uF-pnm"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="23"/>
                                 <state key="normal" title="Next">
@@ -49,7 +49,7 @@
                                 <rect key="frame" x="227" y="50" width="132" height="60"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="60" id="LCj-Hg-rdx"/>
-                                    <constraint firstAttribute="width" constant="132" id="NC0-qr-oGE"/>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="132" id="NC0-qr-oGE"/>
                                 </constraints>
                                 <state key="normal" title="URL Request">
                                     <color key="titleColor" red="0.88867872950000004" green="0.24163281919999999" blue="0.14498847719999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
@@ -62,6 +62,7 @@
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="PKK-hJ-VXJ" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="30" id="1mW-bA-wqy"/>
+                            <constraint firstItem="PKK-hJ-VXJ" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="iJe-33-e53" secondAttribute="trailing" constant="8" symbolic="YES" id="Isi-9h-7m2"/>
                             <constraint firstItem="sZn-Qr-kOw" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="MbL-An-jch"/>
                             <constraint firstItem="iJe-33-e53" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="30" id="Y39-G3-gSz"/>
                             <constraint firstItem="sZn-Qr-kOw" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="aUI-Y1-hrL"/>
@@ -79,7 +80,7 @@
         <!--Second View Controller-->
         <scene sceneID="bwp-af-CjL">
             <objects>
-                <viewController storyboardIdentifier="SecondViewController" id="gBT-Ew-4I6" customClass="SecondViewController" customModule="NetworkLogDemo" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="SecondViewController" id="gBT-Ew-4I6" customClass="SecondViewController" customModule="XNLoggerExample" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="9X7-Ri-QTQ">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -87,7 +88,7 @@
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NN8-Rs-giU">
                                 <rect key="frame" x="109" y="304.5" width="157" height="58"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="157" id="Tp3-Ch-a0d"/>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="157" id="Tp3-Ch-a0d"/>
                                     <constraint firstAttribute="height" constant="58" id="vpL-BV-6tG"/>
                                 </constraints>
                                 <state key="normal" title="Back">
@@ -101,7 +102,7 @@
                                 <rect key="frame" x="108" y="435.5" width="159" height="63"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="63" id="Jvu-sx-2sR"/>
-                                    <constraint firstAttribute="width" constant="159" id="QeK-0s-MGi"/>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="159" id="QeK-0s-MGi"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="24"/>
                                 <state key="normal" title="GET">
@@ -147,7 +148,7 @@
         <!--Network Examples View Controller-->
         <scene sceneID="KuP-PQ-pDb">
             <objects>
-                <viewController id="S3p-aE-PyC" customClass="NetworkExamplesViewController" customModule="NetworkLogDemo" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="S3p-aE-PyC" customClass="NetworkExamplesViewController" customModule="XNLoggerExample" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="GMW-Ie-IUQ">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

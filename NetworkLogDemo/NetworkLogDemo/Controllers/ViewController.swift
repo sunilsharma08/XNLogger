@@ -1,6 +1,6 @@
 //
 //  ViewController.swift
-//  NetworkLogger
+//  XNLoggerExample
 //
 //  Created by Sunil Sharma on 14/12/18.
 //  Copyright © 2018 Sunil Sharma. All rights reserved.

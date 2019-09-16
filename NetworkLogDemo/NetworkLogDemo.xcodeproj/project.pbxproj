@@ -125,6 +125,7 @@
 				B4E99B4D191DF8C51CB71052 /* Pods_NetworkLogDemoUITests.framework */,
 			);
 			name = Frameworks;
+			path = ..;
 			sourceTree = "<group>";
 		};
 		100605BC21C3B4F1007C281E = {
@@ -134,7 +135,6 @@
 				100605DC21C3B4F4007C281E /* NetworkLoggerTests */,
 				100605E721C3B4F4007C281E /* NetworkLoggerUITests */,
 				100605C621C3B4F1007C281E /* Products */,
-				1005808D21C6923B0020288D /* Frameworks */,
 				2BCC00C81463428ED57B452A /* Pods */,
 			);
 			sourceTree = "<group>";
@@ -162,6 +162,7 @@
 				1005805021C587D80020288D /* LibLoader.m */,
 				1005804F21C587D80020288D /* NetworkLogger-Bridging-Header.h */,
 				1005805221C64E580020288D /* NetworkLogManager.swift */,
+				1005808D21C6923B0020288D /* Frameworks */,
 			);
 			path = NetworkLogDemo;
 			sourceTree = "<group>";
