@@ -25,6 +25,7 @@ target 'XNLoggerExample' do
   workspace 'XNLogger'
   
   use_frameworks!
-  
   commonPods
+#  pod 'XNLogger', :path => './'
+
 end

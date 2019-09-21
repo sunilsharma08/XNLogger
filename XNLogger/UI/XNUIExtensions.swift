@@ -32,7 +32,7 @@ extension Bundle {
 extension UIStoryboard {
     
     class func mainStoryboard() -> UIStoryboard {
-        return UIStoryboard(name: "NLUIMain", bundle: Bundle.current())
+        return UIStoryboard(name: "XNUIMain", bundle: Bundle.current())
     }
     
     func instantiateViewController<T: UIViewController>(ofType _: T.Type, withIdentifier identifier: String? = nil) -> T {

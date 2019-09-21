@@ -18,7 +18,7 @@
 		10281DD12335FFB500016ABF /* LibLoader.m in Sources */ = {isa = PBXBuildFile; fileRef = 10281DD02335FFB500016ABF /* LibLoader.m */; };
 		10281DD32335FFC400016ABF /* NetworkLogManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10281DD22335FFC400016ABF /* NetworkLogManager.swift */; };
 		10281DD62335FFF600016ABF /* water.png in Resources */ = {isa = PBXBuildFile; fileRef = 10281DD52335FFF600016ABF /* water.png */; };
-		10281E052336080D00016ABF /* XNLogger.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 10281E042336080D00016ABF /* XNLogger.framework */; };
+		1063828523363EDF009B0C79 /* XNLogger.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1063828423363EDF009B0C79 /* XNLogger.framework */; };
 		10A9493F2335FAD40055C326 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10A9493E2335FAD40055C326 /* AppDelegate.swift */; };
 		10A949462335FAD50055C326 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 10A949452335FAD50055C326 /* Assets.xcassets */; };
 		10A949572335FB0B0055C326 /* XNLoggerExampleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10A949562335FB0B0055C326 /* XNLoggerExampleTests.swift */; };
@@ -60,6 +60,7 @@
 		10281DD22335FFC400016ABF /* NetworkLogManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkLogManager.swift; sourceTree = "<group>"; };
 		10281DD52335FFF600016ABF /* water.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = water.png; sourceTree = "<group>"; };
 		10281E042336080D00016ABF /* XNLogger.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = XNLogger.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		1063828423363EDF009B0C79 /* XNLogger.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = XNLogger.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		10A9493B2335FAD40055C326 /* XNLoggerExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = XNLoggerExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		10A9493E2335FAD40055C326 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		10A949452335FAD50055C326 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -77,7 +78,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				10281E052336080D00016ABF /* XNLogger.framework in Frameworks */,
+				1063828523363EDF009B0C79 /* XNLogger.framework in Frameworks */,
 				0235DA24CE00FF672A770F14 /* Pods_XNLoggerExample.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -132,6 +133,7 @@
 		10281DDE2336027800016ABF /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				1063828423363EDF009B0C79 /* XNLogger.framework */,
 				10281E042336080D00016ABF /* XNLogger.framework */,
 				D2CADF7EDB282AEEBEF1EE1A /* Pods_XNLoggerExample.framework */,
 			);
