@@ -67,6 +67,27 @@ internal extension URLRequest {
     }
     
     func getNetworkTypeName() -> String {
+        
+        #if swift(>=4.2)
+        switch networkServiceType {
+        case .default:
+            return "Default - Standard internet traffic"
+        case .voip:
+            return "VOIP traffic"
+        case .video:
+            return "Video traffic"
+        case .background:
+            return "Background traffic"
+        case .voice:
+            return "Voice data traffic"
+        case .responsiveData:
+            return "Responsive data traffic"
+        case .callSignaling:
+            return "Call Signaling traffic"
+        default:
+            return "Unknown"
+        }
+        #else
         switch networkServiceType {
         case .default:
             return "Default - Standard internet traffic"
@@ -85,6 +106,7 @@ internal extension URLRequest {
         default:
             return "Unknown"
         }
+        #endif
     }
     
     func getMimeType() -> String? {
