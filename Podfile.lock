@@ -1,20 +1,16 @@
 PODS:
-  - GzipSwift (4.1.0)
   - Swifter (1.4.5)
 
 DEPENDENCIES:
-  - GzipSwift (~> 4.1.0)
   - Swifter (~> 1.4.5)
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
-    - GzipSwift
     - Swifter
 
 SPEC CHECKSUMS:
-  GzipSwift: df1636fa095bd8f21d98db14e7393ecc9e230fed
   Swifter: eb2bc1d192a1c09169c7fefd01971565fa940521
 
-PODFILE CHECKSUM: bc153e1583dffc2566fbffaf0d05b2def0b8c354
+PODFILE CHECKSUM: ae91761ad2bba8e5dd1e031807139fa10abf960f
 
 COCOAPODS: 1.7.0

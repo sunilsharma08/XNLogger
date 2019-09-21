@@ -207,7 +207,6 @@
 				10A949382335FAD40055C326 /* Frameworks */,
 				10A949392335FAD40055C326 /* Resources */,
 				10281DF82336041A00016ABF /* Embed Frameworks */,
-				4EEF0C356D21C2A48E167AB7 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -297,23 +296,6 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		4EEF0C356D21C2A48E167AB7 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-XNLoggerExample/Pods-XNLoggerExample-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-XNLoggerExample/Pods-XNLoggerExample-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-XNLoggerExample/Pods-XNLoggerExample-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 		B673CB5416B7843ED9AF569B /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;

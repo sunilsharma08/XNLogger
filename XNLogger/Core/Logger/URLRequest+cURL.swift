@@ -7,7 +7,6 @@
 //
 
 import Foundation
-import Gzip
 
 internal extension URLRequest {
     

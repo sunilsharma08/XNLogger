@@ -12,6 +12,7 @@
 		1005806F21C65F4A0020288D /* XNLogger.h in Headers */ = {isa = PBXBuildFile; fileRef = 1005806121C65F490020288D /* XNLogger.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		1005807921C685000020288D /* XNLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1005807821C685000020288D /* XNLogger.swift */; };
 		10142E0522F4710100217BF2 /* XNMIMEChecker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10142E0422F4710100217BF2 /* XNMIMEChecker.swift */; };
+		101750F823365E9C00CDAFF3 /* Data+Gzip.swift in Sources */ = {isa = PBXBuildFile; fileRef = 101750F723365E9C00CDAFF3 /* Data+Gzip.swift */; };
 		1017F84122C1C9F4000D185E /* XNFilterManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1017F84022C1C9F4000D185E /* XNFilterManager.swift */; };
 		101CA0B3230F23300063B0CF /* XNUIBaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 101CA0B2230F23300063B0CF /* XNUIBaseViewController.swift */; };
 		10289E76230FCE4A00FDE204 /* XNUILogHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10289E75230FCE4A00FDE204 /* XNUILogHandler.swift */; };
@@ -80,6 +81,7 @@
 		1005806E21C65F4A0020288D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1005807821C685000020288D /* XNLogger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XNLogger.swift; sourceTree = "<group>"; };
 		10142E0422F4710100217BF2 /* XNMIMEChecker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = XNMIMEChecker.swift; sourceTree = "<group>"; };
+		101750F723365E9C00CDAFF3 /* Data+Gzip.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Data+Gzip.swift"; sourceTree = "<group>"; };
 		1017F84022C1C9F4000D185E /* XNFilterManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XNFilterManager.swift; sourceTree = "<group>"; };
 		101CA0B2230F23300063B0CF /* XNUIBaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XNUIBaseViewController.swift; sourceTree = "<group>"; };
 		10289E75230FCE4A00FDE204 /* XNUILogHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XNUILogHandler.swift; sourceTree = "<group>"; };
@@ -246,6 +248,7 @@
 		1085769221FDD662008ABD2B /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				101750F723365E9C00CDAFF3 /* Data+Gzip.swift */,
 				10142E0422F4710100217BF2 /* XNMIMEChecker.swift */,
 				108576B721FDD99A008ABD2B /* XNExtensions.swift */,
 				1085769321FDD662008ABD2B /* XNJSONUtils.swift */,
@@ -574,6 +577,7 @@
 				10B4076822626644000FD18E /* XNURLProtocol.swift in Sources */,
 				1005807921C685000020288D /* XNLogger.swift in Sources */,
 				10F73E5D22DA011900257A7B /* XNLogFormatter.swift in Sources */,
+				101750F823365E9C00CDAFF3 /* Data+Gzip.swift in Sources */,
 				104D12F0231714E70089D7FE /* XNUILogDetailHeaderCell.swift in Sources */,
 				10289E76230FCE4A00FDE204 /* XNUILogHandler.swift in Sources */,
 				108576B821FDD99A008ABD2B /* XNExtensions.swift in Sources */,
