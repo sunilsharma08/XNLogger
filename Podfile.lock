@@ -1,28 +1,20 @@
 PODS:
   - GzipSwift (4.1.0)
   - Swifter (1.4.5)
-  - XNLogger (1.0.0):
-    - GzipSwift (~> 4.1.0)
 
 DEPENDENCIES:
   - GzipSwift (~> 4.1.0)
   - Swifter (~> 1.4.5)
-  - XNLogger (from `./`)
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
     - GzipSwift
     - Swifter
 
-EXTERNAL SOURCES:
-  XNLogger:
-    :path: "./"
-
 SPEC CHECKSUMS:
   GzipSwift: df1636fa095bd8f21d98db14e7393ecc9e230fed
   Swifter: eb2bc1d192a1c09169c7fefd01971565fa940521
-  XNLogger: 055095c9b9f53986d4d7b9a8521d970e7a0d1aea
 
-PODFILE CHECKSUM: 31f1260768495652306817700899079e4a9f9270
+PODFILE CHECKSUM: 7e56f14b89152a49bb7a05892f5ad55d4a917322
 
 COCOAPODS: 1.7.0

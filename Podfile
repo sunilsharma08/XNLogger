@@ -15,7 +15,3 @@ target 'XNLogger' do
   end
 
 end
-
-target 'XNLoggerExample' do
-  pod 'XNLogger', :path => "./"
-end
