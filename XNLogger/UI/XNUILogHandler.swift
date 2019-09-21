@@ -19,13 +19,13 @@ import Foundation
         return instance
     }
     
-    public func networkLogger(logRequest logData: XNLogData) {
+    public func xnLogger(logRequest logData: XNLogData) {
         if shouldLogRequest(logData: logData) || logFormatter.showReqstWithResp {
             delegate?.receivedLogData(logData, isResponse: false)
         }
     }
     
-    public func networkLogger(logResponse logData: XNLogData) {
+    public func xnLogger(logResponse logData: XNLogData) {
         if shouldLogResponse(logData: logData) {
             delegate?.receivedLogData(logData, isResponse: true)
         }

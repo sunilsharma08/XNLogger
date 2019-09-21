@@ -11,9 +11,9 @@ import Foundation
 class XNFileLogHandler: XNBaseLogHandler, XNLogHandler {
     
     private var logComposer: XNLogComposer!
-    private(set) var fileName: String = "NLNetworkLog"
+    private(set) var fileName: String = "XNNetworkLog"
     private let fileManager = FileManager.default
-    private let fileWriteQueue = DispatchQueue(label: "com.nlNetworkLogger.fileHandler", qos: .utility)
+    private let fileWriteQueue = DispatchQueue(label: "com.xnLogger.fileHandler", qos: .utility)
     
     // The max size a log file can be in Kilobytes. Default is 1024 (1 MB)
     public var maxFileSize: UInt64 = 1024
@@ -169,7 +169,7 @@ class XNFileLogHandler: XNBaseLogHandler, XNLogHandler {
     }
     
     //MARK: Logging delegates
-    public func networkLogger(logRequest logData: XNLogData) {
+    public func xnLogger(logRequest logData: XNLogData) {
         self.fileWriteQueue.async { [weak self] in
             guard let self = self else { return }
             
@@ -179,7 +179,7 @@ class XNFileLogHandler: XNBaseLogHandler, XNLogHandler {
         }
     }
     
-    public func networkLogger(logResponse logData: XNLogData) {
+    public func xnLogger(logResponse logData: XNLogData) {
         self.fileWriteQueue.async {[weak self] in
             guard let self = self else { return }
             

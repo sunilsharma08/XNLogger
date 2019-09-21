@@ -48,7 +48,7 @@ struct XNUIAppColor {
 }
 
 final class XNUIConstants {
-    static let logDataUpdtNotificationName = NSNotification.Name(rawValue: "com.networkLogger.logDataUpdateNotification")
+    static let logDataUpdtNotificationName = NSNotification.Name(rawValue: "com.xnLogger.logDataUpdateNotification")
 }
 
 class XNUIHelper {

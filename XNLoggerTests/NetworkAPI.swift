@@ -1,6 +1,6 @@
 //
 //  Constants.swift
-//  NetworkLoggerTests
+//  XNLoggerTests
 //
 //  Created by Sunil Sharma on 12/02/19.
 //  Copyright © 2019 Sunil Sharma. All rights reserved.

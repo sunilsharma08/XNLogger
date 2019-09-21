@@ -13,8 +13,8 @@ import Foundation
  */
 @objc public protocol XNLogHandler: class {
     
-    @objc optional func networkLogger(logRequest logData: XNLogData)
-    @objc optional func networkLogger(logResponse logData: XNLogData)
+    @objc optional func xnLogger(logRequest logData: XNLogData)
+    @objc optional func xnLogger(logResponse logData: XNLogData)
 }
 
 public enum XNLogHandlerType {

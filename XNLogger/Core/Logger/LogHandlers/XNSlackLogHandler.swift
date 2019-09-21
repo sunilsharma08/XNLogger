@@ -23,7 +23,7 @@ public class XNSlackLogHandler: XNBaseLogHandler, XNLogHandler, XNRemoteLogger {
         self.webhookUrl = webhookUrl
     }
     
-    public func networkLogger(logRequest logData: XNLogData) {
+    public func xnLogger(logRequest logData: XNLogData) {
         
         if shouldLogRequest(logData: logData) {
             let message = logComposer.getRequestLog(from: logData)
@@ -33,7 +33,7 @@ public class XNSlackLogHandler: XNBaseLogHandler, XNLogHandler, XNRemoteLogger {
         }
     }
     
-    public func networkLogger(logResponse logData: XNLogData) {
+    public func xnLogger(logResponse logData: XNLogData) {
         
         if shouldLogResponse(logData: logData) {
             let message = logComposer.getResponseLog(from: logData)

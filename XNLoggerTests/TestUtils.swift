@@ -1,13 +1,13 @@
 //
 //  TestUtils.swift
-//  NetworkLoggerTests
+//  XNLoggerTests
 //
 //  Created by Sunil Sharma on 09/03/19.
 //  Copyright © 2019 Sunil Sharma. All rights reserved.
 //
 
 import Foundation
-@testable import NetworkLogger
+@testable import XNLogger
 
 extension String {
     /// stringToFind must be at least 1 character.

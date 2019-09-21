@@ -73,7 +73,7 @@ open class XNURLProtocol: URLProtocol {
         
         if let logData = self.logData {
             XNLogger.shared.logRequest(from: logData)
-            XNLogger.shared.delegate?.networkLogger?(didStartRequest: logData)
+            XNLogger.shared.delegate?.xnLogger?(didStartRequest: logData)
         }
     }
     
@@ -93,7 +93,7 @@ open class XNURLProtocol: URLProtocol {
         
         if let logData = self.logData {
             XNLogger.shared.logResponse(from: logData)
-            XNLogger.shared.delegate?.networkLogger?(didReceiveResponse: logData)
+            XNLogger.shared.delegate?.xnLogger?(didReceiveResponse: logData)
         }
         
         // Make sure to clear all data. To avoid memory leaks.

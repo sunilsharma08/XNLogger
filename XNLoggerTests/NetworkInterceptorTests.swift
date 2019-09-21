@@ -1,6 +1,6 @@
 //
 //  NetworkInterceptorTests.swift
-//  NetworkLoggerTests
+//  XNLoggerTests
 //
 //  Created by Sunil Sharma on 06/02/19.
 //  Copyright © 2019 Sunil Sharma. All rights reserved.
@@ -8,7 +8,7 @@
 
 import XCTest
 import Swifter
-@testable import NetworkLogger
+@testable import XNLogger
 
 class NetworkInterceptorTests: XCTestCase {
     
@@ -17,7 +17,7 @@ class NetworkInterceptorTests: XCTestCase {
     let apisToTest: [API] = [.defaultSession, .sharedSession, .ephemeralSession]
     
     override func setUp() {
-        setupNetworkLogger()
+        setupXNLogger()
         for api in apisToTest {
             server![api.path] = { request in
                 return HttpResponse.ok(.json(DummyResponse.get(forAPI: api)))
@@ -26,7 +26,7 @@ class NetworkInterceptorTests: XCTestCase {
         try! server?.start()
     }
     
-    func setupNetworkLogger() {
+    func setupXNLogger() {
         print(#function)
         let logHandlerFactory = NLLogHandlerFactory()
         fileLogHandler = logHandlerFactory.create(.file) as? NLFileLogHandler

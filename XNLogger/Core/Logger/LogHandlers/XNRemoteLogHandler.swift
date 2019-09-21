@@ -23,7 +23,7 @@ public class XNRemoteLogHandler: XNBaseLogHandler, XNLogHandler, XNRemoteLogger 
         self.urlRequest = urlRequest
     }
     
-    public func networkLogger(logRequest logData: XNLogData) {
+    public func xnLogger(logRequest logData: XNLogData) {
         if shouldLogRequest(logData: logData) {
             let message = logComposer.getRequestLog(from: logData)
             let remoteRequest = appendLogInHttpBody(urlRequest, message: message)
@@ -32,7 +32,7 @@ public class XNRemoteLogHandler: XNBaseLogHandler, XNLogHandler, XNRemoteLogger 
         }
     }
     
-    public func networkLogger(logResponse logData: XNLogData) {
+    public func xnLogger(logResponse logData: XNLogData) {
         if shouldLogResponse(logData: logData) {
             let message = logComposer.getResponseLog(from: logData)
             let remoteRequest = appendLogInHttpBody(urlRequest, message: message)

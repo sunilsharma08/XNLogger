@@ -8,10 +8,10 @@
 
 import Foundation
 
-@objc public protocol NetworkLoggerDelegate: class {
+@objc public protocol XNLoggerDelegate: class {
     
-    @objc optional func networkLogger(didStartRequest logData: XNLogData)
-    @objc optional func networkLogger(didReceiveResponse logData: XNLogData)
+    @objc optional func xnLogger(didStartRequest logData: XNLogData)
+    @objc optional func xnLogger(didReceiveResponse logData: XNLogData)
 }
 
 @objcMembers
@@ -19,7 +19,7 @@ public class XNLogger: NSObject {
     
     // Public variables
     public static let shared = XNLogger()
-    public weak var delegate: NetworkLoggerDelegate?
+    public weak var delegate: XNLoggerDelegate?
     
     // Private variables
     private let networkInterceptor = XNInterceptor()
@@ -99,13 +99,13 @@ public class XNLogger: NSObject {
     
     func logResponse(from logData: XNLogData) {
         for handler in self.handlers {
-            handler.networkLogger?(logResponse: logData)
+            handler.xnLogger?(logResponse: logData)
         }
     }
     
     func logRequest(from logData: XNLogData) {
         for handler in self.handlers {
-            handler.networkLogger?(logRequest: logData)
+            handler.xnLogger?(logRequest: logData)
         }
     }
     

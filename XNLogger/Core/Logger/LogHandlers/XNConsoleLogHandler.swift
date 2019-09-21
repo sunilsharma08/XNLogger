@@ -22,14 +22,14 @@ public class XNConsoleLogHandler: XNBaseLogHandler, XNLogHandler {
         super.init()
     }
     
-    public func networkLogger(logRequest logData: XNLogData) {
+    public func xnLogger(logRequest logData: XNLogData) {
         
         if shouldLogRequest(logData: logData) {
             print(logComposer.getRequestLog(from: logData))
         }
     }
     
-    public func networkLogger(logResponse logData: XNLogData) {
+    public func xnLogger(logResponse logData: XNLogData) {
         
         if shouldLogResponse(logData: logData) {
             print(logComposer.getResponseLog(from: logData))

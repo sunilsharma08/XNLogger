@@ -1,15 +1,15 @@
 //
-//  NetworkLoggerTests.swift
-//  NetworkLoggerTests
+//  XNLoggerTests.swift
+//  XNLoggerTests
 //
 //  Created by Sunil Sharma on 16/12/18.
 //  Copyright © 2018 Sunil Sharma. All rights reserved.
 //
 
 import XCTest
-@testable import NetworkLogger
+@testable import XNLogger
 
-class NetworkLoggerTests: XCTestCase {
+class XNLoggerTests: XCTestCase {
 
     override func setUp() {
         // Put setup code here. This method is called before the invocation of each test method in the class.
