@@ -1,4 +1,5 @@
-# NetworkLogger
+# XNLogger
+
 Framework to log all network requests.
 
 # Features
@@ -12,10 +13,10 @@ Framework to log all network requests.
 
 ## Manually
 
-Drag the folder "NetworkLogger" with the source files into your project.
+Drag the folder "XNLogger" with the source files into your project.
 
 # Usage
 It starts logging automatically after integrating library in your project and running. Shake to see logs in app.
 
 # License
-NetworkLogger is available under the [MIT license](https://raw.githubusercontent.com/sunilsharma08/NetworkLogger/master/LICENSE).
+XNLogger is available under the [MIT license](https://raw.githubusercontent.com/sunilsharma08/XNLogger/master/LICENSE).
