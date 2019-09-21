@@ -45,8 +45,6 @@
 		1090C2082307250E00575550 /* XNUIFiltersVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1090C2072307250E00575550 /* XNUIFiltersVC.swift */; };
 		1090C20A2307252200575550 /* XNUISettingsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1090C2092307252200575550 /* XNUISettingsVC.swift */; };
 		1090C20C2307403900575550 /* XNUIHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1090C20B2307403900575550 /* XNUIHelper.swift */; };
-		10AA00D921FE34E6006E4A48 /* R&DConclusions.md in Resources */ = {isa = PBXBuildFile; fileRef = 10AA00D721FE34E6006E4A48 /* R&DConclusions.md */; };
-		10AA00DA21FE34E6006E4A48 /* Technical.md in Resources */ = {isa = PBXBuildFile; fileRef = 10AA00D821FE34E6006E4A48 /* Technical.md */; };
 		10B4076822626644000FD18E /* XNURLProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10B4076722626644000FD18E /* XNURLProtocol.swift */; };
 		10BC314822CD2FD20020167D /* XNAuthenticationChallengeSender.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10BC314722CD2FD20020167D /* XNAuthenticationChallengeSender.swift */; };
 		10BE806B2233C8B800A147BC /* TestUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10BE806A2233C8B800A147BC /* TestUtils.swift */; };
@@ -458,12 +456,10 @@
 			files = (
 				106BB6942304A91D007968A8 /* XNUIMain.storyboard in Resources */,
 				104D12F1231714E70089D7FE /* XNUILogDetailHeaderCell.xib in Resources */,
-				10AA00DA21FE34E6006E4A48 /* Technical.md in Resources */,
 				104D12F5231715190089D7FE /* XNUILogDetailCell.xib in Resources */,
 				10289E7A23105D5800FDE204 /* XNUILogListTableViewCell.xib in Resources */,
 				10FC10EC231501D900F347BF /* XNUILogDetailVC.xib in Resources */,
 				104D12ED2317132D0089D7FE /* XNUILogDetailView.xib in Resources */,
-				10AA00D921FE34E6006E4A48 /* R&DConclusions.md in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
