@@ -8,7 +8,7 @@
 
 import UIKit
 
-class XNUILogDetailVC: NLUIBaseViewController {
+class XNUILogDetailVC: XNUIBaseViewController {
     
     class func instance() -> XNUILogDetailVC? {
         

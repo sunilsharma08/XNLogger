@@ -45,6 +45,8 @@ struct XNUIHTTPStatusColor {
 struct XNUIAppColor {
     static let titleColor: UIColor = UIColor(red: 5/255.0, green: 24/255.0, blue: 42/255.0, alpha: 1)
     static let subtitleColor: UIColor = UIColor(red: 52/255.0, green: 73/255.0, blue: 94/255.0, alpha: 1)
+    static let orangeColor: UIColor = UIColor(red: 1.0, green: 69/255.0, blue: 0.0, alpha: 1)
+    static let sharkColor: UIColor = UIColor(red: 37/255.0, green: 41/255.0, blue: 45/255.0, alpha: 1)
 }
 
 final class XNUIConstants {

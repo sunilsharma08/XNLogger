@@ -13,6 +13,7 @@
 		1005807921C685000020288D /* XNLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1005807821C685000020288D /* XNLogger.swift */; };
 		10142E0522F4710100217BF2 /* XNMIMEChecker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10142E0422F4710100217BF2 /* XNMIMEChecker.swift */; };
 		101750F823365E9C00CDAFF3 /* Data+Gzip.swift in Sources */ = {isa = PBXBuildFile; fileRef = 101750F723365E9C00CDAFF3 /* Data+Gzip.swift */; };
+		101750FB2337EA6600CDAFF3 /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 101750FA2337EA6600CDAFF3 /* Media.xcassets */; };
 		1017F84122C1C9F4000D185E /* XNFilterManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1017F84022C1C9F4000D185E /* XNFilterManager.swift */; };
 		101CA0B3230F23300063B0CF /* XNUIBaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 101CA0B2230F23300063B0CF /* XNUIBaseViewController.swift */; };
 		10289E76230FCE4A00FDE204 /* XNUILogHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10289E75230FCE4A00FDE204 /* XNUILogHandler.swift */; };
@@ -80,6 +81,7 @@
 		1005807821C685000020288D /* XNLogger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XNLogger.swift; sourceTree = "<group>"; };
 		10142E0422F4710100217BF2 /* XNMIMEChecker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = XNMIMEChecker.swift; sourceTree = "<group>"; };
 		101750F723365E9C00CDAFF3 /* Data+Gzip.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Data+Gzip.swift"; sourceTree = "<group>"; };
+		101750FA2337EA6600CDAFF3 /* Media.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Media.xcassets; sourceTree = "<group>"; };
 		1017F84022C1C9F4000D185E /* XNFilterManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XNFilterManager.swift; sourceTree = "<group>"; };
 		101CA0B2230F23300063B0CF /* XNUIBaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XNUIBaseViewController.swift; sourceTree = "<group>"; };
 		10289E75230FCE4A00FDE204 /* XNUILogHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XNUILogHandler.swift; sourceTree = "<group>"; };
@@ -199,6 +201,14 @@
 			path = XNLoggerTests;
 			sourceTree = "<group>";
 		};
+		101750F92337EA1000CDAFF3 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				101750FA2337EA6600CDAFF3 /* Media.xcassets */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
 		103B7F7F2317CCBB003DDDCB /* UIModels */ = {
 			isa = PBXGroup;
 			children = (
@@ -210,6 +220,7 @@
 		106BB6922304A882007968A8 /* UI */ = {
 			isa = PBXGroup;
 			children = (
+				101750F92337EA1000CDAFF3 /* Resources */,
 				10E411862324A24D004E0C1F /* LogDetailScreen */,
 				10E411852324A1AA004E0C1F /* LogsListScreen */,
 				103B7F7F2317CCBB003DDDCB /* UIModels */,
@@ -456,6 +467,7 @@
 			files = (
 				106BB6942304A91D007968A8 /* XNUIMain.storyboard in Resources */,
 				104D12F1231714E70089D7FE /* XNUILogDetailHeaderCell.xib in Resources */,
+				101750FB2337EA6600CDAFF3 /* Media.xcassets in Resources */,
 				104D12F5231715190089D7FE /* XNUILogDetailCell.xib in Resources */,
 				10289E7A23105D5800FDE204 /* XNUILogListTableViewCell.xib in Resources */,
 				10FC10EC231501D900F347BF /* XNUILogDetailVC.xib in Resources */,

@@ -12,6 +12,16 @@ class  XNUIBaseTabBarController: UITabBarController {
     
 }
 
-class NLUIBaseViewController: UIViewController {
-
+class XNUINavigationController: UINavigationController {
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        self.navigationBar.tintColor = XNUIAppColor.sharkColor
+    }
 }
+
+class XNUIBaseViewController: UIViewController {
+    
+}
+
