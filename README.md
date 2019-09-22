@@ -1,6 +1,8 @@
-# XNLogger
+<p align="center" >
+  <img src="https://raw.githubusercontent.com/sunilsharma08/XNLogger/networkLoggerUI/XNLoggerLogo.png" title="XNLogger logo" float=left>
+</p>
 
-Framework to log all network requests.
+This framework provides an easy way to log all network requests.
 
 # Features
 * Log all network requests.
