@@ -17,7 +17,7 @@ Pod::Spec.new do |s|
 
   s.name         = "XNLogger"
   s.version      = "1.0.0"
-  s.summary      = "A short description of XNLogger."
+  s.summary      = "Framework to log network request and response."
 
   # This description is used to generate tags and improve search results.
   #   * Think: What does it do? Why did you write it? What is the focus?
@@ -25,11 +25,11 @@ Pod::Spec.new do |s|
   #   * Write the description between the DESC delimiters below.
   #   * Finally, don't worry about the indent, CocoaPods strips it!
   s.description  = <<-DESC 
-  A verylong description of Framework. A verylong description of Framework.
+  Simple yet extensible network traffic logger. It makes easy log network request and response or debug network issues.
                    DESC
 
   s.homepage     = "https://github.com/sunilsharma08/XNLogger"
-  # s.screenshots  = "www.example.com/screenshots_1.gif", "www.example.com/screenshots_2.gif"
+  s.screenshots  = "https://raw.githubusercontent.com/sunilsharma08/XNLogger/develop/XNLoggerExample/ExampleAppScreenshots/LogListScreen.png", "https://github.com/sunilsharma08/XNLogger/blob/develop/XNLoggerExample/ExampleAppScreenshots/LogDetailsRequestScreen.png", "https://raw.githubusercontent.com/sunilsharma08/XNLogger/develop/XNLoggerExample/ExampleAppScreenshots/LogDetailsResponseScreen.png"
 
 
   # ―――  Spec License  ――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
@@ -39,8 +39,8 @@ Pod::Spec.new do |s|
   #  Popular ones are 'MIT', 'BSD' and 'Apache License, Version 2.0'.
   #
 
-  s.license      = "MIT"
-  # s.license      = { :type => "MIT", :file => "FILE_LICENSE" }
+  # s.license      = "MIT"
+  s.license      = { :type => "MIT", :file => "LICENSE" }
 
 
   # ――― Author Metadata  ――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
@@ -53,10 +53,10 @@ Pod::Spec.new do |s|
   #  profile URL.
   #
 
-  s.author             = { "Sunil" => "sunilsharma.ss08@gmail.com" }
+  s.author             = { "Sunil Sharma" => "sunilsharma.ss08@gmail.com" }
   # Or just: s.author    = "Sunil"
   # s.authors            = { "Sunil" => "sunilsharma.ss08@gmail.com" }
-  # s.social_media_url   = "http://twitter.com/Sunil"
+  s.social_media_url   = "https://twitter.com/sunil5309"
 
   # ――― Platform Specifics ――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
   #
@@ -64,7 +64,7 @@ Pod::Spec.new do |s|
   #  the deployment target. You can optionally include the target after the platform.
   #
 
-  # s.platform     = :ios
+  s.platform     = :ios
   # s.platform     = :ios, "5.0"
 
   #  When using multiple platforms
@@ -80,8 +80,8 @@ Pod::Spec.new do |s|
   #  Supports git, hg, bzr, svn and HTTP.
   #
 
-  # s.source       = { :git => "http://EXAMPLE/NetworkLogger.git", :tag => "#{s.version}" }
-  s.source       = { :path => "." }
+  # s.source       = { :git => "http://EXAMPLE/XNLogger.git", :tag => "#{s.version}" }
+  s.source       = { :git => "https://github.com/sunilsharma08/XNLogger.git", :tag => "v#{s.version}" }
 
   # ――― Source Code ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
   #
@@ -106,7 +106,7 @@ Pod::Spec.new do |s|
   #
 
   # s.resource  = "icon.png"
-  s.resources = "XNLogger/UI/**/*.{storyboard,xib}"
+  s.resources = "XNLogger/UI/**/*.{*.xcassets, storyboard, xib}"
 
   # s.preserve_paths = "FilesToSave", "MoreFilesToSave"
 
@@ -133,6 +133,6 @@ Pod::Spec.new do |s|
   s.requires_arc = true
 
   # s.xcconfig = { "HEADER_SEARCH_PATHS" => "$(SDKROOT)/usr/include/libxml2" }
-  s.dependency "GzipSwift", "~> 4.1.0"
+  # s.dependency "Example", "~> 1.1.0"
 
 end
