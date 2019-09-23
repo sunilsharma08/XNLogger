@@ -8,7 +8,7 @@
 
 import UIKit
 
-class XNUISettingsVC: NLUIBaseViewController {
+class XNUISettingsVC: XNUIBaseViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()

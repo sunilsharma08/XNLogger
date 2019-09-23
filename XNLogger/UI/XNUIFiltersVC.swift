@@ -8,7 +8,7 @@
 
 import UIKit
 
-class XNUIFiltersVC: NLUIBaseViewController {
+class XNUIFiltersVC: XNUIBaseViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()

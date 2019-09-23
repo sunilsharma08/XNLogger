@@ -98,7 +98,7 @@
         <!--Logs-->
         <scene sceneID="ilq-6i-bDR">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="HNy-Xg-lEt" sceneMemberID="viewController">
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="HNy-Xg-lEt" customClass="XNUINavigationController" customModule="XNLogger" customModuleProvider="target" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Logs" id="MHn-CO-oii"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="Mm3-jr-CJp">

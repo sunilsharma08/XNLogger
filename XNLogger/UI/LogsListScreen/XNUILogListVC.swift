@@ -8,7 +8,7 @@
 
 import UIKit
 
-class XNUILogListVC: NLUIBaseViewController {
+class XNUILogListVC: XNUIBaseViewController {
 
     @IBOutlet weak var logListTableView: UITableView!
     private var logsDataDict: [String: XNLogData] = [:]
