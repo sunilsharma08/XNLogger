@@ -1,4 +1,4 @@
-<img src="https://raw.githubusercontent.com/sunilsharma08/XNLogger/networkLoggerUI/XNLoggerLogo.png" title="XNLogger logo" float=left width="900">
+<img src="https://raw.githubusercontent.com/sunilsharma08/XNLogger/networkLoggerUI/XNLoggerLogo.png" title="XNLogger logo" float=left>
 This framework provides an easy way to log all network requests.
 
 # Features
