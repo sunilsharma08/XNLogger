@@ -239,6 +239,7 @@ extension NetworkExamplesViewController: URLSessionDataDelegate {
 //        print(task.originalRequest.debugDescription)
     }
 
+    @available(iOS 10.0, *)
     func urlSession(_ session: URLSession, task: URLSessionTask, didFinishCollecting metrics: URLSessionTaskMetrics) {
 //        print(#function)
 //        print(metrics.debugDescription)
@@ -248,6 +249,7 @@ extension NetworkExamplesViewController: URLSessionDataDelegate {
 //        print(#function)
     }
 
+    @available(iOS 11.0, *)
     func urlSession(_ session: URLSession, task: URLSessionTask, willBeginDelayedRequest request: URLRequest, completionHandler: @escaping (URLSession.DelayedRequestDisposition, URLRequest?) -> Void) {
 //        print(#function)
         completionHandler(.continueLoading, request)
