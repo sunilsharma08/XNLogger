@@ -20,7 +20,7 @@ Pod::Spec.new do |s|
   s.source       = { :git => "https://github.com/sunilsharma08/XNLogger.git", :tag => "v#{s.version}" }
 
   s.source_files  = "XNLogger/**/*.{swift,h,m}"
-  s.resources = "XNLogger/UI/**/*.{*.xcassets, storyboard, xib}"
+  s.resources = "XNLogger/UI/**/*.{xcassets, storyboard, xib}"
 
   s.requires_arc = true
 
