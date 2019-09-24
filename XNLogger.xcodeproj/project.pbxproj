@@ -1,0 +1,870 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 51;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		1005806821C65F4A0020288D /* XNLogger.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1005805E21C65F490020288D /* XNLogger.framework */; };
+		1005806D21C65F4A0020288D /* XNLoggerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1005806C21C65F4A0020288D /* XNLoggerTests.swift */; };
+		1005806F21C65F4A0020288D /* XNLogger.h in Headers */ = {isa = PBXBuildFile; fileRef = 1005806121C65F490020288D /* XNLogger.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		1005807921C685000020288D /* XNLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1005807821C685000020288D /* XNLogger.swift */; };
+		10142E0522F4710100217BF2 /* XNMIMEChecker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10142E0422F4710100217BF2 /* XNMIMEChecker.swift */; };
+		101750F823365E9C00CDAFF3 /* Data+Gzip.swift in Sources */ = {isa = PBXBuildFile; fileRef = 101750F723365E9C00CDAFF3 /* Data+Gzip.swift */; };
+		101750FB2337EA6600CDAFF3 /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 101750FA2337EA6600CDAFF3 /* Media.xcassets */; };
+		1017F84122C1C9F4000D185E /* XNFilterManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1017F84022C1C9F4000D185E /* XNFilterManager.swift */; };
+		101CA0B3230F23300063B0CF /* XNUIBaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 101CA0B2230F23300063B0CF /* XNUIBaseViewController.swift */; };
+		10289E76230FCE4A00FDE204 /* XNUILogHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10289E75230FCE4A00FDE204 /* XNUILogHandler.swift */; };
+		10289E7923105D5800FDE204 /* XNUILogListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10289E7723105D5800FDE204 /* XNUILogListTableViewCell.swift */; };
+		10289E7A23105D5800FDE204 /* XNUILogListTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 10289E7823105D5800FDE204 /* XNUILogListTableViewCell.xib */; };
+		10301A4E2213334B00BCB339 /* NetworkAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10301A4D2213334B00BCB339 /* NetworkAPI.swift */; };
+		10398B39220B557100EDFC05 /* NetworkInterceptorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10398B38220B557100EDFC05 /* NetworkInterceptorTests.swift */; };
+		103B7F812317CD64003DDDCB /* XNUILogDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 103B7F802317CD64003DDDCB /* XNUILogDetail.swift */; };
+		1047D7FA22CA7BAF000A7B6C /* XNAppUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1047D7F922CA7BAF000A7B6C /* XNAppUtils.swift */; };
+		104D12EB2317131D0089D7FE /* XNUILogDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 104D12EA2317131D0089D7FE /* XNUILogDetailView.swift */; };
+		104D12ED2317132D0089D7FE /* XNUILogDetailView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 104D12EC2317132D0089D7FE /* XNUILogDetailView.xib */; };
+		104D12F0231714E70089D7FE /* XNUILogDetailHeaderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 104D12EE231714E70089D7FE /* XNUILogDetailHeaderCell.swift */; };
+		104D12F1231714E70089D7FE /* XNUILogDetailHeaderCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 104D12EF231714E70089D7FE /* XNUILogDetailHeaderCell.xib */; };
+		104D12F4231715190089D7FE /* XNUILogDetailCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 104D12F2231715190089D7FE /* XNUILogDetailCell.swift */; };
+		104D12F5231715190089D7FE /* XNUILogDetailCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 104D12F3231715190089D7FE /* XNUILogDetailCell.xib */; };
+		106BB6942304A91D007968A8 /* XNUIMain.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 106BB6932304A91D007968A8 /* XNUIMain.storyboard */; };
+		106DC65B22D4C9D10037DC28 /* XNLogData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 106DC65A22D4C9D10037DC28 /* XNLogData.swift */; };
+		108576A221FDD662008ABD2B /* XNFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1085768C21FDD662008ABD2B /* XNFilter.swift */; };
+		108576A621FDD662008ABD2B /* XNJSONUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1085769321FDD662008ABD2B /* XNJSONUtils.swift */; };
+		108576A721FDD662008ABD2B /* XNAppConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1085769421FDD662008ABD2B /* XNAppConstants.swift */; };
+		108576A821FDD662008ABD2B /* XNInterceptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1085769621FDD662008ABD2B /* XNInterceptor.swift */; };
+		108576A921FDD662008ABD2B /* XNLogHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1085769921FDD662008ABD2B /* XNLogHandler.swift */; };
+		108576AA21FDD662008ABD2B /* XNRemoteLogHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1085769A21FDD662008ABD2B /* XNRemoteLogHandler.swift */; };
+		108576AB21FDD662008ABD2B /* XNConsoleLogHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1085769B21FDD662008ABD2B /* XNConsoleLogHandler.swift */; };
+		108576AC21FDD662008ABD2B /* XNSlackLogHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1085769C21FDD662008ABD2B /* XNSlackLogHandler.swift */; };
+		108576AE21FDD662008ABD2B /* URLRequest+cURL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1085769E21FDD662008ABD2B /* URLRequest+cURL.swift */; };
+		108576AF21FDD662008ABD2B /* XNLogComposer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1085769F21FDD662008ABD2B /* XNLogComposer.swift */; };
+		108576B821FDD99A008ABD2B /* XNExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 108576B721FDD99A008ABD2B /* XNExtensions.swift */; };
+		1090C206230724DC00575550 /* XNUILogListVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1090C205230724DC00575550 /* XNUILogListVC.swift */; };
+		1090C2082307250E00575550 /* XNUIFiltersVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1090C2072307250E00575550 /* XNUIFiltersVC.swift */; };
+		1090C20A2307252200575550 /* XNUISettingsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1090C2092307252200575550 /* XNUISettingsVC.swift */; };
+		1090C20C2307403900575550 /* XNUIHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1090C20B2307403900575550 /* XNUIHelper.swift */; };
+		10B4076822626644000FD18E /* XNURLProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10B4076722626644000FD18E /* XNURLProtocol.swift */; };
+		10BC314822CD2FD20020167D /* XNAuthenticationChallengeSender.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10BC314722CD2FD20020167D /* XNAuthenticationChallengeSender.swift */; };
+		10BE806B2233C8B800A147BC /* TestUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10BE806A2233C8B800A147BC /* TestUtils.swift */; };
+		10C7268F222DA0BE00239900 /* XNFileLogHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10C7268E222DA0BE00239900 /* XNFileLogHandler.swift */; };
+		10C72691222DAC2D00239900 /* XNBaseLogHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10C72690222DAC2D00239900 /* XNBaseLogHandler.swift */; };
+		10D094C422E4EE0A0020D9DB /* XNLoader.m in Sources */ = {isa = PBXBuildFile; fileRef = 10D094C322E4EE0A0020D9DB /* XNLoader.m */; };
+		10F73E5D22DA011900257A7B /* XNLogFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10F73E5C22DA011900257A7B /* XNLogFormatter.swift */; };
+		10F8A9BB230E731300C17B4A /* XNUIManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10F8A9BA230E731300C17B4A /* XNUIManager.swift */; };
+		10F8A9BD230E761400C17B4A /* XNUIExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10F8A9BC230E761400C17B4A /* XNUIExtensions.swift */; };
+		10FC10EB231501D900F347BF /* XNUILogDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10FC10E9231501D900F347BF /* XNUILogDetailVC.swift */; };
+		10FC10EC231501D900F347BF /* XNUILogDetailVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 10FC10EA231501D900F347BF /* XNUILogDetailVC.xib */; };
+		4AB65FD2711F23689A523C45 /* Pods_XNLogger.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6E2A8787D51D4750F5E58B0D /* Pods_XNLogger.framework */; };
+		975BF47A0FBC015433F3A430 /* Pods_XNLoggerTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DD1DC70CEE51FE911722686D /* Pods_XNLoggerTests.framework */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		1005806921C65F4A0020288D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 1005805521C65F490020288D /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 1005805D21C65F490020288D;
+			remoteInfo = NetworkLogger;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		1005805E21C65F490020288D /* XNLogger.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = XNLogger.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		1005806121C65F490020288D /* XNLogger.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = XNLogger.h; sourceTree = "<group>"; };
+		1005806221C65F490020288D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		1005806721C65F4A0020288D /* XNLoggerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = XNLoggerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		1005806C21C65F4A0020288D /* XNLoggerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XNLoggerTests.swift; sourceTree = "<group>"; };
+		1005806E21C65F4A0020288D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		1005807821C685000020288D /* XNLogger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XNLogger.swift; sourceTree = "<group>"; };
+		10142E0422F4710100217BF2 /* XNMIMEChecker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = XNMIMEChecker.swift; sourceTree = "<group>"; };
+		101750F723365E9C00CDAFF3 /* Data+Gzip.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Data+Gzip.swift"; sourceTree = "<group>"; };
+		101750FA2337EA6600CDAFF3 /* Media.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Media.xcassets; sourceTree = "<group>"; };
+		1017F84022C1C9F4000D185E /* XNFilterManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XNFilterManager.swift; sourceTree = "<group>"; };
+		101CA0B2230F23300063B0CF /* XNUIBaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XNUIBaseViewController.swift; sourceTree = "<group>"; };
+		10289E75230FCE4A00FDE204 /* XNUILogHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XNUILogHandler.swift; sourceTree = "<group>"; };
+		10289E7723105D5800FDE204 /* XNUILogListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XNUILogListTableViewCell.swift; sourceTree = "<group>"; };
+		10289E7823105D5800FDE204 /* XNUILogListTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = XNUILogListTableViewCell.xib; sourceTree = "<group>"; };
+		10301A4D2213334B00BCB339 /* NetworkAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkAPI.swift; sourceTree = "<group>"; };
+		10398B38220B557100EDFC05 /* NetworkInterceptorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkInterceptorTests.swift; sourceTree = "<group>"; };
+		103B7F802317CD64003DDDCB /* XNUILogDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XNUILogDetail.swift; sourceTree = "<group>"; };
+		1047D7F922CA7BAF000A7B6C /* XNAppUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XNAppUtils.swift; sourceTree = "<group>"; };
+		104D12EA2317131D0089D7FE /* XNUILogDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XNUILogDetailView.swift; sourceTree = "<group>"; };
+		104D12EC2317132D0089D7FE /* XNUILogDetailView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = XNUILogDetailView.xib; sourceTree = "<group>"; };
+		104D12EE231714E70089D7FE /* XNUILogDetailHeaderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XNUILogDetailHeaderCell.swift; sourceTree = "<group>"; };
+		104D12EF231714E70089D7FE /* XNUILogDetailHeaderCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = XNUILogDetailHeaderCell.xib; sourceTree = "<group>"; };
+		104D12F2231715190089D7FE /* XNUILogDetailCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XNUILogDetailCell.swift; sourceTree = "<group>"; };
+		104D12F3231715190089D7FE /* XNUILogDetailCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = XNUILogDetailCell.xib; sourceTree = "<group>"; };
+		106BB6932304A91D007968A8 /* XNUIMain.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = XNUIMain.storyboard; sourceTree = "<group>"; };
+		106DC65A22D4C9D10037DC28 /* XNLogData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XNLogData.swift; sourceTree = "<group>"; };
+		1085768C21FDD662008ABD2B /* XNFilter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = XNFilter.swift; sourceTree = "<group>"; };
+		1085769321FDD662008ABD2B /* XNJSONUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = XNJSONUtils.swift; sourceTree = "<group>"; };
+		1085769421FDD662008ABD2B /* XNAppConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = XNAppConstants.swift; sourceTree = "<group>"; };
+		1085769621FDD662008ABD2B /* XNInterceptor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = XNInterceptor.swift; sourceTree = "<group>"; };
+		1085769921FDD662008ABD2B /* XNLogHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = XNLogHandler.swift; sourceTree = "<group>"; };
+		1085769A21FDD662008ABD2B /* XNRemoteLogHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = XNRemoteLogHandler.swift; sourceTree = "<group>"; };
+		1085769B21FDD662008ABD2B /* XNConsoleLogHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = XNConsoleLogHandler.swift; sourceTree = "<group>"; };
+		1085769C21FDD662008ABD2B /* XNSlackLogHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = XNSlackLogHandler.swift; sourceTree = "<group>"; };
+		1085769E21FDD662008ABD2B /* URLRequest+cURL.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "URLRequest+cURL.swift"; sourceTree = "<group>"; };
+		1085769F21FDD662008ABD2B /* XNLogComposer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = XNLogComposer.swift; sourceTree = "<group>"; };
+		108576B721FDD99A008ABD2B /* XNExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = XNExtensions.swift; sourceTree = "<group>"; };
+		1090C205230724DC00575550 /* XNUILogListVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XNUILogListVC.swift; sourceTree = "<group>"; };
+		1090C2072307250E00575550 /* XNUIFiltersVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XNUIFiltersVC.swift; sourceTree = "<group>"; };
+		1090C2092307252200575550 /* XNUISettingsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XNUISettingsVC.swift; sourceTree = "<group>"; };
+		1090C20B2307403900575550 /* XNUIHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XNUIHelper.swift; sourceTree = "<group>"; };
+		10AA00D721FE34E6006E4A48 /* R&DConclusions.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = "R&DConclusions.md"; sourceTree = "<group>"; };
+		10AA00D821FE34E6006E4A48 /* Technical.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = Technical.md; sourceTree = "<group>"; };
+		10B4076722626644000FD18E /* XNURLProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XNURLProtocol.swift; sourceTree = "<group>"; };
+		10BC314722CD2FD20020167D /* XNAuthenticationChallengeSender.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XNAuthenticationChallengeSender.swift; sourceTree = "<group>"; };
+		10BE806A2233C8B800A147BC /* TestUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestUtils.swift; sourceTree = "<group>"; };
+		10C7268E222DA0BE00239900 /* XNFileLogHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XNFileLogHandler.swift; sourceTree = "<group>"; };
+		10C72690222DAC2D00239900 /* XNBaseLogHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XNBaseLogHandler.swift; sourceTree = "<group>"; };
+		10D094C322E4EE0A0020D9DB /* XNLoader.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = XNLoader.m; sourceTree = "<group>"; };
+		10F73E5C22DA011900257A7B /* XNLogFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XNLogFormatter.swift; sourceTree = "<group>"; };
+		10F8A9BA230E731300C17B4A /* XNUIManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = XNUIManager.swift; sourceTree = "<group>"; };
+		10F8A9BC230E761400C17B4A /* XNUIExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XNUIExtensions.swift; sourceTree = "<group>"; };
+		10FC10E9231501D900F347BF /* XNUILogDetailVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XNUILogDetailVC.swift; sourceTree = "<group>"; };
+		10FC10EA231501D900F347BF /* XNUILogDetailVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = XNUILogDetailVC.xib; sourceTree = "<group>"; };
+		6E2A8787D51D4750F5E58B0D /* Pods_XNLogger.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_XNLogger.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		7131FAE48986EDB635C3304F /* Pods-XNLogger.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-XNLogger.debug.xcconfig"; path = "Pods/Target Support Files/Pods-XNLogger/Pods-XNLogger.debug.xcconfig"; sourceTree = "<group>"; };
+		C0006DBBB3F7A78BE736997C /* Pods_XNLoggerExample.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_XNLoggerExample.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		DB2B06FE5CCDD620F9C71535 /* Pods-XNLoggerTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-XNLoggerTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-XNLoggerTests/Pods-XNLoggerTests.debug.xcconfig"; sourceTree = "<group>"; };
+		DC94A182B8660FE9407C4F6A /* Pods-XNLogger.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-XNLogger.release.xcconfig"; path = "Pods/Target Support Files/Pods-XNLogger/Pods-XNLogger.release.xcconfig"; sourceTree = "<group>"; };
+		DD1DC70CEE51FE911722686D /* Pods_XNLoggerTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_XNLoggerTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		F5C6874AF03B577DF413BA4B /* Pods-XNLoggerTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-XNLoggerTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-XNLoggerTests/Pods-XNLoggerTests.release.xcconfig"; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		1005805B21C65F490020288D /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4AB65FD2711F23689A523C45 /* Pods_XNLogger.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		1005806421C65F4A0020288D /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1005806821C65F4A0020288D /* XNLogger.framework in Frameworks */,
+				975BF47A0FBC015433F3A430 /* Pods_XNLoggerTests.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		1005805421C65F490020288D = {
+			isa = PBXGroup;
+			children = (
+				1005806021C65F490020288D /* XNLogger */,
+				1005806B21C65F4A0020288D /* XNLoggerTests */,
+				1005805F21C65F490020288D /* Products */,
+				5EF4AC20FDA5093C4C97ACF3 /* Pods */,
+				E8915F63EF3B82F0FF848A17 /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		1005805F21C65F490020288D /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				1005805E21C65F490020288D /* XNLogger.framework */,
+				1005806721C65F4A0020288D /* XNLoggerTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		1005806021C65F490020288D /* XNLogger */ = {
+			isa = PBXGroup;
+			children = (
+				10B2CF07232EAA2200CD1D80 /* Core */,
+				106BB6922304A882007968A8 /* UI */,
+				10AA00D621FE34E6006E4A48 /* Docs */,
+				1005806121C65F490020288D /* XNLogger.h */,
+				1005806221C65F490020288D /* Info.plist */,
+			);
+			path = XNLogger;
+			sourceTree = "<group>";
+		};
+		1005806B21C65F4A0020288D /* XNLoggerTests */ = {
+			isa = PBXGroup;
+			children = (
+				1005806C21C65F4A0020288D /* XNLoggerTests.swift */,
+				1005806E21C65F4A0020288D /* Info.plist */,
+				10398B38220B557100EDFC05 /* NetworkInterceptorTests.swift */,
+				10301A4D2213334B00BCB339 /* NetworkAPI.swift */,
+				10BE806A2233C8B800A147BC /* TestUtils.swift */,
+			);
+			path = XNLoggerTests;
+			sourceTree = "<group>";
+		};
+		101750F92337EA1000CDAFF3 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				101750FA2337EA6600CDAFF3 /* Media.xcassets */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		103B7F7F2317CCBB003DDDCB /* UIModels */ = {
+			isa = PBXGroup;
+			children = (
+				103B7F802317CD64003DDDCB /* XNUILogDetail.swift */,
+			);
+			path = UIModels;
+			sourceTree = "<group>";
+		};
+		106BB6922304A882007968A8 /* UI */ = {
+			isa = PBXGroup;
+			children = (
+				101750F92337EA1000CDAFF3 /* Resources */,
+				10E411862324A24D004E0C1F /* LogDetailScreen */,
+				10E411852324A1AA004E0C1F /* LogsListScreen */,
+				103B7F7F2317CCBB003DDDCB /* UIModels */,
+				10D094C322E4EE0A0020D9DB /* XNLoader.m */,
+				106BB6932304A91D007968A8 /* XNUIMain.storyboard */,
+				1090C2072307250E00575550 /* XNUIFiltersVC.swift */,
+				1090C2092307252200575550 /* XNUISettingsVC.swift */,
+				1090C20B2307403900575550 /* XNUIHelper.swift */,
+				10F8A9BA230E731300C17B4A /* XNUIManager.swift */,
+				10F8A9BC230E761400C17B4A /* XNUIExtensions.swift */,
+				101CA0B2230F23300063B0CF /* XNUIBaseViewController.swift */,
+				10289E75230FCE4A00FDE204 /* XNUILogHandler.swift */,
+			);
+			path = UI;
+			sourceTree = "<group>";
+		};
+		1085768821FDD661008ABD2B /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				106DC65A22D4C9D10037DC28 /* XNLogData.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		1085768B21FDD662008ABD2B /* Filters */ = {
+			isa = PBXGroup;
+			children = (
+				1085768C21FDD662008ABD2B /* XNFilter.swift */,
+				1017F84022C1C9F4000D185E /* XNFilterManager.swift */,
+			);
+			path = Filters;
+			sourceTree = "<group>";
+		};
+		1085769221FDD662008ABD2B /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				101750F723365E9C00CDAFF3 /* Data+Gzip.swift */,
+				10142E0422F4710100217BF2 /* XNMIMEChecker.swift */,
+				108576B721FDD99A008ABD2B /* XNExtensions.swift */,
+				1085769321FDD662008ABD2B /* XNJSONUtils.swift */,
+				1085769421FDD662008ABD2B /* XNAppConstants.swift */,
+				1047D7F922CA7BAF000A7B6C /* XNAppUtils.swift */,
+			);
+			path = Utils;
+			sourceTree = "<group>";
+		};
+		1085769521FDD662008ABD2B /* NetworkInterceptor */ = {
+			isa = PBXGroup;
+			children = (
+				1085769621FDD662008ABD2B /* XNInterceptor.swift */,
+				10B4076722626644000FD18E /* XNURLProtocol.swift */,
+				10BC314722CD2FD20020167D /* XNAuthenticationChallengeSender.swift */,
+			);
+			path = NetworkInterceptor;
+			sourceTree = "<group>";
+		};
+		1085769721FDD662008ABD2B /* Logger */ = {
+			isa = PBXGroup;
+			children = (
+				1085769821FDD662008ABD2B /* LogHandlers */,
+				1085769E21FDD662008ABD2B /* URLRequest+cURL.swift */,
+				1085769F21FDD662008ABD2B /* XNLogComposer.swift */,
+				10F73E5C22DA011900257A7B /* XNLogFormatter.swift */,
+			);
+			path = Logger;
+			sourceTree = "<group>";
+		};
+		1085769821FDD662008ABD2B /* LogHandlers */ = {
+			isa = PBXGroup;
+			children = (
+				1085769921FDD662008ABD2B /* XNLogHandler.swift */,
+				10C72690222DAC2D00239900 /* XNBaseLogHandler.swift */,
+				1085769B21FDD662008ABD2B /* XNConsoleLogHandler.swift */,
+				1085769A21FDD662008ABD2B /* XNRemoteLogHandler.swift */,
+				1085769C21FDD662008ABD2B /* XNSlackLogHandler.swift */,
+				10C7268E222DA0BE00239900 /* XNFileLogHandler.swift */,
+			);
+			path = LogHandlers;
+			sourceTree = "<group>";
+		};
+		10AA00D621FE34E6006E4A48 /* Docs */ = {
+			isa = PBXGroup;
+			children = (
+				10AA00D721FE34E6006E4A48 /* R&DConclusions.md */,
+				10AA00D821FE34E6006E4A48 /* Technical.md */,
+			);
+			path = Docs;
+			sourceTree = "<group>";
+		};
+		10B2CF07232EAA2200CD1D80 /* Core */ = {
+			isa = PBXGroup;
+			children = (
+				1085769221FDD662008ABD2B /* Utils */,
+				1085769521FDD662008ABD2B /* NetworkInterceptor */,
+				1085768821FDD661008ABD2B /* Models */,
+				1085769721FDD662008ABD2B /* Logger */,
+				1085768B21FDD662008ABD2B /* Filters */,
+				1005807821C685000020288D /* XNLogger.swift */,
+			);
+			path = Core;
+			sourceTree = "<group>";
+		};
+		10E411852324A1AA004E0C1F /* LogsListScreen */ = {
+			isa = PBXGroup;
+			children = (
+				10289E7823105D5800FDE204 /* XNUILogListTableViewCell.xib */,
+				10289E7723105D5800FDE204 /* XNUILogListTableViewCell.swift */,
+				1090C205230724DC00575550 /* XNUILogListVC.swift */,
+			);
+			path = LogsListScreen;
+			sourceTree = "<group>";
+		};
+		10E411862324A24D004E0C1F /* LogDetailScreen */ = {
+			isa = PBXGroup;
+			children = (
+				10FC10E9231501D900F347BF /* XNUILogDetailVC.swift */,
+				10FC10EA231501D900F347BF /* XNUILogDetailVC.xib */,
+				104D12EA2317131D0089D7FE /* XNUILogDetailView.swift */,
+				104D12EC2317132D0089D7FE /* XNUILogDetailView.xib */,
+				104D12EE231714E70089D7FE /* XNUILogDetailHeaderCell.swift */,
+				104D12EF231714E70089D7FE /* XNUILogDetailHeaderCell.xib */,
+				104D12F2231715190089D7FE /* XNUILogDetailCell.swift */,
+				104D12F3231715190089D7FE /* XNUILogDetailCell.xib */,
+			);
+			path = LogDetailScreen;
+			sourceTree = "<group>";
+		};
+		5EF4AC20FDA5093C4C97ACF3 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				7131FAE48986EDB635C3304F /* Pods-XNLogger.debug.xcconfig */,
+				DC94A182B8660FE9407C4F6A /* Pods-XNLogger.release.xcconfig */,
+				DB2B06FE5CCDD620F9C71535 /* Pods-XNLoggerTests.debug.xcconfig */,
+				F5C6874AF03B577DF413BA4B /* Pods-XNLoggerTests.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		E8915F63EF3B82F0FF848A17 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				6E2A8787D51D4750F5E58B0D /* Pods_XNLogger.framework */,
+				DD1DC70CEE51FE911722686D /* Pods_XNLoggerTests.framework */,
+				C0006DBBB3F7A78BE736997C /* Pods_XNLoggerExample.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		1005805921C65F490020288D /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1005806F21C65F4A0020288D /* XNLogger.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		1005805D21C65F490020288D /* XNLogger */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 1005807221C65F4A0020288D /* Build configuration list for PBXNativeTarget "XNLogger" */;
+			buildPhases = (
+				5385EA26D702ACFC603D01A9 /* [CP] Check Pods Manifest.lock */,
+				1005805921C65F490020288D /* Headers */,
+				1005805A21C65F490020288D /* Sources */,
+				1005805B21C65F490020288D /* Frameworks */,
+				1005805C21C65F490020288D /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = XNLogger;
+			productName = NetworkLogger;
+			productReference = 1005805E21C65F490020288D /* XNLogger.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		1005806621C65F4A0020288D /* XNLoggerTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 1005807521C65F4A0020288D /* Build configuration list for PBXNativeTarget "XNLoggerTests" */;
+			buildPhases = (
+				142854DAB4F368D733B6AEA4 /* [CP] Check Pods Manifest.lock */,
+				1005806321C65F4A0020288D /* Sources */,
+				1005806421C65F4A0020288D /* Frameworks */,
+				1005806521C65F4A0020288D /* Resources */,
+				7FE11F4C8C4D4508466E1D3B /* [CP] Embed Pods Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				1005806A21C65F4A0020288D /* PBXTargetDependency */,
+			);
+			name = XNLoggerTests;
+			productName = NetworkLoggerTests;
+			productReference = 1005806721C65F4A0020288D /* XNLoggerTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		1005805521C65F490020288D /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 1010;
+				LastUpgradeCheck = 1010;
+				ORGANIZATIONNAME = "Sunil Sharma";
+				TargetAttributes = {
+					1005805D21C65F490020288D = {
+						CreatedOnToolsVersion = 10.1;
+						LastSwiftMigration = 1010;
+					};
+					1005806621C65F4A0020288D = {
+						CreatedOnToolsVersion = 10.1;
+					};
+				};
+			};
+			buildConfigurationList = 1005805821C65F490020288D /* Build configuration list for PBXProject "XNLogger" */;
+			compatibilityVersion = "Xcode 9.3";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 1005805421C65F490020288D;
+			productRefGroup = 1005805F21C65F490020288D /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				1005805D21C65F490020288D /* XNLogger */,
+				1005806621C65F4A0020288D /* XNLoggerTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		1005805C21C65F490020288D /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				106BB6942304A91D007968A8 /* XNUIMain.storyboard in Resources */,
+				104D12F1231714E70089D7FE /* XNUILogDetailHeaderCell.xib in Resources */,
+				101750FB2337EA6600CDAFF3 /* Media.xcassets in Resources */,
+				104D12F5231715190089D7FE /* XNUILogDetailCell.xib in Resources */,
+				10289E7A23105D5800FDE204 /* XNUILogListTableViewCell.xib in Resources */,
+				10FC10EC231501D900F347BF /* XNUILogDetailVC.xib in Resources */,
+				104D12ED2317132D0089D7FE /* XNUILogDetailView.xib in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		1005806521C65F4A0020288D /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		142854DAB4F368D733B6AEA4 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-XNLoggerTests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		5385EA26D702ACFC603D01A9 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-XNLogger-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		7FE11F4C8C4D4508466E1D3B /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-XNLoggerTests/Pods-XNLoggerTests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-XNLoggerTests/Pods-XNLoggerTests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-XNLoggerTests/Pods-XNLoggerTests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		1005805A21C65F490020288D /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				108576A721FDD662008ABD2B /* XNAppConstants.swift in Sources */,
+				1090C206230724DC00575550 /* XNUILogListVC.swift in Sources */,
+				108576AE21FDD662008ABD2B /* URLRequest+cURL.swift in Sources */,
+				104D12EB2317131D0089D7FE /* XNUILogDetailView.swift in Sources */,
+				108576AC21FDD662008ABD2B /* XNSlackLogHandler.swift in Sources */,
+				1090C20A2307252200575550 /* XNUISettingsVC.swift in Sources */,
+				104D12F4231715190089D7FE /* XNUILogDetailCell.swift in Sources */,
+				1017F84122C1C9F4000D185E /* XNFilterManager.swift in Sources */,
+				108576A621FDD662008ABD2B /* XNJSONUtils.swift in Sources */,
+				10C7268F222DA0BE00239900 /* XNFileLogHandler.swift in Sources */,
+				108576A221FDD662008ABD2B /* XNFilter.swift in Sources */,
+				108576AB21FDD662008ABD2B /* XNConsoleLogHandler.swift in Sources */,
+				10BC314822CD2FD20020167D /* XNAuthenticationChallengeSender.swift in Sources */,
+				10F8A9BD230E761400C17B4A /* XNUIExtensions.swift in Sources */,
+				10289E7923105D5800FDE204 /* XNUILogListTableViewCell.swift in Sources */,
+				1090C2082307250E00575550 /* XNUIFiltersVC.swift in Sources */,
+				10C72691222DAC2D00239900 /* XNBaseLogHandler.swift in Sources */,
+				108576AA21FDD662008ABD2B /* XNRemoteLogHandler.swift in Sources */,
+				10F8A9BB230E731300C17B4A /* XNUIManager.swift in Sources */,
+				103B7F812317CD64003DDDCB /* XNUILogDetail.swift in Sources */,
+				108576A921FDD662008ABD2B /* XNLogHandler.swift in Sources */,
+				1090C20C2307403900575550 /* XNUIHelper.swift in Sources */,
+				108576A821FDD662008ABD2B /* XNInterceptor.swift in Sources */,
+				101CA0B3230F23300063B0CF /* XNUIBaseViewController.swift in Sources */,
+				10D094C422E4EE0A0020D9DB /* XNLoader.m in Sources */,
+				1047D7FA22CA7BAF000A7B6C /* XNAppUtils.swift in Sources */,
+				108576AF21FDD662008ABD2B /* XNLogComposer.swift in Sources */,
+				10FC10EB231501D900F347BF /* XNUILogDetailVC.swift in Sources */,
+				10142E0522F4710100217BF2 /* XNMIMEChecker.swift in Sources */,
+				10B4076822626644000FD18E /* XNURLProtocol.swift in Sources */,
+				1005807921C685000020288D /* XNLogger.swift in Sources */,
+				10F73E5D22DA011900257A7B /* XNLogFormatter.swift in Sources */,
+				101750F823365E9C00CDAFF3 /* Data+Gzip.swift in Sources */,
+				104D12F0231714E70089D7FE /* XNUILogDetailHeaderCell.swift in Sources */,
+				10289E76230FCE4A00FDE204 /* XNUILogHandler.swift in Sources */,
+				108576B821FDD99A008ABD2B /* XNExtensions.swift in Sources */,
+				106DC65B22D4C9D10037DC28 /* XNLogData.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		1005806321C65F4A0020288D /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				10398B39220B557100EDFC05 /* NetworkInterceptorTests.swift in Sources */,
+				1005806D21C65F4A0020288D /* XNLoggerTests.swift in Sources */,
+				10301A4E2213334B00BCB339 /* NetworkAPI.swift in Sources */,
+				10BE806B2233C8B800A147BC /* TestUtils.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		1005806A21C65F4A0020288D /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 1005805D21C65F490020288D /* XNLogger */;
+			targetProxy = 1005806921C65F4A0020288D /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		1005807021C65F4A0020288D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEFINES_MODULE = YES;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_MODULE_NAME = "$(PRODUCT_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		1005807121C65F4A0020288D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEFINES_MODULE = YES;
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				PRODUCT_MODULE_NAME = "$(PRODUCT_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				VALIDATE_PRODUCT = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		1005807321C65F4A0020288D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 7131FAE48986EDB635C3304F /* Pods-XNLogger.debug.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(inherited)";
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "";
+				CODE_SIGN_STYLE = Automatic;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = XNLogger/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.sunilsharma.XNLogger;
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SKIP_INSTALL = NO;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 4.2;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		1005807421C65F4A0020288D /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = DC94A182B8660FE9407C4F6A /* Pods-XNLogger.release.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(inherited)";
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "";
+				CODE_SIGN_STYLE = Automatic;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = XNLogger/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.sunilsharma.XNLogger;
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SKIP_INSTALL = NO;
+				SWIFT_VERSION = 4.2;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		1005807621C65F4A0020288D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = DB2B06FE5CCDD620F9C71535 /* Pods-XNLoggerTests.debug.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(inherited)";
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = NetworkLoggerTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.sunilsharma.NetworkLoggerTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.2;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		1005807721C65F4A0020288D /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = F5C6874AF03B577DF413BA4B /* Pods-XNLoggerTests.release.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(inherited)";
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = NetworkLoggerTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.sunilsharma.NetworkLoggerTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.2;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		1005805821C65F490020288D /* Build configuration list for PBXProject "XNLogger" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1005807021C65F4A0020288D /* Debug */,
+				1005807121C65F4A0020288D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		1005807221C65F4A0020288D /* Build configuration list for PBXNativeTarget "XNLogger" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1005807321C65F4A0020288D /* Debug */,
+				1005807421C65F4A0020288D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		1005807521C65F4A0020288D /* Build configuration list for PBXNativeTarget "XNLoggerTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1005807621C65F4A0020288D /* Debug */,
+				1005807721C65F4A0020288D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 1005805521C65F490020288D /* Project object */;
+}
