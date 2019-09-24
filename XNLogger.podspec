@@ -8,7 +8,7 @@ Pod::Spec.new do |s|
                    DESC
 
   s.homepage     = "https://github.com/sunilsharma08/XNLogger"
-  s.screenshots  = "https://raw.githubusercontent.com/sunilsharma08/XNLogger/develop/XNLoggerExample/ExampleAppScreenshots/LogListScreen.png", "https://github.com/sunilsharma08/XNLogger/blob/develop/XNLoggerExample/ExampleAppScreenshots/LogDetailsRequestScreen.png", "https://raw.githubusercontent.com/sunilsharma08/XNLogger/develop/XNLoggerExample/ExampleAppScreenshots/LogDetailsResponseScreen.png"
+  s.screenshots  = "https://raw.githubusercontent.com/sunilsharma08/XNLogger/master/XNLoggerExample/ExampleAppScreenshots/LogListScreen.png", "https://raw.githubusercontent.com/sunilsharma08/XNLogger/master/XNLoggerExample/ExampleAppScreenshots/LogDetailsRequestScreen.png", "https://raw.githubusercontent.com/sunilsharma08/XNLogger/master/XNLoggerExample/ExampleAppScreenshots/LogDetailsResponseScreen.png"
 
   s.license      = { :type => "MIT", :file => "LICENSE" }
 
