@@ -1,6 +1,10 @@
 <p align="center">
   <img src="https://raw.githubusercontent.com/sunilsharma08/XNLogger/networkLoggerUI/XNLoggerLogo.png" title="XNLogger logo"    float=left width="600">
 </p>
+
+[![License](https://img.shields.io/github/license/sunilsharma08/XNLogger?color=blue)](https://raw.githubusercontent.com/sunilsharma08/XNLogger/master/LICENSE)
+[![Pod version](https://img.shields.io/cocoapods/v/XNLogger)](https://cocoapods.org/pods/XNLogger)
+[![Pod platforms](https://img.shields.io/cocoapods/p/XNLogger)](https://cocoapods.org/pods/XNLogger)
 </br>
 Framework to log network request and response.
 
