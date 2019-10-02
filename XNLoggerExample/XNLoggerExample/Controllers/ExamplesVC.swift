@@ -318,6 +318,7 @@ extension ExamplesVC {
     }
     
     @IBAction func clickedOnWebView(_ sender: Any) {
+        /*
         guard let button = sender as? UIButton else { return }
         webView.removeFromSuperview()
         webView = WKWebView(frame: CGRect(x: 20, y: button.frame.maxY + 10, width: self.view.frame.width - 40, height: 300))
@@ -325,7 +326,7 @@ extension ExamplesVC {
         self.view.addSubview(webView)
 //        webView.loadRequest(URLRequest(url: URL(string: "https://source.unsplash.com/collection/400620/250x350")!))
         webView.load(URLRequest(url: URL(string: "https://source.unsplash.com/collection/400620/250x350")!))
-        
+        */
     }
     
 }

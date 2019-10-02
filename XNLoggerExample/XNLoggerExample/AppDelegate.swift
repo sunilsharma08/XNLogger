@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import XNLogger
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -15,6 +16,22 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         return true
+    }
+    
+    //Optional XNLogger configuration
+    func configureXNLogger() {
+        // Start logging
+        XNLogger.shared.startLogging()
+        
+        // Add predefined log handlers
+        let consoleLogHandler = XNConsoleLogHandler.create()
+        XNLogger.shared.addLogHandlers([consoleLogHandler])
+        
+        // Remove previously added handlers
+        XNLogger.shared.removeHandlers([consoleLogHandler])
+        
+        // Stop logging
+        XNLogger.shared.stopLogging()
     }
     
 }
