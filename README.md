@@ -19,6 +19,20 @@ Framework to log network request and response. An easy way to view and debug RES
 * Log formatter to log desired data only.
 * Network logs can be viewed In-App, by default shake gesture present XNLogger UI.
 
+# Example Screenshots
+<table>
+  <tr>
+    <th>Network Log list</th>
+    <th>Request details</th>
+    <th>Response details</th>
+  </tr>
+  <tr>
+    <td><img src="https://raw.githubusercontent.com/sunilsharma08/XNLogger/master/XNLoggerExample/ExampleAppScreenshots/LogListScreen.png" alt="Grid Menu" width="320" height="568"/></td>
+    <td><img src="https://raw.githubusercontent.com/sunilsharma08/XNLogger/master/XNLoggerExample/ExampleAppScreenshots/LogDetailsRequestScreen.png" alt="Circular Menu" width="320" height="568"/></td>
+    <td><img src="https://raw.githubusercontent.com/sunilsharma08/XNLogger/master/XNLoggerExample/ExampleAppScreenshots/LogDetailsResponseScreen.png" alt="Grid Menu" width="320" height="568"/></td>
+  </tr>
+</table>
+
 # Installtion
 ## Cocoapods
 ```
@@ -36,8 +50,28 @@ pod 'XNLogger', :configurations => ['Debug']
 Drag the folder "XNLogger" with the source files into your project.
 
 # Usage
-It starts logging automatically after integrating library in your project and running. Shake to see logs in app.
+It starts logging automatically after integrating library in your project. Shake to see logs in app.
 
+### Manually Start Logging
+```swift
+XNLogger.shared.startLogging()
+```
+### Stop Logging
+```swift
+XNLogger.shared.stopLogging()
+```
+It's safe to call `startLogging` or `stopLogging` multiple times. These methods can be called from anywhere in the code.
+
+### Add Predefined Log Handlers
+```swift
+let consoleLogHandler = XNConsoleLogHandler.create()
+XNLogger.shared.addLogHandlers([consoleLogHandler])
+```
+
+### Remove Added Log Handlers
+```swift
+XNLogger.shared.removeHandlers([consoleLogHandler])
+```
 
 # License
 XNLogger is available under the [MIT license](https://raw.githubusercontent.com/sunilsharma08/XNLogger/master/LICENSE).
