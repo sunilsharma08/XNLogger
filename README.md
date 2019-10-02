@@ -50,8 +50,28 @@ pod 'XNLogger', :configurations => ['Debug']
 Drag the folder "XNLogger" with the source files into your project.
 
 # Usage
-It starts logging automatically after integrating library in your project and running. Shake to see logs in app.
+It starts logging automatically after integrating library in your project. Shake to see logs in app.
 
+### Manually Start Logging
+```swift
+XNLogger.shared.startLogging()
+```
+### Stop Logging
+```swift
+XNLogger.shared.stopLogging()
+```
+It's safe to call `startLogging` or `stopLogging` multiple times. These methods can be called from anywhere in the code.
+
+### Add Predefined Log Handlers
+```swift
+let consoleLogHandler = XNConsoleLogHandler.create()
+XNLogger.shared.addLogHandlers([consoleLogHandler])
+```
+
+### Remove Added Log Handlers
+```swift
+XNLogger.shared.removeHandlers([consoleLogHandler])
+```
 
 # License
 XNLogger is available under the [MIT license](https://raw.githubusercontent.com/sunilsharma08/XNLogger/master/LICENSE).
