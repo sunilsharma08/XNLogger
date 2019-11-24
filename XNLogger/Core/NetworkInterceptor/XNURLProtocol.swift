@@ -163,7 +163,7 @@ extension XNURLProtocol: URLSessionDataDelegate {
 // Helper private methods
 fileprivate extension XNURLProtocol {
     
-    fileprivate class func shouldHandle(request: URLRequest) -> Bool {
+    class func shouldHandle(request: URLRequest) -> Bool {
         
         if let _ = URLProtocol.property(forKey: XNAppConstants.NLRequestFlagKey, in: request) {
             return false

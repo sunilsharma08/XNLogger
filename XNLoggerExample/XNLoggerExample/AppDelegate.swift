@@ -26,7 +26,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Add predefined log handlers
         let consoleLogHandler = XNConsoleLogHandler.create()
         XNLogger.shared.addLogHandlers([consoleLogHandler])
-        
+        cl = XNRemo
         // Remove previously added handlers
         XNLogger.shared.removeHandlers([consoleLogHandler])
         
