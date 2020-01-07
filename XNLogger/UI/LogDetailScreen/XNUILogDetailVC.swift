@@ -180,6 +180,22 @@ class NLUILogDataConverter {
     func getResponseLogDetails() -> [XNUILogDetail] {
         var responseLogs: [XNUILogDetail] = []
         if formatter.showResponse {
+            
+            let responseInfo: XNUILogDetail = XNUILogDetail(title: "Response Content")
+            if let data = logData.receivedData, data.isEmpty == false {
+                let jsonUtil = XNJSONUtils()
+                if formatter.logUnreadableRespBody || XNAppUtils.shared.isContentTypeReadable(logData.respContentType) {
+                    let str = jsonUtil.getJSONStringORStringFrom(jsonData: data, prettyPrint: formatter.prettyPrintJSON)
+                    responseInfo.messages.append(str)
+                } else {
+                    responseInfo.messages.append(logData.respContentType.getName())
+                }
+            }
+            else {
+                responseInfo.messages.append("Respose data is empty")
+            }
+            responseLogs.append(responseInfo)
+            
             let respMetaInfo: XNUILogDetail = XNUILogDetail(title: "Response Meta Info")
             if formatter.showRespMetaInfo.isEmpty == false {
                 let respHeaderInfo: XNUILogDetail = XNUILogDetail(title: "Response headers fields:")
@@ -240,20 +256,6 @@ class NLUILogDataConverter {
                 responseLogs.append(XNUILogDetail(title: "Response Error", message: error.localizedDescription))
             }
             
-            let responseInfo: XNUILogDetail = XNUILogDetail(title: "Response Content")
-            if let data = logData.receivedData, data.isEmpty == false {
-                let jsonUtil = XNJSONUtils()
-                if formatter.logUnreadableRespBody || XNAppUtils.shared.isContentTypeReadable(logData.respContentType) {
-                    let str = jsonUtil.getJSONStringORStringFrom(jsonData: data, prettyPrint: formatter.prettyPrintJSON)
-                    responseInfo.messages.append(str)
-                } else {
-                    responseInfo.messages.append(logData.respContentType.getName())
-                }
-            }
-            else {
-                responseInfo.messages.append("Respose data is empty")
-            }
-            responseLogs.append(responseInfo)
         }
         return responseLogs
     }
