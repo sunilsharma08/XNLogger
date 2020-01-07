@@ -43,7 +43,7 @@ public class XNLogData: NSObject {
     internal(set) public var receivedData: Data?
     internal(set) public var error: Error?
     internal(set) public var startTime: Date?
-    internal(set) internal var endTime: Date? {
+    internal var endTime: Date? {
         didSet {
             if let startDate = startTime, let endDate = endTime {
                 duration = endDate.timeIntervalSince(startDate)
@@ -56,7 +56,7 @@ public class XNLogData: NSObject {
     private(set) public var state: XNSessionState?
     internal(set) public var duration: Double?
     
-    internal(set) lazy var respContentType: XNContentType = {
+    lazy var respContentType: XNContentType = {
         if let mimeStr = response?.mimeType {
             return XNAppUtils.shared.getMimeEnum(from: mimeStr)
         } else if receivedData != nil {
@@ -66,7 +66,7 @@ public class XNLogData: NSObject {
         }
     }()
     
-    internal(set) lazy var reqstContentType: XNContentType = {
+    lazy var reqstContentType: XNContentType = {
         if let mimeStr = urlRequest.getMimeType() {
             return XNAppUtils.shared.getMimeEnum(from: mimeStr)
         } else {

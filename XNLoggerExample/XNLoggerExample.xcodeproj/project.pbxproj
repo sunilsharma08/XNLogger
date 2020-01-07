@@ -8,15 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		0235DA24CE00FF672A770F14 /* Pods_XNLoggerExample.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D2CADF7EDB282AEEBEF1EE1A /* Pods_XNLoggerExample.framework */; };
-		10281DBF2335FF0B00016ABF /* CustomUrlProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10281DBD2335FF0B00016ABF /* CustomUrlProtocol.swift */; };
-		10281DC02335FF0B00016ABF /* LogUrlProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10281DBE2335FF0B00016ABF /* LogUrlProtocol.swift */; };
 		10281DC62335FF7300016ABF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 10281DC22335FF7300016ABF /* LaunchScreen.storyboard */; };
 		10281DC72335FF7300016ABF /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 10281DC42335FF7300016ABF /* Main.storyboard */; };
-		10281DCC2335FF8300016ABF /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10281DC92335FF8300016ABF /* ViewController.swift */; };
-		10281DCD2335FF8300016ABF /* NetworkExamplesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10281DCA2335FF8300016ABF /* NetworkExamplesViewController.swift */; };
-		10281DCE2335FF8300016ABF /* SecondViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10281DCB2335FF8300016ABF /* SecondViewController.swift */; };
-		10281DD12335FFB500016ABF /* LibLoader.m in Sources */ = {isa = PBXBuildFile; fileRef = 10281DD02335FFB500016ABF /* LibLoader.m */; };
-		10281DD32335FFC400016ABF /* NetworkLogManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10281DD22335FFC400016ABF /* NetworkLogManager.swift */; };
+		10281DCD2335FF8300016ABF /* ExamplesVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10281DCA2335FF8300016ABF /* ExamplesVC.swift */; };
 		10281DD62335FFF600016ABF /* water.png in Resources */ = {isa = PBXBuildFile; fileRef = 10281DD52335FFF600016ABF /* water.png */; };
 		1063829F23365BF3009B0C79 /* XNLogger.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1063829D23365BEA009B0C79 /* XNLogger.framework */; };
 		106382A023365BF3009B0C79 /* XNLogger.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 1063829D23365BEA009B0C79 /* XNLogger.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -50,16 +44,10 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		10281DBD2335FF0B00016ABF /* CustomUrlProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomUrlProtocol.swift; sourceTree = "<group>"; };
-		10281DBE2335FF0B00016ABF /* LogUrlProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogUrlProtocol.swift; sourceTree = "<group>"; };
 		10281DC32335FF7300016ABF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		10281DC52335FF7300016ABF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		10281DC92335FF8300016ABF /* ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		10281DCA2335FF8300016ABF /* NetworkExamplesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkExamplesViewController.swift; sourceTree = "<group>"; };
-		10281DCB2335FF8300016ABF /* SecondViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SecondViewController.swift; sourceTree = "<group>"; };
+		10281DCA2335FF8300016ABF /* ExamplesVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExamplesVC.swift; sourceTree = "<group>"; };
 		10281DCF2335FFB400016ABF /* XNLoggerExample-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "XNLoggerExample-Bridging-Header.h"; sourceTree = "<group>"; };
-		10281DD02335FFB500016ABF /* LibLoader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LibLoader.m; sourceTree = "<group>"; };
-		10281DD22335FFC400016ABF /* NetworkLogManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkLogManager.swift; sourceTree = "<group>"; };
 		10281DD52335FFF600016ABF /* water.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = water.png; sourceTree = "<group>"; };
 		1063829D23365BEA009B0C79 /* XNLogger.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = XNLogger.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		10A9493B2335FAD40055C326 /* XNLoggerExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = XNLoggerExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -94,15 +82,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		10281DBC2335FF0B00016ABF /* URLProtocols */ = {
-			isa = PBXGroup;
-			children = (
-				10281DBD2335FF0B00016ABF /* CustomUrlProtocol.swift */,
-				10281DBE2335FF0B00016ABF /* LogUrlProtocol.swift */,
-			);
-			path = URLProtocols;
-			sourceTree = "<group>";
-		};
 		10281DC12335FF7300016ABF /* Storyboard */ = {
 			isa = PBXGroup;
 			children = (
@@ -115,9 +94,7 @@
 		10281DC82335FF8300016ABF /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				10281DC92335FF8300016ABF /* ViewController.swift */,
-				10281DCA2335FF8300016ABF /* NetworkExamplesViewController.swift */,
-				10281DCB2335FF8300016ABF /* SecondViewController.swift */,
+				10281DCA2335FF8300016ABF /* ExamplesVC.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -164,11 +141,8 @@
 			isa = PBXGroup;
 			children = (
 				10281DC82335FF8300016ABF /* Controllers */,
-				10281DBC2335FF0B00016ABF /* URLProtocols */,
 				10281DC12335FF7300016ABF /* Storyboard */,
 				10281DD42335FFE400016ABF /* Resources */,
-				10281DD22335FFC400016ABF /* NetworkLogManager.swift */,
-				10281DD02335FFB500016ABF /* LibLoader.m */,
 				10A9493E2335FAD40055C326 /* AppDelegate.swift */,
 				10A9494A2335FAD50055C326 /* Info.plist */,
 				10281DCF2335FFB400016ABF /* XNLoggerExample-Bridging-Header.h */,
@@ -325,14 +299,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				10281DCE2335FF8300016ABF /* SecondViewController.swift in Sources */,
-				10281DD32335FFC400016ABF /* NetworkLogManager.swift in Sources */,
 				10A9493F2335FAD40055C326 /* AppDelegate.swift in Sources */,
-				10281DC02335FF0B00016ABF /* LogUrlProtocol.swift in Sources */,
-				10281DCD2335FF8300016ABF /* NetworkExamplesViewController.swift in Sources */,
-				10281DD12335FFB500016ABF /* LibLoader.m in Sources */,
-				10281DCC2335FF8300016ABF /* ViewController.swift in Sources */,
-				10281DBF2335FF0B00016ABF /* CustomUrlProtocol.swift in Sources */,
+				10281DCD2335FF8300016ABF /* ExamplesVC.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -425,7 +393,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -480,7 +448,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -497,7 +465,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = K8NV2PJ4RN;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = XNLoggerExample/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -519,7 +487,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = K8NV2PJ4RN;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = XNLoggerExample/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

@@ -1,5 +1,5 @@
 //
-//  NetworkExamplesViewController.swift
+//  ExamplesVC.swift
 //  XNLoggerExample
 //
 //  Created by Sunil Sharma on 07/04/19.
@@ -10,85 +10,7 @@ import UIKit
 import WebKit
 import XNLogger
 
-func printTimeElapsedWhenRunningCode(title:String, operation:()->()) {
-    let startTime = CFAbsoluteTimeGetCurrent()
-    operation()
-    let timeElapsed = CFAbsoluteTimeGetCurrent() - startTime
-    print("Time elapsed for \(title): \(timeElapsed) s.")
-}
-
-
-@objc
-public enum NLRequestProperty: Int, CaseIterable {
-    case method
-    case httpHeaders
-    case httpBody
-    case timeoutInterval
-    case cellularAccess
-    case cachePolicy
-    case networkType
-    case CookieStatus
-    case httpPipeliningStatus
-    case requestStartTime
-}
-
-@objc
-public enum NLResponseMetaData: Int, CaseIterable {
-    case statusCode
-    case statusDescription
-    case mimeType
-    case contentLength
-    case textEncoding
-    case suggestedFileName
-    case headers
-    case requestStartTime
-    case duration
-    case redirectUrl
-}
-
-//@objcMembers
-//public class NLLogFormatter: NSObject {
-//
-//    public var showRequest: Bool = true
-//    public var showCurlCmd: Bool = true
-//    public var showRequestProperties: [NLRequestProperty] = NLRequestProperty.allCases {
-//        didSet {
-//            print("hhggh")
-//            showRequestProperties = Set(showRequestProperties).sorted(by: { (property1, property2) -> Bool in
-//                return property1.rawValue < property2.rawValue
-//            })
-//        }
-//    }
-//    public var showResponse: Bool = true
-//    public var showRequestInResponse: Bool = true
-//    public var showResponseMetaData: [NLResponseMetaData] = NLResponseMetaData.allCases
-//    public var logUnreadableResBody: Bool = false
-//}
-
-class CustomLogger: XNLogHandler {
-    func logNetworkRequest(from logData: XNLogData) {
-        print("CustomLogger \(#function)")
-    }
-    
-    func logNetworkResponse(from logData: XNLogData) {
-        print("CustomLogger \(#function)")
-    }
-    
-    deinit {
-        print("CustomLogger \(#function)")
-    }
-    
-}
-
-class NetworkExamplesViewController: UIViewController,XNLogHandler {
-    func logNetworkRequest(from logData: XNLogData) {
-        print("CustomLoggerVC \(#function)")
-    }
-    
-    func logNetworkResponse(from logData: XNLogData) {
-        print("CustomLoggerVC \(#function)")
-    }
-    
+class ExamplesVC: UIViewController {
 
     @IBOutlet weak var dataHandler: UIButton!
     @IBOutlet weak var dataDelegate: UIButton!
@@ -104,86 +26,11 @@ class NetworkExamplesViewController: UIViewController,XNLogHandler {
     var resumeDownloadtask: URLSessionDownloadTask?
     var resumeData: Data?
     
-//    var customLogger: CustomLogger? = CustomLogger()
-//    var formatter = NLLogFormatter()
-    var logger: CustomLogger? = nil
-    
-    var stored: String = "Hello" {
-        willSet {
-            print("willSet was called")
-            print("stored is now equal to \(self.stored)")
-            print("stored will be set to \(newValue)")
-        }
-        
-        didSet {
-            stored = stored.capitalized
-            print("didSet was called")
-            print("stored is now equal to \(self.stored)")
-            print("stored was previously set to \(oldValue)")
-        }
-    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         configureViews()
-//        WKWebViewConfiguration().setURLSchemeHandler(<#T##urlSchemeHandler: WKURLSchemeHandler?##WKURLSchemeHandler?#>, forURLScheme: <#T##String#>)
-        let classes = URLSessionConfiguration.default.protocolClasses
-        for cls in classes ?? []{
-            let className = cls.description()
-            if className == "NFXProtocol" {
-                print("Woh")
-            }
-            print(className)
-        }
-        
-        stored = "welcome"
-//        formatter.showRequestProperties = [.method, .cellularAccess, .cachePolicy, .CookieStatus, .httpBody, .httpHeaders, .httpPipeliningStatus, .method, .networkType, .timeoutInterval]
-        
-        printTimeElapsedWhenRunningCode(title: "sort") {
-//            for _ in 0...100 {
-//            formatter.showRequestProperties = [.method, .cellularAccess, .cachePolicy, .CookieStatus, .httpBody, .httpHeaders, .httpPipeliningStatus, .method, .networkType, .timeoutInterval]
-            stored = "welcomuouuoiu"
-//            }
-        }
-        stored = "welcomuouo"
-        
-        printTimeElapsedWhenRunningCode(title: "sorto") {
-            //            for _ in 0...100 {
-            //            formatter.showRequestProperties = [.method, .cellularAccess, .cachePolicy, .CookieStatus, .httpBody, .httpHeaders, .httpPipeliningStatus, .method, .networkType, .timeoutInterval]
-//            formatter.showRequestProperties.append(contentsOf: NLRequestProperty.allCases)
-            //            }
-        }
-        
-        
-//        for value in formatter.showRequestProperties {
-//            print(value.rawValue)
-//        }
-        
-        
-        
     }
-    
-//    override func viewWillAppear(_ animated: Bool) {
-//        super.viewWillAppear(animated)
-//        print(#function)
-//        if logger != nil {
-//            print(CFGetRetainCount(logger))
-//        }
-//
-//    }
-    
-//    override func viewDidAppear(_ animated: Bool) {
-//        super.viewDidAppear(animated)
-//        print(#function)
-//        if self.logger != nil {
-//            DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
-//                print(CFGetRetainCount(self.logger))
-//            }
-//        }
-//
-//    }
-    
     
     func configureViews() {
         let buttonList = [dataHandler, dataDelegate, downloadHandler, downloadDelegate, uploadHandler, uploadDelegate, downloadResume, downloadBackground, webViewLoad]
@@ -207,125 +54,6 @@ class NetworkExamplesViewController: UIViewController,XNLogHandler {
             print(error.debugDescription)
         }
         return nil
-    }
-    
-}
-
-/// URLSession delegates
-extension NetworkExamplesViewController: URLSessionDataDelegate {
-    
-    func urlSessionDidFinishEvents(forBackgroundURLSession session: URLSession) {
-//        print(#function)
-    }
-
-    func urlSession(_ session: URLSession, didBecomeInvalidWithError error: Error?) {
-//        print(#function)
-    }
-
-    func urlSession(_ session: URLSession, didReceive challenge: URLAuthenticationChallenge, completionHandler: @escaping (URLSession.AuthChallengeDisposition, URLCredential?) -> Void) {
-//        print(#function)
-//        print("ljojojpo")
-        completionHandler(.performDefaultHandling, nil)
-    }
-
-    func urlSession(_ session: URLSession, taskIsWaitingForConnectivity task: URLSessionTask) {
-//        print(#function)
-    }
-
-    func urlSession(_ session: URLSession, task: URLSessionTask, didCompleteWithError error: Error?) {
-        print(#function)
-//        print(error.debugDescription)
-//        print(task.error.debugDescription)
-//        print(task.originalRequest.debugDescription)
-    }
-
-    func urlSession(_ session: URLSession, task: URLSessionTask, didFinishCollecting metrics: URLSessionTaskMetrics) {
-//        print(#function)
-//        print(metrics.debugDescription)
-    }
-
-    func urlSession(_ session: URLSession, task: URLSessionTask, needNewBodyStream completionHandler: @escaping (InputStream?) -> Void) {
-//        print(#function)
-    }
-
-    func urlSession(_ session: URLSession, task: URLSessionTask, willBeginDelayedRequest request: URLRequest, completionHandler: @escaping (URLSession.DelayedRequestDisposition, URLRequest?) -> Void) {
-//        print(#function)
-        completionHandler(.continueLoading, request)
-    }
-
-    func urlSession(_ session: URLSession, task: URLSessionTask, didSendBodyData bytesSent: Int64, totalBytesSent: Int64, totalBytesExpectedToSend: Int64) {
-//        print(#function)
-    }
-
-    func urlSession(_ session: URLSession, task: URLSessionTask, didReceive challenge: URLAuthenticationChallenge, completionHandler: @escaping (URLSession.AuthChallengeDisposition, URLCredential?) -> Void) {
-//        print(#function)
-    }
-
-    func urlSession(_ session: URLSession, task: URLSessionTask, willPerformHTTPRedirection response: HTTPURLResponse, newRequest request: URLRequest, completionHandler: @escaping (URLRequest?) -> Void) {
-//        print(#function)
-//        print("New request = \(request.url?.absoluteString ?? "nil")")
-        completionHandler(request)
-    }
-    
-    func urlSession(_ session: URLSession, dataTask: URLSessionDataTask, didReceive data: Data) {
-//        print(#function)
-//        print(self.getJSONFrom(data: data) ?? "")
-    }
-
-    func urlSession(_ session: URLSession, dataTask: URLSessionDataTask, didBecome streamTask: URLSessionStreamTask) {
-//        print(#function)
-    }
-
-    func urlSession(_ session: URLSession, dataTask: URLSessionDataTask, didBecome downloadTask: URLSessionDownloadTask) {
-//        print(#function)
-    }
-
-    private func urlSession(_ session: URLSession, dataTask: URLSessionDataTask, didReceive response: URLResponse, completionHandler: @escaping (URLSession.ResponseDisposition) -> Void) {
-//        print(#function)
-//        print(response.debugDescription)
-        completionHandler(.allow)
-    }
-
-    func urlSession(_ session: URLSession, dataTask: URLSessionDataTask, willCacheResponse proposedResponse: CachedURLResponse, completionHandler: @escaping (CachedURLResponse?) -> Void) {
-//        print(#function)
-        completionHandler(nil)
-    }
-
-}
-
-extension NetworkExamplesViewController: URLSessionDownloadDelegate {
-    
-    func urlSession(_ session: URLSession, downloadTask: URLSessionDownloadTask, didFinishDownloadingTo location: URL) {
-//        print(#function)
-//        print("location \(location.absoluteString)")
-    }
-    
-    func urlSession(_ session: URLSession, downloadTask: URLSessionDownloadTask, didResumeAtOffset fileOffset: Int64, expectedTotalBytes: Int64) {
-//        print(#function)
-    }
-    
-    func urlSession(_ session: URLSession, downloadTask: URLSessionDownloadTask, didWriteData bytesWritten: Int64, totalBytesWritten: Int64, totalBytesExpectedToWrite: Int64) {
-//        print(#function)
-    }
-    
-}
-
-extension NetworkExamplesViewController: URLSessionStreamDelegate {
-    
-    func urlSession(_ session: URLSession, readClosedFor streamTask: URLSessionStreamTask) {
-//        print(#function)
-    }
-    
-    func urlSession(_ session: URLSession, writeClosedFor streamTask: URLSessionStreamTask) {
-//        print(#function)
-    }
-    
-    func urlSession(_ session: URLSession, betterRouteDiscoveredFor streamTask: URLSessionStreamTask) {
-//        print(#function)
-    }
-    
-    func urlSession(_ session: URLSession, streamTask: URLSessionStreamTask, didBecome inputStream: InputStream, outputStream: OutputStream) {
-//        print(#function)
     }
     
 }
@@ -357,7 +85,7 @@ extension Data {
 }
 
 // Data task
-extension NetworkExamplesViewController {
+extension ExamplesVC {
     
     func generateBoundaryString() -> String {
         return "Boundary-\(UUID().uuidString)"
@@ -488,7 +216,7 @@ extension NetworkExamplesViewController {
 }
 
 // Download task
-extension NetworkExamplesViewController {
+extension ExamplesVC {
     
     @IBAction func clickedOnDownloadHandler(_ sender: Any) {
         print(#function)
@@ -590,6 +318,7 @@ extension NetworkExamplesViewController {
     }
     
     @IBAction func clickedOnWebView(_ sender: Any) {
+        /*
         guard let button = sender as? UIButton else { return }
         webView.removeFromSuperview()
         webView = WKWebView(frame: CGRect(x: 20, y: button.frame.maxY + 10, width: self.view.frame.width - 40, height: 300))
@@ -597,13 +326,13 @@ extension NetworkExamplesViewController {
         self.view.addSubview(webView)
 //        webView.loadRequest(URLRequest(url: URL(string: "https://source.unsplash.com/collection/400620/250x350")!))
         webView.load(URLRequest(url: URL(string: "https://source.unsplash.com/collection/400620/250x350")!))
-        
+        */
     }
     
 }
 
 // Upload task
-extension NetworkExamplesViewController {
+extension ExamplesVC {
     
     @IBAction func clickedOnUploadHandler(_ sender: Any) {
 //        print(#function)
@@ -664,4 +393,20 @@ extension NetworkExamplesViewController {
 //        let uploadTask = session.uploadTask(with: uploadURLRequest, from: data)
 //        uploadTask.resume()
     }
+}
+
+extension ExamplesVC: URLSessionDelegate {
+    
+    public func urlSession(_ session: URLSession, didBecomeInvalidWithError error: Error?) {
+        print(#function)
+    }
+    
+    public func urlSession(_ session: URLSession, didReceive challenge: URLAuthenticationChallenge, completionHandler: @escaping (URLSession.AuthChallengeDisposition, URLCredential?) -> Void) {
+        print(#function)
+    }
+    
+    public func urlSessionDidFinishEvents(forBackgroundURLSession session: URLSession) {
+        print(#function)
+    }
+    
 }

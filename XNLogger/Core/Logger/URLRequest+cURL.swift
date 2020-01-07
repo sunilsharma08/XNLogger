@@ -10,11 +10,11 @@ import Foundation
 
 internal extension URLRequest {
     
-    internal var cURL: String {
+    var cURL: String {
         return RequestCurlCommand().toCurlString(request: self)
     }
     
-    internal func httpBodyString(prettyPrint: Bool) -> String? {
+    func httpBodyString(prettyPrint: Bool) -> String? {
         if let httpBodyString = getHttpBodyStream(prettyPrint: prettyPrint) {
             return httpBodyString
         }
