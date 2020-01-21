@@ -35,18 +35,24 @@ extension ReusableView where Self: UITableViewHeaderFooterView {
 }
 
 struct XNUIHTTPStatusColor {
-    static let status2xx: UIColor = UIColor(red: 0.156, green: 0.854, blue: 0.066, alpha: 1)
-    static let status4xx5xx: UIColor = UIColor(red: 1, green: 0.372, blue: 0.168, alpha: 1)
-    static let status3xx: UIColor = UIColor(red: 0.6, green: 0.33, blue: 0.933, alpha: 1)
-    static let running: UIColor = UIColor(red: 0.035, green: 0.764, blue: 1, alpha: 1)
-    static let cancelled: UIColor = UIColor(red: 0.45, green: 0.45, blue: 0.45, alpha: 1)
+    static let status1xx: UIColor = UIColor(red: 51/255.0, green: 153/255.0, blue: 1, alpha: 1)
+    static let status2xx: UIColor = UIColor(red: 42/255.0, green: 201/255.0, blue: 64/255.0, alpha: 1)
+    static let status3xx: UIColor = UIColor(red: 150/255.0, green: 80/255.0, blue: 238/255.0, alpha: 1)
+    static let status4xx: UIColor = UIColor(red: 1, green: 127/255.0, blue: 0, alpha: 1)
+    static let status5xx: UIColor = UIColor(red: 1, green: 69/255.0, blue: 0, alpha: 1)
+    static let running: UIColor = UIColor(red: 51/255.0, green: 153/255.0, blue: 1, alpha: 1)
+    static let cancelled: UIColor = UIColor(red: 1, green: 127/255.0, blue: 0, alpha: 1)
+    static let unknown: UIColor = UIColor(red: 105/255.0, green: 112/255.0, blue: 159/255.0, alpha: 1)
+    static let suspended: UIColor = UIColor(red: 1, green: 183/255.0, blue: 15/255.0, alpha: 1)
 }
 
 struct XNUIAppColor {
-    static let titleColor: UIColor = UIColor(red: 5/255.0, green: 24/255.0, blue: 42/255.0, alpha: 1)
-    static let subtitleColor: UIColor = UIColor(red: 52/255.0, green: 73/255.0, blue: 94/255.0, alpha: 1)
-    static let orangeColor: UIColor = UIColor(red: 1.0, green: 69/255.0, blue: 0.0, alpha: 1)
-    static let sharkColor: UIColor = UIColor(red: 37/255.0, green: 41/255.0, blue: 45/255.0, alpha: 1)
+    
+    static let theme: UIColor = UIColor(red: 1, green: 95/255.0, blue: 88/255.0, alpha: 1)
+    static let title: UIColor = UIColor(red: 48/255.0, green: 48/255.0, blue: 48/255.0, alpha: 1)
+    static let subtitle: UIColor = UIColor(red: 130/255.0, green: 130/255.0, blue: 130/255.0, alpha: 1)
+    static let navLogo: UIColor = UIColor.white
+    static let navTint: UIColor = UIColor.white
 }
 
 final class XNUIConstants {

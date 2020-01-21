@@ -24,12 +24,17 @@ class XNUILogListVC: XNUIBaseViewController {
         reloadLogData()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.navigationController?.navigationBar.titleTextAttributes = [.foregroundColor: XNUIAppColor.navLogo, .font: UIFont.systemFont(ofSize: 24, weight: .semibold)]
+    }
+    
     func configureViews() {
         let doneButton = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(dismissNetworkUI))
         self.navigationItem.rightBarButtonItems = [doneButton]
-        navigationController?.navigationBar.barTintColor = .white
-        tabBarController?.tabBar.barTintColor = .white
-        self.navigationController?.view.backgroundColor = .white
+        
+        
+        self.tabBarController?.tabBar.barTintColor = .white
         
         self.logListTableView.tableFooterView = UIView()
         self.logListTableView.register(ofType: XNUILogListTableViewCell.self)
@@ -72,6 +77,10 @@ extension XNUILogListVC: UITableViewDataSource {
         }
         
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 71
     }
 }
 
