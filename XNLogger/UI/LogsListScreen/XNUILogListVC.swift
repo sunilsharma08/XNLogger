@@ -30,10 +30,9 @@ class XNUILogListVC: XNUIBaseViewController {
     }
     
     func configureViews() {
-        let doneButton = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(dismissNetworkUI))
-        self.navigationItem.rightBarButtonItems = [doneButton]
-        
-        
+        self.navigationItem.rightBarButtonItem = createNavButton(imageName: "close", action: #selector(dismissNetworkUI), imageInsets: UIEdgeInsets(top: 16, left: 28, bottom: 15, right: 2))
+        self.navigationItem.leftBarButtonItem = createNavButton(imageName: "trash", action: #selector(clearLogs), imageInsets: UIEdgeInsets(top: 10, left: 0, bottom: 14, right: 24))
+        self.navigationController?.navigationBar.layoutIfNeeded()
         self.tabBarController?.tabBar.barTintColor = .white
         
         self.logListTableView.tableFooterView = UIView()
@@ -43,8 +42,28 @@ class XNUILogListVC: XNUIBaseViewController {
         
     }
     
+    func createNavButton(imageName: String, action: Selector, imageInsets: UIEdgeInsets) -> UIBarButtonItem {
+        let customView = UIView(frame: CGRect(x: 0, y: 0, width: 45, height: 45))
+        customView.backgroundColor = UIColor.clear
+        let customButton = UIButton(frame: CGRect(x: 0, y: 0, width: customView.frame.width, height: customView.frame.height))
+        customButton.tintColor = UIColor(red: 239/255.0, green: 239/255.0, blue: 239/255.0, alpha: 1)
+        customButton.imageView?.contentMode = .scaleAspectFit
+        customButton.imageEdgeInsets = imageInsets
+        customButton.setImage(UIImage(named: imageName, in: Bundle.current(), compatibleWith: nil), for: .normal)
+        customButton.addTarget(self, action: action, for: .touchUpInside)
+        
+        customView.addSubview(customButton)
+        
+        return UIBarButtonItem(customView: customView)
+    }
+    
     @objc func dismissNetworkUI() {
         XNUIManager.shared.dismissNetworkUI()
+    }
+    
+    @objc func clearLogs() {
+        XNUIManager.shared.clearLogs()
+        reloadLogData()
     }
     
     func getLogData(indexPath: IndexPath) -> XNLogData? {

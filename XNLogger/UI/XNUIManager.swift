@@ -61,6 +61,12 @@ public final class XNUIManager: NSObject {
             presentingViewController.dismiss(animated: true, completion: nil)
         }
     }
+    
+    @objc public func clearLogs() {
+        logsDataDict = [:]
+        logsIdArray.removeAll()
+    }
+    
 }
 
 extension XNUIManager: XNUILogDataDelegate {
