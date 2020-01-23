@@ -79,7 +79,7 @@ class XNUILogDetailVC: XNUIBaseViewController {
         self.requestBtn.backgroundColor = XNUIAppColor.lightPrimary
         self.requestBtn.setTitleColor(.white, for: .normal)
         self.responseBtn.backgroundColor = .white
-        self.responseBtn.setTitleColor(.black, for: .normal)
+        self.responseBtn.setTitleColor(XNUIAppColor.title, for: .normal)
     }
     
     @IBAction func clickedOnResponse(_ sender: Any) {
@@ -92,7 +92,7 @@ class XNUILogDetailVC: XNUIBaseViewController {
         self.responseBtn.backgroundColor = XNUIAppColor.lightPrimary
         self.responseBtn.setTitleColor(.white, for: .normal)
         self.requestBtn.backgroundColor = .white
-        self.requestBtn.setTitleColor(.black, for: .normal)
+        self.requestBtn.setTitleColor(XNUIAppColor.title , for: .normal)
     }
 
 }
