@@ -76,7 +76,7 @@ class XNUILogDetailVC: XNUIBaseViewController {
         self.requestView?.isHidden = false
         self.isResponseSelected = false
         
-        self.requestBtn.backgroundColor = XNUIHTTPStatusColor.running
+        self.requestBtn.backgroundColor = XNUIAppColor.lightPrimary
         self.requestBtn.setTitleColor(.white, for: .normal)
         self.responseBtn.backgroundColor = .white
         self.responseBtn.setTitleColor(.black, for: .normal)
@@ -89,7 +89,7 @@ class XNUILogDetailVC: XNUIBaseViewController {
         self.responseView?.isHidden = false
         self.isResponseSelected = true
         
-        self.responseBtn.backgroundColor = XNUIHTTPStatusColor.running
+        self.responseBtn.backgroundColor = XNUIAppColor.lightPrimary
         self.responseBtn.setTitleColor(.white, for: .normal)
         self.requestBtn.backgroundColor = .white
         self.requestBtn.setTitleColor(.black, for: .normal)

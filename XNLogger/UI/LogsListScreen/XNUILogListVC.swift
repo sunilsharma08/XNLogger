@@ -11,8 +11,14 @@ import UIKit
 class XNUILogListVC: XNUIBaseViewController {
 
     @IBOutlet weak var logListTableView: UITableView!
+    @IBOutlet weak var emptyMsgLabel: UILabel!
+    
     private var logsDataDict: [String: XNLogData] = [:]
-    private var logsIdArray: [String] = []
+    private var logsIdArray: [String] = [] {
+        didSet {
+            emptyMsgLabel.isHidden = !logsIdArray.isEmpty
+        }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -39,6 +45,7 @@ class XNUILogListVC: XNUIBaseViewController {
         self.logListTableView.register(ofType: XNUILogListTableViewCell.self)
         self.logListTableView.dataSource = self
         self.logListTableView.delegate = self
+        self.emptyMsgLabel.text = "No network logs found!"
         
     }
     

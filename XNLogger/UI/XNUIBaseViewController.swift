@@ -17,7 +17,7 @@ class XNUINavigationController: UINavigationController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationBar.isTranslucent = false
-        self.navigationBar.barTintColor = XNUIAppColor.theme
+        self.navigationBar.barTintColor = XNUIAppColor.primary
         self.navigationBar.tintColor = XNUIAppColor.navTint
         self.navigationBar.titleTextAttributes = [.foregroundColor: XNUIAppColor.navLogo]
     }
