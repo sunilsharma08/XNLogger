@@ -3,8 +3,13 @@
 * Library load logic should be inside framework - done
 * Guess MIME type - done
 
+* Move to detail screen and load data - This will avoid ui stuck due to large data.
+* Full screen
+* Copy
+* Share
+* UI for logger - In-progress
+
 * Example inside framework
-* UI for logger
 * Encoding type
 * Redirect URLs
 * Cache policy for logger - Enable/Change change cache policy for all REST API via logger
