@@ -20,12 +20,13 @@ class XNUILogDetailCell: UITableViewCell {
     }
     
     func configureViews(_ messageData: XNUIMessageData) {
-        self.logDetailMsg.text = messageData.message
+        
         if messageData.msgHeight > XNUIConstants.msgViewMaxHeight {
             self.logDetailMsg.isScrollEnabled = true
         } else {
             self.logDetailMsg.isScrollEnabled = false
         }
+        self.logDetailMsg.text = messageData.message
     }
     
 }

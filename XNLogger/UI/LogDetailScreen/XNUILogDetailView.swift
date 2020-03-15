@@ -49,7 +49,6 @@ class XNUILogDetailView: UIView, NibLoadableView {
     
     func configureViews() {
         self.logDetailsTableView.tableFooterView = UIView()
-        self.logDetailsTableView.estimatedRowHeight = 0
         #if swift(>=4.2)
         self.logDetailsTableView.sectionHeaderHeight = UITableView.automaticDimension
         self.logDetailsTableView.rowHeight = UITableView.automaticDimension
@@ -101,7 +100,6 @@ extension XNUILogDetailView: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell: XNUILogDetailCell = tableView.dequeueReusableCell(for: indexPath)
         cell.configureViews(self.detailsArray[indexPath.section].messages[indexPath.row])
-        cell.layoutIfNeeded()
         return cell
     }
     
