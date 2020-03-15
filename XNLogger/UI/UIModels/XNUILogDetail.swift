@@ -8,9 +8,20 @@
 
 import Foundation
 
+class XNUIMessageData {
+    
+    var message: String
+    var msgHeight: Float = 0
+    
+    init(msg: String) {
+        self.message = msg
+    }
+}
+
 class XNUILogDetail {
+    
     var title: String
-    var messages: [String] = []
+    var messages: [XNUIMessageData] = []
     var isExpended: Bool = false
     var shouldShowDataInFullScreen: Bool = false
     
@@ -18,10 +29,14 @@ class XNUILogDetail {
         self.title = title
     }
     
-    convenience init(title: String, message: String?) {
+    convenience init(title: String, message: String, maxWidth: Float) {
         self.init(title: title)
-        if let detail = message {
-            self.messages.append(detail)
-        }
+        addMessage(message, maxWidth: maxWidth)
+    }
+    
+    func addMessage(_ msg: String, maxWidth: Float) {
+        let msgInfo = XNUIMessageData(msg: msg)
+        msgInfo.msgHeight = Float(msg.heightWithConstrainedWidth(CGFloat(maxWidth), font: XNUIConstants.messageFont))
+        messages.append(msgInfo)
     }
 }

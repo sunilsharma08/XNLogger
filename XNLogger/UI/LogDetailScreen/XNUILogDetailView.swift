@@ -11,8 +11,10 @@ import UIKit
 class XNUILogDetailView: UIView, NibLoadableView {
 
     @IBOutlet weak var logDetailsTableView: UITableView!
-    var detailsArray: [XNUILogDetail] = []
     @IBOutlet weak var contentView: UIView!
+    
+    var viewType: XNUIDetailViewType!
+    var detailsArray: [XNUILogDetail] = []
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -47,6 +49,7 @@ class XNUILogDetailView: UIView, NibLoadableView {
     
     func configureViews() {
         self.logDetailsTableView.tableFooterView = UIView()
+        self.logDetailsTableView.estimatedRowHeight = 0
         #if swift(>=4.2)
         self.logDetailsTableView.sectionHeaderHeight = UITableView.automaticDimension
         self.logDetailsTableView.rowHeight = UITableView.automaticDimension
@@ -56,7 +59,6 @@ class XNUILogDetailView: UIView, NibLoadableView {
         #endif
         
         self.logDetailsTableView.estimatedSectionHeaderHeight = 45;
-        
         
         self.logDetailsTableView.registerForHeaderFooterView(ofType: XNUILogDetailHeaderCell.self)
         self.logDetailsTableView.register(ofType: XNUILogDetailCell.self)
@@ -77,13 +79,29 @@ extension XNUILogDetailView: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if detailsArray.isEmpty {
+            return 0
+        } else {
+            return detailsArray[section].messages.count
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        if self.detailsArray[indexPath.section].messages[indexPath.row].msgHeight > XNUIConstants.msgViewMaxHeight {
+            return CGFloat(XNUIConstants.msgViewMaxHeight)
+        }
         
-        return detailsArray[section].messages.count
+        #if swift(>=4.2)
+        return UITableView.automaticDimension
+        #else
+        return UITableViewAutomaticDimension
+        #endif
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell: XNUILogDetailCell = tableView.dequeueReusableCell(for: indexPath)
-        cell.logDetailMsg.text = self.detailsArray[indexPath.section].messages[indexPath.row]
+        cell.configureViews(self.detailsArray[indexPath.section].messages[indexPath.row])
+        cell.layoutIfNeeded()
         return cell
     }
     

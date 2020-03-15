@@ -16,6 +16,16 @@ class XNUILogDetailCell: UITableViewCell {
         super.awakeFromNib()
         self.logDetailMsg.textContainerInset = .zero
         self.logDetailMsg.textContainer.lineFragmentPadding = 0
+        self.logDetailMsg.font = XNUIConstants.messageFont
+    }
+    
+    func configureViews(_ messageData: XNUIMessageData) {
+        self.logDetailMsg.text = messageData.message
+        if messageData.msgHeight > XNUIConstants.msgViewMaxHeight {
+            self.logDetailMsg.isScrollEnabled = true
+        } else {
+            self.logDetailMsg.isScrollEnabled = false
+        }
     }
     
 }
