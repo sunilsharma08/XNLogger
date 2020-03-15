@@ -79,31 +79,40 @@ class XNUILogDetailVC: XNUIBaseViewController {
     }
     
     @IBAction func clickedOnRequest(_ sender: Any) {
-        if isResponseSelected {
-            self.responseView?.isHidden = true
-        }
-        self.requestView?.isHidden = false
         self.isResponseSelected = false
-        
-        self.requestBtn.backgroundColor = XNUIAppColor.lightPrimary
-        self.requestBtn.setTitleColor(.white, for: .normal)
-        self.responseBtn.backgroundColor = .white
-        self.responseBtn.setTitleColor(XNUIAppColor.title, for: .normal)
+        updateReqRespBtn(isRespSelected: isResponseSelected)
     }
     
     @IBAction func clickedOnResponse(_ sender: Any) {
-        if isResponseSelected == false {
-            self.requestView?.isHidden = true
-        }
-        self.responseView?.isHidden = false
         self.isResponseSelected = true
-        
-        self.responseBtn.backgroundColor = XNUIAppColor.lightPrimary
-        self.responseBtn.setTitleColor(.white, for: .normal)
-        self.requestBtn.backgroundColor = .white
-        self.requestBtn.setTitleColor(XNUIAppColor.title , for: .normal)
+        updateReqRespBtn(isRespSelected: isResponseSelected)
     }
-
+    
+    func updateReqRespBtn(isRespSelected: Bool) {
+        
+        let selButton: UIButton
+        let unSelButton: UIButton
+        
+        if isRespSelected {
+            selButton = responseBtn
+            unSelButton = requestBtn
+            self.requestView?.isHidden = true
+            self.responseView?.isHidden = false
+        } else {
+            selButton = requestBtn
+            unSelButton = responseBtn
+            self.responseView?.isHidden = true
+            self.requestView?.isHidden = false
+        }
+        
+        selButton.backgroundColor = XNUIAppColor.lightPrimary
+        selButton.setTitleColor(.white, for: .normal)
+        selButton.titleLabel?.font = UIFont.systemFont(ofSize: 17, weight: .medium)
+        unSelButton.backgroundColor = UIColor(white: 0.97, alpha: 1)
+        unSelButton.setTitleColor(XNUIAppColor.title , for: .normal)
+        unSelButton.titleLabel?.font = UIFont.systemFont(ofSize: 16, weight: .regular)
+        
+    }
 }
 
 class NLUILogDataConverter {
