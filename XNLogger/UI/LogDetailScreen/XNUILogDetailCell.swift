@@ -17,16 +17,17 @@ class XNUILogDetailCell: UITableViewCell {
         self.logDetailMsg.textContainerInset = .zero
         self.logDetailMsg.textContainer.lineFragmentPadding = 0
         self.logDetailMsg.font = XNUIConstants.messageFont
+        self.logDetailMsg.layoutManager.allowsNonContiguousLayout = true
     }
     
     func configureViews(_ messageData: XNUIMessageData) {
-        
-        if messageData.msgHeight > XNUIConstants.msgViewMaxHeight {
+        self.logDetailMsg.layoutIfNeeded()
+        self.logDetailMsg.text = messageData.message
+        if messageData.msgLength > XNUIConstants.msgViewMaxLength {
             self.logDetailMsg.isScrollEnabled = true
         } else {
             self.logDetailMsg.isScrollEnabled = false
         }
-        self.logDetailMsg.text = messageData.message
     }
     
 }

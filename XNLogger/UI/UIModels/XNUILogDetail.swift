@@ -11,7 +11,8 @@ import Foundation
 class XNUIMessageData {
     
     var message: String
-    var msgHeight: Float = 0
+    var msgLength: Int = 0
+    var msgSize: Int = 0
     
     init(msg: String) {
         self.message = msg
@@ -29,14 +30,15 @@ class XNUILogDetail {
         self.title = title
     }
     
-    convenience init(title: String, message: String, maxWidth: Float) {
+    convenience init(title: String, message: String) {
         self.init(title: title)
-        addMessage(message, maxWidth: maxWidth)
+        addMessage(message)
     }
     
-    func addMessage(_ msg: String, maxWidth: Float) {
+    func addMessage(_ msg: String) {
         let msgInfo = XNUIMessageData(msg: msg)
-        msgInfo.msgHeight = Float(msg.heightWithConstrainedWidth(CGFloat(maxWidth), font: XNUIConstants.messageFont))
+        msgInfo.msgLength = msg.count
+        msgInfo.msgSize = msg.lengthOfBytes(using: .utf8)
         messages.append(msgInfo)
     }
 }

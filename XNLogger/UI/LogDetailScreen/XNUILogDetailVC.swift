@@ -37,16 +37,16 @@ class XNUILogDetailVC: XNUIBaseViewController {
         automaticallyAdjustsScrollViewInsets = false
         tabBarController?.tabBar.isHidden = true
         
-        configureViews()
         if let logData = self.logData {
             self.logDataConverter = NLUILogDataConverter(logData: logData, formatter: XNUIManager.shared.uiLogHandler.logFormatter)
         }
-        selectDefaultTab()
+        configureViews()
     }
     
     private func configureViews() {
         self.navigationItem.title = "Log details"
         self.view.layoutIfNeeded()
+        
         if (requestView == nil) {
             requestView = XNUILogDetailView(frame: contentView.bounds)
             requestView?.viewType = .request
@@ -55,7 +55,6 @@ class XNUILogDetailVC: XNUIBaseViewController {
             if let subView = requestView {
                 self.contentView.addSubview(subView)
             }
-            requestView?.layoutIfNeeded()
         }
         
         if (responseView == nil) {
@@ -66,16 +65,29 @@ class XNUILogDetailVC: XNUIBaseViewController {
             if let subView = responseView {
                 self.contentView.addSubview(subView)
             }
-            responseView?.layoutIfNeeded()
         }
+        selectDefaultTab()
     }
     
     private func selectDefaultTab() {
-        self.responseView?.isHidden = true
-        self.requestView?.isHidden = false
-        self.requestView?.upadteView(with: logDataConverter?.getRequestLogDetails() ?? [])
-        self.responseView?.upadteView(with: logDataConverter?.getResponseLogDetails() ?? [])
-        clickedOnRequest(UIButton(type: .custom))
+        self.responseView?.isHidden = false
+        self.requestView?.isHidden = true
+        clickedOnRequest(self.requestBtn)
+        DispatchQueue.global(qos: .userInitiated).async { [weak self] in
+            guard let self = self else { return }
+            
+            self.logDataConverter?.getRequestLogDetails(completion: { (reqLogs) in
+                DispatchQueue.main.async {
+                    self.requestView?.upadteView(with: reqLogs)
+                }
+            })
+            
+            self.logDataConverter?.getResponseLogDetails(completion: { (respLogs) in
+                DispatchQueue.main.async {
+                    self.responseView?.upadteView(with: respLogs)
+                }
+            })
+        }
     }
     
     @IBAction func clickedOnRequest(_ sender: Any) {
@@ -124,7 +136,6 @@ class NLUILogDataConverter {
     private var logData: XNLogData!
     private var formatter: XNLogFormatter!
     let dateFormatter = DateFormatter()
-    var cellWidth: Float = 0
     var msgFont: UIFont = XNUIConstants.messageFont
     
     init(logData: XNLogData, formatter: XNLogFormatter) {
@@ -133,155 +144,163 @@ class NLUILogDataConverter {
         self.dateFormatter.dateFormat = "yyyy-MM-dd H:m:ss.SSSS"
     }
     
-    func getRequestLogDetails() -> [XNUILogDetail] {
+    func getRequestLogDetails(completion: @escaping (_ reqLogDetails: [XNUILogDetail]) -> Void) {
         
-        var requestLogs: [XNUILogDetail] = []
-        if formatter.showRequest || formatter.showReqstWithResp {
-            let urlInfo: XNUILogDetail = XNUILogDetail(title: "URL")
-            urlInfo.addMessage(logData.urlRequest.url?.absoluteString ?? "-", maxWidth: cellWidth)
-            requestLogs.append(urlInfo)
-            if let port = logData.urlRequest.url?.port {
-                requestLogs.append(XNUILogDetail(title: "Port", message: "\(port)", maxWidth: cellWidth))
-            }
-            requestLogs.append(XNUILogDetail(title: "Method", message: logData.urlRequest.httpMethod ?? "-", maxWidth: cellWidth))
-            let headerInfo: XNUILogDetail = XNUILogDetail(title: "Header fields")
-            if let headerFields = logData.urlRequest.allHTTPHeaderFields, headerFields.isEmpty == false {
-                for (key, value) in headerFields {
-                    headerInfo.addMessage("\(key) = \(value)", maxWidth: cellWidth)
+        DispatchQueue.global(qos: .userInitiated).async { [weak self] in
+            guard let self = self else { return }
+            
+            var requestLogs: [XNUILogDetail] = []
+            if self.formatter.showRequest || self.formatter.showReqstWithResp {
+                let urlInfo: XNUILogDetail = XNUILogDetail(title: "URL")
+                urlInfo.addMessage(self.logData.urlRequest.url?.absoluteString ?? "-")
+                requestLogs.append(urlInfo)
+                if let port = self.logData.urlRequest.url?.port {
+                    requestLogs.append(XNUILogDetail(title: "Port", message: "\(port)"))
                 }
-            } else {
-                headerInfo.addMessage("Header field is empty", maxWidth: cellWidth)
-            }
-            requestLogs.append(headerInfo)
-            
-            let httpBodyInfo: XNUILogDetail = XNUILogDetail(title: "Http body")
-            
-            if let httpBody = logData.urlRequest.httpBodyString(prettyPrint: formatter.prettyPrintJSON), httpBody.isEmpty == false {
-                // Log HTTP body either `logUnreadableReqstBody` is true or when content is readable.
-                if formatter.logUnreadableReqstBody || XNAppUtils.shared.isContentTypeReadable(logData.reqstContentType) {
-                    httpBodyInfo.addMessage("\(httpBody)", maxWidth: cellWidth)
+                requestLogs.append(XNUILogDetail(title: "Method", message: self.logData.urlRequest.httpMethod ?? "-"))
+                let headerInfo: XNUILogDetail = XNUILogDetail(title: "Header fields")
+                if let headerFields = self.logData.urlRequest.allHTTPHeaderFields, headerFields.isEmpty == false {
+                    for (key, value) in headerFields {
+                        headerInfo.addMessage("\(key) = \(value)")
+                    }
                 } else {
-                    httpBodyInfo.addMessage("\(logData.reqstContentType.getName())", maxWidth: cellWidth)
-                    httpBodyInfo.shouldShowDataInFullScreen = true
+                    headerInfo.addMessage("Header field is empty")
                 }
-            } else {
-                httpBodyInfo.addMessage("Http body is empty", maxWidth: cellWidth)
-            }
-            
-            requestLogs.append(httpBodyInfo)
-            
-            if formatter.showCurlWithReqst {
-                requestLogs.append(XNUILogDetail(title: "CURL", message: logData.urlRequest.cURL, maxWidth: cellWidth))
-            }
-            
-            let reqstMetaInfo: [XNRequestMetaInfo] = formatter.showReqstMetaInfo
-            
-            for metaInfo in reqstMetaInfo {
+                requestLogs.append(headerInfo)
                 
-                switch metaInfo {
-                case .timeoutInterval:
-                    requestLogs.append(XNUILogDetail(title: "Timeout interval", message: "\(logData.urlRequest.timeoutInterval)", maxWidth: cellWidth))
-                case .cellularAccess:
-                    requestLogs.append(XNUILogDetail(title: "Mobile data access allowed", message: "\(logData.urlRequest.allowsCellularAccess)", maxWidth: cellWidth))
-                case .cachePolicy:
-                    requestLogs.append(XNUILogDetail(title: "Cache policy", message: "\(logData.urlRequest.getCachePolicyName())", maxWidth: cellWidth))
-                case .networkType:
-                    requestLogs.append(XNUILogDetail(title: "Network service type", message: "\(logData.urlRequest.getNetworkTypeName())", maxWidth: cellWidth))
-                case .httpPipeliningStatus:
-                    requestLogs.append(XNUILogDetail(title: "HTTP Pipelining will be used", message: "\(logData.urlRequest.httpShouldUsePipelining)", maxWidth: cellWidth))
-                case .cookieStatus:
-                    requestLogs.append(XNUILogDetail(title: "Cookies will be handled", message: "\(logData.urlRequest.httpShouldHandleCookies)", maxWidth: cellWidth))
-                case .requestStartTime:
-                    if let startDate: Date = logData.startTime {
-                        requestLogs.append(XNUILogDetail(title: "Start time", message: "\(dateFormatter.string(from: startDate))", maxWidth: cellWidth))
+                let httpBodyInfo: XNUILogDetail = XNUILogDetail(title: "Http body")
+                
+                if let httpBody = self.logData.urlRequest.httpBodyString(prettyPrint: self.formatter.prettyPrintJSON), httpBody.isEmpty == false {
+                    // Log HTTP body either `logUnreadableReqstBody` is true or when content is readable.
+                    if self.formatter.logUnreadableReqstBody || XNAppUtils.shared.isContentTypeReadable(self.logData.reqstContentType) {
+                        httpBodyInfo.addMessage("\(httpBody)")
+                    } else {
+                        httpBodyInfo.addMessage("\(self.logData.reqstContentType.getName())")
+                        httpBodyInfo.shouldShowDataInFullScreen = true
+                    }
+                } else {
+                    httpBodyInfo.addMessage("Http body is empty")
+                }
+                
+                requestLogs.append(httpBodyInfo)
+                
+                if self.formatter.showCurlWithReqst {
+                    requestLogs.append(XNUILogDetail(title: "CURL", message: self.logData.urlRequest.cURL))
+                }
+                
+                let reqstMetaInfo: [XNRequestMetaInfo] = self.formatter.showReqstMetaInfo
+                
+                for metaInfo in reqstMetaInfo {
+                    
+                    switch metaInfo {
+                    case .timeoutInterval:
+                        requestLogs.append(XNUILogDetail(title: "Timeout interval", message: "\(self.logData.urlRequest.timeoutInterval)"))
+                    case .cellularAccess:
+                        requestLogs.append(XNUILogDetail(title: "Mobile data access allowed", message: "\(self.logData.urlRequest.allowsCellularAccess)"))
+                    case .cachePolicy:
+                        requestLogs.append(XNUILogDetail(title: "Cache policy", message: "\(self.logData.urlRequest.getCachePolicyName())"))
+                    case .networkType:
+                        requestLogs.append(XNUILogDetail(title: "Network service type", message: "\(self.logData.urlRequest.getNetworkTypeName())"))
+                    case .httpPipeliningStatus:
+                        requestLogs.append(XNUILogDetail(title: "HTTP Pipelining will be used", message: "\(self.logData.urlRequest.httpShouldUsePipelining)"))
+                    case .cookieStatus:
+                        requestLogs.append(XNUILogDetail(title: "Cookies will be handled", message: "\(self.logData.urlRequest.httpShouldHandleCookies)"))
+                    case .requestStartTime:
+                        if let startDate: Date = self.logData.startTime {
+                            requestLogs.append(XNUILogDetail(title: "Start time", message: "\(self.dateFormatter.string(from: startDate))"))
+                        }
                     }
                 }
             }
+            completion(requestLogs)
         }
-        
-        return requestLogs
     }
     
-    func getResponseLogDetails() -> [XNUILogDetail] {
-        var responseLogs: [XNUILogDetail] = []
-        if formatter.showResponse {
+    func getResponseLogDetails(completion: @escaping (_ respLogDetails: [XNUILogDetail]) -> Void) {
+        
+        DispatchQueue.global(qos: .userInitiated).async {[weak self] in
+            guard let self = self else { return }
             
-            let responseInfo: XNUILogDetail = XNUILogDetail(title: "Response Content")
-            if let data = logData.receivedData, data.isEmpty == false {
-                let jsonUtil = XNJSONUtils()
-                if formatter.logUnreadableRespBody || XNAppUtils.shared.isContentTypeReadable(logData.respContentType) {
-                    let str = jsonUtil.getJSONStringORStringFrom(jsonData: data, prettyPrint: formatter.prettyPrintJSON)
-                    responseInfo.addMessage(str, maxWidth: cellWidth)
-                } else {
-                    responseInfo.addMessage(logData.respContentType.getName(), maxWidth: cellWidth)
-                    responseInfo.shouldShowDataInFullScreen = true
-                }
-            }
-            else {
-                responseInfo.addMessage("Respose data is empty", maxWidth: cellWidth)
-            }
-            responseLogs.append(responseInfo)
-            
-            let respMetaInfo: XNUILogDetail = XNUILogDetail(title: "Response Meta Info")
-            if formatter.showRespMetaInfo.isEmpty == false {
-                let respHeaderInfo: XNUILogDetail = XNUILogDetail(title: "Response headers fields:")
-                let response = logData.response
-                for property in formatter.showRespMetaInfo {
-                    
-                    switch property {
-                    case .statusCode:
-                        if let httpResponse = response as? HTTPURLResponse {
-                            respMetaInfo.addMessage("Status Code: \(httpResponse.statusCode)", maxWidth: cellWidth)
-                        }
-                    case .statusDescription:
-                        if let httpResponse = response as? HTTPURLResponse {
-                            respMetaInfo.addMessage("Status Code description: \(HTTPURLResponse.localizedString(forStatusCode: httpResponse.statusCode))", maxWidth: cellWidth)
-                        }
-                    case .mimeType:
-                        respMetaInfo.addMessage("Mime type: \(response?.mimeType ?? "-")", maxWidth: cellWidth)
-                    case .textEncoding:
-                        respMetaInfo.addMessage("Text encoding name: \(response?.textEncodingName ?? "-")", maxWidth: cellWidth)
-                    case .contentLength:
-                        if let expectedContentLength = response?.expectedContentLength {
-                            respMetaInfo.addMessage("Expected content length: \(expectedContentLength)", maxWidth: cellWidth)
-                        } else {
-                            respMetaInfo.addMessage("Expected content length: -", maxWidth: cellWidth)
-                        }
-                    case .suggestedFileName:
-                        respMetaInfo.addMessage("Suggested file name: \(response?.suggestedFilename ?? "-")", maxWidth: cellWidth)
-                    case .headers:
-                        if let httpResponse = response as? HTTPURLResponse,
-                            httpResponse.allHeaderFields.isEmpty == false {
-                            
-                            for (key, value) in httpResponse.allHeaderFields {
-                                respHeaderInfo.addMessage("\(key) = \(value)", maxWidth: cellWidth)
-                            }
-                        }
-                    case .requestStartTime:
-                        if let startDate: Date = logData.startTime {
-                            respMetaInfo.addMessage("Start time: \(dateFormatter.string(from: startDate))", maxWidth: cellWidth)
-                        }
-                    case .duration:
-                        if let durationStr: String = logData.getDurationString() {
-                            respMetaInfo.addMessage("Duration: " + durationStr, maxWidth: cellWidth)
-                        } else {
-                            respMetaInfo.addMessage("Duration: -", maxWidth: cellWidth)
-                        }
+            var responseLogs: [XNUILogDetail] = []
+            if self.formatter.showResponse {
+                
+                let responseInfo: XNUILogDetail = XNUILogDetail(title: "Response Content")
+                if let data = self.logData.receivedData, data.isEmpty == false {
+                    let jsonUtil = XNJSONUtils()
+                    if self.formatter.logUnreadableRespBody || XNAppUtils.shared.isContentTypeReadable(self.logData.respContentType) {
+                        let str = jsonUtil.getJSONStringORStringFrom(jsonData: data, prettyPrint: self.formatter.prettyPrintJSON)
+                        responseInfo.addMessage(str)
+                    } else {
+                        responseInfo.addMessage(self.logData.respContentType.getName())
+                        responseInfo.shouldShowDataInFullScreen = true
                     }
                 }
-                responseLogs.append(respMetaInfo)
-                if respHeaderInfo.messages.isEmpty == false {
-                    responseLogs.append(respHeaderInfo)
+                else {
+                    responseInfo.addMessage("Respose data is empty")
+                }
+                responseLogs.append(responseInfo)
+                
+                let respMetaInfo: XNUILogDetail = XNUILogDetail(title: "Response Meta Info")
+                if self.formatter.showRespMetaInfo.isEmpty == false {
+                    let respHeaderInfo: XNUILogDetail = XNUILogDetail(title: "Response headers fields:")
+                    let response = self.logData.response
+                    for property in self.formatter.showRespMetaInfo {
+                        
+                        switch property {
+                        case .statusCode:
+                            if let httpResponse = response as? HTTPURLResponse {
+                                respMetaInfo.addMessage("Status Code: \(httpResponse.statusCode)")
+                            }
+                        case .statusDescription:
+                            if let httpResponse = response as? HTTPURLResponse {
+                                respMetaInfo.addMessage("Status Code description: \(HTTPURLResponse.localizedString(forStatusCode: httpResponse.statusCode))")
+                            }
+                        case .mimeType:
+                            respMetaInfo.addMessage("Mime type: \(response?.mimeType ?? "-")")
+                        case .textEncoding:
+                            respMetaInfo.addMessage("Text encoding name: \(response?.textEncodingName ?? "-")")
+                        case .contentLength:
+                            if let expectedContentLength = response?.expectedContentLength {
+                                respMetaInfo.addMessage("Expected content length: \(expectedContentLength)")
+                            } else {
+                                respMetaInfo.addMessage("Expected content length: -")
+                            }
+                        case .suggestedFileName:
+                            respMetaInfo.addMessage("Suggested file name: \(response?.suggestedFilename ?? "-")")
+                        case .headers:
+                            if let httpResponse = response as? HTTPURLResponse,
+                                httpResponse.allHeaderFields.isEmpty == false {
+                                
+                                for (key, value) in httpResponse.allHeaderFields {
+                                    respHeaderInfo.addMessage("\(key) = \(value)")
+                                }
+                            }
+                        case .requestStartTime:
+                            if let startDate: Date = self.logData.startTime {
+                                respMetaInfo.addMessage("Start time: \(self.dateFormatter.string(from: startDate))")
+                            }
+                        case .duration:
+                            if let durationStr: String = self.logData.getDurationString() {
+                                respMetaInfo.addMessage("Duration: " + durationStr)
+                            } else {
+                                respMetaInfo.addMessage("Duration: -")
+                            }
+                        }
+                    }
+                    responseLogs.append(respMetaInfo)
+                    if respHeaderInfo.messages.isEmpty == false {
+                        responseLogs.append(respHeaderInfo)
+                    }
+                }
+                else {
+                    respMetaInfo.addMessage("Response meta info is empty")
+                }
+                
+                if let error = self.logData.error {
+                    responseLogs.append(XNUILogDetail(title: "Response Error", message: error.localizedDescription))
                 }
             }
-            else {
-                respMetaInfo.addMessage("Response meta info is empty", maxWidth: cellWidth)
-            }
-            
-            if let error = logData.error {
-                responseLogs.append(XNUILogDetail(title: "Response Error", message: error.localizedDescription, maxWidth: cellWidth))
-            }
+            completion(responseLogs)
         }
-        return responseLogs
     }
 }

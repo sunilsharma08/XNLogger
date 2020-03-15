@@ -51,13 +51,11 @@ class XNUILogDetailView: UIView, NibLoadableView {
         self.logDetailsTableView.tableFooterView = UIView()
         #if swift(>=4.2)
         self.logDetailsTableView.sectionHeaderHeight = UITableView.automaticDimension
-        self.logDetailsTableView.rowHeight = UITableView.automaticDimension
         #else
             self.logDetailsTableView.sectionHeaderHeight = UITableViewAutomaticDimension
-            self.logDetailsTableView.rowHeight = UITableViewAutomaticDimension
         #endif
         
-        self.logDetailsTableView.estimatedSectionHeaderHeight = 45;
+        self.logDetailsTableView.estimatedSectionHeaderHeight = 45
         
         self.logDetailsTableView.registerForHeaderFooterView(ofType: XNUILogDetailHeaderCell.self)
         self.logDetailsTableView.register(ofType: XNUILogDetailCell.self)
@@ -86,8 +84,8 @@ extension XNUILogDetailView: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        if self.detailsArray[indexPath.section].messages[indexPath.row].msgHeight > XNUIConstants.msgViewMaxHeight {
-            return CGFloat(XNUIConstants.msgViewMaxHeight)
+        if self.detailsArray[indexPath.section].messages[indexPath.row].msgLength > XNUIConstants.msgViewMaxLength {
+            return UIScreen.main.bounds.height * 0.6
         }
         
         #if swift(>=4.2)
