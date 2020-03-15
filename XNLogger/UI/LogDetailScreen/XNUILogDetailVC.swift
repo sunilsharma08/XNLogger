@@ -106,11 +106,15 @@ class XNUILogDetailVC: XNUIBaseViewController {
         }
         
         selButton.backgroundColor = XNUIAppColor.lightPrimary
+        selButton.layer.borderColor = nil
+        selButton.layer.borderWidth = 0
         selButton.setTitleColor(.white, for: .normal)
-        selButton.titleLabel?.font = UIFont.systemFont(ofSize: 17, weight: .medium)
-        unSelButton.backgroundColor = UIColor(white: 0.97, alpha: 1)
+        selButton.titleLabel?.font = UIFont.systemFont(ofSize: 18, weight: .medium)
+        unSelButton.backgroundColor = UIColor(white: 0.99, alpha: 1)
         unSelButton.setTitleColor(XNUIAppColor.title , for: .normal)
         unSelButton.titleLabel?.font = UIFont.systemFont(ofSize: 16, weight: .regular)
+        unSelButton.layer.borderColor = UIColor(white: 0.9, alpha: 1).cgColor
+        unSelButton.layer.borderWidth = 1
         
     }
 }
