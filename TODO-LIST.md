@@ -2,12 +2,14 @@
 
 * Library load logic should be inside framework - done
 * Guess MIME type - done
+* Move to detail screen and load data - This will avoid ui stuck due to large data. - done
+* Remove single log - done
 
-* Move to detail screen and load data - This will avoid ui stuck due to large data.
 * Full screen
+* Remove flicker from log details screen when moving from list to detail screen.
 * Copy
 * Share
-* UI for logger - In-progress
+* UI for logger => In-progress
 
 * Example inside framework
 * Encoding type

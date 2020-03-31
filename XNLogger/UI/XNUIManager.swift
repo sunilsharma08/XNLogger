@@ -19,14 +19,18 @@ protocol XNUILogDataDelegate: class {
     func receivedLogData(_ logData: XNLogData, isResponse: Bool)
 }
 
+/**
+ Handle XNLogger UI data
+ */
 @objc
 public final class XNUIManager: NSObject {
     
     @objc public static let shared: XNUIManager = XNUIManager()
     public var startGesture: XNGestureType? = .shake
     var uiLogHandler: XNUILogHandler = XNUILogHandler()
-    var logsDataDict: [String: XNLogData] = [:]
-    var logsIdArray: [String] = []
+    private var logsDataDict: [String: XNLogData] = [:]
+    private var logsIdArray: [String] = []
+    private var logsActionThread = DispatchQueue.init(label: "XNUILoggerLogListActionThread", qos: .userInteractive, attributes: .concurrent)
     
     private override init() {
         super.init()
@@ -63,8 +67,34 @@ public final class XNUIManager: NSObject {
     }
     
     @objc public func clearLogs() {
-        logsDataDict = [:]
-        logsIdArray.removeAll()
+        logsActionThread.async(flags: .barrier) {
+            self.logsDataDict = [:]
+            self.logsIdArray.removeAll()
+        }
+    }
+    
+    func removeLogAt(index: Int) {
+        logsActionThread.async(flags: .barrier) {
+            let logId = self.logsIdArray[index]
+            self.logsIdArray.remove(at: index)
+            self.logsDataDict.removeValue(forKey: logId)
+        }
+    }
+    
+    func getLogsIdArray() -> [String] {
+        var logArray: [String]?
+        logsActionThread.sync {
+           logArray = self.logsIdArray
+        }
+        return logArray ?? []
+    }
+    
+    func getLogsDataDict() -> [String: XNLogData] {
+        var logsDict: [String: XNLogData]?
+        logsActionThread.sync {
+            logsDict = self.logsDataDict
+        }
+        return logsDict ?? [:]
     }
     
 }
@@ -72,11 +102,14 @@ public final class XNUIManager: NSObject {
 extension XNUIManager: XNUILogDataDelegate {
     
     func receivedLogData(_ logData: XNLogData, isResponse: Bool) {
-        if isResponse == false {
-            self.logsIdArray.append(logData.identifier)
+        logsActionThread.async(flags: .barrier) {
+            
+            if isResponse == false {
+                self.logsIdArray.append(logData.identifier)
+            }
+            self.logsDataDict[logData.identifier] = logData
+            NotificationCenter.default.post(name: XNUIConstants.logDataUpdtNotificationName, object: nil, userInfo: nil)
         }
-        self.logsDataDict[logData.identifier] = logData
-        NotificationCenter.default.post(name: XNUIConstants.logDataUpdtNotificationName, object: nil, userInfo: nil)
     }
     
 }

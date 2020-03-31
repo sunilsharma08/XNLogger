@@ -13,21 +13,22 @@ class XNUILogListVC: XNUIBaseViewController {
     @IBOutlet weak var logListTableView: UITableView!
     @IBOutlet weak var emptyMsgLabel: UILabel!
     
-    private var logsDataDict: [String: XNLogData] = [:]
-    private var logsIdArray: [String] = [] {
-        didSet {
-            emptyMsgLabel.isHidden = !logsIdArray.isEmpty
-        }
+    private var logsDataDict: [String: XNLogData] {
+        return XNUIManager.shared.getLogsDataDict()
+    }
+    
+    private var logsIdArray: [String] {
+        return XNUIManager.shared.getLogsIdArray()
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        configureViews()
+        self.configureViews()
         self.tabBarController?.tabBar.isHidden = true
         self.hidesBottomBarWhenPushed = true
         
-        NotificationCenter.default.addObserver(self, selector: #selector(reloadLogData), name: XNUIConstants.logDataUpdtNotificationName, object: nil)
-        reloadLogData()
+        NotificationCenter.default.addObserver(self, selector: #selector(updateLoggerUI), name: XNUIConstants.logDataUpdtNotificationName, object: nil)
+        updateLoggerUI()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -70,18 +71,34 @@ class XNUILogListVC: XNUIBaseViewController {
     
     @objc func clearLogs() {
         XNUIManager.shared.clearLogs()
-        reloadLogData()
+        updateLoggerUI()
     }
     
+    /**
+     Return index for `logsIdArray` w.r.t to UITableView rows.
+     */
+    func getLogIdArrayIndex(for indexPath: IndexPath) -> Int? {
+        let logIds = self.logsIdArray
+        if logIds.count > indexPath.row {
+            return (logIds.count - 1) - indexPath.row
+        }
+        return nil
+    }
+    
+    /**
+     Return `XNLogData` for given index path.
+     */
     func getLogData(indexPath: IndexPath) -> XNLogData? {
-        return self.logsDataDict[logsIdArray[logsIdArray.count - 1 - indexPath.row]]
+        if let index = getLogIdArrayIndex(for: indexPath) {
+            return logsDataDict[logsIdArray[index]]
+        }
+        return nil
     }
     
-    @objc func reloadLogData() {
+    @objc func updateLoggerUI() {
         DispatchQueue.main.async {
-            self.logsDataDict = XNUIManager.shared.logsDataDict
-            self.logsIdArray = XNUIManager.shared.logsIdArray
             self.logListTableView.reloadData()
+            self.emptyMsgLabel.isHidden = !self.logsIdArray.isEmpty
         }
     }
 
@@ -107,6 +124,19 @@ extension XNUILogListVC: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 71
+    }
+    
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        
+        if editingStyle == .delete {
+            if let index = getLogIdArrayIndex(for: indexPath) {
+                XNUIManager.shared.removeLogAt(index: index)
+                tableView.deleteRows(at: [indexPath], with: .automatic)
+                if logsIdArray.isEmpty {
+                    updateLoggerUI()
+                }
+            }
+        }
     }
 }
 
