@@ -18,15 +18,32 @@ class XNUILogDetailCell: UITableViewCell {
         self.logDetailMsg.textContainer.lineFragmentPadding = 0
         self.logDetailMsg.font = XNUIConstants.messageFont
         self.logDetailMsg.layoutManager.allowsNonContiguousLayout = true
+        self.selectionStyle = UITableViewCell.SelectionStyle.none
     }
     
     func configureViews(_ messageData: XNUIMessageData) {
         self.logDetailMsg.layoutIfNeeded()
-        self.logDetailMsg.text = messageData.message
-        if messageData.msgLength > XNUIConstants.msgViewMaxLength {
-            self.logDetailMsg.isScrollEnabled = true
+        if messageData.showOnlyInFullScreen == false {
+            
+            self.logDetailMsg.textAlignment = .left
+            self.logDetailMsg.isUserInteractionEnabled = true
+            self.logDetailMsg.text = messageData.message
+            
+            if messageData.msgCount > XNUIConstants.msgCellMaxCharCount {
+                self.logDetailMsg.isScrollEnabled = true
+            } else {
+                if Int(messageData.message.heightWithConstrainedWidth(self.frame.width - 20, font: XNUIConstants.messageFont)) > XNUIConstants.msgCellMaxLength {
+                    self.logDetailMsg.isScrollEnabled = true
+                } else {
+                    self.logDetailMsg.isScrollEnabled = false
+                }
+            }
         } else {
+            
+            self.logDetailMsg.isUserInteractionEnabled = false
             self.logDetailMsg.isScrollEnabled = false
+            self.logDetailMsg.textAlignment = .center
+            self.logDetailMsg.text = "Data size is too big. Not a good idea to display here!\nClick to view data."
         }
     }
     

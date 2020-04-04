@@ -58,6 +58,8 @@
 		10FC10EB231501D900F347BF /* XNUILogDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10FC10E9231501D900F347BF /* XNUILogDetailVC.swift */; };
 		10FC10EC231501D900F347BF /* XNUILogDetailVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 10FC10EA231501D900F347BF /* XNUILogDetailVC.xib */; };
 		4AB65FD2711F23689A523C45 /* Pods_XNLogger.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6E2A8787D51D4750F5E58B0D /* Pods_XNLogger.framework */; };
+		6547BEF42437CEF5001F7B4D /* XNUIResponseFullScreenVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6547BEF32437CEF5001F7B4D /* XNUIResponseFullScreenVC.swift */; };
+		6547BEF72437D023001F7B4D /* XNUIResponseFullScreenVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6547BEF62437D023001F7B4D /* XNUIResponseFullScreenVC.xib */; };
 		975BF47A0FBC015433F3A430 /* Pods_XNLoggerTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DD1DC70CEE51FE911722686D /* Pods_XNLoggerTests.framework */; };
 /* End PBXBuildFile section */
 
@@ -127,6 +129,8 @@
 		10F8A9BC230E761400C17B4A /* XNUIExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XNUIExtensions.swift; sourceTree = "<group>"; };
 		10FC10E9231501D900F347BF /* XNUILogDetailVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XNUILogDetailVC.swift; sourceTree = "<group>"; };
 		10FC10EA231501D900F347BF /* XNUILogDetailVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = XNUILogDetailVC.xib; sourceTree = "<group>"; };
+		6547BEF32437CEF5001F7B4D /* XNUIResponseFullScreenVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XNUIResponseFullScreenVC.swift; sourceTree = "<group>"; };
+		6547BEF62437D023001F7B4D /* XNUIResponseFullScreenVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = XNUIResponseFullScreenVC.xib; sourceTree = "<group>"; };
 		6E2A8787D51D4750F5E58B0D /* Pods_XNLogger.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_XNLogger.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		7131FAE48986EDB635C3304F /* Pods-XNLogger.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-XNLogger.debug.xcconfig"; path = "Pods/Target Support Files/Pods-XNLogger/Pods-XNLogger.debug.xcconfig"; sourceTree = "<group>"; };
 		C0006DBBB3F7A78BE736997C /* Pods_XNLoggerExample.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_XNLoggerExample.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -220,6 +224,7 @@
 		106BB6922304A882007968A8 /* UI */ = {
 			isa = PBXGroup;
 			children = (
+				6547BEF52437CF08001F7B4D /* ResponseFullScreen */,
 				101750F92337EA1000CDAFF3 /* Resources */,
 				10E411862324A24D004E0C1F /* LogDetailScreen */,
 				10E411852324A1AA004E0C1F /* LogsListScreen */,
@@ -359,6 +364,15 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
+		6547BEF52437CF08001F7B4D /* ResponseFullScreen */ = {
+			isa = PBXGroup;
+			children = (
+				6547BEF32437CEF5001F7B4D /* XNUIResponseFullScreenVC.swift */,
+				6547BEF62437D023001F7B4D /* XNUIResponseFullScreenVC.xib */,
+			);
+			path = ResponseFullScreen;
+			sourceTree = "<group>";
+		};
 		E8915F63EF3B82F0FF848A17 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -469,6 +483,7 @@
 				104D12F1231714E70089D7FE /* XNUILogDetailHeaderCell.xib in Resources */,
 				101750FB2337EA6600CDAFF3 /* Media.xcassets in Resources */,
 				104D12F5231715190089D7FE /* XNUILogDetailCell.xib in Resources */,
+				6547BEF72437D023001F7B4D /* XNUIResponseFullScreenVC.xib in Resources */,
 				10289E7A23105D5800FDE204 /* XNUILogListTableViewCell.xib in Resources */,
 				10FC10EC231501D900F347BF /* XNUILogDetailVC.xib in Resources */,
 				104D12ED2317132D0089D7FE /* XNUILogDetailView.xib in Resources */,
@@ -583,6 +598,7 @@
 				10FC10EB231501D900F347BF /* XNUILogDetailVC.swift in Sources */,
 				10142E0522F4710100217BF2 /* XNMIMEChecker.swift in Sources */,
 				10B4076822626644000FD18E /* XNURLProtocol.swift in Sources */,
+				6547BEF42437CEF5001F7B4D /* XNUIResponseFullScreenVC.swift in Sources */,
 				1005807921C685000020288D /* XNLogger.swift in Sources */,
 				10F73E5D22DA011900257A7B /* XNLogFormatter.swift in Sources */,
 				101750F823365E9C00CDAFF3 /* Data+Gzip.swift in Sources */,

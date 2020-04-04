@@ -59,7 +59,10 @@ struct XNUIAppColor {
 final class XNUIConstants {
     static let logDataUpdtNotificationName = NSNotification.Name(rawValue: "com.xnLogger.logDataUpdateNotification")
     static let messageFont: UIFont = UIFont.systemFont(ofSize: 15)
-    static let msgViewMaxLength: Int = 30000
+    static let msgCellMaxLength: Int = Int(UIScreen.main.bounds.height * 3)
+    static let msgCellMaxCharCount: Int = Int(UIScreen.main.bounds.width * 0.05 * UIScreen.main.bounds.height * 0.1)
+    static let msgCellMaxAllowedSize: Int = 200000
+    
 }
 
 class XNUIHelper {

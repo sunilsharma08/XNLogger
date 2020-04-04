@@ -11,8 +11,9 @@ import Foundation
 class XNUIMessageData {
     
     var message: String
-    var msgLength: Int = 0
+    var msgCount: Int = 0
     var msgSize: Int = 0
+    var showOnlyInFullScreen: Bool = false
     
     init(msg: String) {
         self.message = msg
@@ -24,7 +25,6 @@ class XNUILogDetail {
     var title: String
     var messages: [XNUIMessageData] = []
     var isExpended: Bool = false
-    var shouldShowDataInFullScreen: Bool = false
     
     init(title: String) {
         self.title = title
@@ -35,10 +35,16 @@ class XNUILogDetail {
         addMessage(message)
     }
     
-    func addMessage(_ msg: String) {
+    func addMessage(_ msg: String, showOnlyInFullScreen: Bool = false) {
         let msgInfo = XNUIMessageData(msg: msg)
-        msgInfo.msgLength = msg.count
+        msgInfo.msgCount = msg.count
         msgInfo.msgSize = msg.lengthOfBytes(using: .utf8)
+        if showOnlyInFullScreen {
+            msgInfo.showOnlyInFullScreen = showOnlyInFullScreen
+        } else if msgInfo.msgSize > XNUIConstants.msgCellMaxAllowedSize {
+            // Data size is too large, cannot be displayed in cell.
+            msgInfo.showOnlyInFullScreen = true
+        }
         messages.append(msgInfo)
     }
 }

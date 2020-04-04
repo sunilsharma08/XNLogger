@@ -45,11 +45,13 @@ class XNUILogDetailVC: XNUIBaseViewController {
     
     private func configureViews() {
         self.navigationItem.title = "Log details"
+        self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
         self.view.layoutIfNeeded()
         
         if (requestView == nil) {
             requestView = XNUILogDetailView(frame: contentView.bounds)
             requestView?.viewType = .request
+            requestView?.delegate = self
             requestView?.autoresizingMask = [.flexibleHeight, .flexibleWidth]
             requestView?.translatesAutoresizingMaskIntoConstraints = true
             if let subView = requestView {
@@ -60,6 +62,7 @@ class XNUILogDetailVC: XNUIBaseViewController {
         if (responseView == nil) {
             responseView = XNUILogDetailView(frame: contentView.bounds)
             responseView?.viewType = .response
+            responseView?.delegate = self
             responseView?.autoresizingMask = [.flexibleHeight, .flexibleWidth]
             responseView?.translatesAutoresizingMaskIntoConstraints = true
             if let subView = responseView {
@@ -131,6 +134,15 @@ class XNUILogDetailVC: XNUIBaseViewController {
     }
 }
 
+extension XNUILogDetailVC: XNUIDetailViewDelegate {
+    
+    func showMessageFullScreen(logData: XNUIMessageData, title: String) {
+        if let controller = XNUIResponseFullScreenVC.controller(title: title, logData: logData) {
+            self.navigationController?.pushViewController(controller, animated: true)
+        }
+    }
+}
+
 class NLUILogDataConverter {
     
     private var logData: XNLogData!
@@ -175,8 +187,7 @@ class NLUILogDataConverter {
                     if self.formatter.logUnreadableReqstBody || XNAppUtils.shared.isContentTypeReadable(self.logData.reqstContentType) {
                         httpBodyInfo.addMessage("\(httpBody)")
                     } else {
-                        httpBodyInfo.addMessage("\(self.logData.reqstContentType.getName())")
-                        httpBodyInfo.shouldShowDataInFullScreen = true
+                        httpBodyInfo.addMessage("\(self.logData.reqstContentType.getName())", showOnlyInFullScreen: true)
                     }
                 } else {
                     httpBodyInfo.addMessage("Http body is empty")
@@ -231,8 +242,7 @@ class NLUILogDataConverter {
                         let str = jsonUtil.getJSONStringORStringFrom(jsonData: data, prettyPrint: self.formatter.prettyPrintJSON)
                         responseInfo.addMessage(str)
                     } else {
-                        responseInfo.addMessage(self.logData.respContentType.getName())
-                        responseInfo.shouldShowDataInFullScreen = true
+                        responseInfo.addMessage(self.logData.respContentType.getName(), showOnlyInFullScreen: true)
                     }
                 }
                 else {

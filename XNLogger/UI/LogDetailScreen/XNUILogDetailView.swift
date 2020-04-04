@@ -8,10 +8,16 @@
 
 import UIKit
 
+protocol XNUIDetailViewDelegate: class {
+    func showMessageFullScreen(logData: XNUIMessageData, title: String)
+}
+
 class XNUILogDetailView: UIView, NibLoadableView {
 
     @IBOutlet weak var logDetailsTableView: UITableView!
     @IBOutlet weak var contentView: UIView!
+    
+    weak var delegate: XNUIDetailViewDelegate?
     
     var viewType: XNUIDetailViewType!
     var detailsArray: [XNUILogDetail] = []
@@ -84,8 +90,15 @@ extension XNUILogDetailView: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        if self.detailsArray[indexPath.section].messages[indexPath.row].msgLength > XNUIConstants.msgViewMaxLength {
-            return UIScreen.main.bounds.height * 0.6
+        let msgData = self.detailsArray[indexPath.section].messages[indexPath.row]
+        
+        if msgData.showOnlyInFullScreen == false {
+            if msgData.msgCount > XNUIConstants.msgCellMaxCharCount {
+                return UIScreen.main.bounds.height * 0.6
+            }
+            else if Int(msgData.message.heightWithConstrainedWidth(tableView.frame.width - 20, font: XNUIConstants.messageFont)) > XNUIConstants.msgCellMaxLength {
+                return UIScreen.main.bounds.height * 0.6
+            }
         }
         
         #if swift(>=4.2)
@@ -114,6 +127,10 @@ extension XNUILogDetailView: UITableViewDataSource {
 extension XNUILogDetailView: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
+        print("Selected")
+        let msgData = self.detailsArray[indexPath.section].messages[indexPath.row]
+        if msgData.showOnlyInFullScreen {
+            delegate?.showMessageFullScreen(logData: msgData, title: self.detailsArray[indexPath.section].title)
+        }
     }
 }
