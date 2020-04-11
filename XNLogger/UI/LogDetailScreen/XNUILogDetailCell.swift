@@ -27,6 +27,7 @@ class XNUILogDetailCell: UITableViewCell {
             
             self.logDetailMsg.textAlignment = .left
             self.logDetailMsg.isUserInteractionEnabled = true
+            self.logDetailMsg.attributedText = nil
             self.logDetailMsg.text = messageData.message
             
             if messageData.msgCount > XNUIConstants.msgCellMaxCharCount {
@@ -43,8 +44,23 @@ class XNUILogDetailCell: UITableViewCell {
             self.logDetailMsg.isUserInteractionEnabled = false
             self.logDetailMsg.isScrollEnabled = false
             self.logDetailMsg.textAlignment = .center
-            self.logDetailMsg.text = "Data size is too big. Not a good idea to display here!\nClick to view data."
+            self.logDetailMsg.text = nil
+            
+            self.logDetailMsg.attributedText = getLargeMessage()
         }
+    }
+    
+    func getLargeMessage() -> NSAttributedString {
+        let paragraphStyle = NSMutableParagraphStyle()
+        paragraphStyle.alignment = .center
+        
+        var msgAttributes = [NSAttributedString.Key.font: XNUIConstants.messageFont, .paragraphStyle: paragraphStyle, NSAttributedString.Key.foregroundColor: XNUIAppColor.subtitle]
+        
+        let largeDataMsg = NSMutableAttributedString(string: "\nData size is too big.\n", attributes: msgAttributes)
+        msgAttributes[NSAttributedString.Key.foregroundColor] = UIColor(red: 0, green: 0, blue: 1, alpha: 1)
+        largeDataMsg.append(NSAttributedString(string: "\nClick to view data.\n", attributes: msgAttributes))
+        
+        return largeDataMsg
     }
     
 }

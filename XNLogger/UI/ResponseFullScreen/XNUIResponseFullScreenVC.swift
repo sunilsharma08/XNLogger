@@ -26,18 +26,27 @@ class XNUIResponseFullScreenVC: XNUIBaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         configureViews()
-        loadData()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        if msgTextView.text.isEmpty {
+            loadData()
+        }
     }
     
     func configureViews() {
         self.navigationItem.title = headerTitle
         self.activityIndicator.hidesWhenStopped = true
+        self.msgTextView.text = nil
     }
     
     func loadData() {
-        showActivityIndicator()
+        self.view.layoutIfNeeded()
+        self.showActivityIndicator()
         self.msgTextView.text = logData.message
-        hideActivityIndicator()
+        self.hideActivityIndicator()
     }
     
     func showActivityIndicator() {
