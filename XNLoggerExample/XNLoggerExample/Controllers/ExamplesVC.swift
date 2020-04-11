@@ -144,10 +144,12 @@ extension ExamplesVC {
     @IBAction func clickedOnDataHandler(_ sender: Any) {
 //        print(#function)
         
-        let url = URL(string: "https://gorest.co.in/public-api/users?_format=json&access-token=Vy0X23HhPDdgNDNxVocmqv3NIkDTGdK93GfV")!
+//        let url = URL(string: "https://gorest.co.in/public-api/users?_format=json&access-token=Vy0X23HhPDdgNDNxVocmqv3NIkDTGdK93GfV")!
+
+        let url = URL(string: "http://192.168.1.4:3000/sortfilter")!
         
         var urlRequest: URLRequest = URLRequest(url: url)
-        urlRequest.httpMethod = "POST"
+//        urlRequest.httpMethod = "POST"
         urlRequest.addValue("alloo", forHTTPHeaderField: "sabji")
         urlRequest.setValue("gjghj", forHTTPHeaderField: "llnlnoln")
         let json: [String: Any] = ["title": "AB'C",

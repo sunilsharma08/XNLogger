@@ -16,12 +16,18 @@ class XNUINavigationController: UINavigationController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        self.navigationBar.tintColor = XNUIAppColor.sharkColor
+        self.navigationBar.isTranslucent = false
+        self.navigationBar.barTintColor = XNUIAppColor.primary
+        self.navigationBar.tintColor = XNUIAppColor.navTint
+        self.navigationBar.titleTextAttributes = [.foregroundColor: XNUIAppColor.navLogo]
     }
 }
 
 class XNUIBaseViewController: UIViewController {
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.navigationController?.navigationBar.titleTextAttributes = [.foregroundColor: XNUIAppColor.navLogo, .font: UIFont.systemFont(ofSize: 20, weight: .semibold)]
+    }
 }
 

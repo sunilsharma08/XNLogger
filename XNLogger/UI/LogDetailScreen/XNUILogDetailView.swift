@@ -8,11 +8,19 @@
 
 import UIKit
 
+protocol XNUIDetailViewDelegate: class {
+    func showMessageFullScreen(logData: XNUIMessageData, title: String)
+}
+
 class XNUILogDetailView: UIView, NibLoadableView {
 
     @IBOutlet weak var logDetailsTableView: UITableView!
-    var detailsArray: [XNUILogDetail] = []
     @IBOutlet weak var contentView: UIView!
+    
+    weak var delegate: XNUIDetailViewDelegate?
+    
+    var viewType: XNUIDetailViewType!
+    var detailsArray: [XNUILogDetail] = []
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -49,14 +57,11 @@ class XNUILogDetailView: UIView, NibLoadableView {
         self.logDetailsTableView.tableFooterView = UIView()
         #if swift(>=4.2)
         self.logDetailsTableView.sectionHeaderHeight = UITableView.automaticDimension
-        self.logDetailsTableView.rowHeight = UITableView.automaticDimension
         #else
             self.logDetailsTableView.sectionHeaderHeight = UITableViewAutomaticDimension
-            self.logDetailsTableView.rowHeight = UITableViewAutomaticDimension
         #endif
         
-        self.logDetailsTableView.estimatedSectionHeaderHeight = 45;
-        
+        self.logDetailsTableView.estimatedSectionHeaderHeight = 45
         
         self.logDetailsTableView.registerForHeaderFooterView(ofType: XNUILogDetailHeaderCell.self)
         self.logDetailsTableView.register(ofType: XNUILogDetailCell.self)
@@ -77,13 +82,35 @@ extension XNUILogDetailView: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if detailsArray.isEmpty {
+            return 0
+        } else {
+            return detailsArray[section].messages.count
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        let msgData = self.detailsArray[indexPath.section].messages[indexPath.row]
         
-        return detailsArray[section].messages.count
+        if msgData.showOnlyInFullScreen == false {
+            if msgData.msgCount > XNUIConstants.msgCellMaxCharCount {
+                return UIScreen.main.bounds.height * 0.6
+            }
+            else if Int(msgData.message.heightWithConstrainedWidth(tableView.frame.width - 20, font: XNUIConstants.messageFont)) > XNUIConstants.msgCellMaxLength {
+                return UIScreen.main.bounds.height * 0.6
+            }
+        }
+        
+        #if swift(>=4.2)
+        return UITableView.automaticDimension
+        #else
+        return UITableViewAutomaticDimension
+        #endif
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell: XNUILogDetailCell = tableView.dequeueReusableCell(for: indexPath)
-        cell.logDetailMsg.text = self.detailsArray[indexPath.section].messages[indexPath.row]
+        cell.configureViews(self.detailsArray[indexPath.section].messages[indexPath.row])
         return cell
     }
     
@@ -100,6 +127,10 @@ extension XNUILogDetailView: UITableViewDataSource {
 extension XNUILogDetailView: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
+        print("Selected")
+        let msgData = self.detailsArray[indexPath.section].messages[indexPath.row]
+        if msgData.showOnlyInFullScreen {
+            delegate?.showMessageFullScreen(logData: msgData, title: self.detailsArray[indexPath.section].title)
+        }
     }
 }

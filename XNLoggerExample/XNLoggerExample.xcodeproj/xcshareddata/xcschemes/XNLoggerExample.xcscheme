@@ -20,6 +20,20 @@
                ReferencedContainer = "container:XNLoggerExample.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
+         <BuildActionEntry
+            buildForTesting = "YES"
+            buildForRunning = "YES"
+            buildForProfiling = "YES"
+            buildForArchiving = "YES"
+            buildForAnalyzing = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "1005805D21C65F490020288D"
+               BuildableName = "XNLogger.framework"
+               BlueprintName = "XNLogger"
+               ReferencedContainer = "container:../XNLogger.xcodeproj">
+            </BuildableReference>
+         </BuildActionEntry>
       </BuildActionEntries>
    </BuildAction>
    <TestAction

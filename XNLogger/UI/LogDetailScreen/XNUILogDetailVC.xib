@@ -24,14 +24,14 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kdo-az-mVv">
-                    <rect key="frame" x="0.0" y="20" width="375" height="42"/>
+                    <rect key="frame" x="0.0" y="20" width="375" height="37"/>
                     <subviews>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FsR-Tn-Z5Q">
-                            <rect key="frame" x="0.0" y="0.0" width="187.5" height="42"/>
+                            <rect key="frame" x="0.0" y="0.0" width="187.5" height="37"/>
                             <subviews>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="m9H-kb-koW">
-                                    <rect key="frame" x="0.0" y="0.0" width="187.5" height="42"/>
-                                    <fontDescription key="fontDescription" type="system" weight="medium" pointSize="18"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="187.5" height="37"/>
+                                    <fontDescription key="fontDescription" type="system" weight="medium" pointSize="17"/>
                                     <state key="normal" title="Request">
                                         <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </state>
@@ -48,11 +48,11 @@
                             </constraints>
                         </view>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="IMV-EC-CWv">
-                            <rect key="frame" x="187.5" y="0.0" width="187.5" height="42"/>
+                            <rect key="frame" x="187.5" y="0.0" width="187.5" height="37"/>
                             <subviews>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Usb-Nd-Roa">
-                                    <rect key="frame" x="0.0" y="0.0" width="187.5" height="42"/>
-                                    <fontDescription key="fontDescription" type="system" weight="medium" pointSize="18"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="187.5" height="37"/>
+                                    <fontDescription key="fontDescription" type="system" weight="medium" pointSize="17"/>
                                     <state key="normal" title="Reponse">
                                         <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </state>
@@ -74,7 +74,7 @@
                         <constraint firstAttribute="bottom" secondItem="IMV-EC-CWv" secondAttribute="bottom" id="24z-Rj-P6T"/>
                         <constraint firstItem="IMV-EC-CWv" firstAttribute="top" secondItem="kdo-az-mVv" secondAttribute="top" id="CqH-Dq-IDv"/>
                         <constraint firstItem="IMV-EC-CWv" firstAttribute="width" secondItem="FsR-Tn-Z5Q" secondAttribute="width" id="DrN-Gn-d8L"/>
-                        <constraint firstAttribute="height" constant="42" id="EEg-lP-Og2"/>
+                        <constraint firstAttribute="height" constant="37" id="EEg-lP-Og2"/>
                         <constraint firstAttribute="trailing" secondItem="IMV-EC-CWv" secondAttribute="trailing" id="EFU-P7-ja0"/>
                         <constraint firstItem="IMV-EC-CWv" firstAttribute="leading" secondItem="FsR-Tn-Z5Q" secondAttribute="trailing" id="bOg-dy-G2e"/>
                         <constraint firstItem="FsR-Tn-Z5Q" firstAttribute="top" secondItem="kdo-az-mVv" secondAttribute="top" id="ic9-EA-ek7"/>
@@ -83,7 +83,7 @@
                     </constraints>
                 </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ir6-Ni-XN5">
-                    <rect key="frame" x="0.0" y="62" width="375" height="605"/>
+                    <rect key="frame" x="0.0" y="57" width="375" height="610"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                 </view>
             </subviews>
