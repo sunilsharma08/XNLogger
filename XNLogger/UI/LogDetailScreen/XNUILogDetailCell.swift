@@ -25,6 +25,7 @@ class XNUILogDetailCell: UITableViewCell {
         self.logDetailMsg.layoutIfNeeded()
         if messageData.showOnlyInFullScreen == false {
             
+            self.logDetailMsg.textColor = .black
             self.logDetailMsg.textAlignment = .left
             self.logDetailMsg.isUserInteractionEnabled = true
             self.logDetailMsg.attributedText = nil
@@ -39,11 +40,16 @@ class XNUILogDetailCell: UITableViewCell {
                     self.logDetailMsg.isScrollEnabled = false
                 }
             }
-        } else {
+            if logDetailMsg.isScrollEnabled {
+                self.logDetailMsg.showsVerticalScrollIndicator = true
+            } else {
+                self.logDetailMsg.showsVerticalScrollIndicator = true
+            }
+        }
+        else {
             
             self.logDetailMsg.isUserInteractionEnabled = false
             self.logDetailMsg.isScrollEnabled = false
-            self.logDetailMsg.textAlignment = .center
             self.logDetailMsg.text = nil
             
             self.logDetailMsg.attributedText = getLargeMessage()
