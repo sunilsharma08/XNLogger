@@ -27,9 +27,9 @@ Framework to log network request and response. An easy way to view and debug RES
     <th>Response details</th>
   </tr>
   <tr>
-    <td><img src="https://raw.githubusercontent.com/sunilsharma08/XNLogger/master/XNLoggerExample/ExampleAppScreenshots/LogListScreen.png" alt="Grid Menu" width="320" height="468"/></td>
-    <td><img src="https://raw.githubusercontent.com/sunilsharma08/XNLogger/master/XNLoggerExample/ExampleAppScreenshots/LogDetailsRequestScreen.png" alt="Circular Menu" width="320" height="468"/></td>
-    <td><img src="https://raw.githubusercontent.com/sunilsharma08/XNLogger/master/XNLoggerExample/ExampleAppScreenshots/LogDetailsResponseScreen.png" alt="Grid Menu" width="320" height="468"/></td>
+    <td><img src="https://raw.githubusercontent.com/sunilsharma08/XNLogger/master/XNLoggerExample/ExampleAppScreenshots/LogListScreen.png" alt="Grid Menu" width="300" height="468"/></td>
+    <td><img src="https://raw.githubusercontent.com/sunilsharma08/XNLogger/master/XNLoggerExample/ExampleAppScreenshots/LogDetailsRequestScreen.png" alt="Circular Menu" width="300" height="468"/></td>
+    <td><img src="https://raw.githubusercontent.com/sunilsharma08/XNLogger/master/XNLoggerExample/ExampleAppScreenshots/LogDetailsResponseScreen.png" alt="Grid Menu" width="300" height="468"/></td>
   </tr>
 </table>
 
