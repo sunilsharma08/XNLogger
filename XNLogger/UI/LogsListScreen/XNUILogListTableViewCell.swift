@@ -83,11 +83,11 @@ class XNUILogListTableViewCell: UITableViewCell {
                     updateStatusLabel(color: XNUIHTTPStatusColor.status1xx, message: "\(statusCode)")
                 } else if 200...299 ~= statusCode {
                     updateStatusLabel(color: XNUIHTTPStatusColor.status2xx, message: "\(statusCode)")
-                } else if 300...399 ~= httpResponse.statusCode {
+                } else if 300...399 ~= statusCode {
                     updateStatusLabel(color: XNUIHTTPStatusColor.status3xx, message: "\(statusCode)")
-                } else if 400...499 ~= httpResponse.statusCode {
+                } else if 400...499 ~= statusCode {
                     updateStatusLabel(color: XNUIHTTPStatusColor.status4xx, message: "\(statusCode)")
-                } else if 500...599 ~= httpResponse.statusCode {
+                } else if 500...599 ~= statusCode {
                     updateStatusLabel(color: XNUIHTTPStatusColor.status5xx, message: "\(statusCode)")
                 } else {
                     updateStatusLabel(color: XNUIHTTPStatusColor.unknown, message: "\(statusCode)")

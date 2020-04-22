@@ -50,7 +50,7 @@ class XNAppUtils {
     
     func isContentTypeReadable(_ contentType: XNContentType) -> Bool {
         switch contentType {
-        case .json, .text:
+        case .json, .text, .urlencoded:
             return true
         default:
             return false
