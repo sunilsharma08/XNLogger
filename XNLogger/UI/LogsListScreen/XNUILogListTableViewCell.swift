@@ -10,6 +10,8 @@ import UIKit
 
 class XNUILogListTableViewCell: UITableViewCell {
 
+    @IBOutlet weak var statusIcon: UIImageView!
+    @IBOutlet weak var statusView: UIView!
     @IBOutlet weak var httpStatusLbl: UILabel!
     @IBOutlet weak var urlPathLbl: UILabel!
     @IBOutlet weak var httpMethodLbl: UILabel!
@@ -20,11 +22,14 @@ class XNUILogListTableViewCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        self.urlPathLbl.textColor = XNUIAppColor.titleColor
-        self.httpMethodLbl.textColor = UIColor.gray
-        self.requestStartTimeLbl.textColor = UIColor.gray
-        self.requestDurationLbl.textColor = UIColor.gray
+        self.urlPathLbl.textColor = XNUIAppColor.title
+        self.httpMethodLbl.textColor = XNUIAppColor.subtitle
+        self.requestStartTimeLbl.textColor = XNUIAppColor.subtitle
+        self.requestDurationLbl.textColor = XNUIAppColor.subtitle
         self.dateFormatter.dateFormat = "hh:mm:ss a"
+        self.httpStatusLbl.backgroundColor = .clear
+        self.statusIcon.isHidden = true
+        self.statusIcon.tintColor = .white
     }
     
     func configureViews(withData data: XNLogData) {
@@ -35,6 +40,7 @@ class XNUILogListTableViewCell: UITableViewCell {
         } else {
             urlPathLbl.text = data.urlRequest.url?.absoluteString ?? "No URL found"
         }
+        urlPathLbl.sizeToFit()
         updateHTTPStatus(data.state, response: data.response)
         httpMethodLbl.text = data.urlRequest.httpMethod
         
@@ -44,30 +50,51 @@ class XNUILogListTableViewCell: UITableViewCell {
         else {
             requestStartTimeLbl.text = ""
         }
-        
         requestDurationLbl.text = data.getDurationString()
         self.selectionStyle = UITableViewCell.SelectionStyle.none
     }
     
     private func updateHTTPStatus(_ status: XNSessionState?, response: URLResponse?) {
         
-        func updateStatusLabel(color: UIColor, message: String) {
-            self.httpStatusLbl.backgroundColor = color
-            self.httpStatusLbl.text = message
+        func updateStatusLabel(color: UIColor, message: String?, icon: UIImage? = nil) {
+            self.statusView.backgroundColor = color
+            
+            if let msg = message {
+                self.httpStatusLbl.text = msg
+                self.httpStatusLbl.isHidden = false
+                self.statusIcon.isHidden = true
+            }
+            else if let iconImg = icon {
+                self.statusIcon.image = iconImg
+                self.statusIcon.isHidden = false
+                self.httpStatusLbl.isHidden = true
+            } else{
+                self.httpStatusLbl.text = nil
+                self.statusIcon.image = nil
+                self.statusIcon.isHidden = true
+                self.httpStatusLbl.isHidden = true
+            }
         }
         
         func updateStatusFromResponse() {
             if let httpResponse = response as? HTTPURLResponse {
                 let statusCode = httpResponse.statusCode
-                if 100...299 ~= statusCode {
+                if 100...199 ~= statusCode {
+                    updateStatusLabel(color: XNUIHTTPStatusColor.status1xx, message: "\(statusCode)")
+                } else if 200...299 ~= statusCode {
                     updateStatusLabel(color: XNUIHTTPStatusColor.status2xx, message: "\(statusCode)")
-                } else if 300...399 ~= httpResponse.statusCode {
+                } else if 300...399 ~= statusCode {
                     updateStatusLabel(color: XNUIHTTPStatusColor.status3xx, message: "\(statusCode)")
+                } else if 400...499 ~= statusCode {
+                    updateStatusLabel(color: XNUIHTTPStatusColor.status4xx, message: "\(statusCode)")
+                } else if 500...599 ~= statusCode {
+                    updateStatusLabel(color: XNUIHTTPStatusColor.status5xx, message: "\(statusCode)")
                 } else {
-                    updateStatusLabel(color: XNUIHTTPStatusColor.status4xx5xx, message: "\(statusCode)")
+                    updateStatusLabel(color: XNUIHTTPStatusColor.unknown, message: "\(statusCode)")
                 }
             } else {
-                updateStatusLabel(color: XNUIHTTPStatusColor.cancelled, message: "?")
+                let icon = UIImage(named: "information", in: Bundle.current(), compatibleWith: nil)
+                updateStatusLabel(color: XNUIHTTPStatusColor.unknown, message: nil, icon: icon)
             }
         }
         
@@ -78,19 +105,24 @@ class XNUILogListTableViewCell: UITableViewCell {
         
         guard let reqtStatus = status
         else {
-            updateStatusLabel(color: XNUIHTTPStatusColor.cancelled, message: "?")
+            let icon = UIImage(named: "information", in: Bundle.current(), compatibleWith: nil)
+            updateStatusLabel(color: XNUIHTTPStatusColor.unknown, message: nil, icon: icon)
             return
         }
         
         switch reqtStatus {
         case .running:
-            updateStatusLabel(color: XNUIHTTPStatusColor.running, message: "\u{29D6}")
+            let icon = UIImage(named: "wait", in: Bundle.current(), compatibleWith: nil)
+            updateStatusLabel(color: XNUIHTTPStatusColor.running, message: nil, icon: icon)
         case .canceling:
-            updateStatusLabel(color: XNUIHTTPStatusColor.cancelled, message: "Cancelled")
+            let icon = UIImage(named: "cancel", in: Bundle.current(), compatibleWith: nil)
+            updateStatusLabel(color: XNUIHTTPStatusColor.cancelled, message: nil, icon: icon)
         case .suspended:
-            updateStatusLabel(color: XNUIHTTPStatusColor.cancelled, message: "Suspended")
+            let icon = UIImage(named: "pause", in: Bundle.current(), compatibleWith: nil)
+            updateStatusLabel(color: XNUIHTTPStatusColor.suspended, message: nil, icon: icon)
         case .unknown:
-            updateStatusLabel(color: XNUIHTTPStatusColor.cancelled, message: "?")
+            let icon = UIImage(named: "information", in: Bundle.current(), compatibleWith: nil)
+            updateStatusLabel(color: XNUIHTTPStatusColor.unknown, message: nil, icon: icon)
         case .completed:
             updateStatusFromResponse()
         }
