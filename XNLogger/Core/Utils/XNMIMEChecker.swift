@@ -15,6 +15,7 @@ enum XNContentType {
     case pdf
     case audio
     case video
+    case urlencoded
     case unknown(String?)
     
     func getName() -> String {
@@ -31,6 +32,8 @@ enum XNContentType {
             return "Audio"
         case .video:
             return "Video"
+        case .urlencoded:
+            return "x-www-form-urlencoded"
         case .unknown(let name):
             if let title = name {
                 return title
@@ -195,6 +198,8 @@ class XNMIMEChecker {
             return .pdf
         case "json":
             return .json
+        case "x-www-form-urlencoded":
+            return .urlencoded
         default:
             return .unknown("application/\(subTypeString)")
         }
