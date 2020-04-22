@@ -5,6 +5,8 @@
 * Move to detail screen and load data - This will avoid ui stuck due to large data. - done
 * Remove single log - done
 
+* Select All option
+* CURL fix - it does not work for x-www-form-urlencoded
 * Full screen
 * Remove flicker from log details screen when moving from list to detail screen.
 * Copy
