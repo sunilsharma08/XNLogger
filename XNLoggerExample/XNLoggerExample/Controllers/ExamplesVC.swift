@@ -56,6 +56,10 @@ class ExamplesVC: UIViewController {
         return nil
     }
     
+    @IBAction func clickedOnShowXNLogger() {
+        XNUIManager.shared.presentNetworkLogUI()
+    }
+    
 }
 
 extension String {
