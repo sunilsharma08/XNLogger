@@ -144,6 +144,16 @@
                                     <action selector="clickedOnWebView:" destination="S3p-aE-PyC" eventType="touchUpInside" id="43D-RH-F0W"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JYM-Lf-4VA">
+                                <rect key="frame" x="100" y="492" width="175" height="60"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="60" id="cpz-lE-urp"/>
+                                </constraints>
+                                <state key="normal" title="Show XNLogger"/>
+                                <connections>
+                                    <action selector="clickedOnShowXNLogger" destination="S3p-aE-PyC" eventType="touchUpInside" id="PPu-DL-jKE"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
@@ -165,14 +175,17 @@
                             <constraint firstItem="nKm-3z-pbh" firstAttribute="top" secondItem="DeA-cs-9x0" secondAttribute="bottom" constant="20" id="Y7A-Ml-NEB"/>
                             <constraint firstItem="JgF-bH-Yuc" firstAttribute="leading" secondItem="DeA-cs-9x0" secondAttribute="trailing" constant="21" id="ed6-P5-gSX"/>
                             <constraint firstItem="ntF-WN-ia9" firstAttribute="top" secondItem="T2p-ns-gQG" secondAttribute="bottom" constant="20" id="fUd-Ee-Miq"/>
+                            <constraint firstItem="u5h-OX-ykL" firstAttribute="bottom" secondItem="JYM-Lf-4VA" secondAttribute="bottom" constant="115" id="gaF-SA-77e"/>
                             <constraint firstItem="T2p-ns-gQG" firstAttribute="top" secondItem="JgF-bH-Yuc" secondAttribute="bottom" constant="20" id="ged-dm-QTq"/>
                             <constraint firstItem="u5h-OX-ykL" firstAttribute="trailing" secondItem="mm0-Yo-HyZ" secondAttribute="trailing" constant="16" id="gh4-Xh-ocL"/>
                             <constraint firstItem="ntF-WN-ia9" firstAttribute="leading" secondItem="j1N-jW-zlK" secondAttribute="trailing" constant="21" id="jLI-Uw-5et"/>
                             <constraint firstItem="JgF-bH-Yuc" firstAttribute="width" secondItem="DeA-cs-9x0" secondAttribute="width" id="kcr-9g-eX9"/>
                             <constraint firstItem="Kls-e1-w0S" firstAttribute="leading" secondItem="T2p-ns-gQG" secondAttribute="trailing" constant="22" id="lOo-qC-iBo"/>
+                            <constraint firstItem="JYM-Lf-4VA" firstAttribute="leading" secondItem="u5h-OX-ykL" secondAttribute="leading" constant="100" id="n2f-LE-DsF"/>
                             <constraint firstItem="XLn-wc-zAS" firstAttribute="width" secondItem="j1N-jW-zlK" secondAttribute="width" id="n7b-Li-hiv"/>
                             <constraint firstItem="Kls-e1-w0S" firstAttribute="top" secondItem="mm0-Yo-HyZ" secondAttribute="bottom" constant="20" id="nVt-VH-2uH"/>
                             <constraint firstItem="T2p-ns-gQG" firstAttribute="leading" secondItem="nKm-3z-pbh" secondAttribute="trailing" constant="21" id="qTn-fY-Jxg"/>
+                            <constraint firstItem="u5h-OX-ykL" firstAttribute="trailing" secondItem="JYM-Lf-4VA" secondAttribute="trailing" constant="100" id="s6X-lR-qbx"/>
                             <constraint firstItem="u5h-OX-ykL" firstAttribute="trailing" secondItem="XLn-wc-zAS" secondAttribute="trailing" constant="16" id="uIa-f3-vSf"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="u5h-OX-ykL"/>
@@ -192,7 +205,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="d23-qP-cpq" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="730" y="-317"/>
+            <point key="canvasLocation" x="728.79999999999995" y="-317.09145427286359"/>
         </scene>
     </scenes>
 </document>
