@@ -8,9 +8,24 @@
 
 import UIKit
 
+class XNUILogTextView: UITextView {
+    
+    override func canPerformAction(_ action: Selector, withSender sender: Any?) -> Bool {
+        if action == #selector(selectAll) {
+            
+            if let range = selectedTextRange, range.start == beginningOfDocument, range.end == endOfDocument {
+                return false // already selected all text
+            }
+            return !text.isEmpty
+        }
+        return super.canPerformAction(action, withSender: sender)
+    }
+    
+}
+
 class XNUILogDetailCell: UITableViewCell {
     
-    @IBOutlet weak var logDetailMsg: UITextView!
+    @IBOutlet weak var logDetailMsg: XNUILogTextView!
     
     override func awakeFromNib() {
         super.awakeFromNib()
