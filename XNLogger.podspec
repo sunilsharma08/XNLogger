@@ -1,7 +1,7 @@
 Pod::Spec.new do |s|
 
   s.name         = "XNLogger"
-  s.version      = "1.0.1"
+  s.version      = "1.1.1"
   s.summary      = "Framework to log network request and response."
   s.description  = <<-DESC 
   Simple and extensible network traffic logger. It makes easy log network request and response or debug network issues.
