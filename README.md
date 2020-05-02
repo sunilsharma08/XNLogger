@@ -50,7 +50,7 @@ pod 'XNLogger', :configurations => ['Debug']
 Drag the folder "XNLogger" with the source files into your project.
 
 # Usage
-It starts logging automatically after integrating library in your project. Shake to see logs in app.
+It starts logging automatically after integrating library in your project. **Shake to see logs in app** or manually click on button "Show XNLogger".
 
 ### Manually Start Logging
 ```swift
