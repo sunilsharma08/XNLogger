@@ -8,6 +8,20 @@
 
 import Foundation
 
+class XNUILogInfo {
+    var identifier: String
+    var title: String?
+    var state: XNSessionState?
+    var statusCode: Int?
+    var httpMethod: String?
+    var durationStr: String?
+    var startTime: Date?
+    
+    init(logId: String) {
+        self.identifier = logId
+    }
+}
+
 class XNUIMessageData {
     
     var message: String
@@ -24,7 +38,6 @@ class XNUILogDetail {
     
     var title: String
     var messages: [XNUIMessageData] = []
-    var isExpended: Bool = false
     
     init(title: String) {
         self.title = title

@@ -28,9 +28,10 @@ public final class XNUIManager: NSObject {
     @objc public static let shared: XNUIManager = XNUIManager()
     public var startGesture: XNGestureType? = .shake
     var uiLogHandler: XNUILogHandler = XNUILogHandler()
-    private var logsDataDict: [String: XNLogData] = [:]
+    private var logsDataDict: [String: XNUILogInfo] = [:]
     private var logsIdArray: [String] = []
     private var logsActionThread = DispatchQueue.init(label: "XNUILoggerLogListActionThread", qos: .userInteractive, attributes: .concurrent)
+    private let fileService: XNUIFileService = XNUIFileService()
     
     private override init() {
         super.init()
@@ -70,6 +71,7 @@ public final class XNUIManager: NSObject {
         logsActionThread.async(flags: .barrier) {
             self.logsDataDict = [:]
             self.logsIdArray.removeAll()
+            self.fileService.removeLogDirectory()
         }
     }
     
@@ -78,6 +80,7 @@ public final class XNUIManager: NSObject {
             let logId = self.logsIdArray[index]
             self.logsIdArray.remove(at: index)
             self.logsDataDict.removeValue(forKey: logId)
+            self.fileService.removeLog(logId)
         }
     }
     
@@ -89,12 +92,30 @@ public final class XNUIManager: NSObject {
         return logArray ?? []
     }
     
-    func getLogsDataDict() -> [String: XNLogData] {
-        var logsDict: [String: XNLogData]?
+    func getLogsDataDict() -> [String: XNUILogInfo] {
+        var logsDict: [String: XNUILogInfo]?
         logsActionThread.sync {
             logsDict = self.logsDataDict
         }
         return logsDict ?? [:]
+    }
+    
+    func getXNUILogInfoModel(from logData: XNLogData) -> XNUILogInfo {
+        let logInfo = XNUILogInfo(logId: logData.identifier)
+        if let scheme = logData.urlRequest.url?.scheme,
+            let host = logData.urlRequest.url?.host, let path = logData.urlRequest.url?.path {
+            logInfo.title = "\(scheme)://\(host)\(path)"
+        } else {
+            logInfo.title = logData.urlRequest.url?.absoluteString ?? "No URL found"
+        }
+        logInfo.httpMethod = logData.urlRequest.httpMethod
+        logInfo.startTime = logData.startTime
+        logInfo.durationStr = logData.getDurationString()
+        logInfo.state = logData.state
+        if let httpResponse = logData.response as? HTTPURLResponse {
+            logInfo.statusCode = httpResponse.statusCode
+        }
+        return logInfo
     }
     
 }
@@ -102,12 +123,13 @@ public final class XNUIManager: NSObject {
 extension XNUIManager: XNUILogDataDelegate {
     
     func receivedLogData(_ logData: XNLogData, isResponse: Bool) {
+        
         logsActionThread.async(flags: .barrier) {
-            
+            self.fileService.saveLogsDataOnDisk(logData)
             if isResponse == false {
                 self.logsIdArray.append(logData.identifier)
             }
-            self.logsDataDict[logData.identifier] = logData
+            self.logsDataDict[logData.identifier] = self.getXNUILogInfoModel(from: logData)
             NotificationCenter.default.post(name: XNUIConstants.logDataUpdtNotificationName, object: nil, userInfo: nil)
         }
     }

@@ -25,7 +25,7 @@ class XNUILogDetailVC: XNUIBaseViewController {
     @IBOutlet weak var responseBtn: UIButton!
     @IBOutlet weak var contentView: UIView!
     
-    var logData: XNLogData?
+    var logInfo: XNUILogInfo?
     private var requestView: XNUILogDetailView?
     private var responseView: XNUILogDetailView?
     private var isResponseSelected: Bool = false
@@ -37,9 +37,6 @@ class XNUILogDetailVC: XNUIBaseViewController {
         automaticallyAdjustsScrollViewInsets = false
         tabBarController?.tabBar.isHidden = true
         
-        if let logData = self.logData {
-            self.logDataConverter = NLUILogDataConverter(logData: logData, formatter: XNUIManager.shared.uiLogHandler.logFormatter)
-        }
         configureViews()
     }
     
@@ -69,7 +66,11 @@ class XNUILogDetailVC: XNUIBaseViewController {
                 self.contentView.addSubview(subView)
             }
         }
-        selectDefaultTab()
+        
+        loadData {
+            DispatchQueue.main.async { self.selectDefaultTab() }
+        }
+        
     }
     
     private func selectDefaultTab() {
@@ -90,6 +91,22 @@ class XNUILogDetailVC: XNUIBaseViewController {
                     self.responseView?.upadteView(with: respLogs)
                 }
             })
+        }
+    }
+    
+    func loadData(completion: @escaping () -> Void) {
+        
+        if let logId = self.logInfo?.identifier {
+            let fileService: XNUIFileService = XNUIFileService()
+            
+            fileService.getLogData(for: logId) {[weak self] (logData) in
+                guard let self = self else { return }
+                
+                if let logDataObj = logData {
+                    self.logDataConverter = NLUILogDataConverter(logData: logDataObj, formatter: XNUIManager.shared.uiLogHandler.logFormatter)
+                }
+                completion()
+            }
         }
     }
     
