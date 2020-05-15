@@ -409,6 +409,7 @@ extension ExamplesVC: URLSessionDelegate {
     
     public func urlSession(_ session: URLSession, didReceive challenge: URLAuthenticationChallenge, completionHandler: @escaping (URLSession.AuthChallengeDisposition, URLCredential?) -> Void) {
         print(#function)
+        completionHandler(.performDefaultHandling, nil)
     }
     
     public func urlSessionDidFinishEvents(forBackgroundURLSession session: URLSession) {
