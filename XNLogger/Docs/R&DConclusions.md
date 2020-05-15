@@ -1,6 +1,7 @@
 There is two way to intercept all internet requests
 1. Custom URL protocols
 2. Swizzle network API's
+3. Correct way to swizzle(Need to make changes in framework) - https://blog.newrelic.com/engineering/right-way-to-swizzle/
 
 1. Custom URL protocols
  This appraoch is easier to track only REST API call but not for response (Currently I don't know how to handle different types of request like background task, upload, file download, etc.).

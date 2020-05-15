@@ -30,7 +30,6 @@ class XNUILogListVC: XNUIBaseViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(updateLoggerUI), name: XNUIConstants.logDataUpdtNotificationName, object: nil)
         updateLoggerUI()
         
-        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -101,6 +100,7 @@ class XNUILogListVC: XNUIBaseViewController {
         DispatchQueue.main.async {
             self.logListTableView.reloadData()
             self.emptyMsgLabel.isHidden = !self.logsIdArray.isEmpty
+            self.navigationItem.leftBarButtonItem?.customView?.isHidden = !self.emptyMsgLabel.isHidden
         }
     }
 
