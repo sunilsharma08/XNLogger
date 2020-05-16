@@ -37,6 +37,8 @@ public final class XNUIManager: NSObject {
         super.init()
         XNLogger.shared.addLogHandlers([uiLogHandler])
         self.uiLogHandler.delegate = self
+        // Previous logs
+        XNUIFileService().removeLogDirectory()
     }
     
     // Return current root view controller
