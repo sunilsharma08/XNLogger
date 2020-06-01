@@ -40,7 +40,12 @@ class XNUILogDetailCell: UITableViewCell {
         self.logDetailMsg.layoutIfNeeded()
         if messageData.showOnlyInFullScreen == false {
             
-            self.logDetailMsg.textColor = .black
+            if messageData.isEmptyDataMsg {
+                self.logDetailMsg.textColor = XNUIAppColor.subtitle
+            } else {
+                self.logDetailMsg.textColor = .black
+            }
+            
             self.logDetailMsg.textAlignment = .left
             self.logDetailMsg.isUserInteractionEnabled = true
             self.logDetailMsg.attributedText = nil
@@ -66,20 +71,23 @@ class XNUILogDetailCell: UITableViewCell {
             self.logDetailMsg.isUserInteractionEnabled = false
             self.logDetailMsg.isScrollEnabled = false
             self.logDetailMsg.text = nil
-            
-            self.logDetailMsg.attributedText = getLargeMessage()
+            if messageData.data == nil {
+                self.logDetailMsg.attributedText = getAttrString(title: "\nData size is too big.\n", subTitle: "\nClick to view data.\n")
+            } else {
+                self.logDetailMsg.attributedText = getAttrString(title: "\nMultimedia data detected.\n", subTitle: "\nClick to preview data.\n")
+            }
         }
     }
     
-    func getLargeMessage() -> NSAttributedString {
+    func getAttrString(title: String, subTitle: String) -> NSAttributedString {
         let paragraphStyle = NSMutableParagraphStyle()
         paragraphStyle.alignment = .center
         
         var msgAttributes = [NSAttributedString.Key.font: XNUIConstants.messageFont, .paragraphStyle: paragraphStyle, NSAttributedString.Key.foregroundColor: XNUIAppColor.subtitle]
         
-        let largeDataMsg = NSMutableAttributedString(string: "\nData size is too big.\n", attributes: msgAttributes)
+        let largeDataMsg = NSMutableAttributedString(string: title, attributes: msgAttributes)
         msgAttributes[NSAttributedString.Key.foregroundColor] = UIColor(red: 0, green: 0, blue: 1, alpha: 1)
-        largeDataMsg.append(NSAttributedString(string: "\nClick to view data.\n", attributes: msgAttributes))
+        largeDataMsg.append(NSAttributedString(string: subTitle, attributes: msgAttributes))
         
         return largeDataMsg
     }

@@ -27,7 +27,7 @@ public final class XNUIManager: NSObject {
     
     @objc public static let shared: XNUIManager = XNUIManager()
     public var startGesture: XNGestureType? = .shake
-    var uiLogHandler: XNUILogHandler = XNUILogHandler()
+    var uiLogHandler: XNUILogHandler = XNUILogHandler.create()
     private var logsDataDict: [String: XNUILogInfo] = [:]
     private var logsIdArray: [String] = []
     private var logsActionThread = DispatchQueue.init(label: "XNUILoggerLogListActionThread", qos: .userInteractive, attributes: .concurrent)
@@ -56,6 +56,7 @@ public final class XNUIManager: NSObject {
         if let presentingViewController = self.presentingViewController, !(presentingViewController is XNUIBaseTabBarController) {
             
             if let tabbarVC = UIStoryboard.mainStoryboard().instantiateViewController(withIdentifier: "nlMainTabBarController") as? UITabBarController {
+                tabbarVC.modalPresentationStyle = .fullScreen
                 presentingViewController.present(tabbarVC, animated: true, completion: nil)
             }
         }

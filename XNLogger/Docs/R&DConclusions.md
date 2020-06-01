@@ -21,6 +21,13 @@ https://stackoverflow.com/questions/23714383/what-are-all-the-possible-values-fo
 
 ## Determine MIME type from Data
 https://stackoverflow.com/questions/21789770/determine-mime-type-from-nsdata
+http://www.iana.org/assignments/media-types/media-types.xhtml
+For data signature reference used in this framework
+1. https://www.garykessler.net/library/file_sigs.html
+2. https://filesignatures.net/index.php?page=search
+3. https://en.wikipedia.org/wiki/List_of_file_signatures
+4. https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/MIME_types
+
 
 ## Array to store weak references
 https://marcosantadev.com/swift-arrays-holding-elements-weak-references/

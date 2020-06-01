@@ -56,19 +56,19 @@ public class XNLogData: NSObject, NSCoding {
     private(set) public var state: XNSessionState?
     internal(set) public var duration: Double?
     
-    lazy var respContentType: XNContentType = {
+    lazy var respContentMeta: XNFileMeta = {
         if let mimeStr = response?.mimeType {
-            return XNAppUtils.shared.getMimeEnum(from: mimeStr)
+            return XNAppUtils.shared.getFileMeta(from: mimeStr)
         } else if receivedData != nil {
             return receivedData!.sniffMimeEnum()
         } else {
-            return .unknown(nil)
+            return XNFileMeta(ext: nil, mime: nil, contentType: .unknown(nil))
         }
     }()
     
-    lazy var reqstContentType: XNContentType = {
+    lazy var reqstContentMeta: XNFileMeta = {
         if let mimeStr = urlRequest.getMimeType() {
-            return XNAppUtils.shared.getMimeEnum(from: mimeStr)
+            return XNAppUtils.shared.getFileMeta(from: mimeStr)
         } else {
             return urlRequest.sniffMimeEnum()
         }
@@ -141,8 +141,6 @@ public class XNLogData: NSObject, NSCoding {
         case redirectRequest = "redirectRequest"
         case state = "state"
         case duration = "duration"
-        case respContentType = "respContentType"
-        case reqstContentType = "reqstContentType"
     }
     
     public func encode(with aCoder: NSCoder) {

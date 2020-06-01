@@ -147,4 +147,29 @@ class XNUIFileService {
         }
     }
     
+    func getTempDirectory() -> URL? {
+        let tempDirUrl = URL(fileURLWithPath: NSTemporaryDirectory(),
+                             isDirectory: true).appendingPathComponent("Multimedia")
+        if FileManager.default.fileExists(atPath: tempDirUrl.path) {
+            return tempDirUrl
+        } else {
+            do {
+                try FileManager.default.createDirectory(at: tempDirUrl, withIntermediateDirectories: true, attributes: nil)
+                return tempDirUrl
+            } catch let error as NSError {
+                print("XNLogger: Failed to create 'XNLogger/Multimedia' directory - \(error.debugDescription)")
+            }
+        }
+        return nil
+    }
+    
+    func writeMedia(data: Data, completion: () -> Void) {
+        DispatchQueue.global(qos: .userInitiated).async {
+            if let tempUrl = self.getTempDirectory() {
+                let fileUrl = tempUrl.appendingPathComponent(UUID().uuidString)
+                data.sniffMimeEnum()
+            }
+        }
+    }
+    
 }

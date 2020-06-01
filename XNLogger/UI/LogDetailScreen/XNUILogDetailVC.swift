@@ -201,13 +201,15 @@ class NLUILogDataConverter {
                 
                 if let httpBody = self.logData.urlRequest.httpBodyString(prettyPrint: self.formatter.prettyPrintJSON), httpBody.isEmpty == false {
                     // Log HTTP body either `logUnreadableReqstBody` is true or when content is readable.
-                    if self.formatter.logUnreadableReqstBody || XNAppUtils.shared.isContentTypeReadable(self.logData.reqstContentType) {
+                    if XNAppUtils.shared.isContentTypeReadable(self.logData.reqstContentMeta.contentType) {
                         httpBodyInfo.addMessage("\(httpBody)")
+                    } else if self.formatter.logUnreadableReqstBody, let httpBodyData = self.logData.urlRequest.getHttpBodyData() {
+                        httpBodyInfo.addData(httpBodyData)
                     } else {
-                        httpBodyInfo.addMessage("\(self.logData.reqstContentType.getName())", showOnlyInFullScreen: true)
+                        httpBodyInfo.addMessage(self.logData.reqstContentMeta.contentType.getName() + " data")
                     }
                 } else {
-                    httpBodyInfo.addMessage("Http body is empty")
+                    httpBodyInfo.addMessage("Http body is empty", isEmptyDataMsg: true)
                 }
                 
                 requestLogs.append(httpBodyInfo)
@@ -255,15 +257,17 @@ class NLUILogDataConverter {
                 let responseInfo: XNUILogDetail = XNUILogDetail(title: "Response Content")
                 if let data = self.logData.receivedData, data.isEmpty == false {
                     let jsonUtil = XNJSONUtils()
-                    if self.formatter.logUnreadableRespBody || XNAppUtils.shared.isContentTypeReadable(self.logData.respContentType) {
+                    if XNAppUtils.shared.isContentTypeReadable(self.logData.respContentMeta.contentType) {
                         let str = jsonUtil.getJSONStringORStringFrom(jsonData: data, prettyPrint: self.formatter.prettyPrintJSON)
                         responseInfo.addMessage(str)
+                    } else if self.formatter.logUnreadableRespBody, let responseData = self.logData.receivedData {
+                        responseInfo.addData(responseData)
                     } else {
-                        responseInfo.addMessage(self.logData.respContentType.getName(), showOnlyInFullScreen: true)
+                        responseInfo.addMessage(self.logData.respContentMeta.contentType.getName() + " data")
                     }
                 }
                 else {
-                    responseInfo.addMessage("Respose data is empty")
+                    responseInfo.addMessage("Respose data is empty", isEmptyDataMsg: true)
                 }
                 responseLogs.append(responseInfo)
                 
@@ -320,7 +324,7 @@ class NLUILogDataConverter {
                     }
                 }
                 else {
-                    respMetaInfo.addMessage("Response meta info is empty")
+                    respMetaInfo.addMessage("Response meta info is empty", isEmptyDataMsg: true)
                 }
                 
                 if let error = self.logData.error {

@@ -25,9 +25,11 @@ class XNUILogInfo {
 class XNUIMessageData {
     
     var message: String
+    var isEmptyDataMsg: Bool = false
     var msgCount: Int = 0
     var msgSize: Int = 0
     var showOnlyInFullScreen: Bool = false
+    var data: Data?
     
     init(msg: String) {
         self.message = msg
@@ -48,16 +50,24 @@ class XNUILogDetail {
         addMessage(message)
     }
     
-    func addMessage(_ msg: String, showOnlyInFullScreen: Bool = false) {
+    func addMessage(_ msg: String, isEmptyDataMsg: Bool = false) {
         let msgInfo = XNUIMessageData(msg: msg)
         msgInfo.msgCount = msg.count
         msgInfo.msgSize = msg.lengthOfBytes(using: .utf8)
-        if showOnlyInFullScreen {
-            msgInfo.showOnlyInFullScreen = showOnlyInFullScreen
-        } else if msgInfo.msgSize > XNUIConstants.msgCellMaxAllowedSize {
-            // Data size is too large, cannot be displayed in cell.
+        if msgInfo.msgSize > XNUIConstants.msgCellMaxAllowedSize {
+            // Data size is too large, not a good idea to displayed in cell.
             msgInfo.showOnlyInFullScreen = true
         }
+        msgInfo.isEmptyDataMsg = isEmptyDataMsg
+        messages.append(msgInfo)
+    }
+    
+    func addData(_ data: Data) {
+        let msgInfo = XNUIMessageData(msg: "")
+        msgInfo.data = data
+        msgInfo.msgCount = data.count
+        msgInfo.msgSize = msgInfo.msgCount
+        msgInfo.showOnlyInFullScreen = true
         messages.append(msgInfo)
     }
 }
