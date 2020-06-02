@@ -276,6 +276,13 @@ extension ExamplesVC {
          
          Audio
          https://file-examples.com/wp-content/uploads/2017/11/file_example_MP3_700KB.mp3
+         
+         Text
+         https://file-examples.com/wp-content/uploads/2017/02/file_example_CSV_5000.csv
+         https://file-examples.com/wp-content/uploads/2017/02/file_example_JSON_1kb.json
+         https://file-examples.com/wp-content/uploads/2017/02/file_example_XML_24kb.xml
+         https://file-examples.com/wp-content/uploads/2017/02/index.html
+         https://file-examples.com/wp-content/uploads/2019/09/file-sample_100kB.rtf
          */
         let url = URL(string: "http://file-examples.com/wp-content/uploads/2017/04/file_example_MP4_640_3MG.mp4")!
         let configuration = URLSessionConfiguration.default
