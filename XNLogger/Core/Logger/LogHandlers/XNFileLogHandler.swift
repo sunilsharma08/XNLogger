@@ -65,11 +65,10 @@ public class XNFileLogHandler: XNBaseLogHandler, XNLogHandler {
         // Check atleast one path exists
         guard paths.count > 0
         else { return path }
-        path = "\(paths[0])/NLNetworkLogs"
-        debugPrint("Log directory = \(path)")
+        path = "\(paths[0])/XNLogger/FileLogHandler"
         if !fileManager.fileExists(atPath: path) && !path.isEmpty  {
             do {
-                try fileManager.createDirectory(atPath: path, withIntermediateDirectories: false, attributes: nil)
+                try fileManager.createDirectory(atPath: path, withIntermediateDirectories: true, attributes: nil)
             } catch let error {
                 debugPrint(error.localizedDescription)
             }

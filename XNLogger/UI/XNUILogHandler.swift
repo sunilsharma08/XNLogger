@@ -15,8 +15,14 @@ import Foundation
     
     public class func create() -> XNUILogHandler {
         let instance: XNUILogHandler = XNUILogHandler()
+        instance.logFormatter.logUnreadableRespBody = true
+        instance.logFormatter.logUnreadableReqstBody = true
         instance.logComposer = XNLogComposer(logFormatter: instance.logFormatter)
         return instance
+    }
+    
+    private override init() {
+        super.init()
     }
     
     public func xnLogger(logRequest logData: XNLogData) {

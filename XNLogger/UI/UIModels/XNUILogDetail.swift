@@ -8,12 +8,29 @@
 
 import Foundation
 
+class XNUILogInfo {
+    var identifier: String
+    var title: String?
+    var state: XNSessionState?
+    var statusCode: Int?
+    var httpMethod: String?
+    var durationStr: String?
+    var startTime: Date?
+    
+    init(logId: String) {
+        self.identifier = logId
+    }
+}
+
 class XNUIMessageData {
     
     var message: String
+    var isEmptyDataMsg: Bool = false
     var msgCount: Int = 0
     var msgSize: Int = 0
     var showOnlyInFullScreen: Bool = false
+    var data: Data?
+    var fileMeta: XNFileMeta?
     
     init(msg: String) {
         self.message = msg
@@ -24,7 +41,6 @@ class XNUILogDetail {
     
     var title: String
     var messages: [XNUIMessageData] = []
-    var isExpended: Bool = false
     
     init(title: String) {
         self.title = title
@@ -35,15 +51,31 @@ class XNUILogDetail {
         addMessage(message)
     }
     
-    func addMessage(_ msg: String, showOnlyInFullScreen: Bool = false) {
+    func addMessage(_ msg: String, isEmptyDataMsg: Bool = false) {
         let msgInfo = XNUIMessageData(msg: msg)
         msgInfo.msgCount = msg.count
         msgInfo.msgSize = msg.lengthOfBytes(using: .utf8)
-        if showOnlyInFullScreen {
-            msgInfo.showOnlyInFullScreen = showOnlyInFullScreen
-        } else if msgInfo.msgSize > XNUIConstants.msgCellMaxAllowedSize {
-            // Data size is too large, cannot be displayed in cell.
+        if msgInfo.msgSize > XNUIConstants.msgCellMaxAllowedSize {
+            // Data size is too large, not a good idea to displayed in cell.
             msgInfo.showOnlyInFullScreen = true
+        }
+        msgInfo.isEmptyDataMsg = isEmptyDataMsg
+        messages.append(msgInfo)
+    }
+    
+    func addData(_ data: Data, fileMeta: XNFileMeta, suggestedFileName: String? = nil) {
+        let msgInfo = XNUIMessageData(msg: "")
+        msgInfo.data = data
+        msgInfo.msgCount = data.count
+        msgInfo.msgSize = msgInfo.msgCount
+        msgInfo.fileMeta = fileMeta
+        msgInfo.showOnlyInFullScreen = true
+        /**
+         If unable to get extension from mimeType/sniff then
+         try to get file extension from suggested file name.
+         */
+        if fileMeta.ext == nil, let fileName = suggestedFileName {
+            msgInfo.fileMeta?.ext = fileName.components(separatedBy: ".").last
         }
         messages.append(msgInfo)
     }

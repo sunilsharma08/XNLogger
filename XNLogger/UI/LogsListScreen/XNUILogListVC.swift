@@ -13,7 +13,7 @@ class XNUILogListVC: XNUIBaseViewController {
     @IBOutlet weak var logListTableView: UITableView!
     @IBOutlet weak var emptyMsgLabel: UILabel!
     
-    private var logsDataDict: [String: XNLogData] {
+    private var logsDataDict: [String: XNUILogInfo] {
         return XNUIManager.shared.getLogsDataDict()
     }
     
@@ -29,6 +29,7 @@ class XNUILogListVC: XNUIBaseViewController {
         
         NotificationCenter.default.addObserver(self, selector: #selector(updateLoggerUI), name: XNUIConstants.logDataUpdtNotificationName, object: nil)
         updateLoggerUI()
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -88,7 +89,7 @@ class XNUILogListVC: XNUIBaseViewController {
     /**
      Return `XNLogData` for given index path.
      */
-    func getLogData(indexPath: IndexPath) -> XNLogData? {
+    func getLogData(indexPath: IndexPath) -> XNUILogInfo? {
         if let index = getLogIdArrayIndex(for: indexPath) {
             return logsDataDict[logsIdArray[index]]
         }
@@ -99,6 +100,7 @@ class XNUILogListVC: XNUIBaseViewController {
         DispatchQueue.main.async {
             self.logListTableView.reloadData()
             self.emptyMsgLabel.isHidden = !self.logsIdArray.isEmpty
+            self.navigationItem.leftBarButtonItem?.customView?.isHidden = !self.emptyMsgLabel.isHidden
         }
     }
 
@@ -145,7 +147,7 @@ extension XNUILogListVC: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if let logData = getLogData(indexPath: indexPath),
             let detailController = XNUILogDetailVC.instance() {
-            detailController.logData = logData
+            detailController.logInfo = logData
             self.navigationController?.pushViewController(detailController, animated: true)
         }
     }

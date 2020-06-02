@@ -40,12 +40,12 @@ class XNAppUtils {
         return "\(XNAppUtils.logIdentifier)"
     }
     
-    func getMimeEnum(from dataBytes: [UInt8]) -> XNContentType {
-        return mimeChecker.getMimeType(from: dataBytes)
+    func getFileMeta(from dataBytes: [UInt8]) -> XNFileMeta {
+        return mimeChecker.getFileMeta(from: dataBytes)
     }
     
-    func getMimeEnum(from mimeString: String?) -> XNContentType {
-        return mimeChecker.getMimeType(from: mimeString)
+    func getFileMeta(from mimeString: String?) -> XNFileMeta {
+        return mimeChecker.getFileMeta(from: mimeString)
     }
     
     func isContentTypeReadable(_ contentType: XNContentType) -> Bool {
