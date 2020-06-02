@@ -272,7 +272,10 @@ class XNMIMEChecker {
         "audio/mp4": "m4a",
         "audio/webm": "weba",
         "audio/3gpp": "3gp",
-        "audio/3gpp2": "3g2"
+        "audio/3gpp2": "3g2",
+        /**Miscellaneous*/
+        "application/rtf": "rtf",
+        "application/xml": "xml"
     ]
     
     static let maxDataNeed: Int = 16
@@ -375,6 +378,8 @@ class XNMIMEChecker {
             return .pdf
         case "json":
             return .json
+        case "xml":
+            return .text
         case "x-www-form-urlencoded":
             return .urlencoded
         default:
