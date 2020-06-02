@@ -50,7 +50,7 @@ struct XNFileMeta {
     // Offset for signature read
     let offset: Int
     let signature: [UInt8]
-    let ext: String?
+    var ext: String?
     let mimeType: String?
     let contentType: XNContentType
     
@@ -251,7 +251,8 @@ class XNMIMEChecker {
         "video/x-ms-wmv": "wmv",
         "application/vnd.rn-recording": "rec",
         "video/x-msvideo": "avi",
-        "video/ogg": "ogv",
+        "video/ogg": "ogg",
+        "video/ogv": "ogv",
         "video/mp2t": "ts",
         "video/webm": "webm",
         "video/3gpp2": "3g2",
@@ -265,7 +266,8 @@ class XNMIMEChecker {
         "audio/wav": "wav",
         "audio/x-wav": "wav",
         "audio/midi": "midi",
-        "audio/oga": "ogg",
+        "audio/oga": "oga",
+        "audio/ogg": "ogg",
         "audio/x-realaudio": "ra",
         "audio/mp4": "m4a",
         "audio/webm": "weba",

@@ -193,7 +193,7 @@ class NLUILogDataConverter {
                         headerInfo.addMessage("\(key) = \(value)")
                     }
                 } else {
-                    headerInfo.addMessage("Header field is empty")
+                    headerInfo.addMessage("Header field is empty", isEmptyDataMsg: true)
                 }
                 requestLogs.append(headerInfo)
                 
@@ -204,7 +204,7 @@ class NLUILogDataConverter {
                     if XNAppUtils.shared.isContentTypeReadable(self.logData.reqstContentMeta.contentType) {
                         httpBodyInfo.addMessage("\(httpBody)")
                     } else if self.formatter.logUnreadableReqstBody, let httpBodyData = self.logData.urlRequest.getHttpBodyData() {
-                        httpBodyInfo.addData(httpBodyData)
+                        httpBodyInfo.addData(httpBodyData, fileMeta: self.logData.respContentMeta)
                     } else {
                         httpBodyInfo.addMessage(self.logData.reqstContentMeta.contentType.getName() + " data")
                     }
@@ -261,7 +261,7 @@ class NLUILogDataConverter {
                         let str = jsonUtil.getJSONStringORStringFrom(jsonData: data, prettyPrint: self.formatter.prettyPrintJSON)
                         responseInfo.addMessage(str)
                     } else if self.formatter.logUnreadableRespBody, let responseData = self.logData.receivedData {
-                        responseInfo.addData(responseData)
+                        responseInfo.addData(responseData, fileMeta: self.logData.respContentMeta, suggestedFileName: self.logData.response?.suggestedFilename)
                     } else {
                         responseInfo.addMessage(self.logData.respContentMeta.contentType.getName() + " data")
                     }

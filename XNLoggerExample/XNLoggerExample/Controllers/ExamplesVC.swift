@@ -139,7 +139,6 @@ extension ExamplesVC {
                         DispatchQueue.main.async(execute: { completion?(false, nil) })
                     }
                 } else { DispatchQueue.main.async(execute: { completion?(false, nil) }) }
-                // UIApplication.shared.isNetworkActivityIndicatorVisible = false
             }).resume()
         } else { DispatchQueue.main.async(execute: { completion?(false, nil) }) }
     }
@@ -183,7 +182,7 @@ extension ExamplesVC {
         var myInt = 77
         var dataNumber = Data(bytes: &myInt,
                              count: MemoryLayout.size(ofValue: myInt))
-        urlRequest.httpBody = jsonData
+//        urlRequest.httpBody = jsonData
         let session = URLSession.shared
         
         session.dataTask(with: urlRequest) { (data, urlResponse, error) in
@@ -252,11 +251,32 @@ extension ExamplesVC {
     }
     
     @IBAction func clickedOnResumeDownload(_ sender: Any) {
-//        print(#function)
         
         guard let button = sender as? UIButton
             else { return }
-        print("Button tag \(button.tag)")
+        /**
+         Video Urls
+         https://file-examples.com/wp-content/uploads/2018/04/file_example_AVI_480_750kB.avi
+         http://file-examples.com/wp-content/uploads/2017/04/file_example_MP4_640_3MG.mp4
+         https://file-examples.com/wp-content/uploads/2018/04/file_example_OGG_480_1_7mg.ogg
+         https://file-examples.com/wp-content/uploads/2018/04/file_example_MOV_480_700kB.mov
+         https://docs.google.com/uc?export=download&id=1NmdZuEQmxyYgptuPJtacoFC3d8Yj8bQY
+         http://techslides.com/demos/sample-videos/small.3gp
+         
+         PDF
+         https://file-examples.com/wp-content/uploads/2017/10/file-sample_150kB.pdf
+         Images
+         https://file-examples.com/wp-content/uploads/2017/10/file_example_JPG_100kB.jpg
+         https://file-examples.com/wp-content/uploads/2017/10/file_example_PNG_500kB.png
+         https://file-examples.com/wp-content/uploads/2017/10/file_example_GIF_500kB.gif
+         https://file-examples.com/wp-content/uploads/2017/10/file_example_TIFF_1MB.tiff
+         https://file-examples.com/wp-content/uploads/2017/10/file_example_favicon.ico
+         https://file-examples.com/wp-content/uploads/2020/03/file_example_SVG_20kB.svg
+         https://file-examples.com/wp-content/uploads/2020/03/file_example_WEBP_50kB.webp
+         
+         Audio
+         https://file-examples.com/wp-content/uploads/2017/11/file_example_MP3_700KB.mp3
+         */
         let url = URL(string: "http://file-examples.com/wp-content/uploads/2017/04/file_example_MP4_640_3MG.mp4")!
         let configuration = URLSessionConfiguration.default
         let session = URLSession(configuration: configuration, delegate: self, delegateQueue: nil)
@@ -297,7 +317,7 @@ extension ExamplesVC {
             })
         } else if button.tag == 2 {
             button.setTitle("Downloading...", for: .normal)
-//            print("Resume url = \(session.)")
+            
             resumeDownloadtask = session.downloadTask(withResumeData: resumeData!, completionHandler: { (dataUrl, response, error) in
                 
                 DispatchQueue.main.async {
@@ -313,7 +333,6 @@ extension ExamplesVC {
     }
     
     @IBAction func clickedOnBackgroundDownload(_ sender: Any) {
-//        print(#function)
         
         let url = URL(string: "http://doanarae.com/doanarae/8880-5k-desktop-wallpaper_23842.jpg")!
         let configuration = URLSessionConfiguration.background(withIdentifier: "com.\(UUID().uuidString)")

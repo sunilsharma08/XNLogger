@@ -30,6 +30,7 @@ class XNUIMessageData {
     var msgSize: Int = 0
     var showOnlyInFullScreen: Bool = false
     var data: Data?
+    var fileMeta: XNFileMeta?
     
     init(msg: String) {
         self.message = msg
@@ -62,12 +63,20 @@ class XNUILogDetail {
         messages.append(msgInfo)
     }
     
-    func addData(_ data: Data) {
+    func addData(_ data: Data, fileMeta: XNFileMeta, suggestedFileName: String? = nil) {
         let msgInfo = XNUIMessageData(msg: "")
         msgInfo.data = data
         msgInfo.msgCount = data.count
         msgInfo.msgSize = msgInfo.msgCount
+        msgInfo.fileMeta = fileMeta
         msgInfo.showOnlyInFullScreen = true
+        /**
+         If unable to get extension from mimeType/sniff then
+         try to get file extension from suggested file name.
+         */
+        if fileMeta.ext == nil, let fileName = suggestedFileName {
+            msgInfo.fileMeta?.ext = fileName.components(separatedBy: ".").last
+        }
         messages.append(msgInfo)
     }
 }

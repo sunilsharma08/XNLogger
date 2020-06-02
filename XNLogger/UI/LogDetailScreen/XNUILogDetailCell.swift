@@ -74,7 +74,8 @@ class XNUILogDetailCell: UITableViewCell {
             if messageData.data == nil {
                 self.logDetailMsg.attributedText = getAttrString(title: "\nData size is too big.\n", subTitle: "\nClick to view data.\n")
             } else {
-                self.logDetailMsg.attributedText = getAttrString(title: "\nMultimedia data detected.\n", subTitle: "\nClick to preview data.\n")
+                let contentTypeName = messageData.fileMeta?.contentType.getName() ?? ""
+                self.logDetailMsg.attributedText = getAttrString(title: "\nMultimedia data detected.\n(\(contentTypeName))\n", subTitle: "\nClick to preview data.\n")
             }
         }
     }

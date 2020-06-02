@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
-    <device id="retina4_7" orientation="portrait">
-        <adaptation id="fullscreen"/>
-    </device>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
-        <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <deployment version="4352" identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -13,6 +11,7 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="XNUIResponseFullScreenVC" customModule="XNLogger" customModuleProvider="target">
             <connections>
                 <outlet property="activityIndicator" destination="068-eH-txs" id="iOR-fR-vHB"/>
+                <outlet property="mediaWebView" destination="ePM-dS-Zqm" id="ds7-wN-qNj"/>
                 <outlet property="msgTextView" destination="frV-R0-J0d" id="Ahx-EY-Z26"/>
                 <outlet property="view" destination="W1X-06-lpV" id="hbF-TX-76A"/>
             </connections>
@@ -22,10 +21,18 @@
             <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
+                <wkWebView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ePM-dS-Zqm">
+                    <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                    <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <wkWebViewConfiguration key="configuration" allowsInlineMediaPlayback="YES">
+                        <audiovisualMediaTypes key="mediaTypesRequiringUserActionForPlayback" audio="YES" video="YES"/>
+                        <wkPreferences key="preferences" minimumFontSize="6"/>
+                    </wkWebViewConfiguration>
+                </wkWebView>
                 <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="frV-R0-J0d">
-                    <rect key="frame" x="3" y="20" width="369" height="641"/>
+                    <rect key="frame" x="3" y="0.0" width="369" height="661"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                    <mutableString key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</mutableString>
+                    <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                     <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                 </textView>
@@ -35,9 +42,13 @@
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <constraints>
+                <constraint firstItem="SHG-ng-dMT" firstAttribute="trailing" secondItem="ePM-dS-Zqm" secondAttribute="trailing" id="1pi-5P-Oqg"/>
+                <constraint firstItem="SHG-ng-dMT" firstAttribute="bottom" secondItem="ePM-dS-Zqm" secondAttribute="bottom" id="34D-iU-tc4"/>
                 <constraint firstItem="SHG-ng-dMT" firstAttribute="trailing" secondItem="frV-R0-J0d" secondAttribute="trailing" constant="3" id="6by-we-qg8"/>
                 <constraint firstItem="SHG-ng-dMT" firstAttribute="bottom" secondItem="frV-R0-J0d" secondAttribute="bottom" constant="6" id="9Ff-Wa-SHb"/>
+                <constraint firstItem="ePM-dS-Zqm" firstAttribute="leading" secondItem="SHG-ng-dMT" secondAttribute="leading" id="BHe-bK-bQ0"/>
                 <constraint firstItem="068-eH-txs" firstAttribute="centerY" secondItem="W1X-06-lpV" secondAttribute="centerY" id="Mpm-x3-I3I"/>
+                <constraint firstItem="ePM-dS-Zqm" firstAttribute="top" secondItem="SHG-ng-dMT" secondAttribute="top" id="P7m-DJ-WmM"/>
                 <constraint firstItem="068-eH-txs" firstAttribute="centerX" secondItem="W1X-06-lpV" secondAttribute="centerX" id="Ygl-YE-2Nr"/>
                 <constraint firstItem="frV-R0-J0d" firstAttribute="top" secondItem="SHG-ng-dMT" secondAttribute="top" id="cJ3-Z6-A6q"/>
                 <constraint firstItem="frV-R0-J0d" firstAttribute="leading" secondItem="SHG-ng-dMT" secondAttribute="leading" constant="3" id="vBe-yK-aBq"/>

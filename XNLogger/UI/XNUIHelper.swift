@@ -149,7 +149,7 @@ class XNUIFileService {
     
     func getTempDirectory() -> URL? {
         let tempDirUrl = URL(fileURLWithPath: NSTemporaryDirectory(),
-                             isDirectory: true).appendingPathComponent("Multimedia")
+                             isDirectory: true).appendingPathComponent("XNLogger/Multimedia")
         if FileManager.default.fileExists(atPath: tempDirUrl.path) {
             return tempDirUrl
         } else {
@@ -163,13 +163,23 @@ class XNUIFileService {
         return nil
     }
     
-    func writeMedia(data: Data, completion: () -> Void) {
-        DispatchQueue.global(qos: .userInitiated).async {
+    func writeMedia(data: Data, ext: String, completion: @escaping (_ fileURL: URL?) -> Void) {
+        DispatchQueue.global(qos: .userInitiated).async {[weak self] in
+            guard let self = self else { return }
+            
             if let tempUrl = self.getTempDirectory() {
-                let fileUrl = tempUrl.appendingPathComponent(UUID().uuidString)
-                data.sniffMimeEnum()
+                let fileUrl = tempUrl.appendingPathComponent("\(UUID().uuidString).\(ext)")
+                try? data.write(to: fileUrl)
+                completion(fileUrl)
+            } else {
+                completion(nil)
             }
         }
     }
     
+    func removeFile(url: URL) {
+        DispatchQueue.global(qos: .default).async {
+            try? FileManager.default.removeItem(at: url)
+        }
+    }
 }
