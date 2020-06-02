@@ -12,7 +12,7 @@ import WebKit
 class XNUIResponseFullScreenVC: XNUIBaseViewController {
     
     @IBOutlet weak var mediaWebView: WKWebView!
-    @IBOutlet weak var msgTextView: UITextView!
+    @IBOutlet weak var msgTextView: XNUILogTextView!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
     var headerTitle: String!
