@@ -56,7 +56,6 @@ class XNUIResponseFullScreenVC: XNUIBaseViewController {
         self.activityIndicator.hidesWhenStopped = true
         self.msgTextView.text = nil
         self.mediaWebView.navigationDelegate = self
-        self.mediaWebView.customUserAgent = "XNLoggerExamples/5.0 (iPhone; CPU iPhone OS 11_2 like Mac OS X) AppleWebKit/604.4.7 (KHTML, like Gecko) ExampleApp/1.0 (iPhone)"
     }
     
     func loadData() {
