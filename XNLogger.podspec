@@ -16,6 +16,7 @@ Pod::Spec.new do |s|
   s.social_media_url   = "https://twitter.com/sunil5309"
 
   s.platform     = :ios
+  s.swift_version = '4.2'
   s.ios.deployment_target = "9.0"
   s.source       = { :git => "https://github.com/sunilsharma08/XNLogger.git", :tag => "v#{s.version}" }
 
