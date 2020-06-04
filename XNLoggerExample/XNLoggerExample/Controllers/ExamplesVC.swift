@@ -59,164 +59,40 @@ class ExamplesVC: UIViewController {
     @IBAction func clickedOnShowXNLogger() {
         XNUIManager.shared.presentNetworkLogUI()
     }
-    
-}
-
-extension String {
-    
-    func fromBase64() -> String? {
-        guard let data = Data(base64Encoded: self)
-            else { return nil }
-        
-        return String(data: data, encoding: .utf8)
-    }
-    
-    func toBase64() -> String {
-        return Data(self.utf8).base64EncodedString()
-    }
-    
-    func urlEncoded() -> String {
-        return self.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed) ?? ""
-    }
-    
-}
-
-extension Data {
-    mutating func appendString(_ string: String) {
-        let data = string.data(using: String.Encoding.utf8, allowLossyConversion: true)
-        append(data!)
-    }
 }
 
 // Data task
 extension ExamplesVC {
     
-    func generateBoundaryString() -> String {
-        return "Boundary-\(UUID().uuidString)"
-    }
-    
-    func dataUploadBodyWithParameters(_ parameters: [String: Any]?, filename: String, mimetype: String, dataKey: String, data: Data, boundary: String) -> Data {
-        var body = Data()
-        // encode parameters first
-        if parameters != nil {
-            for (key, value) in parameters! {
-                body.appendString("--\(boundary)\r\n")
-                body.appendString("Content-Disposition: form-data; name=\"\(key)\"\r\n\r\n")
-                body.appendString("\(value)\r\n")
-            }
-        }
-        
-        body.appendString("--\(boundary)\r\n")
-        body.appendString("Content-Disposition: form-data; name=\"\(dataKey)\"; filename=\"\(filename)\"\r\n")
-        body.appendString("Content-Type: \(mimetype)\r\n\r\n")
-        body.append(data)
-        body.appendString("\r\n")
-        body.appendString("--\(boundary)--\r\n")
-        
-        return body
-    }
-    
-    func uploadData(_ data: Data, toURL urlString: String, withFileKey fileKey: String, completion: ((_ success: Bool, _ result: Any?) -> Void)?) {
-        if let url = URL(string: urlString) {
-            // build request
-            let boundary = generateBoundaryString()
-            var request = URLRequest(url: url)
-            request.httpMethod = "POST"
-//            request.setValue("multipart/form-data; boundary=\(boundary)", forHTTPHeaderField: "Content-Type")
-//            request.setValue("application/json", forHTTPHeaderField: "Accept")
-            
-            // build body
-            let body = dataUploadBodyWithParameters(nil, filename: "uploadimage.png", mimetype: "image/png", dataKey: fileKey, data: data, boundary: boundary)
-            request.httpBody = body
-            
-            // UIApplication.shared.isNetworkActivityIndicatorVisible = true
-            URLSession.shared.dataTask(with: request, completionHandler: { (data, response, error) -> Void in
-                if data != nil && error == nil {
-                    do {
-                        let result = try JSONSerialization.jsonObject(with: data!, options: [])
-                        DispatchQueue.main.async(execute: { completion?(true, result) })
-                    } catch {
-                        DispatchQueue.main.async(execute: { completion?(false, nil) })
-                    }
-                } else { DispatchQueue.main.async(execute: { completion?(false, nil) }) }
-            }).resume()
-        } else { DispatchQueue.main.async(execute: { completion?(false, nil) }) }
-    }
-
-    
     @IBAction func clickedOnDataHandler(_ sender: Any) {
-//        print(#function)
         
-//        let url = URL(string: "https://gorest.co.in/public-api/users?_format=json&access-token=Vy0X23HhPDdgNDNxVocmqv3NIkDTGdK93GfV")!
-
-        let url = URL(string: "http://192.168.1.4:3000/sortfilter")!
+        let url = URL(string: "https://gorest.co.in/public-api/users?_format=json&access-token=Vy0X23HhPDdgNDNxVocmqv3NIkDTGdK93GfV")!
         
         var urlRequest: URLRequest = URLRequest(url: url)
-//        urlRequest.httpMethod = "POST"
+        urlRequest.httpMethod = "POST"
         urlRequest.addValue("alloo", forHTTPHeaderField: "sabji")
         urlRequest.setValue("gjghj", forHTTPHeaderField: "llnlnoln")
         let json: [String: Any] = ["title": "AB'C",
                                    "dict": ["1":"First", "2":"Second"]]
         
         let jsonData = try? JSONSerialization.data(withJSONObject: json)
-        let dataString = Data(base64Encoded: "{\"u\":\"uiuiui\"}%".toBase64())
-        func getJsonObjectFrom(jsonData: Data) throws -> Any {
-            if (!JSONSerialization.isValidJSONObject(jsonData)) {
-                print("is not a valid json object")
-            }
-            do {
-                let jsonObj = try JSONSerialization.jsonObject(with: jsonData, options: [.allowFragments])
-                return jsonObj
-            } catch let parseError {
-                print("NL: JSON serialization error: \(parseError)")
-                throw parseError
-            }
-        }
-        do {
-            let test = try getJsonObjectFrom(jsonData: dataString ?? Data())
-        }
-        catch let error as NSError {
-            print("Rtuigug = \(error.localizedDescription)")
-        }
-        
-        var myInt = 77
-        var dataNumber = Data(bytes: &myInt,
-                             count: MemoryLayout.size(ofValue: myInt))
-//        urlRequest.httpBody = jsonData
+        urlRequest.httpBody = jsonData
         let session = URLSession.shared
         
         session.dataTask(with: urlRequest) { (data, urlResponse, error) in
             print(self.getJSONFrom(data: data) ?? "")
         }.resume()
-//        let url = "http://server/upload"
-//        let img = UIImage(named: "water.png") ?? UIImage()
-//        let data: Data = img.pngData() ?? Data()
-////
-//        uploadData(data, toURL: "https://httpbin.org/post", withFileKey: "profileImage", completion: nil)
-        
-//        uploadImageToServerFromApp(nameOfApi: "https://gorest.co.in/public-api/users?_format=json&access-token=Vy0X23HhPDdgNDNxVocmqv3NIkDTGdK93GfV", uploadedImage: UIImage(named: "water.png") ?? UIImage())
-        
     }
     
     @IBAction func clickedOnDataDelegate(_ sender: Any) {
-//        print(#function)
         
         let url = URL(string: "https://httpbin.org/get")!
-        
         let configuration = URLSessionConfiguration.ephemeral
-        
         let session = URLSession(configuration: configuration, delegate: self, delegateQueue: nil)
         
         let task = session.dataTask(with: URLRequest(url: url))
         task.resume()
-        
-//        if let logger = customLogger {
-//            NetworkLogger.shared.removeHandlers([logger])
-//        }
-//        customLogger = nil
-//        customLogger = nil
     }
-    
     
 }
 
@@ -224,7 +100,6 @@ extension ExamplesVC {
 extension ExamplesVC {
     
     @IBAction func clickedOnDownloadHandler(_ sender: Any) {
-        print(#function)
         
         let url = URL(string: "https://source.unsplash.com/collection/400620/250x350")!
         let configuration = URLSessionConfiguration.default
@@ -233,16 +108,10 @@ extension ExamplesVC {
             print("Downloaded file url \(fileUrl?.absoluteString ?? "nil")")
         }
         task.resume()
-        
-//        if let viewController = self.storyboard?.instantiateViewController(withIdentifier: "SecondViewController") as? SecondViewController {
-//            viewController.controller = self
-//            self.navigationController?.pushViewController(viewController, animated: true)
-//        }
-        
     }
     
     @IBAction func clickedOnDownloadDelegate(_ sender: Any) {
-        print(#function)
+        
         let url = URL(string: "https://source.unsplash.com/collection/400620/250x350")!
         let configuration = URLSessionConfiguration.default
         let session = URLSession(configuration: configuration, delegate: self, delegateQueue: nil)
@@ -367,7 +236,6 @@ extension ExamplesVC {
 extension ExamplesVC {
     
     @IBAction func clickedOnUploadHandler(_ sender: Any) {
-//        print(#function)
         
         let url = URL(string: "https://httpbin.org/post")!
         var uploadURLRequest = URLRequest(url: url)
@@ -396,7 +264,6 @@ extension ExamplesVC {
     }
     
     @IBAction func clickedOnUploadDelegate(_ sender: Any) {
-//        print(#function)
         
         let url = URL(string: "https://httpbin.org/post")!
         var uploadURLRequest = URLRequest(url: url)
@@ -412,18 +279,9 @@ extension ExamplesVC {
         
         let jsonData = try? JSONSerialization.data(withJSONObject: uploadDict)
         uploadURLRequest.httpBody = jsonData
-        let uploadData = try? JSONEncoder().encode(uploadDict)
         
-        guard let data = uploadData
-            else {
-                print("Unable to create upload data")
-                return
-        }
         let task = session.dataTask(with: uploadURLRequest)
         task.resume()
-        
-//        let uploadTask = session.uploadTask(with: uploadURLRequest, from: data)
-//        uploadTask.resume()
     }
 }
 
@@ -441,5 +299,4 @@ extension ExamplesVC: URLSessionDelegate {
     public func urlSessionDidFinishEvents(forBackgroundURLSession session: URLSession) {
         print(#function)
     }
-    
 }
