@@ -44,7 +44,7 @@ class XNUIResponseFullScreenVC: XNUIBaseViewController {
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         
-        if self.navigationController?.viewControllers.index(of: self) == nil {
+        if self.navigationController?.viewControllers.firstIndex(of: self) == nil {
             if let fileURL = self.mediaWebView.url {
                 fileService.removeFile(url: fileURL)
             }
