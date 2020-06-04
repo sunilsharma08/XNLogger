@@ -67,7 +67,8 @@ class XNUIResponseFullScreenVC: XNUIBaseViewController {
             self.msgTextView.isHidden = false
             self.msgTextView.text = logData.message
             self.hideActivityIndicator()
-        } else if let contentData = self.logData.data, let ext = self.logData.fileMeta?.ext {
+        } else if let contentData = self.logData.data {
+            let ext = self.logData.fileMeta?.ext ?? "txt"
             self.mediaWebView.isHidden = false
             self.msgTextView.isHidden = true
             

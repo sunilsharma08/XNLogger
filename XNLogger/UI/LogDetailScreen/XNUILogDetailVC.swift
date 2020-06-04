@@ -204,11 +204,12 @@ class NLUILogDataConverter {
                     if XNAppUtils.shared.isContentTypeReadable(self.logData.reqstContentMeta.contentType) {
                         httpBodyInfo.addMessage("\(httpBody)")
                     } else if self.formatter.logUnreadableReqstBody, let httpBodyData = self.logData.urlRequest.getHttpBodyData() {
-                        httpBodyInfo.addData(httpBodyData, fileMeta: self.logData.respContentMeta)
+                        httpBodyInfo.addData(httpBodyData, fileMeta: self.logData.reqstContentMeta)
                     } else {
                         httpBodyInfo.addMessage(self.logData.reqstContentMeta.contentType.getName() + " data")
                     }
-                } else {
+                }
+                else {
                     httpBodyInfo.addMessage("Http body is empty", isEmptyDataMsg: true)
                 }
                 
