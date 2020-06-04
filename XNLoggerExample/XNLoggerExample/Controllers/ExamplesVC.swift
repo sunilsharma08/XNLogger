@@ -76,6 +76,13 @@ extension ExamplesVC {
                                    "dict": ["1":"First", "2":"Second"]]
         
         let jsonData = try? JSONSerialization.data(withJSONObject: json)
+        /**
+        // Check application/x-www-form-urlencoded
+         
+        let myParams = "username=user1&password=12345"
+        let postData = myParams.data(using: String.Encoding.ascii, allowLossyConversion: true)
+        urlRequest.setValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
+        */
         urlRequest.httpBody = jsonData
         let session = URLSession.shared
         
