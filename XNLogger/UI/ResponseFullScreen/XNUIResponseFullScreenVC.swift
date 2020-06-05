@@ -44,7 +44,7 @@ class XNUIResponseFullScreenVC: XNUIBaseViewController {
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         
-        if self.navigationController?.viewControllers.index(of: self) == nil {
+        if self.navigationController?.viewControllers.firstIndex(of: self) == nil {
             if let fileURL = self.mediaWebView.url {
                 fileService.removeFile(url: fileURL)
             }
@@ -56,7 +56,6 @@ class XNUIResponseFullScreenVC: XNUIBaseViewController {
         self.activityIndicator.hidesWhenStopped = true
         self.msgTextView.text = nil
         self.mediaWebView.navigationDelegate = self
-        self.mediaWebView.customUserAgent = "XNLoggerExamples/5.0 (iPhone; CPU iPhone OS 11_2 like Mac OS X) AppleWebKit/604.4.7 (KHTML, like Gecko) ExampleApp/1.0 (iPhone)"
     }
     
     func loadData() {
@@ -68,7 +67,8 @@ class XNUIResponseFullScreenVC: XNUIBaseViewController {
             self.msgTextView.isHidden = false
             self.msgTextView.text = logData.message
             self.hideActivityIndicator()
-        } else if let contentData = self.logData.data, let ext = self.logData.fileMeta?.ext {
+        } else if let contentData = self.logData.data {
+            let ext = self.logData.fileMeta?.ext ?? "txt"
             self.mediaWebView.isHidden = false
             self.msgTextView.isHidden = true
             

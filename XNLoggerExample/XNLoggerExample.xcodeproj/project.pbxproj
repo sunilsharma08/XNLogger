@@ -17,6 +17,7 @@
 		10A9493F2335FAD40055C326 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10A9493E2335FAD40055C326 /* AppDelegate.swift */; };
 		10A949462335FAD50055C326 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 10A949452335FAD50055C326 /* Assets.xcassets */; };
 		10A949572335FB0B0055C326 /* XNLoggerExampleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10A949562335FB0B0055C326 /* XNLoggerExampleTests.swift */; };
+		6577C0C0248938B500DCE479 /* Groundwork.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6577C0BF248938B500DCE479 /* Groundwork.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -57,6 +58,7 @@
 		10A949542335FB0A0055C326 /* XNLoggerExampleTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = XNLoggerExampleTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		10A949562335FB0B0055C326 /* XNLoggerExampleTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XNLoggerExampleTests.swift; sourceTree = "<group>"; };
 		10A949582335FB0B0055C326 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		6577C0BF248938B500DCE479 /* Groundwork.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Groundwork.swift; sourceTree = "<group>"; };
 		89EA698803D4EE30FC5AE3D6 /* Pods-XNLoggerExample.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-XNLoggerExample.release.xcconfig"; path = "Target Support Files/Pods-XNLoggerExample/Pods-XNLoggerExample.release.xcconfig"; sourceTree = "<group>"; };
 		BD5EFFCAB66AD3FF9DA80BBF /* Pods-XNLoggerExample.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-XNLoggerExample.debug.xcconfig"; path = "Target Support Files/Pods-XNLoggerExample/Pods-XNLoggerExample.debug.xcconfig"; sourceTree = "<group>"; };
 		D2CADF7EDB282AEEBEF1EE1A /* Pods_XNLoggerExample.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_XNLoggerExample.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -95,6 +97,7 @@
 			isa = PBXGroup;
 			children = (
 				10281DCA2335FF8300016ABF /* ExamplesVC.swift */,
+				6577C0BF248938B500DCE479 /* Groundwork.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -301,6 +304,7 @@
 			files = (
 				10A9493F2335FAD40055C326 /* AppDelegate.swift in Sources */,
 				10281DCD2335FF8300016ABF /* ExamplesVC.swift in Sources */,
+				6577C0C0248938B500DCE479 /* Groundwork.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -400,6 +404,7 @@
 				SDKROOT = iphoneos;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
 			};
 			name = Debug;
 		};
@@ -454,6 +459,7 @@
 				SDKROOT = iphoneos;
 				SWIFT_COMPILATION_MODE = wholemodule;
 				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 5.0;
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
@@ -475,7 +481,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "XNLoggerExample/XNLoggerExample-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -496,7 +502,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.sunilsharma.XNLoggerExample;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "XNLoggerExample/XNLoggerExample-Bridging-Header.h";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
@@ -514,7 +520,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.sunilsharma.XNLoggerExampleTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/XNLoggerExample.app/XNLoggerExample";
 			};
@@ -533,7 +539,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.sunilsharma.XNLoggerExampleTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/XNLoggerExample.app/XNLoggerExample";
 			};

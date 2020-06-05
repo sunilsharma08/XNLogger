@@ -38,8 +38,17 @@ class XNUILogListVC: XNUIBaseViewController {
     }
     
     func configureViews() {
-        self.navigationItem.rightBarButtonItem = createNavButton(imageName: "close", action: #selector(dismissNetworkUI), imageInsets: UIEdgeInsets(top: 16, left: 28, bottom: 15, right: 2))
-        self.navigationItem.leftBarButtonItem = createNavButton(imageName: "trash", action: #selector(clearLogs), imageInsets: UIEdgeInsets(top: 10, left: 0, bottom: 14, right: 24))
+        self.navigationItem.rightBarButtonItem = createNavButton(
+            imageName: "close",
+            action: #selector(dismissNetworkUI),
+            imageInsets: UIEdgeInsets(top: 28, left: 32, bottom: 18, right: 2),
+            buttonFrame: CGRect(x:-7, y: -10, width: 60, height: 60))
+        
+        self.navigationItem.leftBarButtonItem = createNavButton(
+            imageName: "trash",
+            action: #selector(clearLogs),
+            imageInsets: UIEdgeInsets(top: 10, left: 0, bottom: 14, right: 24),
+            buttonFrame: CGRect(x: 0, y: 0, width: 45, height: 45))
         self.navigationController?.navigationBar.layoutIfNeeded()
         self.tabBarController?.tabBar.barTintColor = .white
         
@@ -51,10 +60,10 @@ class XNUILogListVC: XNUIBaseViewController {
         
     }
     
-    func createNavButton(imageName: String, action: Selector, imageInsets: UIEdgeInsets) -> UIBarButtonItem {
+    func createNavButton(imageName: String, action: Selector, imageInsets: UIEdgeInsets, buttonFrame: CGRect) -> UIBarButtonItem {
         let customView = UIView(frame: CGRect(x: 0, y: 0, width: 45, height: 45))
         customView.backgroundColor = UIColor.clear
-        let customButton = UIButton(frame: CGRect(x: 0, y: 0, width: customView.frame.width, height: customView.frame.height))
+        let customButton = UIButton(frame: buttonFrame)
         customButton.tintColor = UIColor(red: 239/255.0, green: 239/255.0, blue: 239/255.0, alpha: 1)
         customButton.imageView?.contentMode = .scaleAspectFit
         customButton.imageEdgeInsets = imageInsets
