@@ -13,6 +13,12 @@ enum XNUIDetailViewType {
     case response
 }
 
+enum XNUIShareOption {
+    case request
+    case response
+    case reqtAndResp
+}
+
 class XNUILogDetailVC: XNUIBaseViewController {
     
     class func instance() -> XNUILogDetailVC? {
@@ -43,6 +49,8 @@ class XNUILogDetailVC: XNUIBaseViewController {
     private func configureViews() {
         self.navigationItem.title = "Log details"
         self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .action, target: self, action: #selector(clickedOnMoreOptions))
+        
         self.view.layoutIfNeeded()
         
         if (requestView == nil) {
@@ -70,13 +78,15 @@ class XNUILogDetailVC: XNUIBaseViewController {
         loadData {
             DispatchQueue.main.async { self.selectDefaultTab() }
         }
-        
     }
     
     private func selectDefaultTab() {
         self.responseView?.isHidden = false
         self.requestView?.isHidden = true
-        clickedOnRequest(self.requestBtn)
+        if let requestBtn = self.requestBtn {
+            clickedOnRequest(requestBtn)
+        }
+        
         DispatchQueue.global(qos: .userInitiated).async { [weak self] in
             guard let self = self else { return }
             
@@ -148,6 +158,68 @@ class XNUILogDetailVC: XNUIBaseViewController {
         unSelButton.layer.borderColor = UIColor(white: 0.9, alpha: 1).cgColor
         unSelButton.layer.borderWidth = 1
         
+    }
+    
+    @objc func clickedOnMoreOptions() {
+        
+        let actionSheet = UIAlertController(title: "Actions", message: nil, preferredStyle: .actionSheet)
+        
+        actionSheet.addAction(UIAlertAction(title: "Share Request and Response", style: .default , handler:{ (alertAction) in
+            self.showShareController(shareOption: .reqtAndResp)
+        }))
+        
+        actionSheet.addAction(UIAlertAction(title: "Share Response", style: .default , handler: { (alertAction) in
+            self.showShareController(shareOption: .response)
+        }))
+        
+        actionSheet.addAction(UIAlertAction(title: "Share Request", style: .default , handler: { (alertAction) in
+            self.showShareController(shareOption: .request)
+        }))
+        
+        actionSheet.addAction(UIAlertAction(title: "Cancel", style: .cancel , handler: { (alertAction) in
+            actionSheet.dismiss(animated: true, completion: nil)
+        }))
+        
+        present(actionSheet, animated: true, completion: nil)
+    }
+    
+    func showShareController(shareOption: XNUIShareOption) {
+        
+        func showError(message: String = "Unable to perform action.") {
+            XNUIHelper().showError(on: self, message: "Unable to perform action.")
+        }
+        
+        var shareList: [XNUILogDetail] = []
+        switch shareOption {
+        case .request:
+            if let reqList = requestView?.detailsArray {
+                shareList.append(contentsOf: reqList)
+            } else {
+                showError()
+            }
+        case .response:
+            if let respList = responseView?.detailsArray {
+                shareList.append(contentsOf: respList)
+            } else {
+                showError()
+            }
+        case .reqtAndResp:
+            if let reqList = requestView?.detailsArray, let respList = responseView?.detailsArray {
+                shareList.append(contentsOf: reqList)
+                shareList.append(contentsOf: respList)
+            } else {
+                showError()
+            }
+        }
+        let shareDetails = XNUIShareData(logDetails: shareList)
+        let ac = UIActivityViewController(activityItems: [shareDetails], applicationActivities: nil)
+        ac.completionWithItemsHandler = {(activityType, completed, returnedItems, activityError) in
+            shareDetails.clean()
+            if let error = activityError {
+                showError(message: error.localizedDescription)
+            }
+        }
+        present(ac, animated: true)
     }
 }
 
@@ -274,7 +346,7 @@ class NLUILogDataConverter {
                 
                 let respMetaInfo: XNUILogDetail = XNUILogDetail(title: "Response Meta Info")
                 if self.formatter.showRespMetaInfo.isEmpty == false {
-                    let respHeaderInfo: XNUILogDetail = XNUILogDetail(title: "Response headers fields:")
+                    let respHeaderInfo: XNUILogDetail = XNUILogDetail(title: "Response headers fields")
                     let response = self.logData.response
                     for property in self.formatter.showRespMetaInfo {
                         

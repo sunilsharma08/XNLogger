@@ -93,6 +93,8 @@ public class XNLogData: NSObject, NSCoding {
             self.state = .canceling
         case .completed:
             self.state = .completed
+        @unknown default:
+            self.state = .unknown
         }
     }
     
