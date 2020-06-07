@@ -80,26 +80,15 @@ class XNUIResponseFullScreenVC: XNUIBaseViewController {
                         self.mediaWebView.loadFileURL(fileURL, allowingReadAccessTo: fileURL.deletingLastPathComponent())
                     } else {
                         self.hideActivityIndicator()
-                        self.showError(message: "Something went wrong while processing file.")
+                        XNUIHelper().showError(on: self, message: "Something went wrong while processing file.")
                     }
                 }
             }
         }
         else {
             self.hideActivityIndicator()
-            self.showError(message: "Something went wrong while processing file.")
+            XNUIHelper().showError(on: self, message: "Something went wrong while processing file.")
         }
-    }
-    
-    func showError(title: String = "Error", message: String) {
-        let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
-        
-        let okAction = UIAlertAction(title: "Ok", style: .default) { (action) in
-            alertController.dismiss(animated: true, completion: nil)
-        }
-        
-        alertController.addAction(okAction)
-        self.present(alertController, animated: true, completion: nil)
     }
     
     func showActivityIndicator() {

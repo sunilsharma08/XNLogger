@@ -80,3 +80,59 @@ class XNUILogDetail {
         messages.append(msgInfo)
     }
 }
+
+class XNUIShareData: NSObject, UIActivityItemSource {
+    
+    var logDetails: [XNUILogDetail] = []
+    var tempFileURL: URL?
+    var tempFileName: String = "XNLogger-log-\(XNUIHelper().randomString(length: 5)).txt"
+    
+    init(logDetails: [XNUILogDetail]) {
+        super.init()
+        self.logDetails = logDetails
+    }
+    
+    func clean() {
+        if let fileUrl = tempFileURL {
+            XNUIFileService().removeFile(url: fileUrl)
+        }
+    }
+    
+    //MARK:- UIActivityItemSource
+    func activityViewControllerPlaceholderItem(_ activityViewController: UIActivityViewController) -> Any {
+        return "Share XNLogger Logs"
+    }
+    
+    func activityViewController(_ activityViewController: UIActivityViewController, itemForActivityType activityType: UIActivity.ActivityType?) -> Any? {
+        
+        var shareMsg: String = ""
+        for log in logDetails {
+            shareMsg.append("\(log.title):-")
+            for detail in log.messages {
+                shareMsg.append("\n\(detail.message)")
+            }
+            shareMsg.append("\n\n")
+        }
+        
+        if let tempURL = XNUIFileService().getTempDirectory()?.appendingPathComponent(tempFileName) {
+            tempFileURL = tempURL
+            do {
+                try shareMsg.write(to: tempURL, atomically: true, encoding: String.Encoding.utf8)
+                return tempURL
+            } catch {
+                return shareMsg
+            }
+        } else {
+            return shareMsg
+        }
+    }
+    
+    func activityViewController(_ activityViewController: UIActivityViewController, subjectForActivityType activityType: UIActivity.ActivityType?) -> String {
+        
+        if let bundleInfoDict = Bundle.main.infoDictionary,
+            let appName = bundleInfoDict["CFBundleName"] as? String {
+            return "\(appName) network log"
+        }
+        return "Network log"
+    }
+}

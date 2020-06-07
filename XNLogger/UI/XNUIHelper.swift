@@ -66,6 +66,22 @@ final class XNUIConstants {
 }
 
 class XNUIHelper {
+    
+    func randomString(length: Int) -> String {
+        let letters = "abcdefghijklmnopqrstuvwxyz0123456789"
+        return String((0..<length).map{ _ in letters.randomElement() ?? "x" })
+    }
+    
+    func showError(on: UIViewController, title: String = "Error", message: String) {
+        let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        
+        let okAction = UIAlertAction(title: "Ok", style: .default) { (action) in
+            alertController.dismiss(animated: true, completion: nil)
+        }
+        
+        alertController.addAction(okAction)
+        on.present(alertController, animated: true, completion: nil)
+    }
 }
 
 class XNUIFileService {
