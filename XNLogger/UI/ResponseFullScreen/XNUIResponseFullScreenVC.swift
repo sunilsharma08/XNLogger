@@ -110,7 +110,7 @@ class XNUIResponseFullScreenVC: XNUIBaseViewController {
         }
         
         guard let shareItem = shareDetails else {
-            XNUIHelper().showError(on: self, message: "Unable to perform action.")
+            self.helper.showError(on: self, message: "Unable to perform action.")
             return
         }
         let ac = UIActivityViewController(activityItems: [shareItem], applicationActivities: nil)
@@ -124,7 +124,7 @@ class XNUIResponseFullScreenVC: XNUIBaseViewController {
                 shareItem.clean()
             }
             if let error = activityError {
-                XNUIHelper().showError(on: self, message: error.localizedDescription)
+                self.helper.showError(on: self, message: error.localizedDescription)
             }
         }
         present(ac, animated: true)
