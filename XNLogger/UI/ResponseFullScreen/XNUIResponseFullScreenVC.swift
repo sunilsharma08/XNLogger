@@ -13,13 +13,13 @@ class XNUIResponseFullScreenVC: XNUIBaseViewController {
     
     @IBOutlet weak var mediaWebView: WKWebView!
     @IBOutlet weak var msgTextView: XNUILogTextView!
-    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
     var headerTitle: String!
     var logData: XNUIMessageData!
     let fileService: XNUIFileService = XNUIFileService()
     var isFirstLoad: Bool = true
     var mediaFileUrl: URL?
+    let helper: XNUIHelper = XNUIHelper()
     
     class func controller(title: String, logData: XNUIMessageData) -> XNUIResponseFullScreenVC? {
         let controller = XNUIResponseFullScreenVC(nibName: String(describing: self), bundle: Bundle.current())
@@ -54,7 +54,6 @@ class XNUIResponseFullScreenVC: XNUIBaseViewController {
     
     func configureViews() {
         self.navigationItem.title = headerTitle
-        self.activityIndicator.hidesWhenStopped = true
         self.msgTextView.text = nil
         self.mediaWebView.navigationDelegate = self
         // Show share icon
@@ -63,13 +62,13 @@ class XNUIResponseFullScreenVC: XNUIBaseViewController {
     
     func loadData() {
         self.view.layoutIfNeeded()
-        self.showActivityIndicator()
+        helper.showActivityIndicator(on: self.view)
         // Check for readable text
         if logData.message.isEmpty == false {
             self.mediaWebView.isHidden = true
             self.msgTextView.isHidden = false
             self.msgTextView.text = logData.message
-            self.hideActivityIndicator()
+            self.helper.hideActivityIndicator(from: self.view)
         } else if let contentData = self.logData.data {
             let ext = self.logData.fileMeta?.ext ?? "txt"
             self.mediaWebView.isHidden = false
@@ -83,26 +82,16 @@ class XNUIResponseFullScreenVC: XNUIBaseViewController {
                     if let fileURL = fileUrl {
                         self.mediaWebView.loadFileURL(fileURL, allowingReadAccessTo: fileURL.deletingLastPathComponent())
                     } else {
-                        self.hideActivityIndicator()
-                        XNUIHelper().showError(on: self, message: "Something went wrong while processing file.")
+                        self.helper.hideActivityIndicator(from: self.view)
+                        self.helper.showError(on: self, message: "Something went wrong while processing file.")
                     }
                 }
             }
         }
         else {
-            self.hideActivityIndicator()
-            XNUIHelper().showError(on: self, message: "Something went wrong while processing file.")
+            self.helper.hideActivityIndicator(from: self.view)
+            self.helper.showError(on: self, message: "Something went wrong while processing file.")
         }
-    }
-    
-    func showActivityIndicator() {
-        self.view.bringSubviewToFront(activityIndicator)
-        self.activityIndicator.startAnimating()
-    }
-    
-    func hideActivityIndicator() {
-        self.view.sendSubviewToBack(activityIndicator)
-        self.activityIndicator.stopAnimating()
     }
     
     @objc func clickedOnMoreOptions() {
@@ -149,10 +138,10 @@ class XNUIResponseFullScreenVC: XNUIBaseViewController {
 extension XNUIResponseFullScreenVC: WKNavigationDelegate {
     
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
-        self.hideActivityIndicator()
+        helper.showActivityIndicator(on: self.view)
     }
     
     func webView(_ webView: WKWebView, didFail navigation: WKNavigation!, withError error: Error) {
-        self.hideActivityIndicator()
+        helper.hideActivityIndicator(from: self.view)
     }
 }

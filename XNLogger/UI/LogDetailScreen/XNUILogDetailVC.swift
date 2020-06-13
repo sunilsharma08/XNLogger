@@ -30,7 +30,6 @@ class XNUILogDetailVC: XNUIBaseViewController {
     @IBOutlet weak var requestBtn: UIButton!
     @IBOutlet weak var responseBtn: UIButton!
     @IBOutlet weak var contentView: UIView!
-    @IBOutlet weak var activityIndicatorView: UIActivityIndicatorView!
     
     var logInfo: XNUILogInfo?
     private var requestView: XNUILogDetailView?
@@ -52,7 +51,6 @@ class XNUILogDetailVC: XNUIBaseViewController {
         self.navigationItem.title = "Log details"
         self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .action, target: self, action: #selector(clickedOnMoreOptions))
-        self.activityIndicatorView.isHidden = true
         self.view.layoutIfNeeded()
         
         if (requestView == nil) {

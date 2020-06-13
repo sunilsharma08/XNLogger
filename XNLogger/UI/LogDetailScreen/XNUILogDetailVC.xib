@@ -10,7 +10,6 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="XNUILogDetailVC" customModule="XNLogger" customModuleProvider="target">
             <connections>
-                <outlet property="activityIndicatorView" destination="PCX-Bt-TCZ" id="k4m-H7-UgD"/>
                 <outlet property="contentView" destination="Ir6-Ni-XN5" id="zYE-3N-Okq"/>
                 <outlet property="requestBtn" destination="m9H-kb-koW" id="lia-Hq-Ifa"/>
                 <outlet property="responseBtn" destination="Usb-Nd-Roa" id="Pyb-7S-Qkw"/>
@@ -85,21 +84,11 @@
                     <rect key="frame" x="0.0" y="37" width="375" height="630"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                 </view>
-                <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="medium" translatesAutoresizingMaskIntoConstraints="NO" id="PCX-Bt-TCZ">
-                    <rect key="frame" x="177.5" y="323.5" width="20" height="20"/>
-                    <constraints>
-                        <constraint firstAttribute="height" constant="20" id="OTA-lg-CZC"/>
-                        <constraint firstAttribute="width" constant="20" id="eZE-Eg-p9o"/>
-                    </constraints>
-                    <color key="color" cocoaTouchSystemColor="darkTextColor"/>
-                </activityIndicatorView>
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
                 <constraint firstItem="Ir6-Ni-XN5" firstAttribute="top" secondItem="kdo-az-mVv" secondAttribute="bottom" id="25K-Vb-DfE"/>
                 <constraint firstItem="kdo-az-mVv" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="2yF-sS-Koe"/>
-                <constraint firstItem="PCX-Bt-TCZ" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="Gat-sE-WED"/>
-                <constraint firstItem="PCX-Bt-TCZ" firstAttribute="centerY" secondItem="i5M-Pr-FkT" secondAttribute="centerY" id="Iw0-qc-dUV"/>
                 <constraint firstItem="kdo-az-mVv" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="aHD-W5-sRL"/>
                 <constraint firstItem="kdo-az-mVv" firstAttribute="trailing" secondItem="fnl-2z-Ty3" secondAttribute="trailing" id="cWA-9R-s2X"/>
                 <constraint firstItem="Ir6-Ni-XN5" firstAttribute="trailing" secondItem="fnl-2z-Ty3" secondAttribute="trailing" id="dcl-TD-SgB"/>
