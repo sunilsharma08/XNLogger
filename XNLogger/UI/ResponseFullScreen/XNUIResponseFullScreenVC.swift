@@ -19,6 +19,7 @@ class XNUIResponseFullScreenVC: XNUIBaseViewController {
     var logData: XNUIMessageData!
     let fileService: XNUIFileService = XNUIFileService()
     var isFirstLoad: Bool = true
+    var mediaFileUrl: URL?
     
     class func controller(title: String, logData: XNUIMessageData) -> XNUIResponseFullScreenVC? {
         let controller = XNUIResponseFullScreenVC(nibName: String(describing: self), bundle: Bundle.current())
@@ -45,7 +46,7 @@ class XNUIResponseFullScreenVC: XNUIBaseViewController {
         super.viewWillDisappear(animated)
         
         if self.navigationController?.viewControllers.firstIndex(of: self) == nil {
-            if let fileURL = self.mediaWebView.url {
+            if let fileURL = self.mediaFileUrl {
                 fileService.removeFile(url: fileURL)
             }
         }
@@ -56,6 +57,8 @@ class XNUIResponseFullScreenVC: XNUIBaseViewController {
         self.activityIndicator.hidesWhenStopped = true
         self.msgTextView.text = nil
         self.mediaWebView.navigationDelegate = self
+        // Show share icon
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .action, target: self, action: #selector(self.clickedOnMoreOptions))
     }
     
     func loadData() {
@@ -76,6 +79,7 @@ class XNUIResponseFullScreenVC: XNUIBaseViewController {
                 guard let self = self else { return }
                 
                 DispatchQueue.main.async {
+                    self.mediaFileUrl = fileUrl
                     if let fileURL = fileUrl {
                         self.mediaWebView.loadFileURL(fileURL, allowingReadAccessTo: fileURL.deletingLastPathComponent())
                     } else {
@@ -99,6 +103,46 @@ class XNUIResponseFullScreenVC: XNUIBaseViewController {
     func hideActivityIndicator() {
         self.view.sendSubviewToBack(activityIndicator)
         self.activityIndicator.stopAnimating()
+    }
+    
+    @objc func clickedOnMoreOptions() {
+        showShareController()
+    }
+    
+    func showShareController() {
+        
+        var shareDetails: XNUIShareData? = nil
+        
+        if self.logData.message.isEmpty == false {
+            let logDetail = XNUILogDetail(title: headerTitle, messageData: logData)
+            shareDetails = XNUIShareData(logDetails: [logDetail])
+        } else if let fileURL = self.mediaFileUrl {
+            shareDetails = XNUIShareData(fileURL: fileURL)
+        }
+        
+        guard let shareItem = shareDetails else {
+            XNUIHelper().showError(on: self, message: "Unable to perform action.")
+            return
+        }
+        let ac = UIActivityViewController(activityItems: [shareItem], applicationActivities: nil)
+        ac.completionWithItemsHandler = {[weak self] (activityType, completed, returnedItems, activityError) in
+            guard let self = self else {
+                shareItem.clean()
+                return
+            }
+            
+            if self.logData.message.isEmpty == false {
+                shareItem.clean()
+            }
+            if let error = activityError {
+                XNUIHelper().showError(on: self, message: error.localizedDescription)
+            }
+        }
+        present(ac, animated: true)
+    }
+    
+    deinit {
+        print("\(type(of: self)) \(#function)")
     }
 }
 

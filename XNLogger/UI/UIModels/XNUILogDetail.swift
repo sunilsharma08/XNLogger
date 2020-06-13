@@ -51,6 +51,11 @@ class XNUILogDetail {
         addMessage(message)
     }
     
+    convenience init(title: String, messageData: XNUIMessageData) {
+        self.init(title: title)
+        self.messages = [messageData]
+    }
+    
     func addMessage(_ msg: String, isEmptyDataMsg: Bool = false) {
         let msgInfo = XNUIMessageData(msg: msg)
         msgInfo.msgCount = msg.count
@@ -86,10 +91,18 @@ class XNUIShareData: NSObject, UIActivityItemSource {
     var logDetails: [XNUILogDetail] = []
     var tempFileURL: URL?
     var tempFileName: String = "XNLogger-log-\(XNUIHelper().randomString(length: 5)).txt"
+    var useExsitingFile: Bool = false
+    var processedStr: String = ""
     
     init(logDetails: [XNUILogDetail]) {
         super.init()
         self.logDetails = logDetails
+    }
+    
+    init(fileURL: URL) {
+        super.init()
+        self.tempFileURL = fileURL
+        self.useExsitingFile = true
     }
     
     func clean() {
@@ -98,6 +111,46 @@ class XNUIShareData: NSObject, UIActivityItemSource {
         }
     }
     
+    func preProcess(completion: @escaping (_ completed: Bool) -> Void) {
+        DispatchQueue.global(qos: .userInteractive).async {[weak self] in
+            guard let self = self else { return }
+            
+            if self.useExsitingFile, let _ = self.tempFileURL {
+                completion(true)
+            }
+            
+            var shareMsg: String = ""
+            for log in self.logDetails {
+                if log.title.isEmpty == false {
+                    shareMsg.append("\(log.title):\n")
+                }
+                
+                for detail in log.messages {
+                    if detail.message.isEmpty, let logData = detail.data {
+                        shareMsg.append("\(logData.hexEncodedString())\n")
+                    } else {
+                        shareMsg.append("\(detail.message)\n")
+                    }
+                }
+                shareMsg.append("\n")
+            }
+            
+            if let tempURL = XNUIFileService().getTempDirectory()?.appendingPathComponent(self.tempFileName) {
+                
+                do {
+                    try shareMsg.write(to: tempURL, atomically: true, encoding: String.Encoding.utf8)
+                    self.tempFileURL = tempURL
+                } catch {
+                    self.processedStr = shareMsg
+                }
+            } else {
+                self.processedStr = shareMsg
+            }
+            completion(true)
+        }
+    }
+    
+    
     //MARK:- UIActivityItemSource
     func activityViewControllerPlaceholderItem(_ activityViewController: UIActivityViewController) -> Any {
         return "Share XNLogger Logs"
@@ -105,25 +158,10 @@ class XNUIShareData: NSObject, UIActivityItemSource {
     
     func activityViewController(_ activityViewController: UIActivityViewController, itemForActivityType activityType: UIActivity.ActivityType?) -> Any? {
         
-        var shareMsg: String = ""
-        for log in logDetails {
-            shareMsg.append("\(log.title):-")
-            for detail in log.messages {
-                shareMsg.append("\n\(detail.message)")
-            }
-            shareMsg.append("\n\n")
-        }
-        
-        if let tempURL = XNUIFileService().getTempDirectory()?.appendingPathComponent(tempFileName) {
-            tempFileURL = tempURL
-            do {
-                try shareMsg.write(to: tempURL, atomically: true, encoding: String.Encoding.utf8)
-                return tempURL
-            } catch {
-                return shareMsg
-            }
+        if let fileURL = tempFileURL {
+            return fileURL
         } else {
-            return shareMsg
+            return processedStr
         }
     }
     
@@ -134,5 +172,9 @@ class XNUIShareData: NSObject, UIActivityItemSource {
             return "\(appName) network log"
         }
         return "Network log"
+    }
+    
+    deinit {
+        print("\(type(of: self)) \(#function)")
     }
 }

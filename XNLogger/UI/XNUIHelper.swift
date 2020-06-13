@@ -62,7 +62,7 @@ final class XNUIConstants {
     static let msgCellMaxLength: Int = Int(UIScreen.main.bounds.height * 3)
     static let msgCellMaxCharCount: Int = Int(UIScreen.main.bounds.width * 0.05 * UIScreen.main.bounds.height * 0.1)
     static let msgCellMaxAllowedSize: Int = 100000
-    
+    static let activityIndicatorTag: Int = 10263
 }
 
 class XNUIHelper {
@@ -82,6 +82,49 @@ class XNUIHelper {
         alertController.addAction(okAction)
         on.present(alertController, animated: true, completion: nil)
     }
+    
+    func showActivityIndicator(on view: UIView) {
+        view.isUserInteractionEnabled = false
+        let containerView = UIView()
+        containerView.backgroundColor = UIColor.gray.withAlphaComponent(0.7)
+        containerView.frame.size = CGSize(width: 75, height: 75)
+        containerView.clipsToBounds = true
+        containerView.layer.cornerRadius = 10
+        containerView.translatesAutoresizingMaskIntoConstraints = false
+        
+        let activityIndicatorView = UIActivityIndicatorView(style: .whiteLarge)
+        activityIndicatorView.tag = XNUIConstants.activityIndicatorTag
+        activityIndicatorView.hidesWhenStopped = true
+        activityIndicatorView.translatesAutoresizingMaskIntoConstraints = false
+        
+        containerView.addSubview(activityIndicatorView)
+        view.addSubview(containerView)
+        
+        containerView.widthAnchor.constraint(equalToConstant: containerView.frame.width).isActive = true
+        containerView.heightAnchor.constraint(equalToConstant: containerView.frame.height).isActive = true
+        activityIndicatorView.widthAnchor.constraint(equalToConstant: activityIndicatorView.frame.width).isActive = true
+        activityIndicatorView.heightAnchor.constraint(equalToConstant: activityIndicatorView.frame.height).isActive = true
+        
+        containerView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        containerView.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
+        
+        activityIndicatorView.centerXAnchor.constraint(equalTo: containerView.centerXAnchor).isActive = true
+        activityIndicatorView.centerYAnchor.constraint(equalTo: containerView.centerYAnchor).isActive = true
+        containerView.layoutIfNeeded()
+        view.bringSubviewToFront(containerView)
+        activityIndicatorView.startAnimating()
+    }
+    
+    
+    func hideActivityIndicator(from view: UIView) {
+        view.isUserInteractionEnabled = true
+        if let activityIndicatorView = view.viewWithTag(XNUIConstants.activityIndicatorTag) as? UIActivityIndicatorView,
+            let activityIndicatorSuperView = activityIndicatorView.superview {
+            activityIndicatorView.stopAnimating()
+            activityIndicatorSuperView.removeFromSuperview()
+        }
+    }
+    
 }
 
 class XNUIFileService {

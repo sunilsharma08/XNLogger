@@ -26,16 +26,18 @@ class XNUILogDetailVC: XNUIBaseViewController {
         let controller = XNUILogDetailVC(nibName: String(describing: self), bundle: Bundle.current())
         return controller
     }
-
+    
     @IBOutlet weak var requestBtn: UIButton!
     @IBOutlet weak var responseBtn: UIButton!
     @IBOutlet weak var contentView: UIView!
+    @IBOutlet weak var activityIndicatorView: UIActivityIndicatorView!
     
     var logInfo: XNUILogInfo?
     private var requestView: XNUILogDetailView?
     private var responseView: XNUILogDetailView?
     private var isResponseSelected: Bool = false
     private var logDataConverter: NLUILogDataConverter?
+    private var helper: XNUIHelper = XNUIHelper()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -50,7 +52,7 @@ class XNUILogDetailVC: XNUIBaseViewController {
         self.navigationItem.title = "Log details"
         self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .action, target: self, action: #selector(clickedOnMoreOptions))
-        
+        self.activityIndicatorView.isHidden = true
         self.view.layoutIfNeeded()
         
         if (requestView == nil) {
@@ -164,16 +166,16 @@ class XNUILogDetailVC: XNUIBaseViewController {
         
         let actionSheet = UIAlertController(title: "Actions", message: nil, preferredStyle: .actionSheet)
         
-        actionSheet.addAction(UIAlertAction(title: "Share Request and Response", style: .default , handler:{ (alertAction) in
-            self.showShareController(shareOption: .reqtAndResp)
+        actionSheet.addAction(UIAlertAction(title: "Share Request and Response", style: .default , handler:{[weak self] (alertAction) in
+            self?.showShareController(shareOption: .reqtAndResp)
         }))
         
-        actionSheet.addAction(UIAlertAction(title: "Share Response", style: .default , handler: { (alertAction) in
-            self.showShareController(shareOption: .response)
+        actionSheet.addAction(UIAlertAction(title: "Share Response", style: .default , handler: {[weak self] (alertAction) in
+            self?.showShareController(shareOption: .response)
         }))
         
-        actionSheet.addAction(UIAlertAction(title: "Share Request", style: .default , handler: { (alertAction) in
-            self.showShareController(shareOption: .request)
+        actionSheet.addAction(UIAlertAction(title: "Share Request", style: .default , handler: {[weak self] (alertAction) in
+            self?.showShareController(shareOption: .request)
         }))
         
         actionSheet.addAction(UIAlertAction(title: "Cancel", style: .cancel , handler: { (alertAction) in
@@ -186,7 +188,7 @@ class XNUILogDetailVC: XNUIBaseViewController {
     func showShareController(shareOption: XNUIShareOption) {
         
         func showError(message: String = "Unable to perform action.") {
-            XNUIHelper().showError(on: self, message: "Unable to perform action.")
+            XNUIHelper().showError(on: self, message: message)
         }
         
         var shareList: [XNUILogDetail] = []
@@ -211,15 +213,34 @@ class XNUILogDetailVC: XNUIBaseViewController {
                 showError()
             }
         }
+        
         let shareDetails = XNUIShareData(logDetails: shareList)
-        let ac = UIActivityViewController(activityItems: [shareDetails], applicationActivities: nil)
-        ac.completionWithItemsHandler = {(activityType, completed, returnedItems, activityError) in
-            shareDetails.clean()
-            if let error = activityError {
-                showError(message: error.localizedDescription)
+        
+        helper.showActivityIndicator(on: self.view)
+        shareDetails.preProcess {[weak self] (completed) in
+            guard let self = self else {
+                shareDetails.clean()
+                return
+            }
+            
+            DispatchQueue.main.async {
+                self.helper.hideActivityIndicator(from: self.view)
+                
+                let shareVC = UIActivityViewController(activityItems: [shareDetails], applicationActivities: nil)
+                shareVC.completionWithItemsHandler = {(activityType, completed, returnedItems, activityError) in
+                    
+                    shareDetails.clean()
+                    if let error = activityError {
+                        XNUIHelper().showError(on: self, message: error.localizedDescription)
+                    }
+                }
+                self.present(shareVC, animated: true)
             }
         }
-        present(ac, animated: true)
+    }
+    
+    deinit {
+        print("\(type(of: self)) \(#function)")
     }
 }
 
