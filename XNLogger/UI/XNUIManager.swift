@@ -75,6 +75,9 @@ public final class XNUIManager: NSObject {
             self.logsDataDict = [:]
             self.logsIdArray.removeAll()
             self.fileService.removeLogDirectory()
+            if let tempDirURL = self.fileService.getTempDirectory() {
+                self.fileService.removeFile(url: tempDirURL)
+            }
         }
     }
     

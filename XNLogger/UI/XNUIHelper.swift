@@ -185,11 +185,7 @@ class XNUIFileService {
     func removeLogDirectory() {
         
         if let logsDir = self.getLogsDirectory() {
-            do {
-                try FileManager.default.removeItem(at: logsDir)
-            } catch let error as NSError {
-                print("XNLogger: Error while deleting logs directory - \(error.debugDescription)")
-            }
+            try? FileManager.default.removeItem(at: logsDir)
         }
     }
     
@@ -237,8 +233,6 @@ class XNUIFileService {
     }
     
     func removeFile(url: URL) {
-        DispatchQueue.global(qos: .default).async {
-            try? FileManager.default.removeItem(at: url)
-        }
+        try? FileManager.default.removeItem(at: url)
     }
 }
