@@ -84,6 +84,10 @@ class XNUIHelper {
     }
     
     func showActivityIndicator(on view: UIView) {
+        if let _ = view.viewWithTag(XNUIConstants.activityIndicatorTag) as? UIActivityIndicatorView {
+            return
+        }
+        
         view.isUserInteractionEnabled = false
         let containerView = UIView()
         containerView.backgroundColor = UIColor.gray.withAlphaComponent(0.7)

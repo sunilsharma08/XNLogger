@@ -144,7 +144,7 @@ class XNUIResponseFullScreenVC: XNUIBaseViewController {
 extension XNUIResponseFullScreenVC: WKNavigationDelegate {
     
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
-        helper.showActivityIndicator(on: self.view)
+        helper.hideActivityIndicator(from: self.view)
     }
     
     func webView(_ webView: WKWebView, didFail navigation: WKNavigation!, withError error: Error) {
