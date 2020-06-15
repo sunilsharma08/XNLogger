@@ -117,6 +117,7 @@ class XNUIShareData: NSObject, UIActivityItemSource {
             
             if self.useExsitingFile, let _ = self.tempFileURL {
                 completion(true)
+                return
             }
             
             var shareMsg: String = ""
