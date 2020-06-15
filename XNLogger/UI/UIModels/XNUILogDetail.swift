@@ -91,7 +91,6 @@ class XNUIShareData: NSObject, UIActivityItemSource {
     var logDetails: [XNUILogDetail] = []
     var tempFileURL: URL?
     var tempFileName: String = "XNLogger-log-\(XNUIHelper().randomString(length: 5)).txt"
-    var useExsitingFile: Bool = false
     var processedStr: String = ""
     
     init(logDetails: [XNUILogDetail]) {
@@ -102,7 +101,6 @@ class XNUIShareData: NSObject, UIActivityItemSource {
     init(fileURL: URL) {
         super.init()
         self.tempFileURL = fileURL
-        self.useExsitingFile = true
     }
     
     func clean() {
@@ -115,7 +113,7 @@ class XNUIShareData: NSObject, UIActivityItemSource {
         DispatchQueue.global(qos: .userInteractive).async {[weak self] in
             guard let self = self else { return }
             
-            if self.useExsitingFile, let _ = self.tempFileURL {
+            if let _ = self.tempFileURL {
                 completion(true)
                 return
             }
