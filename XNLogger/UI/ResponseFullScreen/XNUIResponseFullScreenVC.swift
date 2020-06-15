@@ -113,21 +113,27 @@ class XNUIResponseFullScreenVC: XNUIBaseViewController {
             self.helper.showError(on: self, message: "Unable to perform action.")
             return
         }
-        let ac = UIActivityViewController(activityItems: [shareItem], applicationActivities: nil)
-        ac.completionWithItemsHandler = {[weak self] (activityType, completed, returnedItems, activityError) in
+        helper.showActivityIndicator(on: self.view)
+        shareItem.preProcess {[weak self] (completed) in
             guard let self = self else {
                 shareItem.clean()
                 return
             }
-            
-            if self.logData.message.isEmpty == false {
-                shareItem.clean()
-            }
-            if let error = activityError {
-                self.helper.showError(on: self, message: error.localizedDescription)
+            DispatchQueue.main.async {
+                self.helper.hideActivityIndicator(from: self.view)
+                let shareVC = UIActivityViewController(activityItems: [shareItem], applicationActivities: nil)
+                shareVC.completionWithItemsHandler = { (activityType, completed, returnedItems, activityError) in
+                    // Clear only in case of text because a new file is created for share.
+                    if self.logData.message.isEmpty == false {
+                        shareItem.clean()
+                    }
+                    if let error = activityError {
+                        self.helper.showError(on: self, message: error.localizedDescription)
+                    }
+                }
+                self.present(shareVC, animated: true)
             }
         }
-        present(ac, animated: true)
     }
     
     deinit {
