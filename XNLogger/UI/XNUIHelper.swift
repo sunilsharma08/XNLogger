@@ -57,12 +57,12 @@ struct XNUIAppColor {
 }
 
 final class XNUIConstants {
-    static let logDataUpdtNotificationName = NSNotification.Name(rawValue: "com.xnLogger.logDataUpdateNotification")
     static let messageFont: UIFont = UIFont.systemFont(ofSize: 15)
     static let msgCellMaxLength: Int = Int(UIScreen.main.bounds.height * 3)
     static let msgCellMaxCharCount: Int = Int(UIScreen.main.bounds.width * 0.05 * UIScreen.main.bounds.height * 0.1)
     static let msgCellMaxAllowedSize: Int = 100000
     static let activityIndicatorTag: Int = 10263
+    static let logIdKey: String = "logIdentifier"
 }
 
 class XNUIHelper {
@@ -158,13 +158,14 @@ class XNUIFileService {
     /**
      Save log data(XNLogData) on disk.
      */
-    func saveLogsDataOnDisk(_ logData: XNLogData) {
+    func saveLogsDataOnDisk(_ logData: XNLogData, completion: (() -> Void)?) {
         
-        DispatchQueue.global(qos: .default).async {
+        DispatchQueue.global(qos: .userInitiated).async {
             if let logDirPath = self.getLogsDirectory() {
                 let logFileURL = logDirPath.appendingPathComponent(self.getLogFileName(for: logData.identifier))
                 NSKeyedArchiver.archiveRootObject(logData, toFile: logFileURL.path)
             }
+            completion?()
         }
     }
     

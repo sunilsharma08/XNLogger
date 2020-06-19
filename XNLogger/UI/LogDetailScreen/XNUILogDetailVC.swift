@@ -45,6 +45,9 @@ class XNUILogDetailVC: XNUIBaseViewController {
         tabBarController?.tabBar.isHidden = true
         
         configureViews()
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(didReceiveUpdate(_:)), name: .logDataUpdate, object: nil)
+        
     }
     
     private func configureViews() {
@@ -75,8 +78,11 @@ class XNUILogDetailVC: XNUIBaseViewController {
             }
         }
         
-        loadData {
-            DispatchQueue.main.async { self.selectDefaultTab() }
+        loadData {[weak self] in
+            DispatchQueue.main.async {
+                self?.selectDefaultTab()
+                self?.updateUI()
+            }
         }
     }
     
@@ -86,7 +92,21 @@ class XNUILogDetailVC: XNUIBaseViewController {
         if let requestBtn = self.requestBtn {
             clickedOnRequest(requestBtn)
         }
-        
+    }
+    
+    @objc func didReceiveUpdate(_ notification: Notification) {
+        guard let userInfo = notification.userInfo as? [String: String],
+            let logId = userInfo[XNUIConstants.logIdKey],
+            logId == logInfo?.identifier
+            else { return }
+        loadData {[weak self] in
+            DispatchQueue.main.async {
+                self?.updateUI()
+            }
+        }
+    }
+    
+    func updateUI() {
         DispatchQueue.global(qos: .userInitiated).async { [weak self] in
             guard let self = self else { return }
             
@@ -239,6 +259,7 @@ class XNUILogDetailVC: XNUIBaseViewController {
     
     deinit {
         print("\(type(of: self)) \(#function)")
+        NotificationCenter.default.removeObserver(self, name: .logDataUpdate, object: nil)
     }
 }
 
