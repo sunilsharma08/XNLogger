@@ -97,6 +97,7 @@ class XNUILogDetailVC: XNUIBaseViewController {
     @objc func didReceiveUpdate(_ notification: Notification) {
         guard let userInfo = notification.userInfo as? [String: String],
             let logId = userInfo[XNUIConstants.logIdKey],
+            /*Avoid UI update from other request notifications*/
             logId == logInfo?.identifier
             else { return }
         loadData {[weak self] in
