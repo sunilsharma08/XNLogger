@@ -47,7 +47,7 @@ internal class XNLogComposer {
             if formatter.logUnreadableReqstBody || XNAppUtils.shared.isContentTypeReadable(logData.reqstContentMeta.contentType) {
                 urlRequestStr.append("\n\(httpBody)\n")
             } else {
-                urlRequestStr.append("\n\(logData.reqstContentMeta.contentType.getName())\n")
+                urlRequestStr.append("\n\(logData.reqstContentMeta.contentType.getName()) data \n")
             }
         } else {
             urlRequestStr.append("\n\(getEmptyDataBoundary(for: "Http body is empty"))\n")
@@ -162,7 +162,7 @@ internal class XNLogComposer {
                 let str = XNJSONUtils().getJSONStringORStringFrom(jsonData: data, prettyPrint: formatter.prettyPrintJSON)
                 responseStr.append(str)
             } else {
-                responseStr.append(logData.respContentMeta.contentType.getName())
+                responseStr.append(logData.respContentMeta.contentType.getName() + " data")
             }
         }
         else {
