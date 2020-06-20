@@ -126,7 +126,7 @@ class XNUIShareData: NSObject, UIActivityItemSource {
                 
                 for detail in log.messages {
                     if detail.message.isEmpty, let logData = detail.data {
-                        shareMsg.append("\(logData.hexEncodedString())\n")
+                        shareMsg.append("\(logData.base64EncodedString())\n")
                     } else {
                         shareMsg.append("\(detail.message)\n")
                     }
