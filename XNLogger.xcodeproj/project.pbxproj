@@ -342,8 +342,8 @@
 			isa = PBXGroup;
 			children = (
 				10FC10E9231501D900F347BF /* XNUILogDetailVC.swift */,
-				104D12EC2317132D0089D7FE /* XNUILogDetailView.xib */,
 				10FC10EA231501D900F347BF /* XNUILogDetailVC.xib */,
+				104D12EC2317132D0089D7FE /* XNUILogDetailView.xib */,
 				104D12EA2317131D0089D7FE /* XNUILogDetailView.swift */,
 				104D12EE231714E70089D7FE /* XNUILogDetailHeaderCell.swift */,
 				104D12EF231714E70089D7FE /* XNUILogDetailHeaderCell.xib */,

@@ -75,6 +75,9 @@ public final class XNUIManager: NSObject {
             self.logsDataDict = [:]
             self.logsIdArray.removeAll()
             self.fileService.removeLogDirectory()
+            if let tempDirURL = self.fileService.getTempDirectory() {
+                self.fileService.removeFile(url: tempDirURL)
+            }
         }
     }
     
@@ -128,13 +131,27 @@ extension XNUIManager: XNUILogDataDelegate {
     func receivedLogData(_ logData: XNLogData, isResponse: Bool) {
         
         logsActionThread.async(flags: .barrier) {
-            self.fileService.saveLogsDataOnDisk(logData)
             if isResponse == false {
+                // Request
                 self.logsIdArray.append(logData.identifier)
             }
             self.logsDataDict[logData.identifier] = self.getXNUILogInfoModel(from: logData)
-            NotificationCenter.default.post(name: XNUIConstants.logDataUpdtNotificationName, object: nil, userInfo: nil)
+            
+            if isResponse == false {
+                // Request
+                self.fileService.saveLogsDataOnDisk(logData, completion: nil)
+                DispatchQueue.main.async {
+                    NotificationCenter.default.post(name: .logDataUpdate, object: nil, userInfo: [XNUIConstants.logIdKey: logData.identifier])
+                }
+            } else {
+                // Response
+                self.fileService.saveLogsDataOnDisk(logData) {
+                    // Post response notification on completion of write operation
+                    DispatchQueue.main.async {
+                        NotificationCenter.default.post(name: .logDataUpdate, object: nil, userInfo: [XNUIConstants.logIdKey: logData.identifier])
+                    }
+                }
+            }
         }
     }
-    
 }

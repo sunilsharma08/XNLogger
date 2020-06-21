@@ -27,7 +27,7 @@ class XNUILogListVC: XNUIBaseViewController {
         self.tabBarController?.tabBar.isHidden = true
         self.hidesBottomBarWhenPushed = true
         
-        NotificationCenter.default.addObserver(self, selector: #selector(updateLoggerUI), name: XNUIConstants.logDataUpdtNotificationName, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(updateLoggerUI), name: .logDataUpdate, object: nil)
         updateLoggerUI()
         
     }
@@ -114,7 +114,8 @@ class XNUILogListVC: XNUIBaseViewController {
     }
 
     deinit {
-        NotificationCenter.default.removeObserver(self, name: XNUIConstants.logDataUpdtNotificationName, object: nil)
+        print("\(type(of: self)) \(#function)")
+        NotificationCenter.default.removeObserver(self, name: .logDataUpdate, object: nil)
     }
 }
 

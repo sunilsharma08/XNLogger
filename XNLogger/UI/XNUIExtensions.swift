@@ -83,3 +83,7 @@ extension String {
         return boundingBox.height
     }
 }
+
+extension NSNotification.Name {
+    static let logDataUpdate = NSNotification.Name("com.xnLogger.logDataUpdateNotification")
+}

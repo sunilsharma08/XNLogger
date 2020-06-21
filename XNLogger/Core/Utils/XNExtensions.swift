@@ -184,4 +184,8 @@ extension Data {
         copyBytes(to: &magicNumbers, count: XNMIMEChecker.maxDataNeed)
         return XNAppUtils.shared.getFileMeta(from: magicNumbers)
     }
+    
+    func hexEncodedString() -> String {
+        return map { String(format: "%02hhx", $0) }.joined()
+    }
 }

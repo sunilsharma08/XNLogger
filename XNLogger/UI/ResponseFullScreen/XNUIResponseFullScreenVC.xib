@@ -10,7 +10,6 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="XNUIResponseFullScreenVC" customModule="XNLogger" customModuleProvider="target">
             <connections>
-                <outlet property="activityIndicator" destination="068-eH-txs" id="iOR-fR-vHB"/>
                 <outlet property="mediaWebView" destination="ePM-dS-Zqm" id="ds7-wN-qNj"/>
                 <outlet property="msgTextView" destination="frV-R0-J0d" id="Ahx-EY-Z26"/>
                 <outlet property="view" destination="W1X-06-lpV" id="hbF-TX-76A"/>
@@ -36,9 +35,6 @@
                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                     <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                 </textView>
-                <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="068-eH-txs">
-                    <rect key="frame" x="177.5" y="323.5" width="20" height="20"/>
-                </activityIndicatorView>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <constraints>
@@ -47,9 +43,7 @@
                 <constraint firstItem="SHG-ng-dMT" firstAttribute="trailing" secondItem="frV-R0-J0d" secondAttribute="trailing" constant="3" id="6by-we-qg8"/>
                 <constraint firstItem="SHG-ng-dMT" firstAttribute="bottom" secondItem="frV-R0-J0d" secondAttribute="bottom" constant="6" id="9Ff-Wa-SHb"/>
                 <constraint firstItem="ePM-dS-Zqm" firstAttribute="leading" secondItem="SHG-ng-dMT" secondAttribute="leading" id="BHe-bK-bQ0"/>
-                <constraint firstItem="068-eH-txs" firstAttribute="centerY" secondItem="W1X-06-lpV" secondAttribute="centerY" id="Mpm-x3-I3I"/>
                 <constraint firstItem="ePM-dS-Zqm" firstAttribute="top" secondItem="SHG-ng-dMT" secondAttribute="top" id="P7m-DJ-WmM"/>
-                <constraint firstItem="068-eH-txs" firstAttribute="centerX" secondItem="W1X-06-lpV" secondAttribute="centerX" id="Ygl-YE-2Nr"/>
                 <constraint firstItem="frV-R0-J0d" firstAttribute="top" secondItem="SHG-ng-dMT" secondAttribute="top" id="cJ3-Z6-A6q"/>
                 <constraint firstItem="frV-R0-J0d" firstAttribute="leading" secondItem="SHG-ng-dMT" secondAttribute="leading" constant="3" id="vBe-yK-aBq"/>
             </constraints>
