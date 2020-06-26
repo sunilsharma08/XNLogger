@@ -32,6 +32,7 @@ public final class XNUIManager: NSObject {
     private var logsIdArray: [String] = []
     private var logsActionThread = DispatchQueue.init(label: "XNUILoggerLogListActionThread", qos: .userInteractive, attributes: .concurrent)
     private let fileService: XNUIFileService = XNUIFileService()
+    private var logWindow: XNUIWindow?
     
     private override init() {
         super.init()
@@ -39,6 +40,8 @@ public final class XNUIManager: NSObject {
         self.uiLogHandler.delegate = self
         // Previous logs
         XNUIFileService().removeLogDirectory()
+        
+        XNLogger.shared.addLogHandlers([XNConsoleLogHandler.create()])
     }
     
     // Return current root view controller
@@ -57,17 +60,20 @@ public final class XNUIManager: NSObject {
             
             if let tabbarVC = UIStoryboard.mainStoryboard().instantiateViewController(withIdentifier: "nlMainTabBarController") as? UITabBarController {
                 tabbarVC.modalPresentationStyle = .fullScreen
-                presentingViewController.present(tabbarVC, animated: true, completion: nil)
+                logWindow = XNUIWindow(frame: UIScreen.main.bounds)
+                logWindow?.present(rootVC: tabbarVC)
+//                presentingViewController.present(tabbarVC, animated: true, completion: nil)
             }
         }
     }
     
     // Dismiss network logger UI
     @objc public func dismissNetworkUI() {
-        
-        if let presentingViewController = self.presentingViewController as? XNUIBaseTabBarController {
-            presentingViewController.dismiss(animated: true, completion: nil)
-        }
+        logWindow?.dismiss()
+        logWindow = nil
+//        if let presentingViewController = self.presentingViewController as? XNUIBaseTabBarController {
+//            presentingViewController.dismiss(animated: true, completion: nil)
+//        }
     }
     
     @objc public func clearLogs() {

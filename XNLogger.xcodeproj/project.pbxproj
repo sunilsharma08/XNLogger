@@ -60,6 +60,7 @@
 		4AB65FD2711F23689A523C45 /* Pods_XNLogger.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6E2A8787D51D4750F5E58B0D /* Pods_XNLogger.framework */; };
 		6547BEF42437CEF5001F7B4D /* XNUIResponseFullScreenVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6547BEF32437CEF5001F7B4D /* XNUIResponseFullScreenVC.swift */; };
 		6547BEF72437D023001F7B4D /* XNUIResponseFullScreenVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6547BEF62437D023001F7B4D /* XNUIResponseFullScreenVC.xib */; };
+		65B90C3824A0F07E0007FAF0 /* XNUIWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65B90C3724A0F07E0007FAF0 /* XNUIWindow.swift */; };
 		975BF47A0FBC015433F3A430 /* Pods_XNLoggerTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DD1DC70CEE51FE911722686D /* Pods_XNLoggerTests.framework */; };
 /* End PBXBuildFile section */
 
@@ -131,6 +132,7 @@
 		10FC10EA231501D900F347BF /* XNUILogDetailVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = XNUILogDetailVC.xib; sourceTree = "<group>"; };
 		6547BEF32437CEF5001F7B4D /* XNUIResponseFullScreenVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XNUIResponseFullScreenVC.swift; sourceTree = "<group>"; };
 		6547BEF62437D023001F7B4D /* XNUIResponseFullScreenVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = XNUIResponseFullScreenVC.xib; sourceTree = "<group>"; };
+		65B90C3724A0F07E0007FAF0 /* XNUIWindow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XNUIWindow.swift; sourceTree = "<group>"; };
 		6E2A8787D51D4750F5E58B0D /* Pods_XNLogger.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_XNLogger.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		7131FAE48986EDB635C3304F /* Pods-XNLogger.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-XNLogger.debug.xcconfig"; path = "Pods/Target Support Files/Pods-XNLogger/Pods-XNLogger.debug.xcconfig"; sourceTree = "<group>"; };
 		C0006DBBB3F7A78BE736997C /* Pods_XNLoggerExample.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_XNLoggerExample.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -238,6 +240,7 @@
 				10F8A9BC230E761400C17B4A /* XNUIExtensions.swift */,
 				101CA0B2230F23300063B0CF /* XNUIBaseViewController.swift */,
 				10289E75230FCE4A00FDE204 /* XNUILogHandler.swift */,
+				65B90C3724A0F07E0007FAF0 /* XNUIWindow.swift */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -568,6 +571,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				65B90C3824A0F07E0007FAF0 /* XNUIWindow.swift in Sources */,
 				108576A721FDD662008ABD2B /* XNAppConstants.swift in Sources */,
 				1090C206230724DC00575550 /* XNUILogListVC.swift in Sources */,
 				108576AE21FDD662008ABD2B /* URLRequest+cURL.swift in Sources */,

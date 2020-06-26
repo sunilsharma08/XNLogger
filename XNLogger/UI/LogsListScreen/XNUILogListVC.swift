@@ -50,6 +50,10 @@ class XNUILogListVC: XNUIBaseViewController {
             imageInsets: UIEdgeInsets(top: 10, left: 0, bottom: 14, right: 24),
             buttonFrame: CGRect(x: 0, y: 0, width: 45, height: 45))
         self.navigationController?.navigationBar.layoutIfNeeded()
+        let add = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(updateLoggerUI))
+        let spacer = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: self, action: nil)
+        toolbarItems = [add, spacer]
+        navigationController?.setToolbarHidden(false, animated: false)
         self.tabBarController?.tabBar.barTintColor = .white
         
         self.logListTableView.tableFooterView = UIView()
