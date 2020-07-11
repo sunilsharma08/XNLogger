@@ -9,7 +9,7 @@
 import UIKit
 
 class XNUILogListVC: XNUIBaseViewController {
-
+    
     @IBOutlet weak var logListTableView: UITableView!
     @IBOutlet weak var emptyMsgLabel: UILabel!
     
@@ -24,8 +24,6 @@ class XNUILogListVC: XNUIBaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.configureViews()
-        self.tabBarController?.tabBar.isHidden = true
-        self.hidesBottomBarWhenPushed = true
         
         NotificationCenter.default.addObserver(self, selector: #selector(updateLoggerUI), name: .logDataUpdate, object: nil)
         updateLoggerUI()
@@ -34,23 +32,22 @@ class XNUILogListVC: XNUIBaseViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.navigationController?.navigationBar.titleTextAttributes = [.foregroundColor: XNUIAppColor.navLogo, .font: UIFont.systemFont(ofSize: 24, weight: .semibold)]
+        
+        self.headerView?.setTitle("XNLogger", attributes: [.foregroundColor: XNUIAppColor.navTint, .font: UIFont.systemFont(ofSize: 24, weight: .semibold)])
     }
     
     func configureViews() {
-        self.navigationItem.rightBarButtonItem = createNavButton(
-            imageName: "close",
-            action: #selector(dismissNetworkUI),
-            imageInsets: UIEdgeInsets(top: 28, left: 32, bottom: 18, right: 2),
-            buttonFrame: CGRect(x:-7, y: -10, width: 60, height: 60))
+        let closeButton = helper.createNavButton(
+                        imageName: "close",
+                        imageInsets: UIEdgeInsets(top: 18, left: 27, bottom: 10, right: 5))
+        closeButton.addTarget(self, action: #selector(dismissNetworkUI), for: .touchUpInside)
+        let clearLogsButton = helper.createNavButton(
+                            imageName: "trash",
+                            imageInsets: UIEdgeInsets(top: 10, left: 2, bottom: 10, right: 21))
+        clearLogsButton.addTarget(self, action: #selector(clearLogs), for: .touchUpInside)
         
-        self.navigationItem.leftBarButtonItem = createNavButton(
-            imageName: "trash",
-            action: #selector(clearLogs),
-            imageInsets: UIEdgeInsets(top: 10, left: 0, bottom: 14, right: 24),
-            buttonFrame: CGRect(x: 0, y: 0, width: 45, height: 45))
-        self.navigationController?.navigationBar.layoutIfNeeded()
-        self.tabBarController?.tabBar.barTintColor = .white
+        self.headerView?.addRightBarItems([closeButton])
+        self.headerView?.addleftBarItems([clearLogsButton])
         
         self.logListTableView.tableFooterView = UIView()
         self.logListTableView.register(ofType: XNUILogListTableViewCell.self)
@@ -58,21 +55,6 @@ class XNUILogListVC: XNUIBaseViewController {
         self.logListTableView.delegate = self
         self.emptyMsgLabel.text = "No network logs found!"
         
-    }
-    
-    func createNavButton(imageName: String, action: Selector, imageInsets: UIEdgeInsets, buttonFrame: CGRect) -> UIBarButtonItem {
-        let customView = UIView(frame: CGRect(x: 0, y: 0, width: 45, height: 45))
-        customView.backgroundColor = UIColor.clear
-        let customButton = UIButton(frame: buttonFrame)
-        customButton.tintColor = UIColor(red: 239/255.0, green: 239/255.0, blue: 239/255.0, alpha: 1)
-        customButton.imageView?.contentMode = .scaleAspectFit
-        customButton.imageEdgeInsets = imageInsets
-        customButton.setImage(UIImage(named: imageName, in: Bundle.current(), compatibleWith: nil), for: .normal)
-        customButton.addTarget(self, action: action, for: .touchUpInside)
-        
-        customView.addSubview(customButton)
-        
-        return UIBarButtonItem(customView: customView)
     }
     
     @objc func dismissNetworkUI() {
@@ -112,7 +94,7 @@ class XNUILogListVC: XNUIBaseViewController {
             self.navigationItem.leftBarButtonItem?.customView?.isHidden = !self.emptyMsgLabel.isHidden
         }
     }
-
+    
     deinit {
         print("\(type(of: self)) \(#function)")
         NotificationCenter.default.removeObserver(self, name: .logDataUpdate, object: nil)

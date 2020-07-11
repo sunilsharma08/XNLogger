@@ -36,25 +36,26 @@ class XNUILogDetailVC: XNUIBaseViewController {
     private var responseView: XNUILogDetailView?
     private var isResponseSelected: Bool = false
     private var logDataConverter: NLUILogDataConverter?
-    private var helper: XNUIHelper = XNUIHelper()
+    private var moreOptionBtn: UIButton?
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         edgesForExtendedLayout = []
         automaticallyAdjustsScrollViewInsets = false
-        tabBarController?.tabBar.isHidden = true
-        
-        configureViews()
-        
         NotificationCenter.default.addObserver(self, selector: #selector(didReceiveUpdate(_:)), name: .logDataUpdate, object: nil)
         
+        configureViews()
     }
     
     private func configureViews() {
-        self.navigationItem.title = "Log details"
-        self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .action, target: self, action: #selector(clickedOnMoreOptions))
-        self.view.layoutIfNeeded()
+        self.headerView?.setTitle("Log details")
+        self.headerView?.addBackButton(target: self.navigationController, selector: #selector(self.navigationController?.popViewController(animated:)))
+        let moreOptionBtn = helper.createNavButton(imageName: "menu", imageInsets: UIEdgeInsets(top: 12, left: 18, bottom: 12, right: 6))
+        moreOptionBtn.addTarget(self, action: #selector(clickedOnMoreOptions), for: .touchUpInside)
+        self.moreOptionBtn = moreOptionBtn
+        
+        self.headerView?.addRightBarItems([moreOptionBtn])
         
         if (requestView == nil) {
             requestView = XNUILogDetailView(frame: contentView.bounds)
@@ -77,7 +78,7 @@ class XNUILogDetailVC: XNUIBaseViewController {
                 self.contentView.addSubview(subView)
             }
         }
-        
+
         loadData {[weak self] in
             DispatchQueue.main.async {
                 self?.selectDefaultTab()
@@ -126,7 +127,7 @@ class XNUILogDetailVC: XNUIBaseViewController {
     }
     
     func loadData(completion: @escaping () -> Void) {
-        
+        print(#function)
         if let logId = self.logInfo?.identifier {
             let fileService: XNUIFileService = XNUIFileService()
             
@@ -182,26 +183,23 @@ class XNUILogDetailVC: XNUIBaseViewController {
     }
     
     @objc func clickedOnMoreOptions() {
-        
-        let actionSheet = UIAlertController(title: "Actions", message: nil, preferredStyle: .actionSheet)
-        
-        actionSheet.addAction(UIAlertAction(title: "Share Request and Response", style: .default , handler:{[weak self] (alertAction) in
-            self?.showShareController(shareOption: .reqtAndResp)
-        }))
-        
-        actionSheet.addAction(UIAlertAction(title: "Share Response", style: .default , handler: {[weak self] (alertAction) in
-            self?.showShareController(shareOption: .response)
-        }))
-        
-        actionSheet.addAction(UIAlertAction(title: "Share Request", style: .default , handler: {[weak self] (alertAction) in
-            self?.showShareController(shareOption: .request)
-        }))
-        
-        actionSheet.addAction(UIAlertAction(title: "Cancel", style: .cancel , handler: { (alertAction) in
-            actionSheet.dismiss(animated: true, completion: nil)
-        }))
-        
-        present(actionSheet, animated: true, completion: nil)
+        guard let moreOptionButton = self.moreOptionBtn else { return }
+        let popoverVC = XNUIPopOverViewController()
+        let optionItems: [XNUIOptionItem] = [
+            XNUIOptionItem(title: "Share Request and Response", type: .shareReqtAndResp),
+            XNUIOptionItem(title: "Share Request", type: .shareRequest),
+            XNUIOptionItem(title: "Share Response", type: .shareResponse)
+        ]
+        popoverVC.items = optionItems
+        popoverVC.delegate = self
+        var sourceRect = moreOptionButton.convert(moreOptionButton.frame, to: self.headerView)
+        if let headerView = self.headerView {
+            sourceRect = headerView.convert(sourceRect, to: self.view)
+        }
+        popoverVC.popoverPresentationController?.sourceRect = sourceRect
+        popoverVC.popoverPresentationController?.sourceView = self.view
+
+        self.present(popoverVC, animated: true, completion: nil)
     }
     
     func showShareController(shareOption: XNUIShareOption) {
@@ -269,6 +267,24 @@ extension XNUILogDetailVC: XNUIDetailViewDelegate {
     func showMessageFullScreen(logData: XNUIMessageData, title: String) {
         if let controller = XNUIResponseFullScreenVC.controller(title: title, logData: logData) {
             self.navigationController?.pushViewController(controller, animated: true)
+        }
+    }
+}
+
+extension XNUILogDetailVC: XNUIPopoverDelegate {
+    
+    func popover(didSelectOptionItem item: XNUIOptionItem, indexPath: IndexPath) {
+        dismiss(animated: true) {[weak self] in
+            guard let self = self else { return }
+            
+            switch item.type {
+            case .shareReqtAndResp:
+                self.showShareController(shareOption: .reqtAndResp)
+            case .shareRequest:
+                self.showShareController(shareOption: .request)
+            case .shareResponse:
+                self.showShareController(shareOption: .response)
+            }
         }
     }
 }

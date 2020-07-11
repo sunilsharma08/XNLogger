@@ -11,6 +11,7 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="XNUILogDetailVC" customModule="XNLogger" customModuleProvider="target">
             <connections>
                 <outlet property="contentView" destination="Ir6-Ni-XN5" id="zYE-3N-Okq"/>
+                <outlet property="headerView" destination="kgy-HN-MLu" id="a8n-pM-fRd"/>
                 <outlet property="requestBtn" destination="m9H-kb-koW" id="lia-Hq-Ifa"/>
                 <outlet property="responseBtn" destination="Usb-Nd-Roa" id="Pyb-7S-Qkw"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
@@ -21,8 +22,15 @@
             <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kgy-HN-MLu" customClass="XNUIHeaderView" customModule="XNLogger" customModuleProvider="target">
+                    <rect key="frame" x="0.0" y="0.0" width="375" height="45"/>
+                    <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="45" id="zlP-T3-0uf"/>
+                    </constraints>
+                </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kdo-az-mVv">
-                    <rect key="frame" x="0.0" y="0.0" width="375" height="37"/>
+                    <rect key="frame" x="0.0" y="45" width="375" height="37"/>
                     <subviews>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FsR-Tn-Z5Q">
                             <rect key="frame" x="0.0" y="0.0" width="187.5" height="37"/>
@@ -81,15 +89,18 @@
                     </constraints>
                 </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ir6-Ni-XN5">
-                    <rect key="frame" x="0.0" y="37" width="375" height="630"/>
+                    <rect key="frame" x="0.0" y="82" width="375" height="585"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                 </view>
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="kgy-HN-MLu" secondAttribute="trailing" id="1lQ-kG-KH3"/>
                 <constraint firstItem="Ir6-Ni-XN5" firstAttribute="top" secondItem="kdo-az-mVv" secondAttribute="bottom" id="25K-Vb-DfE"/>
                 <constraint firstItem="kdo-az-mVv" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="2yF-sS-Koe"/>
-                <constraint firstItem="kdo-az-mVv" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="aHD-W5-sRL"/>
+                <constraint firstItem="kgy-HN-MLu" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="9Xp-1a-26B"/>
+                <constraint firstItem="kgy-HN-MLu" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="GW9-fU-U8q"/>
+                <constraint firstItem="kdo-az-mVv" firstAttribute="top" secondItem="kgy-HN-MLu" secondAttribute="bottom" id="adp-Lo-l1v"/>
                 <constraint firstItem="kdo-az-mVv" firstAttribute="trailing" secondItem="fnl-2z-Ty3" secondAttribute="trailing" id="cWA-9R-s2X"/>
                 <constraint firstItem="Ir6-Ni-XN5" firstAttribute="trailing" secondItem="fnl-2z-Ty3" secondAttribute="trailing" id="dcl-TD-SgB"/>
                 <constraint firstItem="Ir6-Ni-XN5" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="tOI-8t-9Ro"/>
