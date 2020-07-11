@@ -52,7 +52,6 @@ struct XNUIAppColor {
     static let lightPrimary: UIColor = UIColor(red: 1, green: 147/255.0, blue: 133/255.0, alpha: 1)
     static let title: UIColor = UIColor(red: 48/255.0, green: 48/255.0, blue: 48/255.0, alpha: 1)
     static let subtitle: UIColor = UIColor(red: 130/255.0, green: 130/255.0, blue: 130/255.0, alpha: 1)
-    static let navLogo: UIColor = UIColor.white
     static let navTint: UIColor = UIColor.white
 }
 
@@ -119,7 +118,6 @@ class XNUIHelper {
         activityIndicatorView.startAnimating()
     }
     
-    
     func hideActivityIndicator(from view: UIView) {
         view.isUserInteractionEnabled = true
         if let activityIndicatorView = view.viewWithTag(XNUIConstants.activityIndicatorTag) as? UIActivityIndicatorView,
@@ -127,6 +125,27 @@ class XNUIHelper {
             activityIndicatorView.stopAnimating()
             activityIndicatorSuperView.removeFromSuperview()
         }
+    }
+    
+    func createNavButton(imageName: String, imageInsets: UIEdgeInsets = .zero) -> UIButton {
+        
+        let customButton = UIButton(type: .custom)
+        customButton.tintColor = UIColor(red: 239/255.0, green: 239/255.0, blue: 239/255.0, alpha: 1)
+        customButton.adjustsImageWhenHighlighted = false
+        customButton.imageView?.contentMode = .scaleAspectFit
+        customButton.imageEdgeInsets = imageInsets
+        customButton.setImage(UIImage(named: imageName, in: Bundle.current(), compatibleWith: nil), for: .normal)
+        
+        return customButton
+    }
+    
+    func getWindow() -> UIWindow? {
+        for window in UIApplication.shared.windows {
+            if window is XNUIWindow {
+                return window
+            }
+        }
+        return nil
     }
     
 }

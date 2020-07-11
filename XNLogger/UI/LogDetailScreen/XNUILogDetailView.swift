@@ -96,7 +96,7 @@ extension XNUILogDetailView: UITableViewDataSource {
             if msgData.msgCount > XNUIConstants.msgCellMaxCharCount {
                 return UIScreen.main.bounds.height * 0.6
             }
-            else if Int(msgData.message.heightWithConstrainedWidth(tableView.frame.width - 20, font: XNUIConstants.messageFont)) > XNUIConstants.msgCellMaxLength {
+            else if Int(msgData.message.heightWithConstrainedWidth(tableView.frame.width - 20, font: XNUIConstants.messageFont).height) > XNUIConstants.msgCellMaxLength {
                 return UIScreen.main.bounds.height * 0.6
             }
         }

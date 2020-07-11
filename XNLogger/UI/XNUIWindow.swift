@@ -27,18 +27,40 @@ fileprivate struct XNUITouchEdges {
 
 class XNUIWindow: UIWindow {
     
-    
     fileprivate var currentEdges: XNUITouchEdges = XNUITouchEdges()
     var touchStart: CGPoint = .zero
     let edgePadding: CGFloat = 20
+    
+    var isMiniModeActive: Bool = false
     
     var appWindow: UIWindow? {
         return UIApplication.shared.delegate?.window as? UIWindow
     }
     
+    override var safeAreaInsets: UIEdgeInsets {
+        if isMiniModeActive {
+            return UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+        } else {
+            if #available(iOS 11.0, *) {
+                return super.safeAreaInsets
+            } else {
+                return UIEdgeInsets(top: 64, left: 0, bottom: 0, right: 0)
+            }
+        }
+    }
+    
     func present(rootVC: UIViewController) {
-//        self.bounds.origin = CGPoint(x: 10, y: 10)
-//        self.bounds.size = CGSize(width: bounds.width - 20, height: bounds.height - 20)
+        
+        self.windowLevel = .init(CGFloat.greatestFiniteMagnitude)
+        self.layoutMargins = .zero
+        self.preservesSuperviewLayoutMargins = true
+        self.layoutMargins = .zero
+        if #available(iOS 11.0, *) {
+            self.directionalLayoutMargins = .zero
+            self.insetsLayoutMarginsFromSafeArea = false
+        } else {
+            // Fallback on earlier versions
+        }
         self.rootViewController = rootVC
         UIView.animate(withDuration: 0.25) {
             self.makeKeyAndVisible()
@@ -71,32 +93,32 @@ class XNUIWindow: UIWindow {
             
             if touchPoint.y > self.bounds.minY + edgePadding && touchPoint.y < self.bounds.maxY - edgePadding && touchPoint.x > self.bounds.minX + edgePadding && touchPoint.x < self.bounds.maxX - edgePadding {
                 currentEdges.center = true
-                print("Middle")
+//                print("Middle")
                 return
             }
             
             // Top
             if touchPoint.y > self.bounds.minY - edgePadding && touchPoint.y < self.bounds.minY + edgePadding {
                 currentEdges.top = true
-                print("Top")
+//                print("Top")
             }
             
             // Bottom
             if touchPoint.y > self.bounds.maxY - edgePadding && touchPoint.y < self.bounds.maxY + edgePadding {
                 currentEdges.bottom = true
-                print("Bottom")
+//                print("Bottom")
             }
             
             // Left
             if touchPoint.x > self.bounds.minX - edgePadding && touchPoint.x < self.bounds.minX + edgePadding {
                 currentEdges.left = true
-                print("Left")
+//                print("Left")
             }
             
             // Right
             if touchPoint.x > self.bounds.maxX - edgePadding && touchPoint.x < self.bounds.maxX + edgePadding {
                 currentEdges.right = true
-                print("Right")
+//                print("Right")
             }
         }
     }
@@ -115,9 +137,9 @@ class XNUIWindow: UIWindow {
             var newRect: CGRect = self.frame
             
             if currentEdges.center {
-                print("Middle move")
+//                print("Middle move")
                 newRect.origin = CGPoint(x: curFrame.origin.x + deltaX, y: curFrame.origin.y + deltaY)
-                self.frame.origin = newRect.origin
+//                self.frame.origin = newRect.origin
                 return
             }
             
@@ -139,9 +161,9 @@ class XNUIWindow: UIWindow {
                 newRect.size.width = curFrame.width + deltaWidth
             }
             
-            UIView.animate(withDuration: 0.25, delay: 0, options: [.curveEaseInOut], animations: {
-                self.frame = newRect
-            }, completion: nil)
+//            UIView.animate(withDuration: 0.2, delay: 0, options: [.curveLinear], animations: {
+//                self.frame = newRect
+//            }, completion: nil)
         }
     }
     

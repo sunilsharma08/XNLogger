@@ -54,7 +54,7 @@ class XNUILogDetailCell: UITableViewCell {
             if messageData.msgCount > XNUIConstants.msgCellMaxCharCount {
                 self.logDetailMsg.isScrollEnabled = true
             } else {
-                if Int(messageData.message.heightWithConstrainedWidth(self.frame.width - 20, font: XNUIConstants.messageFont)) > XNUIConstants.msgCellMaxLength {
+                if Int(messageData.message.heightWithConstrainedWidth(self.frame.width - 20, font: XNUIConstants.messageFont).height) > XNUIConstants.msgCellMaxLength {
                     self.logDetailMsg.isScrollEnabled = true
                 } else {
                     self.logDetailMsg.isScrollEnabled = false
@@ -87,7 +87,7 @@ class XNUILogDetailCell: UITableViewCell {
         var msgAttributes = [NSAttributedString.Key.font: XNUIConstants.messageFont, .paragraphStyle: paragraphStyle, NSAttributedString.Key.foregroundColor: XNUIAppColor.subtitle]
         
         let largeDataMsg = NSMutableAttributedString(string: title, attributes: msgAttributes)
-        msgAttributes[NSAttributedString.Key.foregroundColor] = UIColor(red: 0, green: 0, blue: 1, alpha: 1)
+        msgAttributes[NSAttributedString.Key.foregroundColor] = UIColor.systemBlue
         largeDataMsg.append(NSAttributedString(string: subTitle, attributes: msgAttributes))
         
         return largeDataMsg

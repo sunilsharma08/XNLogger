@@ -59,10 +59,10 @@ public final class XNUIManager: NSObject {
         if let presentingViewController = self.presentingViewController, !(presentingViewController is XNUIBaseTabBarController) {
             
             if let tabbarVC = UIStoryboard.mainStoryboard().instantiateViewController(withIdentifier: "nlMainTabBarController") as? UITabBarController {
-                tabbarVC.modalPresentationStyle = .fullScreen
+                tabbarVC.modalPresentationStyle = .overFullScreen
                 logWindow = XNUIWindow(frame: UIScreen.main.bounds)
+
                 logWindow?.present(rootVC: tabbarVC)
-//                presentingViewController.present(tabbarVC, animated: true, completion: nil)
             }
         }
     }
@@ -71,9 +71,6 @@ public final class XNUIManager: NSObject {
     @objc public func dismissNetworkUI() {
         logWindow?.dismiss()
         logWindow = nil
-//        if let presentingViewController = self.presentingViewController as? XNUIBaseTabBarController {
-//            presentingViewController.dismiss(animated: true, completion: nil)
-//        }
     }
     
     @objc public func clearLogs() {

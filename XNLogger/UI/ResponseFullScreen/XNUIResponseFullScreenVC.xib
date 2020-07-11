@@ -10,6 +10,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="XNUIResponseFullScreenVC" customModule="XNLogger" customModuleProvider="target">
             <connections>
+                <outlet property="headerView" destination="JUj-nZ-SBu" id="X1J-UK-wTS"/>
                 <outlet property="mediaWebView" destination="ePM-dS-Zqm" id="ds7-wN-qNj"/>
                 <outlet property="msgTextView" destination="frV-R0-J0d" id="Ahx-EY-Z26"/>
                 <outlet property="view" destination="W1X-06-lpV" id="hbF-TX-76A"/>
@@ -20,8 +21,15 @@
             <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="JUj-nZ-SBu" customClass="XNUIHeaderView" customModule="XNLogger" customModuleProvider="target">
+                    <rect key="frame" x="0.0" y="0.0" width="375" height="45"/>
+                    <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="45" id="Lkn-r2-z01"/>
+                    </constraints>
+                </view>
                 <wkWebView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ePM-dS-Zqm">
-                    <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                    <rect key="frame" x="0.0" y="45" width="375" height="622"/>
                     <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <wkWebViewConfiguration key="configuration" allowsInlineMediaPlayback="YES">
                         <audiovisualMediaTypes key="mediaTypesRequiringUserActionForPlayback" audio="YES" video="YES"/>
@@ -29,7 +37,7 @@
                     </wkWebViewConfiguration>
                 </wkWebView>
                 <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="frV-R0-J0d" customClass="XNUILogTextView" customModule="XNLogger" customModuleProvider="target">
-                    <rect key="frame" x="3" y="0.0" width="369" height="661"/>
+                    <rect key="frame" x="3" y="45" width="369" height="616"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -38,13 +46,16 @@
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <constraints>
+                <constraint firstItem="JUj-nZ-SBu" firstAttribute="trailing" secondItem="SHG-ng-dMT" secondAttribute="trailing" id="0Re-zh-wad"/>
                 <constraint firstItem="SHG-ng-dMT" firstAttribute="trailing" secondItem="ePM-dS-Zqm" secondAttribute="trailing" id="1pi-5P-Oqg"/>
                 <constraint firstItem="SHG-ng-dMT" firstAttribute="bottom" secondItem="ePM-dS-Zqm" secondAttribute="bottom" id="34D-iU-tc4"/>
                 <constraint firstItem="SHG-ng-dMT" firstAttribute="trailing" secondItem="frV-R0-J0d" secondAttribute="trailing" constant="3" id="6by-we-qg8"/>
                 <constraint firstItem="SHG-ng-dMT" firstAttribute="bottom" secondItem="frV-R0-J0d" secondAttribute="bottom" constant="6" id="9Ff-Wa-SHb"/>
                 <constraint firstItem="ePM-dS-Zqm" firstAttribute="leading" secondItem="SHG-ng-dMT" secondAttribute="leading" id="BHe-bK-bQ0"/>
-                <constraint firstItem="ePM-dS-Zqm" firstAttribute="top" secondItem="SHG-ng-dMT" secondAttribute="top" id="P7m-DJ-WmM"/>
-                <constraint firstItem="frV-R0-J0d" firstAttribute="top" secondItem="SHG-ng-dMT" secondAttribute="top" id="cJ3-Z6-A6q"/>
+                <constraint firstItem="ePM-dS-Zqm" firstAttribute="top" secondItem="JUj-nZ-SBu" secondAttribute="bottom" id="P7m-DJ-WmM"/>
+                <constraint firstItem="frV-R0-J0d" firstAttribute="top" secondItem="JUj-nZ-SBu" secondAttribute="bottom" id="cJ3-Z6-A6q"/>
+                <constraint firstItem="JUj-nZ-SBu" firstAttribute="leading" secondItem="SHG-ng-dMT" secondAttribute="leading" id="qJ6-A3-7tW"/>
+                <constraint firstItem="JUj-nZ-SBu" firstAttribute="top" secondItem="W1X-06-lpV" secondAttribute="top" id="rtd-nB-6Cd"/>
                 <constraint firstItem="frV-R0-J0d" firstAttribute="leading" secondItem="SHG-ng-dMT" secondAttribute="leading" constant="3" id="vBe-yK-aBq"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="SHG-ng-dMT"/>

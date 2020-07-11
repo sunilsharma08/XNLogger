@@ -58,9 +58,12 @@
 		10FC10EB231501D900F347BF /* XNUILogDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10FC10E9231501D900F347BF /* XNUILogDetailVC.swift */; };
 		10FC10EC231501D900F347BF /* XNUILogDetailVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 10FC10EA231501D900F347BF /* XNUILogDetailVC.xib */; };
 		4AB65FD2711F23689A523C45 /* Pods_XNLogger.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6E2A8787D51D4750F5E58B0D /* Pods_XNLogger.framework */; };
+		650814A424B4E878001963B7 /* XNUIHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 650814A324B4E878001963B7 /* XNUIHeaderView.swift */; };
 		6547BEF42437CEF5001F7B4D /* XNUIResponseFullScreenVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6547BEF32437CEF5001F7B4D /* XNUIResponseFullScreenVC.swift */; };
 		6547BEF72437D023001F7B4D /* XNUIResponseFullScreenVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6547BEF62437D023001F7B4D /* XNUIResponseFullScreenVC.xib */; };
 		65B90C3824A0F07E0007FAF0 /* XNUIWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65B90C3724A0F07E0007FAF0 /* XNUIWindow.swift */; };
+		65C1D51524B7AC9B00F92862 /* XNUIOptionItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65C1D51424B7AC9B00F92862 /* XNUIOptionItem.swift */; };
+		65C1D51724B7AD1900F92862 /* XNUIPopOverViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65C1D51624B7AD1900F92862 /* XNUIPopOverViewController.swift */; };
 		975BF47A0FBC015433F3A430 /* Pods_XNLoggerTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DD1DC70CEE51FE911722686D /* Pods_XNLoggerTests.framework */; };
 /* End PBXBuildFile section */
 
@@ -130,9 +133,12 @@
 		10F8A9BC230E761400C17B4A /* XNUIExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XNUIExtensions.swift; sourceTree = "<group>"; };
 		10FC10E9231501D900F347BF /* XNUILogDetailVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XNUILogDetailVC.swift; sourceTree = "<group>"; };
 		10FC10EA231501D900F347BF /* XNUILogDetailVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = XNUILogDetailVC.xib; sourceTree = "<group>"; };
+		650814A324B4E878001963B7 /* XNUIHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XNUIHeaderView.swift; sourceTree = "<group>"; };
 		6547BEF32437CEF5001F7B4D /* XNUIResponseFullScreenVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XNUIResponseFullScreenVC.swift; sourceTree = "<group>"; };
 		6547BEF62437D023001F7B4D /* XNUIResponseFullScreenVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = XNUIResponseFullScreenVC.xib; sourceTree = "<group>"; };
 		65B90C3724A0F07E0007FAF0 /* XNUIWindow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XNUIWindow.swift; sourceTree = "<group>"; };
+		65C1D51424B7AC9B00F92862 /* XNUIOptionItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XNUIOptionItem.swift; sourceTree = "<group>"; };
+		65C1D51624B7AD1900F92862 /* XNUIPopOverViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XNUIPopOverViewController.swift; sourceTree = "<group>"; };
 		6E2A8787D51D4750F5E58B0D /* Pods_XNLogger.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_XNLogger.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		7131FAE48986EDB635C3304F /* Pods-XNLogger.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-XNLogger.debug.xcconfig"; path = "Pods/Target Support Files/Pods-XNLogger/Pods-XNLogger.debug.xcconfig"; sourceTree = "<group>"; };
 		C0006DBBB3F7A78BE736997C /* Pods_XNLoggerExample.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_XNLoggerExample.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -219,6 +225,7 @@
 			isa = PBXGroup;
 			children = (
 				103B7F802317CD64003DDDCB /* XNUILogDetail.swift */,
+				65C1D51424B7AC9B00F92862 /* XNUIOptionItem.swift */,
 			);
 			path = UIModels;
 			sourceTree = "<group>";
@@ -241,6 +248,8 @@
 				101CA0B2230F23300063B0CF /* XNUIBaseViewController.swift */,
 				10289E75230FCE4A00FDE204 /* XNUILogHandler.swift */,
 				65B90C3724A0F07E0007FAF0 /* XNUIWindow.swift */,
+				650814A324B4E878001963B7 /* XNUIHeaderView.swift */,
+				65C1D51624B7AD1900F92862 /* XNUIPopOverViewController.swift */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -583,11 +592,13 @@
 				108576A621FDD662008ABD2B /* XNJSONUtils.swift in Sources */,
 				10C7268F222DA0BE00239900 /* XNFileLogHandler.swift in Sources */,
 				108576A221FDD662008ABD2B /* XNFilter.swift in Sources */,
+				65C1D51724B7AD1900F92862 /* XNUIPopOverViewController.swift in Sources */,
 				108576AB21FDD662008ABD2B /* XNConsoleLogHandler.swift in Sources */,
 				10BC314822CD2FD20020167D /* XNAuthenticationChallengeSender.swift in Sources */,
 				10F8A9BD230E761400C17B4A /* XNUIExtensions.swift in Sources */,
 				10289E7923105D5800FDE204 /* XNUILogListTableViewCell.swift in Sources */,
 				1090C2082307250E00575550 /* XNUIFiltersVC.swift in Sources */,
+				65C1D51524B7AC9B00F92862 /* XNUIOptionItem.swift in Sources */,
 				10C72691222DAC2D00239900 /* XNBaseLogHandler.swift in Sources */,
 				108576AA21FDD662008ABD2B /* XNRemoteLogHandler.swift in Sources */,
 				10F8A9BB230E731300C17B4A /* XNUIManager.swift in Sources */,
@@ -610,6 +621,7 @@
 				10289E76230FCE4A00FDE204 /* XNUILogHandler.swift in Sources */,
 				108576B821FDD99A008ABD2B /* XNExtensions.swift in Sources */,
 				106DC65B22D4C9D10037DC28 /* XNLogData.swift in Sources */,
+				650814A424B4E878001963B7 /* XNUIHeaderView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -19,7 +19,6 @@ class XNUIResponseFullScreenVC: XNUIBaseViewController {
     let fileService: XNUIFileService = XNUIFileService()
     var isFirstLoad: Bool = true
     var mediaFileUrl: URL?
-    let helper: XNUIHelper = XNUIHelper()
     
     class func controller(title: String, logData: XNUIMessageData) -> XNUIResponseFullScreenVC? {
         let controller = XNUIResponseFullScreenVC(nibName: String(describing: self), bundle: Bundle.current())
@@ -45,6 +44,7 @@ class XNUIResponseFullScreenVC: XNUIBaseViewController {
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         
+        // When controller removed, clear temp files
         if self.navigationController?.viewControllers.firstIndex(of: self) == nil {
             if let fileURL = self.mediaFileUrl {
                 fileService.removeFile(url: fileURL)
@@ -53,11 +53,15 @@ class XNUIResponseFullScreenVC: XNUIBaseViewController {
     }
     
     func configureViews() {
-        self.navigationItem.title = headerTitle
         self.msgTextView.text = nil
         self.mediaWebView.navigationDelegate = self
+        
+        self.headerView?.setTitle(headerTitle)
+        self.headerView?.addBackButton(target: self.navigationController, selector: #selector(self.navigationController?.popViewController(animated:)))
         // Show share icon
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .action, target: self, action: #selector(self.clickedOnMoreOptions))
+        let shareButton = helper.createNavButton(imageName: "share", imageInsets: UIEdgeInsets(top: 12, left: 17, bottom: 12, right: 7))
+        shareButton.addTarget(self, action: #selector(self.clickedOnMoreOptions), for: .touchUpInside)
+        self.headerView?.addRightBarItems([shareButton])
     }
     
     func loadData() {
