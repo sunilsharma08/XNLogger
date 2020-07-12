@@ -91,7 +91,7 @@ class XNUILogListVC: XNUIBaseViewController {
         DispatchQueue.main.async {
             self.logListTableView.reloadData()
             self.emptyMsgLabel.isHidden = !self.logsIdArray.isEmpty
-            self.navigationItem.leftBarButtonItem?.customView?.isHidden = !self.emptyMsgLabel.isHidden
+            self.headerView?.leftBarView.isHidden = !self.emptyMsgLabel.isHidden
         }
     }
     

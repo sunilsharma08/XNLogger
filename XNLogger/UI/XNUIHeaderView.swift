@@ -10,8 +10,8 @@ import UIKit
 
 class XNUIHeaderView: UIView {
     
-    private let leftBarView: UIStackView = UIStackView()
-    private let rightBarView: UIStackView = UIStackView()
+    let leftBarView: UIStackView = UIStackView()
+    let rightBarView: UIStackView = UIStackView()
     private let safeAreaView: UIView = UIView()
     private var safeAreaHeightContraint: NSLayoutConstraint?
     private var headerViewHeightConstraint: NSLayoutConstraint?

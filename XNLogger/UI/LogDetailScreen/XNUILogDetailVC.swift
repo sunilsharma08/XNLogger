@@ -274,7 +274,7 @@ extension XNUILogDetailVC: XNUIDetailViewDelegate {
 extension XNUILogDetailVC: XNUIPopoverDelegate {
     
     func popover(didSelectOptionItem item: XNUIOptionItem, indexPath: IndexPath) {
-        dismiss(animated: true) {[weak self] in
+        dismiss(animated: false) {[weak self] in
             guard let self = self else { return }
             
             switch item.type {
