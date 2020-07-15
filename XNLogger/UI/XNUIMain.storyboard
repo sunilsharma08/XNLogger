@@ -77,7 +77,7 @@
             </objects>
             <point key="canvasLocation" x="1145" y="249"/>
         </scene>
-        <!--Settings-->
+        <!--SettingsVC-->
         <scene sceneID="hXm-ah-E87">
             <objects>
                 <viewController id="97Q-Dw-GpS" customClass="XNUISettingsVC" customModule="XNLogger" customModuleProvider="target" sceneMemberID="viewController">
@@ -87,7 +87,7 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <viewLayoutGuide key="safeArea" id="Doo-TS-72w"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Settings" id="Ith-h9-pzc"/>
+                    <tabBarItem key="tabBarItem" title="" image="settings" id="Ith-h9-pzc"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="eHn-od-0Mn" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -105,7 +105,6 @@
                     </tabBar>
                     <connections>
                         <segue destination="HNy-Xg-lEt" kind="relationship" relationship="viewControllers" id="pl8-aB-Lj3"/>
-                        <segue destination="mGd-7n-ug5" kind="relationship" relationship="viewControllers" id="QNF-rx-rem"/>
                         <segue destination="97Q-Dw-GpS" kind="relationship" relationship="viewControllers" id="D59-d6-fpd"/>
                     </connections>
                 </tabBarController>
@@ -113,11 +112,13 @@
             </objects>
             <point key="canvasLocation" x="48.799999999999997" y="100.29985007496252"/>
         </scene>
-        <!--Logs-->
+        <!--Navigation Controller-->
         <scene sceneID="ilq-6i-bDR">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" navigationBarHidden="YES" id="HNy-Xg-lEt" customClass="XNUINavigationController" customModule="XNLogger" customModuleProvider="target" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Logs" id="MHn-CO-oii"/>
+                    <tabBarItem key="tabBarItem" title="" image="log" id="MHn-CO-oii">
+                        <offsetWrapper key="titlePositionAdjustment" horizontal="0.0" vertical="0.0"/>
+                    </tabBarItem>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="Mm3-jr-CJp">
                         <autoresizingMask key="autoresizingMask"/>
@@ -132,4 +133,8 @@
             <point key="canvasLocation" x="1180" y="-475.41229385307349"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="log" width="25" height="25"/>
+        <image name="settings" width="25" height="25"/>
+    </resources>
 </document>

@@ -32,12 +32,12 @@ class XNUIBaseViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.tabBarController?.tabBar.isHidden = true
+        self.tabBarController?.tabBar.isHidden = false
     }
     
     func baseConfigureViews() {
-        self.tabBarController?.tabBar.barTintColor = .white
-        self.hidesBottomBarWhenPushed = true
+        self.tabBarController?.tabBar.tintColor = XNUIAppColor.primary
+        self.tabBarController?.tabBar.isTranslucent = false
         self.headerView?.backgroundColor = XNUIAppColor.primary
         self.headerView?.tintColor = XNUIAppColor.navTint
     }
