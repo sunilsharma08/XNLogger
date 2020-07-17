@@ -51,7 +51,7 @@ class XNUILogDetailVC: XNUIBaseViewController {
     private func configureViews() {
         self.headerView?.setTitle("Log details")
         self.headerView?.addBackButton(target: self.navigationController, selector: #selector(self.navigationController?.popViewController(animated:)))
-        let moreOptionBtn = helper.createNavButton(imageName: "menu", imageInsets: UIEdgeInsets(top: 12, left: 18, bottom: 12, right: 6))
+        let moreOptionBtn = helper.createNavButton(imageName: "menu", imageInsets: UIEdgeInsets(top: 10, left: 16, bottom: 10, right: 6))
         moreOptionBtn.addTarget(self, action: #selector(clickedOnMoreOptions), for: .touchUpInside)
         self.moreOptionBtn = moreOptionBtn
         
@@ -273,8 +273,9 @@ extension XNUILogDetailVC: XNUIDetailViewDelegate {
 
 extension XNUILogDetailVC: XNUIPopoverDelegate {
     
-    func popover(didSelectOptionItem item: XNUIOptionItem, indexPath: IndexPath) {
-        dismiss(animated: false) {[weak self] in
+    func popover(_ popover: XNUIPopOverViewController, didSelectItem item: XNUIOptionItem, indexPath: IndexPath) {
+        
+        popover.dismiss(animated: false) {[weak self] in
             guard let self = self else { return }
             
             switch item.type {
@@ -284,6 +285,8 @@ extension XNUILogDetailVC: XNUIPopoverDelegate {
                 self.showShareController(shareOption: .request)
             case .shareResponse:
                 self.showShareController(shareOption: .response)
+            default:
+                break
             }
         }
     }

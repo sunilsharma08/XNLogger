@@ -23,7 +23,9 @@ class XNUIHeaderView: UIView {
         }
     }
     var titleLabel: UILabel?
-    var ignoreStatusBarHeight: Bool = false
+    var ignoreStatusBarHeight: Bool {
+        return XNUIManager.shared.isMiniModeActive
+    }
     var headerHeight: CGFloat {
         return 43
     }

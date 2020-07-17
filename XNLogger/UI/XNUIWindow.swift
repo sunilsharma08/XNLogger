@@ -30,8 +30,11 @@ class XNUIWindow: UIWindow {
     fileprivate var currentEdges: XNUITouchEdges = XNUITouchEdges()
     var touchStart: CGPoint = .zero
     let edgePadding: CGFloat = 20
+    lazy private var toolBarView: UIView = self.createToolbarView()
     
-    var isMiniModeActive: Bool = false
+    private var isMiniModeActive: Bool {
+        return XNUIManager.shared.isMiniModeActive
+    }
     
     var appWindow: UIWindow? {
         return UIApplication.shared.delegate?.window as? UIWindow
@@ -39,7 +42,7 @@ class XNUIWindow: UIWindow {
     
     override var safeAreaInsets: UIEdgeInsets {
         if isMiniModeActive {
-            return UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+            return .zero
         } else {
             if #available(iOS 11.0, *) {
                 return super.safeAreaInsets
@@ -52,9 +55,9 @@ class XNUIWindow: UIWindow {
     func present(rootVC: UIViewController) {
         
         self.windowLevel = .init(CGFloat.greatestFiniteMagnitude)
-        self.layoutMargins = .zero
         self.preservesSuperviewLayoutMargins = true
         self.layoutMargins = .zero
+        self.clipsToBounds = true
         if #available(iOS 11.0, *) {
             self.directionalLayoutMargins = .zero
             self.insetsLayoutMarginsFromSafeArea = false
@@ -62,27 +65,161 @@ class XNUIWindow: UIWindow {
             // Fallback on earlier versions
         }
         self.rootViewController = rootVC
-        UIView.animate(withDuration: 0.25) {
-            self.makeKeyAndVisible()
-        }
+        
+        let presentTransition = CATransition()
+        presentTransition.duration = 0.37
+        presentTransition.timingFunction = CAMediaTimingFunction(name: .easeOut)
+        presentTransition.type = .moveIn
+        presentTransition.subtype = .fromTop
+        self.layer.add(presentTransition, forKey: kCATransition)
+        self.makeKeyAndVisible()
     }
     
     func dismiss() {
-        self.isHidden = true
+        
         self.appWindow?.makeKey()
-        self.rootViewController = nil
+        var animationDuration: TimeInterval = 0.37
+        let isMiniModeActive = self.isMiniModeActive
+        
+        if isMiniModeActive {
+            animationDuration = 0.2
+        }
+        UIView.animate(withDuration: animationDuration, delay: 0, options: [.curveEaseInOut], animations: {
+            if isMiniModeActive {
+                self.alpha = 0
+            } else {
+                self.frame.origin.y = self.frame.height
+                self.alpha = 0.5
+            }
+        }) { (completed) in
+            self.isHidden = true
+            self.rootViewController = nil
+        }
     }
     
-    func activateMiniView() {
-        self.layer.cornerRadius = 10
-        self.layer.borderWidth = 2
-        self.layer.borderColor = UIColor.lightGray.cgColor
-        self.clipsToBounds = true
-        self.transform = CGAffineTransform(scaleX: 0.5, y: 0.5)
+    func enableMiniView() {
+        addToolBar()
+        let minViewWidth: CGFloat = UIScreen.main.bounds.width * 0.42
+        let minViewHeight: CGFloat = UIScreen.main.bounds.height * 0.37
+        
+        UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 0.6, initialSpringVelocity: 0, options: [.beginFromCurrentState, .curveLinear], animations: {
+            self.layer.cornerRadius = 10
+            self.layer.borderWidth = 2
+            self.layer.borderColor = UIColor.lightGray.withAlphaComponent(0.5).cgColor
+            self.transform = CGAffineTransform(scaleX: 0.6, y: 0.6)
+            self.frame = CGRect(x: UIScreen.main.bounds.width - minViewWidth - 20, y: 90, width: minViewWidth, height: minViewHeight)
+        }, completion: nil)
     }
     
-    func returnFullView() {
-        self.transform = CGAffineTransform(scaleX: 1, y: 1)
+    func enableFullScreenView() {
+        self.toolBarView.removeFromSuperview()
+        
+        UIView.animate(withDuration: 0.3) {
+            self.layer.cornerRadius = 0
+            self.layer.borderWidth = 0
+            self.layer.borderColor = nil
+            self.transform = .identity
+            self.frame = UIScreen.main.bounds
+        }
+    }
+    
+    func createToolbarView() -> UIView {
+        print(#function)
+        let toolView = UIView()
+        toolView.backgroundColor = .lightGray
+        
+        let toolStackView = UIStackView()
+        toolStackView.axis = .horizontal
+        toolStackView.distribution = .fillEqually
+        toolStackView.spacing = 1.0
+        toolStackView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        toolView.addSubview(toolStackView)
+        
+        
+        func toolbarButton(imageName: String, orientation: UIImage.Orientation? = nil) -> UIButton {
+            let button = UIButton(type: .custom)
+            button.backgroundColor = .white
+            button.imageView?.contentMode = .scaleAspectFit
+            var image = UIImage(named: imageName, in: Bundle.current(), compatibleWith: nil)
+            if let imgOrientation = orientation, let cgEditImg = image?.cgImage {
+                image = UIImage(cgImage: cgEditImg, scale: CGFloat(1), orientation: imgOrientation).withRenderingMode(.alwaysTemplate)
+            }
+            button.setImage(image, for: .normal)
+            return button
+        }
+        
+        let resizeBtn = toolbarButton(imageName: "resize")
+        resizeBtn.addTarget(self, action: #selector(clickedOnResize(_:)), for: .touchUpInside)
+        toolStackView.addArrangedSubview(resizeBtn)
+        let moveBtn = toolbarButton(imageName: "move")
+        moveBtn.addTarget(self, action: #selector(clickedOnMove(_:)), for: .touchUpInside)
+//        moveBtn.imageEdgeInsets = UIEdgeInsets(top: 3, left: 3, bottom: 3, right: 3)
+        toolStackView.addArrangedSubview(moveBtn)
+        let moreOptionBtn = toolbarButton(imageName: "menu", orientation: .right)
+        moreOptionBtn.imageEdgeInsets = UIEdgeInsets(top: 9, left: 9, bottom: 9, right: 9)
+        moreOptionBtn.addTarget(self, action: #selector(clickedOnMoreOption(_:)), for: .touchUpInside)
+        toolStackView.addArrangedSubview(moreOptionBtn)
+        
+        let topLineView = UIView()
+        topLineView.backgroundColor = UIColor.lightGray.withAlphaComponent(0.7)
+        topLineView.autoresizingMask = [.flexibleWidth]
+        topLineView.frame.size.height = 1
+        toolView.addSubview(topLineView)
+        
+        return toolView
+    }
+    
+    func addToolBar() {
+        
+        self.addSubview(toolBarView)
+        
+        toolBarView.translatesAutoresizingMaskIntoConstraints = false
+        toolBarView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 0).isActive = true
+        toolBarView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: 0).isActive = true
+        toolBarView.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: 0).isActive = true
+        var tabbarHeight: CGFloat = 0
+        if let tabbarVC = self.rootViewController as? UITabBarController {
+            if #available(iOS 11.0, *) {
+                tabbarHeight = tabbarVC.tabBar.frame.height - super.safeAreaInsets.bottom
+            }
+            print("Height = \(tabbarHeight)")
+        }
+        toolBarView.heightAnchor.constraint(equalToConstant: tabbarHeight).isActive = true
+        
+    }
+    
+    @objc func clickedOnResize(_ sender: UIButton) {
+        
+    }
+    
+    @objc func clickedOnMove(_ sender: UIButton) {
+        
+    }
+    
+    @objc func clickedOnMoreOption(_ sender: UIButton) {
+        
+         let popoverVC = XNUIPopOverViewController()
+        popoverVC.popoverPresentationController?.permittedArrowDirections = [.down]
+        var optionItems: [XNUIOptionItem] = [
+             XNUIOptionItem(title: "Logs", type: .logsScreen),
+             XNUIOptionItem(title: "Settings", type: .settingsScreen)
+         ]
+        
+        if let tabbarVC = self.rootViewController as? UITabBarController, let selectedVC = tabbarVC.selectedViewController {
+            
+            if let navVC = selectedVC as? UINavigationController, let rootVC = navVC.viewControllers.first, rootVC is XNUILogListVC {
+                optionItems[0].isSelected = true
+            }
+            
+            if selectedVC is XNUISettingsVC {
+                optionItems[1].isSelected = true
+            }
+        }
+        popoverVC.items = optionItems
+        popoverVC.delegate = self
+        popoverVC.popoverPresentationController?.sourceView = sender
+
+        self.rootViewController?.present(popoverVC, animated: true, completion: nil)
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -93,32 +230,32 @@ class XNUIWindow: UIWindow {
             
             if touchPoint.y > self.bounds.minY + edgePadding && touchPoint.y < self.bounds.maxY - edgePadding && touchPoint.x > self.bounds.minX + edgePadding && touchPoint.x < self.bounds.maxX - edgePadding {
                 currentEdges.center = true
-//                print("Middle")
+                print("Middle")
                 return
             }
             
             // Top
             if touchPoint.y > self.bounds.minY - edgePadding && touchPoint.y < self.bounds.minY + edgePadding {
                 currentEdges.top = true
-//                print("Top")
+                print("Top")
             }
             
             // Bottom
             if touchPoint.y > self.bounds.maxY - edgePadding && touchPoint.y < self.bounds.maxY + edgePadding {
                 currentEdges.bottom = true
-//                print("Bottom")
+                print("Bottom")
             }
             
             // Left
             if touchPoint.x > self.bounds.minX - edgePadding && touchPoint.x < self.bounds.minX + edgePadding {
                 currentEdges.left = true
-//                print("Left")
+                print("Left")
             }
             
             // Right
             if touchPoint.x > self.bounds.maxX - edgePadding && touchPoint.x < self.bounds.maxX + edgePadding {
                 currentEdges.right = true
-//                print("Right")
+                print("Right")
             }
         }
     }
@@ -137,9 +274,9 @@ class XNUIWindow: UIWindow {
             var newRect: CGRect = self.frame
             
             if currentEdges.center {
-//                print("Middle move")
+                print("Middle move")
                 newRect.origin = CGPoint(x: curFrame.origin.x + deltaX, y: curFrame.origin.y + deltaY)
-//                self.frame.origin = newRect.origin
+                self.frame.origin = newRect.origin
                 return
             }
             
@@ -161,9 +298,9 @@ class XNUIWindow: UIWindow {
                 newRect.size.width = curFrame.width + deltaWidth
             }
             
-//            UIView.animate(withDuration: 0.2, delay: 0, options: [.curveLinear], animations: {
-//                self.frame = newRect
-//            }, completion: nil)
+            UIView.animate(withDuration: 0.2, delay: 0, options: [.curveLinear], animations: {
+                self.frame = newRect
+            }, completion: nil)
         }
     }
     
@@ -176,5 +313,17 @@ class XNUIWindow: UIWindow {
     override func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent?) {
         self.touchStart = .zero
         self.currentEdges.reset()
+    }
+}
+
+extension XNUIWindow: XNUIPopoverDelegate {
+    func popover(_ popover: XNUIPopOverViewController, didSelectItem item: XNUIOptionItem, indexPath: IndexPath) {
+        popover.dismiss(animated: false, completion: nil)
+        guard let tabbarVC = self.rootViewController as? UITabBarController else { return }
+        if item.type == .logsScreen {
+            tabbarVC.selectedIndex = 0
+        } else if item.type == .settingsScreen {
+            tabbarVC.selectedIndex = 1
+        }
     }
 }

@@ -13,6 +13,8 @@ class XNUILogListVC: XNUIBaseViewController {
     @IBOutlet weak var logListTableView: UITableView!
     @IBOutlet weak var emptyMsgLabel: UILabel!
     
+    var viewModeBarButton: UIButton = UIButton()
+    
     private var logsDataDict: [String: XNUILogInfo] {
         return XNUIManager.shared.getLogsDataDict()
     }
@@ -39,15 +41,16 @@ class XNUILogListVC: XNUIBaseViewController {
     func configureViews() {
         let closeButton = helper.createNavButton(
                         imageName: "close",
-                        imageInsets: UIEdgeInsets(top: 18, left: 27, bottom: 10, right: 5))
+                        imageInsets: UIEdgeInsets(top: 15, left: 25, bottom: 9, right: 5))
         closeButton.addTarget(self, action: #selector(dismissNetworkUI), for: .touchUpInside)
-        let clearLogsButton = helper.createNavButton(
-                            imageName: "trash",
-                            imageInsets: UIEdgeInsets(top: 10, left: 2, bottom: 10, right: 21))
-        clearLogsButton.addTarget(self, action: #selector(clearLogs), for: .touchUpInside)
+        
+        viewModeBarButton = helper.createNavButton(
+                            imageName: "minimise",
+                            imageInsets: UIEdgeInsets(top: 10, left: 6, bottom: 7, right: 12))
+        viewModeBarButton.addTarget(self, action: #selector(upadteViewMode), for: .touchUpInside)
         
         self.headerView?.addRightBarItems([closeButton])
-        self.headerView?.addleftBarItems([clearLogsButton])
+        self.headerView?.addleftBarItems([viewModeBarButton])
         
         self.logListTableView.tableFooterView = UIView()
         self.logListTableView.register(ofType: XNUILogListTableViewCell.self)
@@ -64,6 +67,24 @@ class XNUILogListVC: XNUIBaseViewController {
     @objc func clearLogs() {
         XNUIManager.shared.clearLogs()
         updateLoggerUI()
+    }
+    
+    @objc func upadteViewMode() {
+        let enableMiniView = !XNUIManager.shared.isMiniModeActive
+        updateViewModeIcon(isMiniViewEnabled: enableMiniView)
+        XNUIManager.shared.updateViewMode(enableMiniView: enableMiniView)
+    }
+    
+    func updateViewModeIcon(isMiniViewEnabled: Bool) {
+        
+        UIView.transition(with: self.viewModeBarButton, duration: 0.3, options: .transitionCrossDissolve, animations: {
+            if isMiniViewEnabled {
+                self.viewModeBarButton.setImage(UIImage(named: "maximise", in: Bundle.current(), compatibleWith: nil), for: .normal)
+            } else {
+                self.viewModeBarButton.setImage(UIImage(named: "minimise", in: Bundle.current(), compatibleWith: nil), for: .normal)
+            }
+        }, completion: nil)
+        
     }
     
     /**

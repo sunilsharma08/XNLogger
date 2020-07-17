@@ -19,4 +19,7 @@ enum XNUIOptionItemType {
     case shareResponse
     case shareRequest
     case shareReqtAndResp
+    // Mini view mode options
+    case logsScreen
+    case settingsScreen
 }
