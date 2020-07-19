@@ -10,8 +10,8 @@ import UIKit
 
 class XNUIHeaderView: UIView {
     
-    private let leftBarView: UIStackView = UIStackView()
-    private let rightBarView: UIStackView = UIStackView()
+    let leftBarView: UIStackView = UIStackView()
+    let rightBarView: UIStackView = UIStackView()
     private let safeAreaView: UIView = UIView()
     private var safeAreaHeightContraint: NSLayoutConstraint?
     private var headerViewHeightConstraint: NSLayoutConstraint?
@@ -23,9 +23,11 @@ class XNUIHeaderView: UIView {
         }
     }
     var titleLabel: UILabel?
-    var ignoreStatusBarHeight: Bool = false
+    var ignoreStatusBarHeight: Bool {
+        return XNUIManager.shared.isMiniModeActive
+    }
     var headerHeight: CGFloat {
-        return 45
+        return 43
     }
     
     override init(frame: CGRect) {
@@ -145,7 +147,7 @@ class XNUIHeaderView: UIView {
     }
     
     func addBackButton(target: Any?, selector: Selector) {
-        let backButton = XNUIHelper().createNavButton(imageName: "back", imageInsets: UIEdgeInsets(top: 12, left: 0, bottom: 12, right: 24))
+        let backButton = XNUIHelper().createNavButton(imageName: "back", imageInsets: UIEdgeInsets(top: 11, left: 0, bottom: 11, right: 24))
         backButton.addTarget(target, action: selector, for: .touchUpInside)
         addBarButtonConstraints(backButton)
         leftBarView.insertArrangedSubview(backButton, at: 0)

@@ -26,13 +26,15 @@ protocol XNUILogDataDelegate: class {
 public final class XNUIManager: NSObject {
     
     @objc public static let shared: XNUIManager = XNUIManager()
-    public var startGesture: XNGestureType? = .shake
-    var uiLogHandler: XNUILogHandler = XNUILogHandler.create()
+    @objc public var startGesture: XNGestureType = .shake
+    @objc public var uiLogHandler: XNUILogHandler = XNUILogHandler.create()
     private var logsDataDict: [String: XNUILogInfo] = [:]
     private var logsIdArray: [String] = []
     private var logsActionThread = DispatchQueue.init(label: "XNUILoggerLogListActionThread", qos: .userInteractive, attributes: .concurrent)
     private let fileService: XNUIFileService = XNUIFileService()
-    private var logWindow: XNUIWindow?
+    var logWindow: XNUIWindow?
+    var isMiniModeActive: Bool = false
+    weak var viewModeDelegate: XNUIViewModeDelegate? = nil
     
     private override init() {
         super.init()
@@ -71,6 +73,21 @@ public final class XNUIManager: NSObject {
     @objc public func dismissNetworkUI() {
         logWindow?.dismiss()
         logWindow = nil
+        
+        // Reset values
+        isMiniModeActive = false
+    }
+    
+    func updateViewMode(enableMiniView: Bool) {
+        self.isMiniModeActive = enableMiniView
+        guard let logWindow = self.logWindow else { return }
+        
+        if isMiniModeActive {
+            logWindow.enableMiniView()
+        } else {
+            logWindow.enableFullScreenView()
+        }
+        self.viewModeDelegate?.viewModeDidChange(enableMiniView)
     }
     
     @objc public func clearLogs() {

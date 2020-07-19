@@ -87,3 +87,31 @@ extension String {
 extension NSNotification.Name {
     static let logDataUpdate = NSNotification.Name("com.xnLogger.logDataUpdateNotification")
 }
+
+extension UIEdgeInsets {
+    
+    init(inset: CGFloat) {
+        self.init()
+        top = inset
+        bottom = inset
+        left = inset
+        right = inset
+    }
+}
+
+extension UIView {
+    /**
+     Add constraints to current view to match with given another view with specified margin.
+     
+     Another view can be parent or child of current view.
+     
+     - Parameter pView: View to match current view.
+     - Parameter margin: Margin between current view and the other view
+     */
+    func match(to pView: UIView, margin: CGFloat) {
+        self.leadingAnchor.constraint(equalTo: pView.leadingAnchor, constant: margin).isActive = true
+        self.trailingAnchor.constraint(equalTo: pView.trailingAnchor, constant: margin).isActive = true
+        self.topAnchor.constraint(equalTo: pView.topAnchor, constant: margin).isActive = true
+        self.bottomAnchor.constraint(equalTo: pView.bottomAnchor, constant: margin).isActive = true
+    }
+}

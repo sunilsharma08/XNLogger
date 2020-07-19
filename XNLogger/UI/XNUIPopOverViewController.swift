@@ -9,7 +9,7 @@
 import UIKit
 
 protocol XNUIPopoverDelegate: AnyObject {
-    func popover(didSelectOptionItem item: XNUIOptionItem, indexPath: IndexPath)
+    func popover(_ popover: XNUIPopOverViewController, didSelectItem item: XNUIOptionItem, indexPath: IndexPath)
 }
 
 class XNUIPopOverViewController: UIViewController {
@@ -115,7 +115,12 @@ extension XNUIPopOverViewController: UITableViewDelegate, UITableViewDataSource 
         let item = items[indexPath.row]
         cell.textLabel?.text = item.title
         cell.textLabel?.font = item.font
-        cell.textLabel?.textColor = .systemBlue
+        if item.isSelected {
+            cell.textLabel?.textColor = XNUIAppColor.primary
+        } else {
+            cell.textLabel?.textColor = .systemBlue
+        }
+        
         cell.textLabel?.numberOfLines = 0
         cell.backgroundColor = .clear
         cell.selectionStyle = UITableViewCell.SelectionStyle.none
@@ -123,8 +128,15 @@ extension XNUIPopOverViewController: UITableViewDelegate, UITableViewDataSource 
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let item = items[indexPath.row]
-        delegate?.popover(didSelectOptionItem: item, indexPath: indexPath)
+        DispatchQueue.main.async {[weak self] in
+            guard let self = self else { return }
+            let item = self.items[indexPath.row]
+            for (index, _) in self.items.enumerated() {
+                self.items[index].isSelected = index == indexPath.row
+            }
+            tableView.reloadData()
+            self.delegate?.popover(self, didSelectItem: item, indexPath: indexPath)
+        }
     }
 }
 
