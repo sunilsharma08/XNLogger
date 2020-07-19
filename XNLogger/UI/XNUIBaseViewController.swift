@@ -47,6 +47,9 @@ class XNUIBaseViewController: UIViewController {
         self.tabBarController?.tabBar.isTranslucent = false
         self.headerView?.backgroundColor = XNUIAppColor.primary
         self.headerView?.tintColor = XNUIAppColor.navTint
+        
+        let panGesture = UIPanGestureRecognizer(target: XNUIManager.shared.logWindow, action: #selector(XNUIManager.shared.logWindow?.clickedOnMove(_:)))
+        self.headerView?.addGestureRecognizer(panGesture)
     }
 }
 

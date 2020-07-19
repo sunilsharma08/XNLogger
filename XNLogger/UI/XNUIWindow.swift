@@ -27,9 +27,7 @@ fileprivate struct XNUITouchEdges {
 
 class XNUIWindow: UIWindow {
     
-    fileprivate var currentEdges: XNUITouchEdges = XNUITouchEdges()
-    var touchStart: CGPoint = .zero
-    let edgePadding: CGFloat = 20
+    let windowMinSize: CGSize = CGSize(width: 140, height: 160)
     lazy private var toolBarView: UIView = self.createToolbarView()
     
     private var isMiniModeActive: Bool {
@@ -55,14 +53,11 @@ class XNUIWindow: UIWindow {
     func present(rootVC: UIViewController) {
         
         self.windowLevel = .init(CGFloat.greatestFiniteMagnitude)
-        self.preservesSuperviewLayoutMargins = true
         self.layoutMargins = .zero
         self.clipsToBounds = true
         if #available(iOS 11.0, *) {
             self.directionalLayoutMargins = .zero
             self.insetsLayoutMarginsFromSafeArea = false
-        } else {
-            // Fallback on earlier versions
         }
         self.rootViewController = rootVC
         
@@ -88,7 +83,7 @@ class XNUIWindow: UIWindow {
             if isMiniModeActive {
                 self.alpha = 0
             } else {
-                self.frame.origin.y = self.frame.height
+                self.frame.origin.y = UIScreen.main.bounds.height
                 self.alpha = 0.5
             }
         }) { (completed) in
@@ -99,15 +94,23 @@ class XNUIWindow: UIWindow {
     
     func enableMiniView() {
         addToolBar()
-        let minViewWidth: CGFloat = UIScreen.main.bounds.width * 0.42
-        let minViewHeight: CGFloat = UIScreen.main.bounds.height * 0.37
+        var defaultMiniWidth: CGFloat = UIScreen.main.bounds.width * 0.42
+        var defaultMiniHeight: CGFloat = UIScreen.main.bounds.height * 0.37
+        
+        if defaultMiniWidth < windowMinSize.width {
+            defaultMiniWidth = windowMinSize.width
+        }
+        
+        if defaultMiniHeight < windowMinSize.height {
+            defaultMiniHeight = windowMinSize.height
+        }
         
         UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 0.6, initialSpringVelocity: 0, options: [.beginFromCurrentState, .curveLinear], animations: {
             self.layer.cornerRadius = 10
             self.layer.borderWidth = 2
-            self.layer.borderColor = UIColor.lightGray.withAlphaComponent(0.5).cgColor
-            self.transform = CGAffineTransform(scaleX: 0.6, y: 0.6)
-            self.frame = CGRect(x: UIScreen.main.bounds.width - minViewWidth - 20, y: 90, width: minViewWidth, height: minViewHeight)
+            self.layer.borderColor = UIColor.lightGray.withAlphaComponent(0.3).cgColor
+            self.transform = CGAffineTransform(scaleX: 0.66, y: 0.66)
+            self.frame = CGRect(x: UIScreen.main.bounds.width - defaultMiniWidth - 20, y: 90, width: defaultMiniWidth, height: defaultMiniHeight)
         }, completion: nil)
     }
     
@@ -124,20 +127,22 @@ class XNUIWindow: UIWindow {
     }
     
     func createToolbarView() -> UIView {
-        print(#function)
         let toolView = UIView()
-        toolView.backgroundColor = .lightGray
+        toolView.translatesAutoresizingMaskIntoConstraints = false
+        toolView.backgroundColor = UIColor.lightGray.withAlphaComponent(0.6)
         
         let toolStackView = UIStackView()
         toolStackView.axis = .horizontal
         toolStackView.distribution = .fillEqually
         toolStackView.spacing = 1.0
-        toolStackView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-        toolView.addSubview(toolStackView)
         
+        toolStackView.translatesAutoresizingMaskIntoConstraints = false
+        toolView.addSubview(toolStackView)
+        toolStackView.match(to: toolView, margin: 0)
         
         func toolbarButton(imageName: String, orientation: UIImage.Orientation? = nil) -> UIButton {
             let button = UIButton(type: .custom)
+            button.translatesAutoresizingMaskIntoConstraints = false
             button.backgroundColor = .white
             button.imageView?.contentMode = .scaleAspectFit
             var image = UIImage(named: imageName, in: Bundle.current(), compatibleWith: nil)
@@ -149,19 +154,20 @@ class XNUIWindow: UIWindow {
         }
         
         let resizeBtn = toolbarButton(imageName: "resize")
-        resizeBtn.addTarget(self, action: #selector(clickedOnResize(_:)), for: .touchUpInside)
+        let pinchGesture = UIPanGestureRecognizer(target: self, action: #selector(clickedOnResize(_:)))
+        resizeBtn.addGestureRecognizer(pinchGesture)
         toolStackView.addArrangedSubview(resizeBtn)
         let moveBtn = toolbarButton(imageName: "move")
-        moveBtn.addTarget(self, action: #selector(clickedOnMove(_:)), for: .touchUpInside)
-//        moveBtn.imageEdgeInsets = UIEdgeInsets(top: 3, left: 3, bottom: 3, right: 3)
+        let panGesture = UIPanGestureRecognizer(target: self, action: #selector(clickedOnMove(_:)))
+        moveBtn.addGestureRecognizer(panGesture)
         toolStackView.addArrangedSubview(moveBtn)
         let moreOptionBtn = toolbarButton(imageName: "menu", orientation: .right)
-        moreOptionBtn.imageEdgeInsets = UIEdgeInsets(top: 9, left: 9, bottom: 9, right: 9)
+        moreOptionBtn.imageEdgeInsets = UIEdgeInsets(inset: 9)
         moreOptionBtn.addTarget(self, action: #selector(clickedOnMoreOption(_:)), for: .touchUpInside)
         toolStackView.addArrangedSubview(moreOptionBtn)
         
         let topLineView = UIView()
-        topLineView.backgroundColor = UIColor.lightGray.withAlphaComponent(0.7)
+        topLineView.backgroundColor = UIColor.lightGray.withAlphaComponent(0.6)
         topLineView.autoresizingMask = [.flexibleWidth]
         topLineView.frame.size.height = 1
         toolView.addSubview(topLineView)
@@ -185,15 +191,55 @@ class XNUIWindow: UIWindow {
             print("Height = \(tabbarHeight)")
         }
         toolBarView.heightAnchor.constraint(equalToConstant: tabbarHeight).isActive = true
-        
+        toolBarView.layoutIfNeeded()
     }
     
-    @objc func clickedOnResize(_ sender: UIButton) {
+    @objc func clickedOnResize(_ sender: UIPanGestureRecognizer) {
+        guard let appWindow = self.appWindow else { return }
         
+        let translation = sender.translation(in: appWindow)
+        var newFrame = self.frame
+        newFrame.size.height += translation.y
+        newFrame.size.width -= translation.x
+        newFrame.origin.x += translation.x
+        // Check minimum window size
+        if newFrame.height < windowMinSize.height {
+            newFrame.size.height = windowMinSize.height
+        }
+        
+        if newFrame.width < windowMinSize.width {
+            newFrame.origin.x = self.frame.origin.x
+            newFrame.size.width = windowMinSize.width
+        }
+        
+        self.frame = newFrame
+        sender.setTranslation(.zero, in: appWindow)
     }
     
-    @objc func clickedOnMove(_ sender: UIButton) {
+    @objc func clickedOnMove(_ sender: UIPanGestureRecognizer) {
+        guard let appWindow = self.appWindow else { return }
         
+        let translation = sender.translation(in: appWindow)
+        self.center = CGPoint(x: self.center.x + translation.x, y: self.center.y + translation.y)
+        sender.setTranslation(.zero, in: appWindow)
+        
+        if sender.state != .ended {
+          return
+        }
+
+        let velocity = sender.velocity(in: appWindow)
+        let magnitude = sqrt((velocity.x * velocity.x) + (velocity.y * velocity.y))
+        let slideMultiplier = magnitude / 700
+        let slideFactor = 0.05 * slideMultiplier
+        var finalPoint = CGPoint(x: self.center.x + (velocity.x * slideFactor),
+                                 y: self.center.y + (velocity.y * slideFactor))
+
+        finalPoint.x = min(max(finalPoint.x, 16), appWindow.bounds.width)
+        finalPoint.y = min(max(finalPoint.y, 0), appWindow.bounds.height)
+
+        UIView.animate(withDuration: 0.2, delay: 0, options: [.beginFromCurrentState, .allowUserInteraction, .curveEaseOut], animations: {
+            self.center = finalPoint
+        })
     }
     
     @objc func clickedOnMoreOption(_ sender: UIButton) {
@@ -220,99 +266,6 @@ class XNUIWindow: UIWindow {
         popoverVC.popoverPresentationController?.sourceView = sender
 
         self.rootViewController?.present(popoverVC, animated: true, completion: nil)
-    }
-    
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        if let touch = touches.first {
-            let touchPoint = touch.location(in: self)
-            self.touchStart = touchPoint
-            currentEdges.reset()
-            
-            if touchPoint.y > self.bounds.minY + edgePadding && touchPoint.y < self.bounds.maxY - edgePadding && touchPoint.x > self.bounds.minX + edgePadding && touchPoint.x < self.bounds.maxX - edgePadding {
-                currentEdges.center = true
-                print("Middle")
-                return
-            }
-            
-            // Top
-            if touchPoint.y > self.bounds.minY - edgePadding && touchPoint.y < self.bounds.minY + edgePadding {
-                currentEdges.top = true
-                print("Top")
-            }
-            
-            // Bottom
-            if touchPoint.y > self.bounds.maxY - edgePadding && touchPoint.y < self.bounds.maxY + edgePadding {
-                currentEdges.bottom = true
-                print("Bottom")
-            }
-            
-            // Left
-            if touchPoint.x > self.bounds.minX - edgePadding && touchPoint.x < self.bounds.minX + edgePadding {
-                currentEdges.left = true
-                print("Left")
-            }
-            
-            // Right
-            if touchPoint.x > self.bounds.maxX - edgePadding && touchPoint.x < self.bounds.maxX + edgePadding {
-                currentEdges.right = true
-                print("Right")
-            }
-        }
-    }
-    
-    override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
-        if let touch = touches.first, touch.phase == .moved {
-            
-            let currentTouchPoint = touch.location(in: self)
-            let preTouchPoint = touch.previousLocation(in: self)
-            let deltaWidth = currentTouchPoint.x - preTouchPoint.x
-            let deltaHeight = currentTouchPoint.y - preTouchPoint.y
-            let deltaX = currentTouchPoint.x - self.touchStart.x
-            let deltaY = currentTouchPoint.y - self.touchStart.y
-            
-            let curFrame = self.frame
-            var newRect: CGRect = self.frame
-            
-            if currentEdges.center {
-                print("Middle move")
-                newRect.origin = CGPoint(x: curFrame.origin.x + deltaX, y: curFrame.origin.y + deltaY)
-                self.frame.origin = newRect.origin
-                return
-            }
-            
-            if currentEdges.top {
-                newRect.origin.y = curFrame.origin.y + deltaY
-                newRect.size.height = curFrame.height - deltaY
-            }
-            
-            if currentEdges.bottom {
-                newRect.size.height = curFrame.height + deltaHeight
-            }
-            
-            if currentEdges.left {
-                newRect.origin.x = curFrame.origin.x + deltaX
-                newRect.size.width = curFrame.width - deltaX
-            }
-            
-            if currentEdges.right {
-                newRect.size.width = curFrame.width + deltaWidth
-            }
-            
-            UIView.animate(withDuration: 0.2, delay: 0, options: [.curveLinear], animations: {
-                self.frame = newRect
-            }, completion: nil)
-        }
-    }
-    
-    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
-        print(#function)
-        self.touchStart = .zero
-        self.currentEdges.reset()
-    }
-    
-    override func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent?) {
-        self.touchStart = .zero
-        self.currentEdges.reset()
     }
 }
 

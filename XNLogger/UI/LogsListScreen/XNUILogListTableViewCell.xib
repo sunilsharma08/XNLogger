@@ -52,20 +52,20 @@
                         <color key="textColor" red="0.12549019607843137" green="0.12549019607843137" blue="0.12549019607843137" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" text="UPDATE" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="olg-jB-Do6">
-                        <rect key="frame" x="56" y="48" width="60" height="17"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" text="UPDATE" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="olg-jB-Do6">
+                        <rect key="frame" x="56" y="48" width="51" height="17"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="17" id="ImY-9T-7Nz"/>
-                            <constraint firstAttribute="width" constant="60" id="Umh-G1-mTN"/>
+                            <constraint firstAttribute="width" constant="51" id="Umh-G1-mTN"/>
                         </constraints>
                         <fontDescription key="fontDescription" type="system" weight="medium" pointSize="12"/>
                         <color key="textColor" red="0.50980392156862742" green="0.50980392156862742" blue="0.50980392156862742" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="752" text="ww:ww:ww MM" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="nuS-uM-il2">
-                        <rect key="frame" x="212" y="48" width="100" height="17"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="752" text="ww:ww:ww MM" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="nuS-uM-il2">
+                        <rect key="frame" x="222" y="48" width="90" height="17"/>
                         <constraints>
-                            <constraint firstAttribute="width" constant="100" id="0iR-3K-lRN"/>
+                            <constraint firstAttribute="width" constant="90" id="0iR-3K-lRN"/>
                             <constraint firstAttribute="height" constant="17" id="njF-UG-7gb"/>
                         </constraints>
                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
@@ -79,8 +79,8 @@
                             <constraint firstAttribute="height" constant="1" id="cXJ-gq-cJ2"/>
                         </constraints>
                     </view>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="abc" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="nPB-fY-D92">
-                        <rect key="frame" x="116" y="48" width="96" height="17"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="20s" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="7" translatesAutoresizingMaskIntoConstraints="NO" id="nPB-fY-D92">
+                        <rect key="frame" x="107" y="48" width="115" height="17"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="17" id="0mw-11-Kak"/>
                         </constraints>

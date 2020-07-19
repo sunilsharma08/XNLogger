@@ -32,7 +32,7 @@ public final class XNUIManager: NSObject {
     private var logsIdArray: [String] = []
     private var logsActionThread = DispatchQueue.init(label: "XNUILoggerLogListActionThread", qos: .userInteractive, attributes: .concurrent)
     private let fileService: XNUIFileService = XNUIFileService()
-    private var logWindow: XNUIWindow?
+    var logWindow: XNUIWindow?
     var isMiniModeActive: Bool = false
     weak var viewModeDelegate: XNUIViewModeDelegate? = nil
     
