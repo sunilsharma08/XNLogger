@@ -154,15 +154,17 @@ class XNUIWindow: UIWindow {
         }
         
         let resizeBtn = toolbarButton(imageName: "resize")
+        resizeBtn.imageEdgeInsets = UIEdgeInsets(inset: 14)
         let pinchGesture = UIPanGestureRecognizer(target: self, action: #selector(clickedOnResize(_:)))
         resizeBtn.addGestureRecognizer(pinchGesture)
         toolStackView.addArrangedSubview(resizeBtn)
         let moveBtn = toolbarButton(imageName: "move")
+        moveBtn.imageEdgeInsets = UIEdgeInsets(inset: 9)
         let panGesture = UIPanGestureRecognizer(target: self, action: #selector(clickedOnMove(_:)))
         moveBtn.addGestureRecognizer(panGesture)
         toolStackView.addArrangedSubview(moveBtn)
         let moreOptionBtn = toolbarButton(imageName: "menu", orientation: .right)
-        moreOptionBtn.imageEdgeInsets = UIEdgeInsets(inset: 9)
+        moreOptionBtn.imageEdgeInsets = UIEdgeInsets(inset: 11)
         moreOptionBtn.addTarget(self, action: #selector(clickedOnMoreOption(_:)), for: .touchUpInside)
         toolStackView.addArrangedSubview(moreOptionBtn)
         
