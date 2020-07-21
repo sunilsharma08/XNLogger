@@ -21,7 +21,7 @@ class ExamplesVC: UIViewController {
     @IBOutlet weak var downloadResume: UIButton!
     @IBOutlet weak var downloadBackground: UIButton!
     @IBOutlet weak var webViewLoad: UIButton!
-    var webView = WKWebView(frame: .zero)
+    //var webView = WKWebView(frame: .zero)
     
     var resumeDownloadtask: URLSessionDownloadTask?
     var resumeData: Data?
