@@ -127,7 +127,7 @@ extension XNUILogDetailView: UITableViewDataSource {
 extension XNUILogDetailView: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        print("Selected")
+        
         let msgData = self.detailsArray[indexPath.section].messages[indexPath.row]
         if msgData.showOnlyInFullScreen {
             delegate?.showMessageFullScreen(logData: msgData, title: self.detailsArray[indexPath.section].title)

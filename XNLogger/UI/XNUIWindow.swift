@@ -54,6 +54,7 @@ class XNUIWindow: UIWindow {
         
         self.windowLevel = .init(CGFloat.greatestFiniteMagnitude)
         self.layoutMargins = .zero
+        self.backgroundColor = .white
         self.clipsToBounds = true
         if #available(iOS 11.0, *) {
             self.directionalLayoutMargins = .zero
@@ -171,6 +172,7 @@ class XNUIWindow: UIWindow {
         let topLineView = UIView()
         topLineView.backgroundColor = UIColor.lightGray.withAlphaComponent(0.6)
         topLineView.autoresizingMask = [.flexibleWidth]
+        topLineView.frame.origin.y = 0
         topLineView.frame.size.height = 1
         toolView.addSubview(topLineView)
         
@@ -190,7 +192,6 @@ class XNUIWindow: UIWindow {
             if #available(iOS 11.0, *) {
                 tabbarHeight = tabbarVC.tabBar.frame.height - super.safeAreaInsets.bottom
             }
-            print("Height = \(tabbarHeight)")
         }
         toolBarView.heightAnchor.constraint(equalToConstant: tabbarHeight).isActive = true
         toolBarView.layoutIfNeeded()
