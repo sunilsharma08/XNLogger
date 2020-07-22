@@ -39,6 +39,10 @@ public class XNLogger: NSObject {
         networkInterceptor.stopInterceptingNetwork()
     }
     
+    public func isEnabled() -> Bool {
+        return networkInterceptor.isProtocolSwizzled()
+    }
+    
     public func addLogHandlers(_ handlers: [XNLogHandler]) {
         self.handlers.append(contentsOf: handlers)
     }

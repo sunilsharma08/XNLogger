@@ -18,6 +18,9 @@ internal class XNInterceptor: NSObject {
         /// If it already swizzled skip else swizzle for logging.
         /// This check make safe to call multiple times.
         if isProtocolSwizzled() == false {
+            // Let cache URLSession protocol classes without Custom log URL protocol class.
+            // So that later custom URL protocol can be disabled
+            _ = URLSession.shared
             swizzleProtocolClasses()
         }
     }
@@ -76,4 +79,3 @@ extension URLSessionConfiguration {
         return originalProtocolClasses
     }
 }
-
