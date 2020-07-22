@@ -53,7 +53,9 @@ extension UITableViewHeaderFooterView: NibLoadableView, ReusableView {
 }
 
 extension UITableView {
-    
+    /**
+     Use when xib and class name is same.
+     */
     func register<T: UITableViewCell>(ofType _: T.Type) {
         let bundle = Bundle(for: T.self)
         let nib = UINib(nibName: T.nibName, bundle: bundle)

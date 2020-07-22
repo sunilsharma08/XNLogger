@@ -148,6 +148,13 @@ class XNUIHelper {
         return nil
     }
     
+    func getVersion() -> String {
+        if let sdkVersion = Bundle.current().infoDictionary?["CFBundleShortVersionString"] as? String {
+            return sdkVersion
+        }
+        return "Uknown"
+    }
+    
 }
 
 class XNUIFileService {

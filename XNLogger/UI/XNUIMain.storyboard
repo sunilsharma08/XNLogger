@@ -84,14 +84,40 @@
                     <view key="view" contentMode="scaleToFill" id="g01-Ol-hZM">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xl6-bF-Uw5" customClass="XNUIHeaderView" customModule="XNLogger" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="45"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="45" id="Xeo-BS-GCD"/>
+                                </constraints>
+                            </view>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" sectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="Wdg-Hx-VIm">
+                                <rect key="frame" x="0.0" y="45" width="375" height="573"/>
+                                <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                            </tableView>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="xl6-bF-Uw5" firstAttribute="top" secondItem="g01-Ol-hZM" secondAttribute="top" id="1zU-C1-qnn"/>
+                            <constraint firstItem="xl6-bF-Uw5" firstAttribute="trailing" secondItem="Doo-TS-72w" secondAttribute="trailing" id="HZN-WS-uQ7"/>
+                            <constraint firstItem="Wdg-Hx-VIm" firstAttribute="trailing" secondItem="Doo-TS-72w" secondAttribute="trailing" id="KrW-Yu-STY"/>
+                            <constraint firstItem="xl6-bF-Uw5" firstAttribute="leading" secondItem="Doo-TS-72w" secondAttribute="leading" id="PCk-7F-qQa"/>
+                            <constraint firstItem="Wdg-Hx-VIm" firstAttribute="top" secondItem="xl6-bF-Uw5" secondAttribute="bottom" id="Srl-vt-af4"/>
+                            <constraint firstItem="Wdg-Hx-VIm" firstAttribute="bottom" secondItem="Doo-TS-72w" secondAttribute="bottom" id="clZ-D8-cX4"/>
+                            <constraint firstItem="Wdg-Hx-VIm" firstAttribute="leading" secondItem="Doo-TS-72w" secondAttribute="leading" id="p0k-Un-enG"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="Doo-TS-72w"/>
                     </view>
                     <tabBarItem key="tabBarItem" title="" image="settings" id="Ith-h9-pzc"/>
+                    <connections>
+                        <outlet property="headerView" destination="xl6-bF-Uw5" id="3yl-4E-0aY"/>
+                        <outlet property="settingsTableView" destination="Wdg-Hx-VIm" id="rqB-b1-xTH"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="eHn-od-0Mn" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="49" y="908"/>
+            <point key="canvasLocation" x="48.799999999999997" y="907.1964017991005"/>
         </scene>
         <!--Base Tab Bar Controller-->
         <scene sceneID="22G-xP-7rc">
