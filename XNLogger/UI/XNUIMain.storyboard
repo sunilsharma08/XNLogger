@@ -21,7 +21,7 @@
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </tableView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wW4-aW-RtI">
-                                <rect key="frame" x="187.5" y="269.5" width="0.0" height="0.0"/>
+                                <rect key="frame" x="187.5" y="300" width="0.0" height="0.0"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="19"/>
                                 <color key="textColor" red="0.50980392156862742" green="0.50980392156862742" blue="0.50980392156862742" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
@@ -43,7 +43,7 @@
                             <constraint firstItem="CZa-Lp-sjI" firstAttribute="top" secondItem="ehX-ww-Y4Q" secondAttribute="top" id="WIS-L5-QPK"/>
                             <constraint firstItem="qjk-kd-DrC" firstAttribute="top" secondItem="CZa-Lp-sjI" secondAttribute="bottom" id="Y0m-ch-qFw"/>
                             <constraint firstItem="CZa-Lp-sjI" firstAttribute="leading" secondItem="yfi-o1-kSR" secondAttribute="leading" id="cye-SU-OOO"/>
-                            <constraint firstItem="wW4-aW-RtI" firstAttribute="centerY" secondItem="ehX-ww-Y4Q" secondAttribute="centerY" constant="-64" id="sgq-KO-Iif"/>
+                            <constraint firstItem="wW4-aW-RtI" firstAttribute="centerY" secondItem="ehX-ww-Y4Q" secondAttribute="centerY" multiplier="0.9" id="sgq-KO-Iif"/>
                             <constraint firstItem="qjk-kd-DrC" firstAttribute="trailing" secondItem="yfi-o1-kSR" secondAttribute="trailing" id="xkR-q0-KLl"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="yfi-o1-kSR"/>

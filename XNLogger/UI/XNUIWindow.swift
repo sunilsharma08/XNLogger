@@ -191,6 +191,8 @@ class XNUIWindow: UIWindow {
         if let tabbarVC = self.rootViewController as? UITabBarController {
             if #available(iOS 11.0, *) {
                 tabbarHeight = tabbarVC.tabBar.frame.height - super.safeAreaInsets.bottom
+            } else {
+                tabbarHeight = tabbarVC.tabBar.frame.height
             }
         }
         toolBarView.heightAnchor.constraint(equalToConstant: tabbarHeight).isActive = true
