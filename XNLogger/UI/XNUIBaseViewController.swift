@@ -29,6 +29,7 @@ class XNUIBaseViewController: UIViewController {
     
     @IBOutlet weak var headerView: XNUIHeaderView?
     var helper: XNUIHelper = XNUIHelper()
+    lazy var panGesture = UIPanGestureRecognizer(target: XNUIManager.shared.logWindow, action: #selector(XNUIManager.shared.logWindow?.clickedOnMove(_:)))
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -47,9 +48,6 @@ class XNUIBaseViewController: UIViewController {
         self.tabBarController?.tabBar.isTranslucent = false
         self.headerView?.backgroundColor = XNUIAppColor.primary
         self.headerView?.tintColor = XNUIAppColor.navTint
-        
-        let panGesture = UIPanGestureRecognizer(target: XNUIManager.shared.logWindow, action: #selector(XNUIManager.shared.logWindow?.clickedOnMove(_:)))
-        self.headerView?.addGestureRecognizer(panGesture)
     }
 }
 
@@ -58,8 +56,10 @@ extension XNUIBaseViewController: XNUIViewModeDelegate {
     func viewModeDidChange(_ isMiniViewEnabled: Bool) {
         if isMiniViewEnabled {
             self.tabBarController?.tabBar.isHidden = true
+            self.headerView?.addGestureRecognizer(panGesture)
         } else {
             self.tabBarController?.tabBar.isHidden = false
+            self.headerView?.removeGestureRecognizer(panGesture)
         }
     }
 }
