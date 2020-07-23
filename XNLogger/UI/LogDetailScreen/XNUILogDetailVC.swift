@@ -127,7 +127,6 @@ class XNUILogDetailVC: XNUIBaseViewController {
     }
     
     func loadData(completion: @escaping () -> Void) {
-        print(#function)
         if let logId = self.logInfo?.identifier {
             let fileService: XNUIFileService = XNUIFileService()
             

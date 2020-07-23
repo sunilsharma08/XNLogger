@@ -23,3 +23,39 @@ enum XNUIOptionItemType {
     case logsScreen
     case settingsScreen
 }
+
+enum XNUISettingType {
+    case startStopLog
+    case logUnreadableRequest
+    case logUnreadableResponse
+    case clearData
+    case version
+    case help
+}
+
+class XNUISettingCategory {
+    var title: String?
+    var items: [XNUISettingItem] = []
+    
+    init() {
+    }
+    
+    init(title: String) {
+        self.title = title
+    }
+}
+
+class XNUISettingItem {
+    var title: String
+    var subTitle: String?
+    var textColor: UIColor = .black
+    var type: XNUISettingType
+    var value: Any?
+    
+    init(title: String, subTitle: String? = nil, type: XNUISettingType, value: Any? = nil) {
+        self.title = title
+        self.type = type
+        self.subTitle = subTitle
+        self.value = value
+    }
+}

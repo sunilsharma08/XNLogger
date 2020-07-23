@@ -71,6 +71,7 @@ class XNUIHeaderView: UIView {
         self.safeAreaView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: 0).isActive = true
         self.safeAreaView.topAnchor.constraint(equalTo: self.topAnchor, constant: 0).isActive = true
         self.safeAreaHeightContraint = self.safeAreaView.heightAnchor.constraint(equalToConstant: 0)
+        safeAreaHeightContraint?.priority = UILayoutPriority(999)
         safeAreaHeightContraint?.isActive = true
         
         configureStackView(stackView: leftBarView)

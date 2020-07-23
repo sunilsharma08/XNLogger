@@ -13,6 +13,7 @@ import UIKit
 public enum XNGestureType: Int {
     case shake
     case custom
+    case none
 }
 
 protocol XNUILogDataDelegate: class {

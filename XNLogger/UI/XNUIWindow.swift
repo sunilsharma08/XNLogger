@@ -54,6 +54,7 @@ class XNUIWindow: UIWindow {
         
         self.windowLevel = .init(CGFloat.greatestFiniteMagnitude)
         self.layoutMargins = .zero
+        self.backgroundColor = .white
         self.clipsToBounds = true
         if #available(iOS 11.0, *) {
             self.directionalLayoutMargins = .zero
@@ -154,21 +155,24 @@ class XNUIWindow: UIWindow {
         }
         
         let resizeBtn = toolbarButton(imageName: "resize")
+        resizeBtn.imageEdgeInsets = UIEdgeInsets(inset: 14)
         let pinchGesture = UIPanGestureRecognizer(target: self, action: #selector(clickedOnResize(_:)))
         resizeBtn.addGestureRecognizer(pinchGesture)
         toolStackView.addArrangedSubview(resizeBtn)
         let moveBtn = toolbarButton(imageName: "move")
+        moveBtn.imageEdgeInsets = UIEdgeInsets(inset: 9)
         let panGesture = UIPanGestureRecognizer(target: self, action: #selector(clickedOnMove(_:)))
         moveBtn.addGestureRecognizer(panGesture)
         toolStackView.addArrangedSubview(moveBtn)
         let moreOptionBtn = toolbarButton(imageName: "menu", orientation: .right)
-        moreOptionBtn.imageEdgeInsets = UIEdgeInsets(inset: 9)
+        moreOptionBtn.imageEdgeInsets = UIEdgeInsets(inset: 11)
         moreOptionBtn.addTarget(self, action: #selector(clickedOnMoreOption(_:)), for: .touchUpInside)
         toolStackView.addArrangedSubview(moreOptionBtn)
         
         let topLineView = UIView()
         topLineView.backgroundColor = UIColor.lightGray.withAlphaComponent(0.6)
         topLineView.autoresizingMask = [.flexibleWidth]
+        topLineView.frame.origin.y = 0
         topLineView.frame.size.height = 1
         toolView.addSubview(topLineView)
         
@@ -187,8 +191,9 @@ class XNUIWindow: UIWindow {
         if let tabbarVC = self.rootViewController as? UITabBarController {
             if #available(iOS 11.0, *) {
                 tabbarHeight = tabbarVC.tabBar.frame.height - super.safeAreaInsets.bottom
+            } else {
+                tabbarHeight = tabbarVC.tabBar.frame.height
             }
-            print("Height = \(tabbarHeight)")
         }
         toolBarView.heightAnchor.constraint(equalToConstant: tabbarHeight).isActive = true
         toolBarView.layoutIfNeeded()

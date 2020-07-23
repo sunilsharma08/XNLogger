@@ -29,7 +29,6 @@ class XNUILogListVC: XNUIBaseViewController {
         
         NotificationCenter.default.addObserver(self, selector: #selector(updateLoggerUI), name: .logDataUpdate, object: nil)
         updateLoggerUI()
-        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -62,11 +61,6 @@ class XNUILogListVC: XNUIBaseViewController {
     
     @objc func dismissNetworkUI() {
         XNUIManager.shared.dismissNetworkUI()
-    }
-    
-    @objc func clearLogs() {
-        XNUIManager.shared.clearLogs()
-        updateLoggerUI()
     }
     
     @objc func upadteViewMode() {
@@ -112,7 +106,6 @@ class XNUILogListVC: XNUIBaseViewController {
         DispatchQueue.main.async {
             self.logListTableView.reloadData()
             self.emptyMsgLabel.isHidden = !self.logsIdArray.isEmpty
-            self.headerView?.leftBarView.isHidden = !self.emptyMsgLabel.isHidden
         }
     }
     
