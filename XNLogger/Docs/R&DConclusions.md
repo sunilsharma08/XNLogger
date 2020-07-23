@@ -42,4 +42,9 @@ http://colorsafe.co/
 Tools used
 Design - https://vectr.com/
 
+Blogs for expand and collapse on scroll top view
+https://michiganlabs.com/2016/05/31/ios-animating-uitableview-header
+https://blog.usejournal.com/how-to-collapse-a-custom-header-view-in-ios-while-scrolling-5e0949c64ecd
+
+
 
