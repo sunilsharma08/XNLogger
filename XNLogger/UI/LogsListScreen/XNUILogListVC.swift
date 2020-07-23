@@ -12,6 +12,18 @@ class XNUILogListVC: XNUIBaseViewController {
     
     @IBOutlet weak var logListTableView: UITableView!
     @IBOutlet weak var emptyMsgLabel: UILabel!
+    @IBOutlet weak var searchContainerHeight: NSLayoutConstraint!
+    @IBOutlet weak var searchContainerView: UIView!
+    @IBOutlet weak var logSearchBar: UISearchBar!
+    
+    let maxSearchBarHeight: CGFloat = 42;
+    let minSearchBarHeight: CGFloat = 0;
+    
+    /// The last known scroll position
+    var previousScrollOffset: CGFloat = 0
+    
+    /// The last known height of the scroll view content
+    var previousScrollViewHeight: CGFloat = 0
     
     var viewModeBarButton: UIButton = UIButton()
     
@@ -39,13 +51,13 @@ class XNUILogListVC: XNUIBaseViewController {
     
     func configureViews() {
         let closeButton = helper.createNavButton(
-                        imageName: "close",
-                        imageInsets: UIEdgeInsets(top: 15, left: 25, bottom: 9, right: 5))
+            imageName: "close",
+            imageInsets: UIEdgeInsets(top: 15, left: 25, bottom: 9, right: 5))
         closeButton.addTarget(self, action: #selector(dismissNetworkUI), for: .touchUpInside)
         
         viewModeBarButton = helper.createNavButton(
-                            imageName: "minimise",
-                            imageInsets: UIEdgeInsets(top: 10, left: 6, bottom: 7, right: 12))
+            imageName: "minimise",
+            imageInsets: UIEdgeInsets(top: 10, left: 6, bottom: 7, right: 12))
         viewModeBarButton.addTarget(self, action: #selector(upadteViewMode), for: .touchUpInside)
         
         self.headerView?.addRightBarItems([closeButton])
@@ -56,6 +68,8 @@ class XNUILogListVC: XNUIBaseViewController {
         self.logListTableView.dataSource = self
         self.logListTableView.delegate = self
         self.emptyMsgLabel.text = "No network logs found!"
+        
+        self.searchContainerHeight.constant = 0
         
     }
     
@@ -156,6 +170,106 @@ extension XNUILogListVC: UITableViewDelegate {
             detailController.logInfo = logData
             self.navigationController?.pushViewController(detailController, animated: true)
         }
+    }
+}
+
+extension XNUILogListVC: UISearchResultsUpdating {
+    
+    func updateSearchResults(for searchController: UISearchController) {
+        
+    }
+}
+
+extension XNUILogListVC {
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        
+        defer {
+            self.previousScrollViewHeight = scrollView.contentSize.height
+            self.previousScrollOffset = scrollView.contentOffset.y
+        }
+        
+        let scrollSizeDiff = scrollView.contentSize.height - self.previousScrollViewHeight
+        // If the scroll was caused by the height of the scroll view changing, we want to do nothing.
+        guard scrollSizeDiff == 0 else { return }
+        
+        let scrollDiff = scrollView.contentOffset.y - self.previousScrollOffset
+        let absoluteTop: CGFloat = 0
+        let absoluteBottom: CGFloat = max((scrollView.contentSize.height - scrollView.frame.size.height), scrollView.contentSize.height)
+        
+        let isScrollingDown = scrollDiff > 0 && scrollView.contentOffset.y > absoluteTop
+        let isScrollingUp = scrollDiff < 0 && scrollView.contentOffset.y < absoluteBottom
+        
+        var newHeight = self.searchContainerHeight.constant
+        // Display search bar when scroll view is at top
+        if isScrollingUp && scrollView.contentOffset.y < 0 {
+            newHeight = min(self.maxSearchBarHeight, self.searchContainerHeight.constant + abs(scrollDiff))
+        }
+        
+        if isScrollingDown {
+            newHeight = max(self.minSearchBarHeight, self.searchContainerHeight.constant - abs(scrollDiff))
+        }
+        
+        if newHeight != self.searchContainerHeight.constant {
+            self.searchContainerHeight.constant = newHeight
+            updateSearchBarUI()
+            self.setScrollPosition(self.previousScrollOffset)
+        }
+    }
+    
+    func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
+        if decelerate == false {
+            scrollViewDidStopScrolling()
+        }
+    }
+    
+    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+        scrollViewDidStopScrolling()
+    }
+    
+    func scrollViewDidStopScrolling() {
+        let range = self.maxSearchBarHeight - self.minSearchBarHeight
+        let midPoint = self.minSearchBarHeight + (range * 0.6)
+        
+        if self.searchContainerHeight.constant > midPoint {
+            showSearchBar()
+        } else {
+            hideSearchBar()
+        }
+    }
+    
+    func setScrollPosition(_ position: CGFloat) {
+        self.logListTableView.contentOffset = CGPoint(x: self.logListTableView.contentOffset.x, y: position)
+    }
+    
+    func hideSearchBar() {
+        self.view.layoutIfNeeded()
+        UIView.animate(withDuration: 0.2, delay: 0, options: [.allowUserInteraction, .curveEaseInOut], animations: {
+            self.searchContainerHeight.constant = self.minSearchBarHeight
+            self.updateSearchBarUI()
+            self.view.layoutIfNeeded()
+        }, completion: nil)
+    }
+    
+    func showSearchBar() {
+        self.view.layoutIfNeeded()
+        UIView.animate(withDuration: 0.2, delay: 0, options: [.allowUserInteraction, .curveEaseInOut], animations: {
+            self.searchContainerHeight.constant = self.maxSearchBarHeight
+            self.updateSearchBarUI()
+            self.view.layoutIfNeeded()
+        }, completion: nil)
+    }
+    
+    func updateSearchBarUI() {
+        let range = self.maxSearchBarHeight - self.minSearchBarHeight
+        let openAmount = self.searchContainerHeight.constant - self.minSearchBarHeight
+        let percentage = openAmount / range
+        if percentage < 0.6 {
+            self.logSearchBar.searchTextField.alpha = 0
+        } else {
+            self.logSearchBar.searchTextField.alpha = percentage
+        }
+        self.logSearchBar.alpha = percentage
     }
 }
 
