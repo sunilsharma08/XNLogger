@@ -19,9 +19,9 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="d9j-Yq-bqc">
                                 <rect key="frame" x="0.0" y="45" width="375" height="45"/>
                                 <subviews>
-                                    <searchBar contentMode="redraw" placeholder="Search" translucent="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iOE-dT-yQF">
+                                    <searchBar contentMode="redraw" searchBarStyle="prominent" placeholder="Search" translucent="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iOE-dT-yQF">
                                         <rect key="frame" x="0.0" y="0.0" width="375" height="45"/>
-                                        <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" keyboardType="URL" enablesReturnKeyAutomatically="YES" textContentType="url"/>
+                                        <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" keyboardType="URL" returnKeyType="search" enablesReturnKeyAutomatically="YES" textContentType="url"/>
                                     </searchBar>
                                 </subviews>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>

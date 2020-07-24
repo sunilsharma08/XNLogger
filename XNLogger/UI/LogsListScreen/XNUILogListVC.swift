@@ -16,6 +16,7 @@ class XNUILogListVC: XNUIBaseViewController {
     @IBOutlet weak var searchContainerView: UIView!
     @IBOutlet weak var logSearchBar: UISearchBar!
     
+    var isSearchActive: Bool = false
     let maxSearchBarHeight: CGFloat = 42;
     let minSearchBarHeight: CGFloat = 0;
     
@@ -34,6 +35,8 @@ class XNUILogListVC: XNUIBaseViewController {
     private var logsIdArray: [String] {
         return XNUIManager.shared.getLogsIdArray()
     }
+    
+    private var searchResult: [XNUILogInfo] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -70,7 +73,7 @@ class XNUILogListVC: XNUIBaseViewController {
         self.emptyMsgLabel.text = "No network logs found!"
         
         self.searchContainerHeight.constant = 0
-        
+        self.logSearchBar.delegate = self
     }
     
     @objc func dismissNetworkUI() {
@@ -110,6 +113,9 @@ class XNUILogListVC: XNUIBaseViewController {
      Return `XNLogData` for given index path.
      */
     func getLogData(indexPath: IndexPath) -> XNUILogInfo? {
+        if isSearchActive && searchResult.count > indexPath.row {
+            return searchResult[indexPath.row]
+        }
         if let index = getLogIdArrayIndex(for: indexPath) {
             return logsDataDict[logsIdArray[index]]
         }
@@ -132,6 +138,9 @@ class XNUILogListVC: XNUIBaseViewController {
 extension XNUILogListVC: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if isSearchActive {
+            return searchResult.count
+        }
         return logsIdArray.count
     }
     
@@ -160,6 +169,10 @@ extension XNUILogListVC: UITableViewDataSource {
             }
         }
     }
+    
+    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        return isSearchActive == false
+    }
 }
 
 extension XNUILogListVC: UITableViewDelegate {
@@ -173,10 +186,51 @@ extension XNUILogListVC: UITableViewDelegate {
     }
 }
 
-extension XNUILogListVC: UISearchResultsUpdating {
+extension XNUILogListVC: UISearchBarDelegate {
     
-    func updateSearchResults(for searchController: UISearchController) {
+    func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
+        searchBar.showsCancelButton = true
+        isSearchActive = true
+    }
+    
+    func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
+        searchBar.text = nil
+        searchBar.showsCancelButton = false
+        isSearchActive = false
+        updateLoggerUI()
+    }
+    
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        searchBar.resignFirstResponder()
+    }
+    
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        self.searchBar(searchBar, textDidChange: searchBar.text ?? "")
+    }
+    
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         
+        guard searchText.isEmpty == false
+        else {
+            isSearchActive = false
+            searchResult.removeAll()
+            logListTableView.reloadData()
+            return
+        }
+        
+        var results: [XNUILogInfo] = []
+        let logIds = logsIdArray.reversed()
+        for logId in logIds {
+            if let logInfo = logsDataDict[logId], let title = logInfo.title?.lowercased() {
+                if title.contains(searchText.lowercased()) {
+                    results.append(logInfo)
+                }
+            }
+        }
+        isSearchActive = true
+        searchResult = results
+        logListTableView.reloadData()
+        self.emptyMsgLabel.isHidden = !self.searchResult.isEmpty
     }
 }
 
@@ -211,8 +265,7 @@ extension XNUILogListVC {
         }
         
         if newHeight != self.searchContainerHeight.constant {
-            self.searchContainerHeight.constant = newHeight
-            updateSearchBarUI()
+            updateSearchBar(height: newHeight, animated: false)
             self.setScrollPosition(self.previousScrollOffset)
         }
     }
@@ -232,9 +285,9 @@ extension XNUILogListVC {
         let midPoint = self.minSearchBarHeight + (range * 0.6)
         
         if self.searchContainerHeight.constant > midPoint {
-            showSearchBar()
+            updateSearchBar(height: self.maxSearchBarHeight, animated: true)
         } else {
-            hideSearchBar()
+            updateSearchBar(height: self.minSearchBarHeight, animated: true)
         }
     }
     
@@ -242,19 +295,21 @@ extension XNUILogListVC {
         self.logListTableView.contentOffset = CGPoint(x: self.logListTableView.contentOffset.x, y: position)
     }
     
-    func hideSearchBar() {
-        self.view.layoutIfNeeded()
-        UIView.animate(withDuration: 0.2, delay: 0, options: [.allowUserInteraction, .curveEaseInOut], animations: {
+    func updateSearchBar(height: CGFloat, animated: Bool) {
+        if logsIdArray.isEmpty {
             self.searchContainerHeight.constant = self.minSearchBarHeight
-            self.updateSearchBarUI()
-            self.view.layoutIfNeeded()
-        }, completion: nil)
-    }
-    
-    func showSearchBar() {
-        self.view.layoutIfNeeded()
-        UIView.animate(withDuration: 0.2, delay: 0, options: [.allowUserInteraction, .curveEaseInOut], animations: {
+            return
+        }
+        
+        if isSearchActive {
             self.searchContainerHeight.constant = self.maxSearchBarHeight
+            return
+        }
+        
+        self.view.layoutIfNeeded()
+        let animationDuration: TimeInterval = animated ? 0.2 : 0
+        UIView.animate(withDuration: animationDuration, delay: 0, options: [.allowUserInteraction, .curveEaseInOut], animations: {
+            self.searchContainerHeight.constant = height
             self.updateSearchBarUI()
             self.view.layoutIfNeeded()
         }, completion: nil)
@@ -264,10 +319,18 @@ extension XNUILogListVC {
         let range = self.maxSearchBarHeight - self.minSearchBarHeight
         let openAmount = self.searchContainerHeight.constant - self.minSearchBarHeight
         let percentage = openAmount / range
-        if percentage < 0.6 {
-            self.logSearchBar.searchTextField.alpha = 0
+        var searchTextField: UITextField?
+        
+        if #available(iOS 13.0, *) {
+            searchTextField = self.logSearchBar.searchTextField
         } else {
-            self.logSearchBar.searchTextField.alpha = percentage
+            searchTextField = self.logSearchBar.value(forKey: "searchField") as? UITextField
+        }
+        
+        if percentage < 0.6 {
+            searchTextField?.alpha = 0
+        } else {
+            searchTextField?.alpha = percentage
         }
         self.logSearchBar.alpha = percentage
     }
