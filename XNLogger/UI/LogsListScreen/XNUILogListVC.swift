@@ -302,6 +302,7 @@ extension XNUILogListVC {
     
     func updateSearchBar(height: CGFloat, animated: Bool) {
         if logsIdArray.isEmpty {
+            self.logSearchBar.resignFirstResponder()
             self.searchContainerHeight.constant = self.minSearchBarHeight
             return
         }
