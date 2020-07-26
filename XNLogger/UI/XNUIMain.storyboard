@@ -53,7 +53,7 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="qjk-kd-DrC" firstAttribute="bottom" secondItem="yfi-o1-kSR" secondAttribute="bottom" id="5D6-BH-FSc"/>
+                            <constraint firstItem="yfi-o1-kSR" firstAttribute="bottom" secondItem="qjk-kd-DrC" secondAttribute="bottom" id="5D6-BH-FSc"/>
                             <constraint firstItem="qjk-kd-DrC" firstAttribute="top" secondItem="d9j-Yq-bqc" secondAttribute="bottom" id="6hZ-1D-Kq0"/>
                             <constraint firstItem="d9j-Yq-bqc" firstAttribute="leading" secondItem="yfi-o1-kSR" secondAttribute="leading" id="6lH-Lb-uxv"/>
                             <constraint firstItem="qjk-kd-DrC" firstAttribute="leading" secondItem="yfi-o1-kSR" secondAttribute="leading" id="MQu-tB-Xlx"/>
@@ -78,6 +78,7 @@
                         <outlet property="logSearchBar" destination="iOE-dT-yQF" id="EHh-pD-TsH"/>
                         <outlet property="searchContainerHeight" destination="dXv-ky-e0D" id="Jv8-wW-fKJ"/>
                         <outlet property="searchContainerView" destination="d9j-Yq-bqc" id="XfJ-7A-rWb"/>
+                        <outlet property="tableViewBottomConstraint" destination="5D6-BH-FSc" id="VJC-vl-Pyh"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="mKa-2x-SVm" userLabel="First Responder" sceneMemberID="firstResponder"/>

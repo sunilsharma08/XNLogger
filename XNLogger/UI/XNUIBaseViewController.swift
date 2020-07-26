@@ -53,7 +53,7 @@ class XNUIBaseViewController: UIViewController {
 
 extension XNUIBaseViewController: XNUIViewModeDelegate {
     
-    func viewModeDidChange(_ isMiniViewEnabled: Bool) {
+    @objc func viewModeDidChange(_ isMiniViewEnabled: Bool) {
         if isMiniViewEnabled {
             self.tabBarController?.tabBar.isHidden = true
             self.headerView?.addGestureRecognizer(panGesture)
@@ -61,6 +61,7 @@ extension XNUIBaseViewController: XNUIViewModeDelegate {
             self.tabBarController?.tabBar.isHidden = false
             self.headerView?.removeGestureRecognizer(panGesture)
         }
+        self.view.endEditing(true)
     }
 }
 

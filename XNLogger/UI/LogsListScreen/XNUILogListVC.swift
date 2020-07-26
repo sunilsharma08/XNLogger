@@ -16,6 +16,7 @@ class XNUILogListVC: XNUIBaseViewController {
     @IBOutlet weak var searchContainerView: UIView!
     @IBOutlet weak var logSearchBar: UISearchBar!
     
+    @IBOutlet weak var tableViewBottomConstraint: NSLayoutConstraint!
     var isSearchBarFocused: Bool = false
     let maxSearchBarHeight: CGFloat = 42;
     let minSearchBarHeight: CGFloat = 0;
@@ -38,6 +39,8 @@ class XNUILogListVC: XNUIBaseViewController {
     
     private var searchResult: [XNUILogInfo] = []
     
+    private var keyboardSize: CGSize = .zero
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.configureViews()
@@ -50,6 +53,16 @@ class XNUILogListVC: XNUIBaseViewController {
         super.viewWillAppear(animated)
         
         self.headerView?.setTitle("XNLogger", attributes: [.foregroundColor: XNUIAppColor.navTint, .font: UIFont.systemFont(ofSize: 24, weight: .semibold)])
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
+
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: nil)
     }
     
     func configureViews() {
@@ -74,6 +87,23 @@ class XNUILogListVC: XNUIBaseViewController {
         
         self.searchContainerHeight.constant = 0
         self.logSearchBar.delegate = self
+    }
+    
+    @objc func keyboardWillShow(_ notification: Notification) {
+        
+        if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
+            let tabbarHeight = self.tabBarController?.tabBar.frame.height ?? 0
+            self.keyboardSize = keyboardSize.size
+            self.keyboardSize.height = keyboardSize.height - tabbarHeight
+            if XNUIManager.shared.isMiniModeActive == false {
+                self.tableViewBottomConstraint.constant = self.keyboardSize.height
+            }
+        }
+    }
+    
+    @objc func keyboardWillHide(_ notification: Notification) {
+        self.keyboardSize = .zero
+        self.tableViewBottomConstraint.constant = self.keyboardSize.height
     }
     
     @objc func dismissNetworkUI() {
@@ -134,6 +164,15 @@ class XNUILogListVC: XNUIBaseViewController {
     func isSearchActive() -> Bool {
         let searchText = self.logSearchBar.text ?? ""
         return isSearchBarFocused && searchText.isEmpty == false
+    }
+    
+    override func viewModeDidChange(_ isMiniViewEnabled: Bool) {
+        super.viewModeDidChange(isMiniViewEnabled)
+        if isMiniViewEnabled {
+            self.tableViewBottomConstraint.constant = 0
+        } else {
+            self.tableViewBottomConstraint.constant = self.keyboardSize.height
+        }
     }
     
     deinit {
