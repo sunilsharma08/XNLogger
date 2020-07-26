@@ -16,7 +16,7 @@ class XNUILogListVC: XNUIBaseViewController {
     @IBOutlet weak var searchContainerView: UIView!
     @IBOutlet weak var logSearchBar: UISearchBar!
     
-    var isSearchActive: Bool = false
+    var isSearchBarFocused: Bool = false
     let maxSearchBarHeight: CGFloat = 42;
     let minSearchBarHeight: CGFloat = 0;
     
@@ -95,7 +95,6 @@ class XNUILogListVC: XNUIBaseViewController {
                 self.viewModeBarButton.setImage(UIImage(named: "minimise", in: Bundle.current(), compatibleWith: nil), for: .normal)
             }
         }, completion: nil)
-        
     }
     
     /**
@@ -113,7 +112,7 @@ class XNUILogListVC: XNUIBaseViewController {
      Return `XNLogData` for given index path.
      */
     func getLogData(indexPath: IndexPath) -> XNUILogInfo? {
-        if isSearchActive && searchResult.count > indexPath.row {
+        if isSearchBarFocused && searchResult.count > indexPath.row {
             return searchResult[indexPath.row]
         }
         if let index = getLogIdArrayIndex(for: indexPath) {
@@ -126,7 +125,15 @@ class XNUILogListVC: XNUIBaseViewController {
         DispatchQueue.main.async {
             self.logListTableView.reloadData()
             self.emptyMsgLabel.isHidden = !self.logsIdArray.isEmpty
+            if self.logsIdArray.isEmpty {
+                self.updateSearchBar(height: self.minSearchBarHeight, animated: true)
+            }
         }
+    }
+    
+    func isSearchActive() -> Bool {
+        let searchText = self.logSearchBar.text ?? ""
+        return isSearchBarFocused && searchText.isEmpty == false
     }
     
     deinit {
@@ -138,7 +145,7 @@ class XNUILogListVC: XNUIBaseViewController {
 extension XNUILogListVC: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if isSearchActive {
+        if isSearchActive() {
             return searchResult.count
         }
         return logsIdArray.count
@@ -171,7 +178,7 @@ extension XNUILogListVC: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        return isSearchActive == false
+        return isSearchBarFocused == false
     }
 }
 
@@ -190,13 +197,13 @@ extension XNUILogListVC: UISearchBarDelegate {
     
     func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
         searchBar.showsCancelButton = true
-        isSearchActive = true
+        isSearchBarFocused = true
     }
     
     func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
         searchBar.text = nil
         searchBar.showsCancelButton = false
-        isSearchActive = false
+        isSearchBarFocused = false
         updateLoggerUI()
     }
     
@@ -212,7 +219,6 @@ extension XNUILogListVC: UISearchBarDelegate {
         
         guard searchText.isEmpty == false
         else {
-            isSearchActive = false
             searchResult.removeAll()
             logListTableView.reloadData()
             return
@@ -227,7 +233,7 @@ extension XNUILogListVC: UISearchBarDelegate {
                 }
             }
         }
-        isSearchActive = true
+        isSearchBarFocused = true
         searchResult = results
         logListTableView.reloadData()
         self.emptyMsgLabel.isHidden = !self.searchResult.isEmpty
@@ -263,8 +269,7 @@ extension XNUILogListVC {
         if isScrollingDown {
             newHeight = max(self.minSearchBarHeight, self.searchContainerHeight.constant - abs(scrollDiff))
         }
-        
-        if newHeight != self.searchContainerHeight.constant {
+        if newHeight != self.searchContainerHeight.constant && isSearchActive() == false {
             updateSearchBar(height: newHeight, animated: false)
             self.setScrollPosition(self.previousScrollOffset)
         }
@@ -301,7 +306,7 @@ extension XNUILogListVC {
             return
         }
         
-        if isSearchActive {
+        if isSearchActive() {
             self.searchContainerHeight.constant = self.maxSearchBarHeight
             return
         }
