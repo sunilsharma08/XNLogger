@@ -220,7 +220,7 @@ extension XNUILogListVC: UISearchBarDelegate {
         guard searchText.isEmpty == false
         else {
             searchResult.removeAll()
-            logListTableView.reloadData()
+            updateLoggerUI()
             return
         }
         
