@@ -269,7 +269,7 @@ extension XNUILogListVC {
         if isScrollingDown {
             newHeight = max(self.minSearchBarHeight, self.searchContainerHeight.constant - abs(scrollDiff))
         }
-        if newHeight != self.searchContainerHeight.constant && isSearchActive() == false {
+        if newHeight != self.searchContainerHeight.constant && isSearchBarFocused == false {
             updateSearchBar(height: newHeight, animated: false)
             self.setScrollPosition(self.previousScrollOffset)
         }
