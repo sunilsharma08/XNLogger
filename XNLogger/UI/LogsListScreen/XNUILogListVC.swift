@@ -37,7 +37,7 @@ class XNUILogListVC: XNUIBaseViewController {
         return XNUIManager.shared.getLogsIdArray()
     }
     
-    private var searchResult: [XNUILogInfo] = []
+    private var searchResult: [String] = []
     
     private var keyboardSize: CGSize = .zero
     
@@ -45,7 +45,7 @@ class XNUILogListVC: XNUIBaseViewController {
         super.viewDidLoad()
         self.configureViews()
         
-        NotificationCenter.default.addObserver(self, selector: #selector(updateLoggerUI), name: .logDataUpdate, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(receivedLogUpdateNotification(_:)), name: .logDataUpdate, object: nil)
         updateLoggerUI()
     }
     
@@ -143,7 +143,7 @@ class XNUILogListVC: XNUIBaseViewController {
      */
     func getLogData(indexPath: IndexPath) -> XNUILogInfo? {
         if isSearchBarFocused && searchResult.count > indexPath.row {
-            return searchResult[indexPath.row]
+            return logsDataDict[searchResult[indexPath.row]]
         }
         if let index = getLogIdArrayIndex(for: indexPath) {
             return logsDataDict[logsIdArray[index]]
@@ -151,7 +151,19 @@ class XNUILogListVC: XNUIBaseViewController {
         return nil
     }
     
-    @objc func updateLoggerUI() {
+    @objc func receivedLogUpdateNotification(_ notification: Notification) {
+        DispatchQueue.main.async {
+            if self.isSearchActive(), let userInfo = notification.userInfo as? [String: Any],
+                let logId = userInfo[XNUIConstants.logIdKey] as? String, let isResponseLogUpdate = userInfo[XNUIConstants.isResponseLogUpdate] as? Bool, isResponseLogUpdate == false {
+                if self.shouldIncludeInSearchResult(logId, searchText: self.logSearchBar.text ?? "") {
+                    self.searchResult.insert(logId, at: 0)
+                }
+            }
+            self.updateLoggerUI()
+        }
+    }
+    
+    func updateLoggerUI() {
         DispatchQueue.main.async {
             self.logListTableView.reloadData()
             self.emptyMsgLabel.isHidden = !self.logsIdArray.isEmpty
@@ -263,19 +275,30 @@ extension XNUILogListVC: UISearchBarDelegate {
             return
         }
         
-        var results: [XNUILogInfo] = []
+        var results: [String] = []
         let logIds = logsIdArray.reversed()
         for logId in logIds {
-            if let logInfo = logsDataDict[logId], let title = logInfo.title?.lowercased() {
-                if title.contains(searchText.lowercased()) {
-                    results.append(logInfo)
-                }
+            if shouldIncludeInSearchResult(logId, searchText: searchText) {
+                results.append(logId)
             }
         }
         isSearchBarFocused = true
         searchResult = results
         logListTableView.reloadData()
         self.emptyMsgLabel.isHidden = !self.searchResult.isEmpty
+    }
+    
+    func shouldIncludeInSearchResult(_ logId: String, searchText: String) -> Bool {
+        guard searchText.isEmpty == false else {
+            return false
+        }
+        
+        if let logInfo = logsDataDict[logId], let title = logInfo.title?.lowercased() {
+        if title.contains(searchText.lowercased()) {
+            return true
+            }
+        }
+        return false
     }
 }
 
