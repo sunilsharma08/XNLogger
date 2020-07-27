@@ -252,17 +252,18 @@ extension XNUILogListVC: UISearchBarDelegate {
     }
     
     func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
-        searchBar.text = nil
-        searchBar.showsCancelButton = false
-        isSearchBarFocused = false
         updateLoggerUI()
     }
     
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         searchBar.resignFirstResponder()
+        searchBar.text = nil
+        searchBar.showsCancelButton = false
+        isSearchBarFocused = false
     }
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        searchBar.resignFirstResponder()
         self.searchBar(searchBar, textDidChange: searchBar.text ?? "")
     }
     
