@@ -63,6 +63,7 @@
 		653A1B0724C85AB700FE7B04 /* XNUISettingsCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 653A1B0524C85AB700FE7B04 /* XNUISettingsCell.xib */; };
 		6547BEF42437CEF5001F7B4D /* XNUIResponseFullScreenVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6547BEF32437CEF5001F7B4D /* XNUIResponseFullScreenVC.swift */; };
 		6547BEF72437D023001F7B4D /* XNUIResponseFullScreenVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6547BEF62437D023001F7B4D /* XNUIResponseFullScreenVC.xib */; };
+		6558E4C724CEFD590005E65B /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6558E4C624CEFD590005E65B /* WebKit.framework */; };
 		65B90C3824A0F07E0007FAF0 /* XNUIWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65B90C3724A0F07E0007FAF0 /* XNUIWindow.swift */; };
 		65C1D51524B7AC9B00F92862 /* XNUIOptionItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65C1D51424B7AC9B00F92862 /* XNUIOptionItem.swift */; };
 		65C1D51724B7AD1900F92862 /* XNUIPopOverViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65C1D51624B7AD1900F92862 /* XNUIPopOverViewController.swift */; };
@@ -140,6 +141,7 @@
 		653A1B0524C85AB700FE7B04 /* XNUISettingsCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = XNUISettingsCell.xib; sourceTree = "<group>"; };
 		6547BEF32437CEF5001F7B4D /* XNUIResponseFullScreenVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XNUIResponseFullScreenVC.swift; sourceTree = "<group>"; };
 		6547BEF62437D023001F7B4D /* XNUIResponseFullScreenVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = XNUIResponseFullScreenVC.xib; sourceTree = "<group>"; };
+		6558E4C624CEFD590005E65B /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.15.sdk/System/Library/Frameworks/WebKit.framework; sourceTree = DEVELOPER_DIR; };
 		65B90C3724A0F07E0007FAF0 /* XNUIWindow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XNUIWindow.swift; sourceTree = "<group>"; };
 		65C1D51424B7AC9B00F92862 /* XNUIOptionItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XNUIOptionItem.swift; sourceTree = "<group>"; };
 		65C1D51624B7AD1900F92862 /* XNUIPopOverViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XNUIPopOverViewController.swift; sourceTree = "<group>"; };
@@ -157,6 +159,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6558E4C724CEFD590005E65B /* WebKit.framework in Frameworks */,
 				4AB65FD2711F23689A523C45 /* Pods_XNLogger.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -402,6 +405,7 @@
 		E8915F63EF3B82F0FF848A17 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				6558E4C624CEFD590005E65B /* WebKit.framework */,
 				6E2A8787D51D4750F5E58B0D /* Pods_XNLogger.framework */,
 				DD1DC70CEE51FE911722686D /* Pods_XNLoggerTests.framework */,
 				C0006DBBB3F7A78BE736997C /* Pods_XNLoggerExample.framework */,
