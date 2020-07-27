@@ -41,6 +41,9 @@ class XNUILogListVC: XNUIBaseViewController {
     
     private var keyboardSize: CGSize = .zero
     
+    // Keep track of the pending search item as a property
+    private var pendingSearchOperation: DispatchWorkItem?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.configureViews()
@@ -275,6 +278,19 @@ extension XNUILogListVC: UISearchBarDelegate {
             updateLoggerUI()
             return
         }
+        // Cancel the currently pending item
+        pendingSearchOperation?.cancel()
+        
+        let searchRequestWorkItem = DispatchWorkItem { [weak self] in
+            self?.performSearchOperation(searchText: searchText)
+        }
+        // Save the new work item and execute it after 250 ms
+        pendingSearchOperation = searchRequestWorkItem
+        DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(250),
+                                      execute: searchRequestWorkItem)
+    }
+    
+    func performSearchOperation(searchText: String) {
         
         var results: [String] = []
         let logIds = logsIdArray.reversed()
