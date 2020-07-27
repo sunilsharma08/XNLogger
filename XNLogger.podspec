@@ -25,4 +25,9 @@ Pod::Spec.new do |s|
 
   s.requires_arc = true
 
+  # Add framework as dependencies
+  # s.ios.frameworks = 'MobileCoreServices', 'SystemConfiguration'
+  # s.osx.frameworks = 'CoreServices', 'SystemConfiguration'
+
+  s.ios.frameworks = 'WebKit'
 end
