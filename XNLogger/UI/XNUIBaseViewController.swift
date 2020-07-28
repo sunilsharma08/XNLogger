@@ -48,6 +48,11 @@ class XNUIBaseViewController: UIViewController {
         self.tabBarController?.tabBar.isTranslucent = false
         self.headerView?.backgroundColor = XNUIAppColor.primary
         self.headerView?.tintColor = XNUIAppColor.navTint
+        if XNUIManager.shared.isMiniModeActive {
+            self.headerView?.addGestureRecognizer(panGesture)
+        } else {
+            self.headerView?.removeGestureRecognizer(panGesture)
+        }
     }
 }
 
