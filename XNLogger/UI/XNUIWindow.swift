@@ -51,8 +51,8 @@ class XNUIWindow: UIWindow {
     }
     
     func present(rootVC: UIViewController) {
-        
-        self.windowLevel = .init(CGFloat.greatestFiniteMagnitude)
+        appWindow?.resignKey()
+        self.windowLevel = UIWindow.Level.alert
         self.layoutMargins = .zero
         self.backgroundColor = .white
         self.clipsToBounds = true
@@ -112,18 +112,22 @@ class XNUIWindow: UIWindow {
             self.layer.borderColor = UIColor.lightGray.withAlphaComponent(0.3).cgColor
             self.transform = CGAffineTransform(scaleX: 0.66, y: 0.66)
             self.frame = CGRect(x: UIScreen.main.bounds.width - defaultMiniWidth - 20, y: 90, width: defaultMiniWidth, height: defaultMiniHeight)
-        }, completion: nil)
+        }) {(completed) in
+            self.resignKey()
+        }
     }
     
     func enableFullScreenView() {
         self.toolBarView.removeFromSuperview()
         
-        UIView.animate(withDuration: 0.3) {
+        UIView.animate(withDuration: 0.3, animations: {
             self.layer.cornerRadius = 0
             self.layer.borderWidth = 0
             self.layer.borderColor = nil
             self.transform = .identity
             self.frame = UIScreen.main.bounds
+        }) { (completed) in
+            self.becomeKey()
         }
     }
     
