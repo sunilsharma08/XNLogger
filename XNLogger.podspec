@@ -29,5 +29,5 @@ Pod::Spec.new do |s|
   # s.ios.frameworks = 'MobileCoreServices', 'SystemConfiguration'
   # s.osx.frameworks = 'CoreServices', 'SystemConfiguration'
 
-  s.ios.frameworks = 'WebKit'
+  s.frameworks = 'WebKit'
 end
