@@ -72,11 +72,11 @@ public final class XNUIManager: NSObject {
     
     // Dismiss network logger UI
     @objc public func dismissNetworkUI() {
-        logWindow?.dismiss()
-        logWindow = nil
-        
-        // Reset values
-        isMiniModeActive = false
+        logWindow?.dismiss(completion: {
+            self.logWindow = nil
+            // Reset values
+            self.isMiniModeActive = false
+        })
     }
     
     func updateViewMode(enableMiniView: Bool) {

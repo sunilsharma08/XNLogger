@@ -38,6 +38,8 @@ class XNUIWindow: UIWindow {
         return UIApplication.shared.delegate?.window as? UIWindow
     }
     
+    var preKeyWindow: UIWindow?
+    
     override var safeAreaInsets: UIEdgeInsets {
         if isMiniModeActive {
             return .zero
@@ -51,7 +53,7 @@ class XNUIWindow: UIWindow {
     }
     
     func present(rootVC: UIViewController) {
-        appWindow?.resignKey()
+        
         self.windowLevel = UIWindow.Level.alert
         self.layoutMargins = .zero
         self.backgroundColor = .white
@@ -62,34 +64,39 @@ class XNUIWindow: UIWindow {
         }
         self.rootViewController = rootVC
         
+        // Keep key window track before presenting and making key to logger window
+        preKeyWindow = getKeyWindow()
+        self.makeKeyAndVisible()
+        
         let presentTransition = CATransition()
         presentTransition.duration = 0.37
         presentTransition.timingFunction = CAMediaTimingFunction(name: .easeOut)
         presentTransition.type = .moveIn
         presentTransition.subtype = .fromTop
         self.layer.add(presentTransition, forKey: kCATransition)
-        self.makeKeyAndVisible()
     }
     
-    func dismiss() {
+    func dismiss(completion: (() -> Void)?) {
         
-        self.appWindow?.makeKey()
-        var animationDuration: TimeInterval = 0.37
+        self.preKeyWindow?.makeKey()
+        var animationDuration: TimeInterval = 0.3
         let isMiniModeActive = self.isMiniModeActive
         
         if isMiniModeActive {
             animationDuration = 0.2
         }
-        UIView.animate(withDuration: animationDuration, delay: 0, options: [.curveEaseInOut], animations: {
+        
+        UIView.animate(withDuration: animationDuration, delay: 0, options: [.curveEaseIn], animations: {
             if isMiniModeActive {
                 self.alpha = 0
             } else {
                 self.frame.origin.y = UIScreen.main.bounds.height
                 self.alpha = 0.5
             }
-        }) { (completed) in
-            self.isHidden = true
-            self.rootViewController = nil
+        }) {[weak self] (completed) in
+            self?.isHidden = true
+            self?.rootViewController = nil
+            completion?()
         }
     }
     
@@ -112,13 +119,15 @@ class XNUIWindow: UIWindow {
             self.layer.borderColor = UIColor.lightGray.withAlphaComponent(0.3).cgColor
             self.transform = CGAffineTransform(scaleX: 0.66, y: 0.66)
             self.frame = CGRect(x: UIScreen.main.bounds.width - defaultMiniWidth - 20, y: 90, width: defaultMiniWidth, height: defaultMiniHeight)
-        }) {(completed) in
-            self.resignKey()
+        }) {[weak self] (completed) in
+            self?.preKeyWindow?.makeKey()
         }
     }
     
     func enableFullScreenView() {
         self.toolBarView.removeFromSuperview()
+        preKeyWindow = getKeyWindow()
+        self.makeKey()
         
         UIView.animate(withDuration: 0.3, animations: {
             self.layer.cornerRadius = 0
@@ -126,9 +135,11 @@ class XNUIWindow: UIWindow {
             self.layer.borderColor = nil
             self.transform = .identity
             self.frame = UIScreen.main.bounds
-        }) { (completed) in
-            self.becomeKey()
-        }
+        })
+    }
+    
+    func getKeyWindow() -> UIWindow? {
+        return UIApplication.shared.windows.filter {$0.isKeyWindow}.first
     }
     
     func createToolbarView() -> UIView {
