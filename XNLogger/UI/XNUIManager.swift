@@ -72,11 +72,11 @@ public final class XNUIManager: NSObject {
     
     // Dismiss network logger UI
     @objc public func dismissNetworkUI() {
-        logWindow?.dismiss()
-        logWindow = nil
-        
-        // Reset values
-        isMiniModeActive = false
+        logWindow?.dismiss(completion: {
+            self.logWindow = nil
+            // Reset values
+            self.isMiniModeActive = false
+        })
     }
     
     func updateViewMode(enableMiniView: Bool) {
@@ -162,14 +162,14 @@ extension XNUIManager: XNUILogDataDelegate {
                 // Request
                 self.fileService.saveLogsDataOnDisk(logData, completion: nil)
                 DispatchQueue.main.async {
-                    NotificationCenter.default.post(name: .logDataUpdate, object: nil, userInfo: [XNUIConstants.logIdKey: logData.identifier])
+                    NotificationCenter.default.post(name: .logDataUpdate, object: nil, userInfo: [XNUIConstants.logIdKey: logData.identifier, XNUIConstants.isResponseLogUpdate: false])
                 }
             } else {
                 // Response
                 self.fileService.saveLogsDataOnDisk(logData) {
                     // Post response notification on completion of write operation
                     DispatchQueue.main.async {
-                        NotificationCenter.default.post(name: .logDataUpdate, object: nil, userInfo: [XNUIConstants.logIdKey: logData.identifier])
+                        NotificationCenter.default.post(name: .logDataUpdate, object: nil, userInfo: [XNUIConstants.logIdKey: logData.identifier, XNUIConstants.isResponseLogUpdate: true])
                     }
                 }
             }

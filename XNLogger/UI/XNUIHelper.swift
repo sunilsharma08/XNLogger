@@ -62,6 +62,7 @@ final class XNUIConstants {
     static let msgCellMaxAllowedSize: Int = 100000
     static let activityIndicatorTag: Int = 10263
     static let logIdKey: String = "logIdentifier"
+    static let isResponseLogUpdate: String = "isResponseLogUpdate"
 }
 
 class XNUIHelper {
