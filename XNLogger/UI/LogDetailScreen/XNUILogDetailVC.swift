@@ -46,6 +46,13 @@ class XNUILogDetailVC: XNUIBaseViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(didReceiveUpdate(_:)), name: .logDataUpdate, object: nil)
         
         configureViews()
+        
+        // Just to update UITextEffectsWindow level and UIMenuController is visible
+        UIApplication.shared.windows.forEach { (windoww) in
+            if windoww.className == "UITextEffectsWindow" {
+                windoww.windowLevel = .init(CGFloat.greatestFiniteMagnitude)
+            }
+        }
     }
     
     private func configureViews() {
@@ -182,6 +189,7 @@ class XNUILogDetailVC: XNUIBaseViewController {
     }
     
     @objc func clickedOnMoreOptions() {
+        
         guard let moreOptionButton = self.moreOptionBtn else { return }
         let popoverVC = XNUIPopOverViewController()
         let optionItems: [XNUIOptionItem] = [

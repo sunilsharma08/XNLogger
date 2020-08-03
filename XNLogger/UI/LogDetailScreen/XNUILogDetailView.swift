@@ -110,7 +110,7 @@ extension XNUILogDetailView: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell: XNUILogDetailCell = tableView.dequeueReusableCell(for: indexPath)
-        cell.configureViews(self.detailsArray[indexPath.section].messages[indexPath.row])
+        cell.configureViews(self.detailsArray[indexPath.section].messages[indexPath.row], indexPath: indexPath)
         return cell
     }
     

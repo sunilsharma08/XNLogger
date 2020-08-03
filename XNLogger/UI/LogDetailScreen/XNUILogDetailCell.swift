@@ -11,6 +11,7 @@ import UIKit
 class XNUILogTextView: UITextView {
     
     override func canPerformAction(_ action: Selector, withSender sender: Any?) -> Bool {
+        
         if action == #selector(selectAll) {
             
             if let range = selectedTextRange, range.start == beginningOfDocument, range.end == endOfDocument {
@@ -20,12 +21,12 @@ class XNUILogTextView: UITextView {
         }
         return super.canPerformAction(action, withSender: sender)
     }
-    
 }
 
 class XNUILogDetailCell: UITableViewCell {
     
     @IBOutlet weak var logDetailMsg: XNUILogTextView!
+    var indexPath: IndexPath?
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -36,8 +37,9 @@ class XNUILogDetailCell: UITableViewCell {
         self.selectionStyle = UITableViewCell.SelectionStyle.none
     }
     
-    func configureViews(_ messageData: XNUIMessageData) {
+    func configureViews(_ messageData: XNUIMessageData, indexPath: IndexPath) {
         self.logDetailMsg.layoutIfNeeded()
+        self.indexPath = indexPath
         if messageData.showOnlyInFullScreen == false {
             
             if messageData.isEmptyDataMsg {
@@ -92,5 +94,4 @@ class XNUILogDetailCell: UITableViewCell {
         
         return largeDataMsg
     }
-    
 }
