@@ -12,10 +12,6 @@ class XNUILogDetailHeaderCell: UITableViewHeaderFooterView {
 
     @IBOutlet weak var titleLbl: UILabel!
     @IBOutlet weak var showHideLbl: UILabel!
-    
-    override func awakeFromNib() {
-        super.awakeFromNib()
-    }
 
     func updateViews(with mesaage: String) {
         self.titleLbl.text = mesaage

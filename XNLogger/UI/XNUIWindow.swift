@@ -54,7 +54,7 @@ class XNUIWindow: UIWindow {
     
     func present(rootVC: UIViewController) {
         
-        self.windowLevel = UIWindow.Level.alert
+        self.windowLevel = .init(CGFloat.greatestFiniteMagnitude)
         self.layoutMargins = .zero
         self.backgroundColor = .white
         self.clipsToBounds = true
@@ -264,7 +264,7 @@ class XNUIWindow: UIWindow {
     
     @objc func clickedOnMoreOption(_ sender: UIButton) {
         
-         let popoverVC = XNUIPopOverViewController()
+        let popoverVC = XNUIPopOverViewController()
         popoverVC.popoverPresentationController?.permittedArrowDirections = [.down]
         var optionItems: [XNUIOptionItem] = [
              XNUIOptionItem(title: "Logs", type: .logsScreen),
