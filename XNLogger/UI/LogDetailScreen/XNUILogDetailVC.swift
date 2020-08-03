@@ -46,13 +46,16 @@ class XNUILogDetailVC: XNUIBaseViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(didReceiveUpdate(_:)), name: .logDataUpdate, object: nil)
         
         configureViews()
-        
-        // Just to update UITextEffectsWindow level and UIMenuController is visible
-        UIApplication.shared.windows.forEach { (windoww) in
-            if windoww.className == "UITextEffectsWindow" {
-                windoww.windowLevel = .init(CGFloat.greatestFiniteMagnitude)
-            }
-        }
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        NotificationCenter.default.addObserver(self, selector: #selector(updateViewSource(_:)), name: UIMenuController.willShowMenuNotification, object: nil)
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        NotificationCenter.default.removeObserver(self, name: UIMenuController.willShowMenuNotification, object: nil)
     }
     
     private func configureViews() {
@@ -90,6 +93,15 @@ class XNUILogDetailVC: XNUIBaseViewController {
             DispatchQueue.main.async {
                 self?.selectDefaultTab()
                 self?.updateUI()
+            }
+        }
+    }
+    
+    @objc func updateViewSource(_ notification: Notification) {
+        // Just to update UITextEffectsWindow level and UIMenuController is visible
+        UIApplication.shared.windows.forEach { (windoww) in
+            if windoww.className == "UITextEffectsWindow" {
+                windoww.windowLevel = .init(CGFloat.greatestFiniteMagnitude)
             }
         }
     }
