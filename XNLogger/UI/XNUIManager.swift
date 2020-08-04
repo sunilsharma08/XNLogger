@@ -63,8 +63,20 @@ public final class XNUIManager: NSObject {
             
             if let tabbarVC = UIStoryboard.mainStoryboard().instantiateViewController(withIdentifier: "nlMainTabBarController") as? UITabBarController {
                 tabbarVC.modalPresentationStyle = .overFullScreen
-                logWindow = XNUIWindow(frame: UIScreen.main.bounds)
-
+                
+                if #available(iOS 13.0, *) {
+                    let windowScene = UIApplication.shared
+                        .connectedScenes
+                        .filter { $0.activationState == .foregroundActive }
+                        .first
+                    if let windowScene = windowScene as? UIWindowScene {
+                        logWindow = XNUIWindow(windowScene: windowScene)
+                        logWindow?.frame = UIScreen.main.bounds
+                    }
+                } else {
+                    // Fallback on earlier versions
+                    logWindow = XNUIWindow(frame: UIScreen.main.bounds)
+                }
                 logWindow?.present(rootVC: tabbarVC)
             }
         }
