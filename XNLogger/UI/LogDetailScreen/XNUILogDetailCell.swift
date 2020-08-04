@@ -11,7 +11,9 @@ import UIKit
 class XNUILogTextView: UITextView {
     
     override func canPerformAction(_ action: Selector, withSender sender: Any?) -> Bool {
-        
+        if action.description == "_define:" || action.description == "_lookup:" {
+            return false
+        }
         if action == #selector(selectAll) {
             
             if let range = selectedTextRange, range.start == beginningOfDocument, range.end == endOfDocument {
