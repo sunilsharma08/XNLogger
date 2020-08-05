@@ -40,6 +40,17 @@ class XNUIWindow: UIWindow {
         return preKeyWindow
     }
     
+    override func makeKey() {
+        let keyWindow = XNUIManager.shared.getKeyWindow()
+        if let _ = keyWindow as? XNUIWindow {
+            // No need to update preKeyWindow, as certain avtivity like preseting keyboard, show UIMenuController implicitly make current window as key window. In this case preKeyWindow will keep reference to itself.
+        } else {
+            // Keep key window track before presenting and making key to logger window
+            preKeyWindow = keyWindow
+        }
+        super.makeKey()
+    }
+    
     override var safeAreaInsets: UIEdgeInsets {
         if isMiniModeActive {
             return .zero
@@ -64,8 +75,6 @@ class XNUIWindow: UIWindow {
         }
         self.rootViewController = rootVC
         
-        // Keep key window track before presenting and making key to logger window
-        preKeyWindow = XNUIManager.shared.getKeyWindow()
         self.makeKeyAndVisible()
         
         let presentTransition = CATransition()
@@ -128,7 +137,6 @@ class XNUIWindow: UIWindow {
     
     func enableFullScreenView() {
         self.toolBarView.removeFromSuperview()
-        preKeyWindow = XNUIManager.shared.getKeyWindow()
         self.makeKey()
         
         UIView.animate(withDuration: 0.3, animations: {
