@@ -14,10 +14,10 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "1005805D21C65F490020288D"
-               BuildableName = "XNLogger.framework"
-               BlueprintName = "XNLogger"
-               ReferencedContainer = "container:../XNLogger.xcodeproj">
+               BlueprintIdentifier = "10A9493A2335FAD40055C326"
+               BuildableName = "XNLoggerExample.app"
+               BlueprintName = "XNLoggerExample"
+               ReferencedContainer = "container:XNLoggerExample.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
          <BuildActionEntry
@@ -28,10 +28,10 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "10A9493A2335FAD40055C326"
-               BuildableName = "XNLoggerExample.app"
-               BlueprintName = "XNLoggerExample"
-               ReferencedContainer = "container:XNLoggerExample.xcodeproj">
+               BlueprintIdentifier = "1005805D21C65F490020288D"
+               BuildableName = "XNLogger.framework"
+               BlueprintName = "XNLogger"
+               ReferencedContainer = "container:../XNLogger.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
