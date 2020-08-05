@@ -11,6 +11,12 @@ import UIKit
 class XNUILogTextView: UITextView {
     
     override func canPerformAction(_ action: Selector, withSender sender: Any?) -> Bool {
+        
+        // Disabling edit action menus for iOS 13 and above, as menu appear at wrong position for mini view mode
+        // Need to fix.
+        if #available(iOS 13.0, *), XNUIManager.shared.isMiniModeActive {
+            return false
+        }
         if action.description == "_define:" || action.description == "_lookup:" {
             return false
         }
