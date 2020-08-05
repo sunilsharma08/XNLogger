@@ -56,6 +56,21 @@ public final class XNUIManager: NSObject {
         return rootViewController
     }
     
+    func getKeyWindow() -> UIWindow? {
+        
+        if #available(iOS 13.0, *) {
+        let keyWindow = UIApplication.shared
+            .connectedScenes
+            .filter { $0.activationState == .foregroundActive }
+            .compactMap({ $0 as? UIWindowScene })
+            .flatMap({ $0.windows })
+            .filter({ $0.isKeyWindow }).first
+            return keyWindow
+        } else {
+            return UIApplication.shared.windows.filter {$0.isKeyWindow}.first
+        }
+    }
+    
     // Preset network logger UI to user. This is start point of UI
     @objc public func presentNetworkLogUI() {
         
@@ -64,18 +79,11 @@ public final class XNUIManager: NSObject {
             if let tabbarVC = UIStoryboard.mainStoryboard().instantiateViewController(withIdentifier: "nlMainTabBarController") as? UITabBarController {
                 tabbarVC.modalPresentationStyle = .overFullScreen
                 
+                logWindow = XNUIWindow()
+                let currenKeyWindow = getKeyWindow()
+                logWindow?.frame = currenKeyWindow?.bounds ?? UIScreen.main.bounds
                 if #available(iOS 13.0, *) {
-                    let windowScene = UIApplication.shared
-                        .connectedScenes
-                        .filter { $0.activationState == .foregroundActive }
-                        .first
-                    if let windowScene = windowScene as? UIWindowScene {
-                        logWindow = XNUIWindow(windowScene: windowScene)
-                        logWindow?.frame = UIScreen.main.bounds
-                    }
-                } else {
-                    // Fallback on earlier versions
-                    logWindow = XNUIWindow(frame: UIScreen.main.bounds)
+                    logWindow?.windowScene = currenKeyWindow?.windowScene
                 }
                 logWindow?.present(rootVC: tabbarVC)
             }

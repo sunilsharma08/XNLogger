@@ -34,11 +34,11 @@ class XNUIWindow: UIWindow {
         return XNUIManager.shared.isMiniModeActive
     }
     
-    var appWindow: UIWindow? {
-        return UIApplication.shared.delegate?.window as? UIWindow
-    }
+    weak var preKeyWindow: UIWindow?
     
-    var preKeyWindow: UIWindow?
+    var appWindow: UIWindow? {
+        return preKeyWindow
+    }
     
     override var safeAreaInsets: UIEdgeInsets {
         if isMiniModeActive {
@@ -65,7 +65,7 @@ class XNUIWindow: UIWindow {
         self.rootViewController = rootVC
         
         // Keep key window track before presenting and making key to logger window
-        preKeyWindow = getKeyWindow()
+        preKeyWindow = XNUIManager.shared.getKeyWindow()
         self.makeKeyAndVisible()
         
         let presentTransition = CATransition()
@@ -79,6 +79,7 @@ class XNUIWindow: UIWindow {
     func dismiss(completion: (() -> Void)?) {
         
         self.preKeyWindow?.makeKey()
+        self.preKeyWindow = nil
         var animationDuration: TimeInterval = 0.3
         let isMiniModeActive = self.isMiniModeActive
         
@@ -102,8 +103,9 @@ class XNUIWindow: UIWindow {
     
     func enableMiniView() {
         addToolBar()
-        var defaultMiniWidth: CGFloat = UIScreen.main.bounds.width * 0.42
-        var defaultMiniHeight: CGFloat = UIScreen.main.bounds.height * 0.37
+        let parentViewBounds: CGRect = preKeyWindow?.bounds ?? UIScreen.main.bounds
+        var defaultMiniWidth: CGFloat = parentViewBounds.width * 0.42
+        var defaultMiniHeight: CGFloat = parentViewBounds.height * 0.37
         
         if defaultMiniWidth < windowMinSize.width {
             defaultMiniWidth = windowMinSize.width
@@ -118,7 +120,7 @@ class XNUIWindow: UIWindow {
             self.layer.borderWidth = 2
             self.layer.borderColor = UIColor.lightGray.withAlphaComponent(0.3).cgColor
             self.transform = CGAffineTransform(scaleX: 0.66, y: 0.66)
-            self.frame = CGRect(x: UIScreen.main.bounds.width - defaultMiniWidth - 20, y: 90, width: defaultMiniWidth, height: defaultMiniHeight)
+            self.frame = CGRect(x: parentViewBounds.width - defaultMiniWidth - 20, y: 90, width: defaultMiniWidth, height: defaultMiniHeight)
         }) {[weak self] (completed) in
             self?.preKeyWindow?.makeKey()
         }
@@ -126,7 +128,7 @@ class XNUIWindow: UIWindow {
     
     func enableFullScreenView() {
         self.toolBarView.removeFromSuperview()
-        preKeyWindow = getKeyWindow()
+        preKeyWindow = XNUIManager.shared.getKeyWindow()
         self.makeKey()
         
         UIView.animate(withDuration: 0.3, animations: {
@@ -134,12 +136,8 @@ class XNUIWindow: UIWindow {
             self.layer.borderWidth = 0
             self.layer.borderColor = nil
             self.transform = .identity
-            self.frame = UIScreen.main.bounds
+            self.frame = self.preKeyWindow?.bounds ?? UIScreen.main.bounds
         })
-    }
-    
-    func getKeyWindow() -> UIWindow? {
-        return UIApplication.shared.windows.filter {$0.isKeyWindow}.first
     }
     
     func createToolbarView() -> UIView {
