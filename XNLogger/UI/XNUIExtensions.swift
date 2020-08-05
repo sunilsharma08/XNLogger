@@ -84,6 +84,13 @@ extension String {
         let boundingBox = self.boundingRect(with: constraintRect, options: options, attributes: [NSAttributedString.Key.font: font], context: nil)
         return boundingBox.size
     }
+    
+    public func widthWithConstrainedHeight(_ height: CGFloat, font: UIFont, options: NSStringDrawingOptions = [.usesLineFragmentOrigin, .usesFontLeading]) -> CGSize {
+        let constraintRect = CGSize(width: CGFloat.greatestFiniteMagnitude, height: height)
+        let boundingBox = self.boundingRect(with: constraintRect, options: options, attributes: [NSAttributedString.Key.font: font], context: nil)
+        return boundingBox.size
+    }
+    
 }
 
 extension NSNotification.Name {
@@ -116,4 +123,17 @@ extension UIView {
         self.topAnchor.constraint(equalTo: pView.topAnchor, constant: margin).isActive = true
         self.bottomAnchor.constraint(equalTo: pView.bottomAnchor, constant: margin).isActive = true
     }
+}
+
+extension CGRect: Comparable {
+    
+    public static func == (lhs: CGRect, rhs: CGRect) -> Bool {
+        return lhs.width == rhs.width && lhs.width == rhs.width
+    }
+    
+    public static func < (lhs: CGRect, rhs: CGRect) -> Bool {
+        return lhs.width < rhs.width && lhs.width < rhs.width
+    }
+    
+    
 }

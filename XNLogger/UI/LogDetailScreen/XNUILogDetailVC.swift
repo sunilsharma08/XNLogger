@@ -48,6 +48,16 @@ class XNUILogDetailVC: XNUIBaseViewController {
         configureViews()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        NotificationCenter.default.addObserver(self, selector: #selector(updateViewSource(_:)), name: UIMenuController.willShowMenuNotification, object: nil)
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        NotificationCenter.default.removeObserver(self, name: UIMenuController.willShowMenuNotification, object: nil)
+    }
+    
     private func configureViews() {
         self.headerView?.setTitle("Log details")
         self.headerView?.addBackButton(target: self.navigationController, selector: #selector(self.navigationController?.popViewController(animated:)))
@@ -83,6 +93,15 @@ class XNUILogDetailVC: XNUIBaseViewController {
             DispatchQueue.main.async {
                 self?.selectDefaultTab()
                 self?.updateUI()
+            }
+        }
+    }
+    
+    @objc func updateViewSource(_ notification: Notification) {
+        // Just to update UITextEffectsWindow level and UIMenuController is visible
+        UIApplication.shared.windows.forEach { (windoww) in
+            if windoww.className == "UITextEffectsWindow" {
+                windoww.windowLevel = .init(CGFloat.greatestFiniteMagnitude)
             }
         }
     }
@@ -182,6 +201,7 @@ class XNUILogDetailVC: XNUIBaseViewController {
     }
     
     @objc func clickedOnMoreOptions() {
+        
         guard let moreOptionButton = self.moreOptionBtn else { return }
         let popoverVC = XNUIPopOverViewController()
         let optionItems: [XNUIOptionItem] = [

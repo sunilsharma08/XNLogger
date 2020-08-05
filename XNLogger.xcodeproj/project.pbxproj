@@ -123,8 +123,6 @@
 		1090C2072307250E00575550 /* XNUIFiltersVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XNUIFiltersVC.swift; sourceTree = "<group>"; };
 		1090C2092307252200575550 /* XNUISettingsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XNUISettingsVC.swift; sourceTree = "<group>"; };
 		1090C20B2307403900575550 /* XNUIHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XNUIHelper.swift; sourceTree = "<group>"; };
-		10AA00D721FE34E6006E4A48 /* R&DConclusions.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = "R&DConclusions.md"; sourceTree = "<group>"; };
-		10AA00D821FE34E6006E4A48 /* Technical.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = Technical.md; sourceTree = "<group>"; };
 		10B4076722626644000FD18E /* XNURLProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XNURLProtocol.swift; sourceTree = "<group>"; };
 		10BC314722CD2FD20020167D /* XNAuthenticationChallengeSender.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XNAuthenticationChallengeSender.swift; sourceTree = "<group>"; };
 		10BE806A2233C8B800A147BC /* TestUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestUtils.swift; sourceTree = "<group>"; };
@@ -142,6 +140,7 @@
 		6547BEF32437CEF5001F7B4D /* XNUIResponseFullScreenVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XNUIResponseFullScreenVC.swift; sourceTree = "<group>"; };
 		6547BEF62437D023001F7B4D /* XNUIResponseFullScreenVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = XNUIResponseFullScreenVC.xib; sourceTree = "<group>"; };
 		6558E4C624CEFD590005E65B /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.15.sdk/System/Library/Frameworks/WebKit.framework; sourceTree = DEVELOPER_DIR; };
+		6558E4C824CF0A800005E65B /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		65B90C3724A0F07E0007FAF0 /* XNUIWindow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XNUIWindow.swift; sourceTree = "<group>"; };
 		65C1D51424B7AC9B00F92862 /* XNUIOptionItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XNUIOptionItem.swift; sourceTree = "<group>"; };
 		65C1D51624B7AD1900F92862 /* XNUIPopOverViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XNUIPopOverViewController.swift; sourceTree = "<group>"; };
@@ -201,7 +200,6 @@
 			children = (
 				10B2CF07232EAA2200CD1D80 /* Core */,
 				106BB6922304A882007968A8 /* UI */,
-				10AA00D621FE34E6006E4A48 /* Docs */,
 				1005806121C65F490020288D /* XNLogger.h */,
 				1005806221C65F490020288D /* Info.plist */,
 			);
@@ -325,15 +323,6 @@
 			path = LogHandlers;
 			sourceTree = "<group>";
 		};
-		10AA00D621FE34E6006E4A48 /* Docs */ = {
-			isa = PBXGroup;
-			children = (
-				10AA00D721FE34E6006E4A48 /* R&DConclusions.md */,
-				10AA00D821FE34E6006E4A48 /* Technical.md */,
-			);
-			path = Docs;
-			sourceTree = "<group>";
-		};
 		10B2CF07232EAA2200CD1D80 /* Core */ = {
 			isa = PBXGroup;
 			children = (
@@ -405,6 +394,7 @@
 		E8915F63EF3B82F0FF848A17 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				6558E4C824CF0A800005E65B /* UIKit.framework */,
 				6558E4C624CEFD590005E65B /* WebKit.framework */,
 				6E2A8787D51D4750F5E58B0D /* Pods_XNLogger.framework */,
 				DD1DC70CEE51FE911722686D /* Pods_XNLoggerTests.framework */,
@@ -454,7 +444,7 @@
 				1005806321C65F4A0020288D /* Sources */,
 				1005806421C65F4A0020288D /* Frameworks */,
 				1005806521C65F4A0020288D /* Resources */,
-				7FE11F4C8C4D4508466E1D3B /* [CP] Embed Pods Frameworks */,
+				9486B4FCDEC52CB86934FC71 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -575,7 +565,7 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		7FE11F4C8C4D4508466E1D3B /* [CP] Embed Pods Frameworks */ = {
+		9486B4FCDEC52CB86934FC71 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (

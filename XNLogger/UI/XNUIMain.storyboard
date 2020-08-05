@@ -88,7 +88,7 @@
         <!--Filters-->
         <scene sceneID="q1D-Wa-t2I">
             <objects>
-                <viewController id="mGd-7n-ug5" customClass="XNUIFiltersVC" customModule="XNLogger" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="XNUIFiltersVC" id="mGd-7n-ug5" customClass="XNUIFiltersVC" customModule="XNLogger" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="iIM-kB-H7G">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
