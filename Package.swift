@@ -9,7 +9,7 @@ let package = Package(
         // Products define the executables and libraries produced by a package, and make them visible to other packages.
         .library(
             name: "XNLogger",
-            targets: ["XNLogger"]),
+            targets: ["XNLogger", "XNLogger-ObjC"]),
     ],
     dependencies: [
         // Dependencies declare other packages that this package depends on.
@@ -22,7 +22,13 @@ let package = Package(
             name: "XNLogger",
             dependencies: [],
             path: "XNLogger",
-            sources: ["XNLogger"]),
+            exclude: ["UI/XNLoader.m", "Info.plist", "XNLogger.h"],
+            sources: ["."]),
+        .target(
+            name: "XNLogger-ObjC",
+            dependencies: ["XNLogger"],
+            path: "XNLogger",
+            sources: ["UI/XNLoader.m"]),
         .testTarget(
             name: "XNLoggerTests",
             dependencies: ["XNLogger", "Swifter"],
