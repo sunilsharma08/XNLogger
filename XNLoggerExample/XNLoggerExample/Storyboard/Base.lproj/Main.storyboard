@@ -173,7 +173,9 @@
                             <constraint firstItem="nKm-3z-pbh" firstAttribute="top" secondItem="DeA-cs-9x0" secondAttribute="bottom" constant="20" id="Y7A-Ml-NEB"/>
                             <constraint firstItem="JgF-bH-Yuc" firstAttribute="leading" secondItem="DeA-cs-9x0" secondAttribute="trailing" constant="21" id="ed6-P5-gSX"/>
                             <constraint firstItem="ntF-WN-ia9" firstAttribute="top" secondItem="T2p-ns-gQG" secondAttribute="bottom" constant="20" id="fUd-Ee-Miq"/>
-                            <constraint firstItem="u5h-OX-ykL" firstAttribute="bottom" secondItem="JYM-Lf-4VA" secondAttribute="bottom" multiplier="0.9" constant="115" id="gaF-SA-77e"/>
+                            <constraint firstItem="u5h-OX-ykL" firstAttribute="bottom" secondItem="JYM-Lf-4VA" secondAttribute="bottom" multiplier="0.9" constant="115" id="gaF-SA-77e">
+                                <variation key="heightClass=regular-widthClass=regular" constant="235"/>
+                            </constraint>
                             <constraint firstItem="T2p-ns-gQG" firstAttribute="top" secondItem="JgF-bH-Yuc" secondAttribute="bottom" constant="20" id="ged-dm-QTq"/>
                             <constraint firstItem="u5h-OX-ykL" firstAttribute="trailing" secondItem="mm0-Yo-HyZ" secondAttribute="trailing" constant="16" id="gh4-Xh-ocL"/>
                             <constraint firstItem="ntF-WN-ia9" firstAttribute="leading" secondItem="j1N-jW-zlK" secondAttribute="trailing" constant="21" id="jLI-Uw-5et"/>
