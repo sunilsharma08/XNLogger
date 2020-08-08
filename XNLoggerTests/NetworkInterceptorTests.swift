@@ -28,9 +28,8 @@ class NetworkInterceptorTests: XCTestCase {
     
     func setupXNLogger() {
         print(#function)
-        let logHandlerFactory = NLLogHandlerFactory()
-        fileLogHandler = logHandlerFactory.create(.file) as? NLFileLogHandler
-        XNLogger.shared.addLogHandler(fileLogHandler!)
+        fileLogHandler = XNFileLogHandler.create()
+        XNLogger.shared.addLogHandlers([fileLogHandler!])
         XNLogger.shared.clearLogs()
         XNLogger.shared.startLogging()
     }
@@ -40,7 +39,7 @@ class NetworkInterceptorTests: XCTestCase {
         print(#function)
         server?.stop()
         XNLogger.shared.stopLogging()
-        XNLogger.shared.removeHandler(fileLogHandler!)
+        XNLogger.shared.removeHandlers([fileLogHandler!])
         fileLogHandler = nil
     }
     
