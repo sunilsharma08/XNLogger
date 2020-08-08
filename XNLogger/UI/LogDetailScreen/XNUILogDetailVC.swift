@@ -263,6 +263,17 @@ class XNUILogDetailVC: XNUIBaseViewController {
                 self.helper.hideActivityIndicator(from: self.view)
                 
                 let shareVC = UIActivityViewController(activityItems: [shareDetails], applicationActivities: nil)
+                if (UIDevice.current.userInterfaceIdiom == UIUserInterfaceIdiom.pad) {
+                    
+                    guard let moreOptionButton = self.moreOptionBtn else { return }
+                    var sourceRect = moreOptionButton.convert(moreOptionButton.frame, to: self.headerView)
+                    if let headerView = self.headerView {
+                        sourceRect = headerView.convert(sourceRect, to: self.view)
+                    }
+                    
+                    shareVC.popoverPresentationController?.sourceView = self.view
+                    shareVC.popoverPresentationController?.sourceRect = sourceRect
+                }
                 shareVC.completionWithItemsHandler = {(activityType, completed, returnedItems, activityError) in
                     
                     shareDetails.clean()
@@ -276,7 +287,7 @@ class XNUILogDetailVC: XNUIBaseViewController {
     }
     
     deinit {
-        print("\(type(of: self)) \(#function)")
+        // print("\(type(of: self)) \(#function)")
         NotificationCenter.default.removeObserver(self, name: .logDataUpdate, object: nil)
     }
 }

@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import UIKit
 
 protocol NibLoadableView: class {
     static var nibName: String { get }

@@ -44,7 +44,8 @@ public final class XNUIManager: NSObject {
         // Previous logs
         XNUIFileService().removeLogDirectory()
         
-        XNLogger.shared.addLogHandlers([XNConsoleLogHandler.create()])
+        // Enable for debugging
+        // XNLogger.shared.addLogHandlers([XNConsoleLogHandler.create()])
     }
     
     // Return current root view controller
