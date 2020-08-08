@@ -11,7 +11,7 @@ import WebKit
 
 class XNUIResponseFullScreenVC: XNUIBaseViewController {
     
-    @IBOutlet weak var mediaWebView: WKWebView!
+    var mediaWebView: WKWebView!
     @IBOutlet weak var msgTextView: XNUILogTextView!
     
     var headerTitle: String!
@@ -29,6 +29,13 @@ class XNUIResponseFullScreenVC: XNUIBaseViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        let webviewConfig = WKWebViewConfiguration()
+        mediaWebView = WKWebView(frame: .zero, configuration: webviewConfig)
+        mediaWebView.translatesAutoresizingMaskIntoConstraints = false
+        self.view.addSubview(mediaWebView)
+        
+        addWebContraint()
         configureViews()
     }
     
@@ -64,8 +71,33 @@ class XNUIResponseFullScreenVC: XNUIBaseViewController {
         self.headerView?.addBackButton(target: self.navigationController, selector: #selector(self.navigationController?.popViewController(animated:)))
         // Show share icon
         let shareButton = helper.createNavButton(imageName: "share", imageInsets: UIEdgeInsets(top: 12, left: 17, bottom: 12, right: 7))
-        shareButton.addTarget(self, action: #selector(self.clickedOnMoreOptions), for: .touchUpInside)
+        shareButton.addTarget(self, action: #selector(self.clickedOnMoreOptions(_:)), for: .touchUpInside)
         self.headerView?.addRightBarItems([shareButton])
+    }
+    
+    func addWebContraint() {
+        let margins = view.layoutMarginsGuide
+        NSLayoutConstraint.activate([
+          mediaWebView.leadingAnchor.constraint(equalTo: margins.leadingAnchor),
+          mediaWebView.trailingAnchor.constraint(equalTo: margins.trailingAnchor)
+        ])
+        
+        if let headerView = self.headerView {
+            self.mediaWebView.topAnchor.constraint(equalTo: headerView.bottomAnchor).isActive = true
+        } else {
+            if #available(iOS 11.0, *) {
+                self.mediaWebView.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor).isActive = true
+            } else {
+                // Fallback on earlier versions
+                self.mediaWebView.topAnchor.constraint(equalTo: topLayoutGuide.bottomAnchor).isActive = true
+            }
+        }
+        if #available(iOS 11.0, *) {
+            self.view.safeAreaLayoutGuide.bottomAnchor.constraint(equalTo: mediaWebView.bottomAnchor).isActive = true
+        } else {
+            // Fallback on earlier versions
+            bottomLayoutGuide.topAnchor.constraint(equalTo: mediaWebView.bottomAnchor).isActive = true
+        }
     }
     
     @objc func updateViewSource(_ notification: Notification) {
@@ -111,11 +143,11 @@ class XNUIResponseFullScreenVC: XNUIBaseViewController {
         }
     }
     
-    @objc func clickedOnMoreOptions() {
-        showShareController()
+    @objc func clickedOnMoreOptions(_ sender: UIButton?) {
+        showShareController(sender)
     }
     
-    func showShareController() {
+    func showShareController(_ sender: UIButton?) {
         
         var shareDetails: XNUIShareData? = nil
         
@@ -139,6 +171,16 @@ class XNUIResponseFullScreenVC: XNUIBaseViewController {
             DispatchQueue.main.async {
                 self.helper.hideActivityIndicator(from: self.view)
                 let shareVC = UIActivityViewController(activityItems: [shareItem], applicationActivities: nil)
+                
+                if (UIDevice.current.userInterfaceIdiom == UIUserInterfaceIdiom.pad) {
+                    
+                    guard let shareButton = sender else { return }
+                    let sourceRect = shareButton.convert(shareButton.frame, to: self.view)
+                    
+                    shareVC.popoverPresentationController?.sourceView = self.view
+                    shareVC.popoverPresentationController?.sourceRect = sourceRect
+                }
+                
                 shareVC.completionWithItemsHandler = { (activityType, completed, returnedItems, activityError) in
                     // Clear only in case of text because a new file is created for share.
                     if self.logData.message.isEmpty == false {
