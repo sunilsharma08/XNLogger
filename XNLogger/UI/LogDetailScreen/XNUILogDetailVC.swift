@@ -276,7 +276,7 @@ class XNUILogDetailVC: XNUIBaseViewController {
     }
     
     deinit {
-        print("\(type(of: self)) \(#function)")
+        // print("\(type(of: self)) \(#function)")
         NotificationCenter.default.removeObserver(self, name: .logDataUpdate, object: nil)
     }
 }

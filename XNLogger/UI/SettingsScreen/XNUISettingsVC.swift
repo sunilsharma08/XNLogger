@@ -152,7 +152,6 @@ extension XNUISettingsVC: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        print(#function)
         let item = settingCategory[indexPath.section].items[indexPath.row]
         
         if item.type == .clearData {

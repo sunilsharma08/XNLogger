@@ -174,7 +174,9 @@ class XNUIShareData: NSObject, UIActivityItemSource {
         return "Network log"
     }
     
+    /* Enable for debugging
     deinit {
         print("\(type(of: self)) \(#function)")
     }
+    */
 }

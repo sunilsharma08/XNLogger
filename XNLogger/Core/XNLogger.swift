@@ -30,12 +30,12 @@ public class XNLogger: NSObject {
     override private init() {}
     
     public func startLogging() {
-        print("NL: Started logging network traffic")
+        // print(": Started logging network traffic")
         networkInterceptor.startInterceptingNetwork()
     }
     
     public func stopLogging() {
-        print("NL: Stopped logging network traffic")
+        // print("NL: Stopped logging network traffic")
         networkInterceptor.stopInterceptingNetwork()
     }
     

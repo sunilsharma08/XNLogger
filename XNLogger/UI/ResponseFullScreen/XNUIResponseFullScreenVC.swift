@@ -140,9 +140,11 @@ class XNUIResponseFullScreenVC: XNUIBaseViewController {
         }
     }
     
+    /* Enable for debugging
     deinit {
         print("\(type(of: self)) \(#function)")
     }
+    */
 }
 
 extension XNUIResponseFullScreenVC: WKNavigationDelegate {
