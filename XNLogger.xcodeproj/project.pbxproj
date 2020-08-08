@@ -380,7 +380,6 @@
 				7CD0D3F6CEFB35BD0A6D3061 /* Pods-XNLoggerTests.debug.xcconfig */,
 				195A7F36183D14B7906F2D0A /* Pods-XNLoggerTests.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -452,7 +451,7 @@
 		1005805521C65F490020288D /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 1010;
+				LastSwiftUpdateCheck = 1130;
 				LastUpgradeCheck = 1010;
 				ORGANIZATIONNAME = "Sunil Sharma";
 				TargetAttributes = {
