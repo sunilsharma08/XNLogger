@@ -9,20 +9,30 @@
 [![Pod platforms](https://img.shields.io/cocoapods/p/XNLogger)](https://github.com/sunilsharma08/XNLogger)
 
 </br>
-Framework to log network request and response. An easy way to view and debug REST API request and response error. Logs can be viewed in In-App and also logs can be written on file or send to server. This framework also provides a simple way to format log data so that there will be less impact on App due to logger and avoid writing unnecessary data.
+XNLogger is network logging framework, which can be easily extended and modified as per requirements. It can be formatted to log just url or complete network traffic details. It provides in-app logger UI for debugging and testing purpose.
+
+During development and testing phase on various occasion we just want to see REST API's response to verify data, just for this we may have to write prints statements on various location or put break points or instead we can use XNLogger. It can write network logs on files, print on Xcode console or use inbuild logger UI. To see logs shake device or simultaor.
+
+As we know network logs can be huge and this can pressure and memory and may result in app crash to avoid such situation it design to memory efficient, it write logs on disk on requirement loads in memory. 
 
 # Features
-* Logs all network traffics.
-* Filters for scheme(http, https), host(www.example.com), contains(any string in url).
-* Mutiple log writer/handlers support(e.g. console, file, etc.), more than one handlers can be used simultaneously.
-* Support for custom log handlers.
-* Separate filters can be added for each log handlers.
-* Skip completely XNLogger or skip some url for a specific log handelr.
-* Dynamically filters and log handlers can be added or removed.
-* Log formatter to log desired data only.
-* Network logs can be viewed In-App, by default shake gesture present XNLogger UI.
+- [x] Logs all network traffics.
+- [x] Network logs can be viewed In-App, by default shake gesture present XNLogger UI.
+- [x] Mini view mode, makes debugging easier. Mini view can be resized and moved on screen.
+- [x] Share network logs via email, airdrop or copy to clipboard.
+- [x] Memory efficient, logs are written to disk to reduce memory pressure.
+- [x] Filters for scheme(http, https), host(www.example.com), contains(any string in url).
+- [x] Mutiple log writer/handlers support(e.g. console, file, etc.), more than one handlers can be used simultaneously.
+- [x] Support for custom log handlers.
+- [x] Separate filters can be added for each log handlers.
+- [x] Skip completely XNLogger or skip some url for a specific log handelr.
+- [x] Dynamically filters and log handlers can be added or removed.
+- [x] Log formatter to log desired data only.
+- [x] Swift & Objective-C compatibility.
+- [x] Also works with external libraries like Alamofire & AFNetworking.
 
-# Example Screenshots
+
+# Screenshots
 <table>
   <tr>
     <th>Network Log list</th>
