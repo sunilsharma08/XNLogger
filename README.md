@@ -47,21 +47,37 @@ Network loggers can generate huge data specially when binary data(like image, vi
   </tr>
 </table>
 
+## Requirements
+
+iOS 9.0 or later
+
 # Installtion
 ## Cocoapods
 ```
-use_frameworks!
 pod 'XNLogger'
 ```
 To integrate with project only for `debug` configuration
 ```
-use_frameworks!
 pod 'XNLogger', :configurations => ['Debug']
+```
+
+## Carthage
+```
+github "https://github.com/sunilsharma08/XNLogger"
 ```
 
 ## Manually
 
 Drag the folder "XNLogger" with the source files into your project.
+
+- Remove file called "Info.plist" inside folder "XNLogger", you might get error due to this.
+- Go to file "XNLoader.m" and replace import statement from `"XNLogger/XNLogger-Swift.h"` to `<Your-app-target-name>-Swift.h`.
+For example your app target name is AwesomeApp, then import statement will be
+```
+#import "AwesomeApp-Swift.h"
+```
+
+For more details on how to bridge swift code in Objectiv-C file check this apple doc - [Importing Swift into Objective-C](https://developer.apple.com/documentation/swift/imported_c_and_objective-c_apis/importing_swift_into_objective-c)
 
 # Usage
 It starts logging automatically after integrating library in your project. **Shake to see logs in app** or manually click on button "Show XNLogger".
