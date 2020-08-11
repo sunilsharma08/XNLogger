@@ -11,9 +11,9 @@
 </br>
 XNLogger is network logging framework, which can be easily extended and modified as per requirements. It can be formatted to log just url or complete network traffic details. It provides in-app logger UI for debugging and testing purpose.
 
-During development and testing phase on various occasion we just want to see REST API's response to verify data, just for this we may have to write prints statements on various location or put break points or instead we can use XNLogger. It can write network logs on files, print on Xcode console or use inbuild logger UI. To see logs shake device or simultaor.
+Logs can be written on files, print on Xcode console, send to network or use inbuild logger UI. Network logger UI appears in app with shake gesture on device and simulators.
 
-As we know network logs can be huge and this can pressure and memory and may result in app crash to avoid such situation it design to memory efficient, it write logs on disk on requirement loads in memory. 
+Network loggers can generate huge data specially when binary data(like image, video, etc.) logging is enabled, this can increase memory usage and may result in app crash. To avoid such situation XNLogger is designed to use memory efficiently, it write logs on disk and only on requirement loads in memory. 
 
 # Features
 - [x] Logs all network traffics.
@@ -30,6 +30,7 @@ As we know network logs can be huge and this can pressure and memory and may res
 - [x] Log formatter to log desired data only.
 - [x] Swift & Objective-C compatibility.
 - [x] Also works with external libraries like Alamofire & AFNetworking.
+- [x] Works with iPhone and iPad.
 
 
 # Screenshots
