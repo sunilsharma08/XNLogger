@@ -51,13 +51,13 @@ Network loggers can generate huge data specially when binary data(like image, vi
 
 iOS 9.0 or later
 
-# Installtion
+# Installation
 ## Cocoapods
-```
+```ruby
 pod 'XNLogger'
 ```
 To integrate with project only for `debug` configuration
-```
+```ruby
 pod 'XNLogger', :configurations => ['Debug']
 ```
 
@@ -73,8 +73,8 @@ Drag the folder "XNLogger" with the source files into your project.
 - Remove file called "Info.plist" inside folder "XNLogger", you might get error due to this.
 - Go to file "XNLoader.m" and replace import statement from `"XNLogger/XNLogger-Swift.h"` to `<Your-app-target-name>-Swift.h`.
 For example your app target name is AwesomeApp, then import statement will be
-```
-  #import "AwesomeApp-Swift.h"
+```objc
+#import "AwesomeApp-Swift.h"
 ```
 
 For more details on how to bridge swift code in Objectiv-C file check this apple doc - [Importing Swift into Objective-C](https://developer.apple.com/documentation/swift/imported_c_and_objective-c_apis/importing_swift_into_objective-c)
