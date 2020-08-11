@@ -74,31 +74,57 @@ Drag the folder "XNLogger" with the source files into your project.
 - Go to file "XNLoader.m" and replace import statement from `"XNLogger/XNLogger-Swift.h"` to `<Your-app-target-name>-Swift.h`.
 For example your app target name is AwesomeApp, then import statement will be
 ```
-#import "AwesomeApp-Swift.h"
+  #import "AwesomeApp-Swift.h"
 ```
 
 For more details on how to bridge swift code in Objectiv-C file check this apple doc - [Importing Swift into Objective-C](https://developer.apple.com/documentation/swift/imported_c_and_objective-c_apis/importing_swift_into_objective-c)
 
 # Usage
-It starts logging automatically after integrating library in your project. **Shake to see logs in app** or manually click on button "Show XNLogger".
+Logging starts automatically after integration in project. Shake device or simulator to see logs in app.
 
-### Manually Start Logging
+### Start Logging manually
 ```swift
-XNLogger.shared.startLogging()
+ XNLogger.shared.startLogging()
 ```
 ### Stop Logging
 ```swift
-XNLogger.shared.stopLogging()
+ XNLogger.shared.stopLogging()
 ```
-It's safe to call `startLogging` or `stopLogging` multiple times. These methods can be called from anywhere in the code.
 
-### Add Predefined Log Handlers
+To use logger only for debug configuration wrap logger code in preprocessor macros `#if DEBUG` as
+```swift
+#if DEBUG
+    XNLogger.shared.startLogging()
+#endif
+```
+
+### Show XNLogger UI
+```swift
+ XNUIManager.shared.presentUI()
+```
+### Hide XNLogger UI
+```swift
+XNUIManager.shared.dismissUI()
+```
+
+## Add predefined log handlers
+### Console handler
 ```swift
 let consoleLogHandler = XNConsoleLogHandler.create()
 XNLogger.shared.addLogHandlers([consoleLogHandler])
 ```
 
-### Remove Added Log Handlers
+### File handler
+```swift
+let fileLogHandler = XNFileLogHandler.create() //Default file name 'XNNetworkLog'
+// File log handler can be created with filename
+let fileLogHandler = XNFileLogHandler.create(fileName: "AppNetworkLogs")
+
+XNLogger.shared.addLogHandlers([fileLogHandler])
+
+```
+
+### Remove log handlers
 ```swift
 XNLogger.shared.removeHandlers([consoleLogHandler])
 ```
