@@ -140,7 +140,7 @@ internal extension URLRequest {
 extension NSMutableURLRequest {
     
     func setNLFlag(value: Any) {
-        URLProtocol.setProperty(value, forKey: XNAppConstants.NLRequestFlagKey, in: self)
+        URLProtocol.setProperty(value, forKey: XNAppConstants.XNRequestFlagKey, in: self)
     }
 }
 

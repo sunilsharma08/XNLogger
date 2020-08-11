@@ -11,7 +11,7 @@ import Foundation
 class XNFilterManager {
     
     private class FilterData {
-        var filters: [NLFilter] = []
+        var filters: [XNFilter] = []
         var invert: Bool = false
     }
     
@@ -19,46 +19,46 @@ class XNFilterManager {
     private var hostFilter: FilterData = FilterData()
     private var containsFilter: FilterData = FilterData()
     
-    func getFilters() -> [NLFilter] {
+    func getFilters() -> [XNFilter] {
         return schemeFilter.filters + hostFilter.filters + containsFilter.filters
     }
     
-    func addFilters(_ filters: [NLFilter]) {
+    func addFilters(_ filters: [XNFilter]) {
         for filter in filters {
             addFilter(filter)
         }
     }
     
-    func addFilter(_ filter: NLFilter) {
+    func addFilter(_ filter: XNFilter) {
         //TODO: Before adding filter can be checked for duplicate.
         
-        if let schemeFilter = filter as? NLSchemeFilter {
+        if let schemeFilter = filter as? XNSchemeFilter {
             self.schemeFilter.filters.append(schemeFilter)
-        } else if let domainFilter = filter as? NLHostFilter {
+        } else if let domainFilter = filter as? XNHostFilter {
             self.hostFilter.filters.append(domainFilter)
-        } else if let containsFilter = filter as? NLContainsFilter {
+        } else if let containsFilter = filter as? XNContainsFilter {
             self.containsFilter.filters.append(containsFilter)
         }
     }
     
-    func removeFilters(_ filters: [NLFilter]) {
+    func removeFilters(_ filters: [XNFilter]) {
         for filter in filters {
             removeFilter(filter)
         }
     }
     
-    func removeFilter(_ filter: NLFilter) {
-        if let schemeFilter = filter as? NLSchemeFilter {
+    func removeFilter(_ filter: XNFilter) {
+        if let schemeFilter = filter as? XNSchemeFilter {
             self.schemeFilter.filters = self.schemeFilter.filters.filter { (item) -> Bool in
                 return item !== schemeFilter
             }
         }
-        else if let domainFilter = filter as? NLHostFilter {
+        else if let domainFilter = filter as? XNHostFilter {
             self.hostFilter.filters = self.hostFilter.filters.filter { (item) -> Bool in
                 return item !== domainFilter
             }
         }
-        else if let containsFilter = filter as? NLContainsFilter {
+        else if let containsFilter = filter as? XNContainsFilter {
             self.containsFilter.filters = self.containsFilter.filters.filter { (item) -> Bool in
                 return item !== containsFilter
             }

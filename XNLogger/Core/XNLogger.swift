@@ -35,7 +35,7 @@ public class XNLogger: NSObject {
     }
     
     public func stopLogging() {
-        // print("NL: Stopped logging network traffic")
+        // print("XNL: Stopped logging network traffic")
         networkInterceptor.stopInterceptingNetwork()
     }
     
@@ -64,14 +64,14 @@ public class XNLogger: NSObject {
     /**
      URL filter added will not go through Network Logger.
     */
-    @objc public func addFilters(_ filters: [NLFilter]) {
+    @objc public func addFilters(_ filters: [XNFilter]) {
         self.filterManager.addFilters(filters)
     }
     
     /**
      Remove specified url filter from skip urls list
     */
-    public func removeFilters(_ filters: [NLFilter]) {
+    public func removeFilters(_ filters: [XNFilter]) {
         self.filterManager.removeFilters(filters)
     }
     
@@ -82,7 +82,7 @@ public class XNLogger: NSObject {
         self.filterManager.removeAllFilters()
     }
     
-    public func filters() -> [NLFilter] {
+    public func filters() -> [XNFilter] {
         return filterManager.getFilters()
     }
     

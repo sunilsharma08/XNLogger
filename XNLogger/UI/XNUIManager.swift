@@ -79,7 +79,7 @@ public final class XNUIManager: NSObject {
         
         if let presentingViewController = self.presentingViewController, !(presentingViewController is XNUIBaseTabBarController) {
             
-            if let tabbarVC = UIStoryboard.mainStoryboard().instantiateViewController(withIdentifier: "nlMainTabBarController") as? UITabBarController {
+            if let tabbarVC = UIStoryboard.mainStoryboard().instantiateViewController(withIdentifier: "xnlMainTabBarController") as? UITabBarController {
                 tabbarVC.modalPresentationStyle = .overFullScreen
                 
                 logWindow = XNUIWindow()

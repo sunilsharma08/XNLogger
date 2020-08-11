@@ -19,24 +19,24 @@ public enum XNFilterType {
     case host       // www.example.com
     case contains   // any string in url
     
-    func create(filterString: String) ->  NLFilter {
+    func create(filterString: String) ->  XNFilter {
         switch self {
         case .scheme:
-            return NLSchemeFilter(scheme: filterString)
+            return XNSchemeFilter(scheme: filterString)
         case .host:
-            return NLHostFilter(host: filterString)
+            return XNHostFilter(host: filterString)
         case .contains:
-            return NLContainsFilter(filterString: filterString)
+            return XNContainsFilter(filterString: filterString)
         }
     }
 }
 
-@objc public protocol NLFilter: class {
+@objc public protocol XNFilter: class {
     
     func isAllowed(urlRequest: URLRequest) -> Bool
 }
 
-@objc public class NLSchemeFilter: NSObject, NLFilter {
+@objc public class XNSchemeFilter: NSObject, XNFilter {
     
     private let scheme: String
     
@@ -57,7 +57,7 @@ public enum XNFilterType {
     }
 }
 
-@objc public class NLHostFilter: NSObject, NLFilter {
+@objc public class XNHostFilter: NSObject, XNFilter {
     
     private let host: String
     
@@ -78,7 +78,7 @@ public enum XNFilterType {
     }
 }
 
-@objc public class NLContainsFilter: NSObject, NLFilter {
+@objc public class XNContainsFilter: NSObject, XNFilter {
     
     private let filterString: String
     

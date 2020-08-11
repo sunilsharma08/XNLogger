@@ -146,7 +146,7 @@
         <!--Base Tab Bar Controller-->
         <scene sceneID="22G-xP-7rc">
             <objects>
-                <tabBarController storyboardIdentifier="nlMainTabBarController" automaticallyAdjustsScrollViewInsets="NO" id="xzs-xp-vNi" customClass="XNUIBaseTabBarController" customModule="XNLogger" customModuleProvider="target" sceneMemberID="viewController">
+                <tabBarController storyboardIdentifier="xnlMainTabBarController" automaticallyAdjustsScrollViewInsets="NO" id="xzs-xp-vNi" customClass="XNUIBaseTabBarController" customModule="XNLogger" customModuleProvider="target" sceneMemberID="viewController">
                     <toolbarItems/>
                     <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="qmM-hv-jHO">
                         <rect key="frame" x="0.0" y="0.0" width="1000" height="1000"/>
