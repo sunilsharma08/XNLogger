@@ -110,7 +110,7 @@ class XNUILogListVC: XNUIBaseViewController {
     }
     
     @objc func dismissNetworkUI() {
-        XNUIManager.shared.dismissNetworkUI()
+        XNUIManager.shared.dismissUI()
     }
     
     @objc func upadteViewMode() {

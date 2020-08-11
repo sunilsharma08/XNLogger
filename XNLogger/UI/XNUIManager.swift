@@ -72,8 +72,10 @@ public final class XNUIManager: NSObject {
         }
     }
     
-    // Preset network logger UI to user. This is start point of UI
-    @objc public func presentNetworkLogUI() {
+    /**
+     Present network logger UI.
+     */
+    @objc public func presentUI() {
         
         if let presentingViewController = self.presentingViewController, !(presentingViewController is XNUIBaseTabBarController) {
             
@@ -91,8 +93,10 @@ public final class XNUIManager: NSObject {
         }
     }
     
-    // Dismiss network logger UI
-    @objc public func dismissNetworkUI() {
+    /**
+     Dismiss network logger UI
+     */
+    @objc public func dismissUI() {
         logWindow?.dismiss(completion: {
             self.logWindow = nil
             // Reset values

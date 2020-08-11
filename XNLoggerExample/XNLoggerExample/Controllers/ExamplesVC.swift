@@ -60,7 +60,7 @@ class ExamplesVC: UIViewController {
     }
     
     @IBAction func clickedOnShowXNLogger() {
-        XNUIManager.shared.presentNetworkLogUI()
+        XNUIManager.shared.presentUI()
     }
 }
 
