@@ -29,7 +29,7 @@ Network loggers can generate huge data specially when binary data(like image, vi
 - [x] Dynamically filters and log handlers can be added or removed.
 - [x] Log formatter to log desired data only.
 - [x] Swift & Objective-C compatibility.
-- [x] Also works with external libraries like Alamofire & AFNetworking.
+- [x] Works with external libraries like Alamofire & AFNetworking.
 - [x] Works with iPhone and iPad.
 
 
@@ -84,11 +84,11 @@ Logging starts automatically after integration in project. Shake device or simul
 
 ### Start Logging manually
 ```swift
- XNLogger.shared.startLogging()
+XNLogger.shared.startLogging()
 ```
 ### Stop Logging
 ```swift
- XNLogger.shared.stopLogging()
+XNLogger.shared.stopLogging()
 ```
 
 To use logger only for debug configuration wrap logger code in preprocessor macros `#if DEBUG` as
@@ -100,7 +100,7 @@ To use logger only for debug configuration wrap logger code in preprocessor macr
 
 ### Show XNLogger UI
 ```swift
- XNUIManager.shared.presentUI()
+XNUIManager.shared.presentUI()
 ```
 ### Hide XNLogger UI
 ```swift
