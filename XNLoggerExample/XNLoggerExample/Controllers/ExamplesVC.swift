@@ -41,6 +41,9 @@ class ExamplesVC: UIViewController {
             button?.titleLabel?.textColor = .black
             button?.setTitleColor(UIColor.black, for: .normal)
         }
+        
+        downloadBackground.isHidden = true
+        webViewLoad.isHidden = true
     }
     
     func getJSONFrom(data: Data?) -> Any? {
