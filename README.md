@@ -107,6 +107,11 @@ XNUIManager.shared.presentUI()
 XNUIManager.shared.dismissUI()
 ```
 
+### Clear logs
+```swift
+XNUIManager.shared.clearLogs()
+```
+
 ## Add predefined log handlers
 ### Console handler
 ```swift
@@ -160,6 +165,23 @@ Any filters can be inverted, so lets suppose all `http` scheme url should not ap
 let httpScheme = XNSchemeFilter(scheme: "https")
 httpScheme.invert = true
 ```
+
+## Formatters
+class `XNLogFormatter` has following properties:
+
+public var showRequest: Bool = true // Hide or show requests log.
+public var showResponse: Bool = true // Hide or show response log.
+public var showReqstWithResp: Bool = false // Show request with response, useful when `showRequest` is disabled.
+public var showCurlWithReqst: Bool = true // Show curl request with request log.
+public var showCurlWithResp: Bool = true // Show curl request when url request is displayed with response.
+public var prettyPrintJSON: Bool = true // Log pretty printed json data .
+public var logUnreadableRespBody: Bool = false // Show binary data like image, video, etc in response.
+public var logUnreadableReqstBody: Bool = false // Show binary data like image, video, etc in request body.
+public var showReqstMetaInfo: [XNRequestMetaInfo] = XNRequestMetaInfo.allCases // Details to be displayed in request log portion.
+public var showRespMetaInfo: [XNResponseMetaInfo] = XNResponseMetaInfo.allCases // Details to be displayed in response log portion.
+public var showReqstMetaInfoWithResp: [XNRequestMetaInfo] = XNRequestMetaInfo.allCases // Details to display for request when display as response portion.
+
+# Contributions
 
 # License
 XNLogger is available under the [MIT license](https://raw.githubusercontent.com/sunilsharma08/XNLogger/master/LICENSE).
