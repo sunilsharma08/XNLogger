@@ -107,6 +107,11 @@ XNUIManager.shared.presentUI()
 XNUIManager.shared.dismissUI()
 ```
 
+### Clear logs
+```swift
+XNUIManager.shared.clearLogs()
+```
+
 ## Add predefined log handlers
 ### Console handler
 ```swift
@@ -128,6 +133,53 @@ XNLogger.shared.addLogHandlers([fileLogHandler])
 ```swift
 XNLogger.shared.removeHandlers([consoleLogHandler])
 ```
+
+## Filters
+Filters can be applied to loggers and handlers. Filters added to loggers will be applicable to all handlers and also requests does not pass through XNLogger whereas filters added to handlers will be recorded but will be logged to only applicable handlers. Filters added to one handler are not applicable on other handlers. Addings filters to logger is useful when it is required to skip all handlers or wanted to record/skip some specific urls.
+
+### Add filters to logger(universal filter)
+```swift
+let httpScheme = XNSchemeFilter(scheme: "https")
+XNLogger.shared.addFilters([httpScheme])
+```
+### Remove filters from logger(universal filter)
+```swift
+XNLogger.shared.removeFilters([httpScheme])
+```
+
+### Add filters to handler
+```swift
+let host = XNHostFilter(host: "www.example.com")
+consoleHandler.addFilters([host])
+```
+
+### Remove filters from handler
+```swift
+consoleHandler.removeFilters([host])
+```
+
+Any filters can be inverted, so lets suppose all `http` scheme url should not appear in log then just update filter property `invert` to `true` as:
+```swift
+let httpScheme = XNSchemeFilter(scheme: "https")
+httpScheme.invert = true
+```
+
+## Formatters
+class `XNLogFormatter` has following properties:
+```swift
+public var showRequest: Bool = true // Hide or show requests log.
+public var showResponse: Bool = true // Hide or show response log.
+public var showReqstWithResp: Bool = false // Show request with response, useful when `showRequest` is disabled.
+public var showCurlWithReqst: Bool = true // Show curl request with request log.
+public var showCurlWithResp: Bool = true // Show curl request when url request is displayed with response.
+public var prettyPrintJSON: Bool = true // Log pretty printed json data .
+public var logUnreadableRespBody: Bool = false // Show binary data like image, video, etc in response.
+public var logUnreadableReqstBody: Bool = false // Show binary data like image, video, etc in request body.
+public var showReqstMetaInfo: [XNRequestMetaInfo] = XNRequestMetaInfo.allCases // Details to be displayed in request log portion.
+public var showRespMetaInfo: [XNResponseMetaInfo] = XNResponseMetaInfo.allCases // Details to be displayed in response log portion.
+public var showReqstMetaInfoWithResp: [XNRequestMetaInfo] = XNRequestMetaInfo.allCases // Details to display for request when display as response portion.
+```
+# Contributions
 
 # License
 XNLogger is available under the [MIT license](https://raw.githubusercontent.com/sunilsharma08/XNLogger/master/LICENSE).
