@@ -129,5 +129,37 @@ XNLogger.shared.addLogHandlers([fileLogHandler])
 XNLogger.shared.removeHandlers([consoleLogHandler])
 ```
 
+## Filters
+Filters can be applied to loggers and handlers. Filters added to loggers will be applicable to all handlers and also requests does not pass through XNLogger whereas filters added to handlers will be recorded but will be logged to only applicable handlers. Filters added to one handler will be not applicable on other handlers.
+
+Addings filters to logger is useful when it is required to skip all handlers or wanted to record/skip some specific urls.
+
+### Add filters to logger(universal filter)
+```swift
+let httpScheme = XNSchemeFilter(scheme: "https")
+XNLogger.shared.addFilters([httpScheme])
+```
+### Remove filters from logger(universal filter)
+```swift
+XNLogger.shared.removeFilters([httpScheme])
+```
+
+### Add filters to handler
+```swift
+let host = XNHostFilter(host: "www.example.com")
+consoleHandler.addFilters([host])
+```
+
+### Remove filters from handler
+```swift
+consoleHandler.removeFilters([host])
+```
+
+Any filters can be inverted, so lets suppose all `http` scheme url should not appear in log then just update filter property `invert` to `true` as:
+```swift
+let httpScheme = XNSchemeFilter(scheme: "https")
+httpScheme.invert = true
+```
+
 # License
 XNLogger is available under the [MIT license](https://raw.githubusercontent.com/sunilsharma08/XNLogger/master/LICENSE).
