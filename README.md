@@ -135,9 +135,7 @@ XNLogger.shared.removeHandlers([consoleLogHandler])
 ```
 
 ## Filters
-Filters can be applied to loggers and handlers. Filters added to loggers will be applicable to all handlers and also requests does not pass through XNLogger whereas filters added to handlers will be recorded but will be logged to only applicable handlers. Filters added to one handler will be not applicable on other handlers.
-
-Addings filters to logger is useful when it is required to skip all handlers or wanted to record/skip some specific urls.
+Filters can be applied to loggers and handlers. Filters added to loggers will be applicable to all handlers and also requests does not pass through XNLogger whereas filters added to handlers will be recorded but will be logged to only applicable handlers. Filters added to one handler are not applicable on other handlers. Addings filters to logger is useful when it is required to skip all handlers or wanted to record/skip some specific urls.
 
 ### Add filters to logger(universal filter)
 ```swift
@@ -168,7 +166,7 @@ httpScheme.invert = true
 
 ## Formatters
 class `XNLogFormatter` has following properties:
-
+```swift
 public var showRequest: Bool = true // Hide or show requests log.
 public var showResponse: Bool = true // Hide or show response log.
 public var showReqstWithResp: Bool = false // Show request with response, useful when `showRequest` is disabled.
@@ -180,7 +178,7 @@ public var logUnreadableReqstBody: Bool = false // Show binary data like image, 
 public var showReqstMetaInfo: [XNRequestMetaInfo] = XNRequestMetaInfo.allCases // Details to be displayed in request log portion.
 public var showRespMetaInfo: [XNResponseMetaInfo] = XNResponseMetaInfo.allCases // Details to be displayed in response log portion.
 public var showReqstMetaInfoWithResp: [XNRequestMetaInfo] = XNRequestMetaInfo.allCases // Details to display for request when display as response portion.
-
+```
 # Contributions
 
 # License
