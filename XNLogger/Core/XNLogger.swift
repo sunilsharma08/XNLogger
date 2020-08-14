@@ -39,14 +39,27 @@ public class XNLogger: NSObject {
         networkInterceptor.stopInterceptingNetwork()
     }
     
+    /**
+     Checks whether logging is enabled or not.
+     */
     public func isEnabled() -> Bool {
         return networkInterceptor.isProtocolSwizzled()
     }
     
+    /**
+     Add given list of handlers.
+     
+     - Parameters handlers: List of handlers to be added.
+     */
     public func addLogHandlers(_ handlers: [XNLogHandler]) {
         self.handlers.append(contentsOf: handlers)
     }
     
+    /**
+     Remove given list of handlers.
+     
+     - Parameters handlers: List of handlers to be removed.
+     */
     public func removeHandlers(_ handlers: [XNLogHandler]) {
         for handler in handlers {
             self.handlers = self.handlers.filter { (item) -> Bool in
@@ -55,11 +68,14 @@ public class XNLogger: NSObject {
         }
     }
     
+    /**
+     Remove all added handlers.
+     */
     public func removeAllHandlers() {
         self.handlers.removeAll()
     }
     
-    // MARK: Methods to handle Skip URLs from Network Logger
+    // MARK: Filters methods for logger
     
     /**
      URL filter added will not go through Network Logger.
@@ -69,25 +85,24 @@ public class XNLogger: NSObject {
     }
     
     /**
-     Remove specified url filter from skip urls list
+     Remove specified url filter for logger.
     */
     public func removeFilters(_ filters: [XNFilter]) {
         self.filterManager.removeFilters(filters)
     }
     
     /**
-     Remove all filters from skip urls list
+     Remove all logger filters.
     */
     public func removeAllFilters() {
         self.filterManager.removeAllFilters()
     }
     
+    /**
+     Gives list of all logger filters.
+     */
     public func filters() -> [XNFilter] {
         return filterManager.getFilters()
-    }
-    
-    public func update(filterType: XNFilterType, toInvertMode state: Bool) {
-        filterManager.update(filterType: filterType, toInvertMode: state)
     }
     
     /**

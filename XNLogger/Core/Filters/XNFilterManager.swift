@@ -10,15 +10,18 @@ import Foundation
 
 class XNFilterManager {
     
+    // class will be usefull to keep some meta data about filter
     private class FilterData {
         var filters: [XNFilter] = []
-        var invert: Bool = false
     }
     
     private var schemeFilter: FilterData = FilterData()
     private var hostFilter: FilterData = FilterData()
     private var containsFilter: FilterData = FilterData()
     
+    /**
+     Return all types of filter.
+     */
     func getFilters() -> [XNFilter] {
         return schemeFilter.filters + hostFilter.filters + containsFilter.filters
     }
@@ -65,6 +68,9 @@ class XNFilterManager {
         }
     }
     
+    /**
+     Clear all types of filters.
+     */
     func removeAllFilters() {
         self.schemeFilter.filters.removeAll()
         self.hostFilter.filters.removeAll()
@@ -77,13 +83,6 @@ class XNFilterManager {
             return true
         }
         
-        /**
-         Check each filter type with priority.
-         Filter priority order from highest to lowest are as:
-         Scheme - Highest
-         Host
-         Contains - Lowest
-         */
         if isFilter(self.schemeFilter, allowUrlRequest: urlRequest) == false {
             return false
         }
@@ -104,47 +103,18 @@ class XNFilterManager {
      */
     private func isFilter(_ filterData: FilterData, allowUrlRequest urlRequest: URLRequest) -> Bool {
         
-        // Incase Scheme filter is empty it is assumed that all scheme is allowed.
+        // Incase filter is empty it is assumed that filter allows request.
         if filterData.filters.isEmpty {
             return true
         }
         
         var isFilterAllowed: Bool = false
         for filter in filterData.filters {
-            /**
-            It performs XOR operation means for same result log is not allowed
-            whereas for opposite allowed.
-             
-             Case 1: When isAllowed return true mean given url contains the current filter value and at that time if filter invert is false means this url should be logged.
-             Case 2: When isAllowed return false and invert filter is false then it should not be allowed to log.
-             Case 3: When isAllowed return true and invert filter is true then it should not be allowed to log.
-             Case 4: When isAllowed return false and invert filter is true then it should be allowed to log.
-            */
-            if filter.isAllowed(urlRequest: urlRequest) != filterData.invert {
+            if filter.isAllowed(urlRequest: urlRequest) {
                 isFilterAllowed = true
                 break
             }
         }
         return isFilterAllowed
-    }
-    
-    // MARK: Filter invert and revert methods
-    func invert(filterType: XNFilterType) {
-        update(filterType: filterType, toInvertMode: true)
-    }
-    
-    func revert(filterType: XNFilterType) {
-        update(filterType: filterType, toInvertMode: false)
-    }
-    
-    func update(filterType: XNFilterType, toInvertMode state: Bool) {
-        switch filterType {
-        case .scheme:
-            self.schemeFilter.invert = state
-        case .host:
-            self.hostFilter.invert = state
-        case .contains:
-            self.containsFilter.invert = state
-        }
     }
 }

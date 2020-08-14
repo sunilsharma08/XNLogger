@@ -33,15 +33,22 @@ public enum XNFilterType {
 
 @objc public protocol XNFilter: class {
     
+    var invert: Bool { get set }
     func isAllowed(urlRequest: URLRequest) -> Bool
 }
 
 @objc public class XNSchemeFilter: NSObject, XNFilter {
     
     private let scheme: String
+    public var invert: Bool = false
     
     @objc public init(scheme: String) {
         self.scheme = scheme.lowercased()
+    }
+    
+    @objc public init(scheme: String, invert: Bool) {
+        self.scheme = scheme.lowercased()
+        self.invert = invert
     }
     
     public func isAllowed(urlRequest: URLRequest) -> Bool {
@@ -52,7 +59,9 @@ public enum XNFilterType {
             scheme.lowercased() == self.scheme {
             status = true
         }
-        
+        if invert {
+            return !status
+        }
         return status
     }
 }
@@ -60,9 +69,15 @@ public enum XNFilterType {
 @objc public class XNHostFilter: NSObject, XNFilter {
     
     private let host: String
+    public var invert: Bool = false
     
     @objc public init(host: String) {
         self.host = host.lowercased()
+    }
+    
+    @objc public init(host: String, invert: Bool) {
+        self.host = host.lowercased()
+        self.invert = invert
     }
     
     public func isAllowed(urlRequest: URLRequest) -> Bool {
@@ -73,7 +88,9 @@ public enum XNFilterType {
            host.lowercased() == self.host {
             status = true
         }
-        
+        if invert {
+            return !status
+        }
         return status
     }
 }
@@ -81,9 +98,15 @@ public enum XNFilterType {
 @objc public class XNContainsFilter: NSObject, XNFilter {
     
     private let filterString: String
+    public var invert: Bool = false
     
     @objc public init(filterString: String) {
         self.filterString = filterString.lowercased()
+    }
+    
+    @objc public init(filterString: String, invert: Bool) {
+        self.filterString = filterString.lowercased()
+        self.invert = invert
     }
     
     public func isAllowed(urlRequest: URLRequest) -> Bool {
@@ -94,7 +117,9 @@ public enum XNFilterType {
             url.contains(filterString){
             status = true
         }
-        
+        if invert {
+            return !status
+        }
         return status
     }
 }
