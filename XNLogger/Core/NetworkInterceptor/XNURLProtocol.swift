@@ -54,7 +54,7 @@ open class XNURLProtocol: URLProtocol {
     
     open override func startLoading() {
         if request.url == nil {
-            debugPrint("NL: No URL found")
+            debugPrint("XNL: No URL found")
         }
         
         if session == nil {
@@ -132,7 +132,7 @@ extension XNURLProtocol: URLSessionDataDelegate {
         self.logData?.redirectRequest = request
         self.response = response
         if let mutableRequest = request.getNSMutableURLRequest() {
-            URLProtocol.removeProperty(forKey: XNAppConstants.NLRequestFlagKey, in: mutableRequest)
+            URLProtocol.removeProperty(forKey: XNAppConstants.XNRequestFlagKey, in: mutableRequest)
             client?.urlProtocol(self, wasRedirectedTo: mutableRequest as URLRequest, redirectResponse: response)
         }
     }
@@ -159,7 +159,7 @@ fileprivate extension XNURLProtocol {
     
     class func shouldHandle(request: URLRequest) -> Bool {
         
-        if let _ = URLProtocol.property(forKey: XNAppConstants.NLRequestFlagKey, in: request) {
+        if let _ = URLProtocol.property(forKey: XNAppConstants.XNRequestFlagKey, in: request) {
             return false
         }
         else if (XNLogger.shared.filterManager.isAllowed(urlRequest: request)) {

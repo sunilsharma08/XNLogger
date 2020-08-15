@@ -27,7 +27,14 @@ fileprivate struct XNUITouchEdges {
 
 class XNUIWindow: UIWindow {
     
-    let windowMinSize: CGSize = CGSize(width: 140, height: 160)
+    var windowMinSize: CGSize {
+        if UIApplication.shared.statusBarOrientation.isLandscape {
+            return CGSize(width: 160, height: 140)
+        } else {
+            return CGSize(width: 140, height: 160)
+        }
+    }
+    
     lazy private var toolBarView: UIView = self.createToolbarView()
     
     private var isMiniModeActive: Bool {
@@ -112,14 +119,14 @@ class XNUIWindow: UIWindow {
     
     func enableMiniView() {
         addToolBar()
-        let parentViewBounds: CGRect = preKeyWindow?.bounds ?? UIScreen.main.bounds
+        let parentViewBounds: CGSize = preKeyWindow?.bounds.size ?? UIScreen.main.bounds.size
         var defaultMiniWidth: CGFloat = parentViewBounds.width * 0.42
         var defaultMiniHeight: CGFloat = parentViewBounds.height * 0.37
         
         if defaultMiniWidth < windowMinSize.width {
             defaultMiniWidth = windowMinSize.width
         }
-        
+
         if defaultMiniHeight < windowMinSize.height {
             defaultMiniHeight = windowMinSize.height
         }
@@ -216,7 +223,16 @@ class XNUIWindow: UIWindow {
                 tabbarHeight = tabbarVC.tabBar.frame.height
             }
         }
-        toolBarView.heightAnchor.constraint(equalToConstant: tabbarHeight).isActive = true
+        var heightConstraint: NSLayoutConstraint? = nil
+        toolBarView.constraints.forEach { (constraint) in
+            if constraint.firstAttribute == .height {
+                heightConstraint = constraint
+            }
+        }
+        if heightConstraint == nil {
+            heightConstraint = toolBarView.heightAnchor.constraint(equalToConstant: tabbarHeight)
+        }
+        heightConstraint?.isActive = true
         toolBarView.layoutIfNeeded()
     }
     

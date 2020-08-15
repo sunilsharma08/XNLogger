@@ -12,6 +12,7 @@ XNLogger UI
 * Remove XNLogHandlerType not needed
 * SPM support from Xcode 12 - binary or source if possible
 * CURL fix - it does not work for x-www-form-urlencoded and in some other conditions
+* Network activity statistics
 * Encoding type
 * Redirect URLs
 * Cache policy for logger - Enable/Change change cache policy for all REST API via logger

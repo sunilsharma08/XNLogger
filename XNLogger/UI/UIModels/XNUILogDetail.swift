@@ -1,5 +1,5 @@
 //
-//  NLUILogDetail.swift
+//  XNUILogDetail.swift
 //  XNLogger
 //
 //  Created by Sunil Sharma on 29/08/19.

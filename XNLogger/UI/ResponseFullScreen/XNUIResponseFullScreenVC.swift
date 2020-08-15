@@ -76,11 +76,6 @@ class XNUIResponseFullScreenVC: XNUIBaseViewController {
     }
     
     func addWebContraint() {
-        let margins = view.layoutMarginsGuide
-        NSLayoutConstraint.activate([
-          mediaWebView.leadingAnchor.constraint(equalTo: margins.leadingAnchor),
-          mediaWebView.trailingAnchor.constraint(equalTo: margins.trailingAnchor)
-        ])
         
         if let headerView = self.headerView {
             self.mediaWebView.topAnchor.constraint(equalTo: headerView.bottomAnchor).isActive = true
@@ -93,10 +88,14 @@ class XNUIResponseFullScreenVC: XNUIBaseViewController {
             }
         }
         if #available(iOS 11.0, *) {
-            self.view.safeAreaLayoutGuide.bottomAnchor.constraint(equalTo: mediaWebView.bottomAnchor).isActive = true
+            self.view.safeAreaLayoutGuide.bottomAnchor.constraint(equalTo: self.mediaWebView.bottomAnchor).isActive = true
+            self.mediaWebView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor).isActive = true
+            self.mediaWebView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor).isActive = true
         } else {
             // Fallback on earlier versions
-            bottomLayoutGuide.topAnchor.constraint(equalTo: mediaWebView.bottomAnchor).isActive = true
+            bottomLayoutGuide.topAnchor.constraint(equalTo: self.mediaWebView.bottomAnchor).isActive = true
+            self.mediaWebView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
+            self.mediaWebView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
         }
     }
     

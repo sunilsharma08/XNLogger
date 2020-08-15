@@ -35,7 +35,7 @@ class XNUILogDetailVC: XNUIBaseViewController {
     private var requestView: XNUILogDetailView?
     private var responseView: XNUILogDetailView?
     private var isResponseSelected: Bool = false
-    private var logDataConverter: NLUILogDataConverter?
+    private var logDataConverter: XNUILogDataConverter?
     private var moreOptionBtn: UIButton?
     
     override func viewDidLoad() {
@@ -153,7 +153,7 @@ class XNUILogDetailVC: XNUIBaseViewController {
                 guard let self = self else { return }
                 
                 if let logDataObj = logData {
-                    self.logDataConverter = NLUILogDataConverter(logData: logDataObj, formatter: XNUIManager.shared.uiLogHandler.logFormatter)
+                    self.logDataConverter = XNUILogDataConverter(logData: logDataObj, formatter: XNUIManager.shared.uiLogHandler.logFormatter)
                 }
                 completion()
             }
@@ -322,7 +322,7 @@ extension XNUILogDetailVC: XNUIPopoverDelegate {
     }
 }
 
-class NLUILogDataConverter {
+class XNUILogDataConverter {
     
     private var logData: XNLogData!
     private var formatter: XNLogFormatter!

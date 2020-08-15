@@ -1,5 +1,5 @@
 //
-//  NLLogListVC.swift
+//  XNUILogListVC.swift
 //  XNLogger
 //
 //  Created by Sunil Sharma on 16/08/19.
@@ -110,7 +110,7 @@ class XNUILogListVC: XNUIBaseViewController {
     }
     
     @objc func dismissNetworkUI() {
-        XNUIManager.shared.dismissNetworkUI()
+        XNUIManager.shared.dismissUI()
     }
     
     @objc func upadteViewMode() {

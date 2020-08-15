@@ -8,5 +8,5 @@
 import Foundation
 
 struct XNAppConstants {
-    static let NLRequestFlagKey = "com.xnlogger.xnurlprotocol"
+    static let XNRequestFlagKey = "com.xnlogger.xnurlprotocol"
 }
