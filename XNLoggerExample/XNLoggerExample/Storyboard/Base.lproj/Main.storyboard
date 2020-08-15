@@ -26,7 +26,7 @@
             </objects>
             <point key="canvasLocation" x="-110" y="-317"/>
         </scene>
-        <!--ExamplesVC-->
+        <!--Demo-->
         <scene sceneID="KuP-PQ-pDb">
             <objects>
                 <viewController id="S3p-aE-PyC" customClass="ExamplesVC" customModule="XNLoggerExample" customModuleProvider="target" sceneMemberID="viewController">
@@ -36,114 +36,132 @@
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DeA-cs-9x0">
                                 <rect key="frame" x="16" y="74" width="100" height="60"/>
-                                <color key="backgroundColor" red="1" green="0.41036284428519032" blue="0.12889614738638577" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="60" id="AyD-V2-7H1"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                                <state key="normal" title="Data - handler"/>
+                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="12"/>
+                                <state key="normal" title="Data - handler">
+                                    <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
+                                </state>
                                 <connections>
                                     <action selector="clickedOnDataHandler:" destination="S3p-aE-PyC" eventType="touchUpInside" id="W4c-b9-bzb"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JgF-bH-Yuc">
                                 <rect key="frame" x="137" y="74" width="100" height="60"/>
-                                <color key="backgroundColor" red="1" green="0.41036284429999997" blue="0.12889614739999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="60" id="MQ8-cL-ijU"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                                <state key="normal" title="Data - delegate"/>
+                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="12"/>
+                                <state key="normal" title="Data - delegate">
+                                    <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
+                                </state>
                                 <connections>
                                     <action selector="clickedOnDataDelegate:" destination="S3p-aE-PyC" eventType="touchUpInside" id="mnQ-OK-5Qy"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mm0-Yo-HyZ">
                                 <rect key="frame" x="259" y="74" width="100" height="60"/>
-                                <color key="backgroundColor" red="1" green="0.41036284429999997" blue="0.12889614739999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="60" id="nGg-Hj-F9P"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                                <state key="normal" title="Download - handler"/>
+                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="12"/>
+                                <state key="normal" title="Download - handler">
+                                    <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
+                                </state>
                                 <connections>
                                     <action selector="clickedOnDownloadHandler:" destination="S3p-aE-PyC" eventType="touchUpInside" id="WLG-Qe-o4i"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nKm-3z-pbh">
                                 <rect key="frame" x="16" y="154" width="100" height="60"/>
-                                <color key="backgroundColor" red="1" green="0.41036284429999997" blue="0.12889614739999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="60" id="dkm-JT-crX"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                                <state key="normal" title="Download - delegate"/>
+                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="12"/>
+                                <state key="normal" title="Download - delegate">
+                                    <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
+                                </state>
                                 <connections>
                                     <action selector="clickedOnDownloadDelegate:" destination="S3p-aE-PyC" eventType="touchUpInside" id="wUo-G9-JWt"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="j1N-jW-zlK">
                                 <rect key="frame" x="16" y="234" width="100" height="60"/>
-                                <color key="backgroundColor" red="1" green="0.41036284429999997" blue="0.12889614739999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="60" id="ntF-DW-Psf"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                                <state key="normal" title="Download - Resume"/>
+                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="12"/>
+                                <state key="normal" title="Download - Resume">
+                                    <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
+                                </state>
                                 <connections>
                                     <action selector="clickedOnResumeDownload:" destination="S3p-aE-PyC" eventType="touchUpInside" id="0Dt-h7-Weh"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ntF-WN-ia9">
                                 <rect key="frame" x="137" y="234" width="100" height="60"/>
-                                <color key="backgroundColor" red="1" green="0.41036284429999997" blue="0.12889614739999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="60" id="DbC-zx-pYf"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                                <state key="normal" title="Download - background"/>
+                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="12"/>
+                                <state key="normal" title="Download - background">
+                                    <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
+                                </state>
                                 <connections>
                                     <action selector="clickedOnBackgroundDownload:" destination="S3p-aE-PyC" eventType="touchUpInside" id="VSL-uS-t9M"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="T2p-ns-gQG">
                                 <rect key="frame" x="137" y="154" width="100" height="60"/>
-                                <color key="backgroundColor" red="1" green="0.41036284429999997" blue="0.12889614739999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="60" id="kVE-84-lVf"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                                <state key="normal" title="Upload - handler"/>
+                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="12"/>
+                                <state key="normal" title="Upload - handler">
+                                    <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
+                                </state>
                                 <connections>
                                     <action selector="clickedOnUploadHandler:" destination="S3p-aE-PyC" eventType="touchUpInside" id="ajs-sL-xCh"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Kls-e1-w0S">
                                 <rect key="frame" x="259" y="154" width="100" height="60"/>
-                                <color key="backgroundColor" red="1" green="0.41036284429999997" blue="0.12889614739999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="60" id="jvF-bZ-NC5"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                                <state key="normal" title="Upload - delegate"/>
+                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="12"/>
+                                <state key="normal" title="Upload - delegate">
+                                    <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
+                                </state>
                                 <connections>
                                     <action selector="clickedOnUploadDelegate:" destination="S3p-aE-PyC" eventType="touchUpInside" id="mbD-UG-ToM"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XLn-wc-zAS">
                                 <rect key="frame" x="259" y="234" width="100" height="60"/>
-                                <color key="backgroundColor" red="1" green="0.41036284429999997" blue="0.12889614739999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="60" id="Wy0-YT-Op6"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                                <state key="normal" title="Later 😀"/>
+                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="12"/>
+                                <state key="normal" title="Later 😀">
+                                    <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
+                                </state>
                                 <connections>
                                     <action selector="clickedOnWebView:" destination="S3p-aE-PyC" eventType="touchUpInside" id="43D-RH-F0W"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JYM-Lf-4VA">
-                                <rect key="frame" x="100" y="553.5" width="175" height="60"/>
+                                <rect key="frame" x="132" y="553.5" width="111" height="60"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="60" id="cpz-lE-urp"/>
                                 </constraints>
@@ -168,6 +186,7 @@
                             <constraint firstItem="j1N-jW-zlK" firstAttribute="top" secondItem="nKm-3z-pbh" secondAttribute="bottom" constant="20" id="U7V-ji-jKs"/>
                             <constraint firstItem="XLn-wc-zAS" firstAttribute="leading" secondItem="ntF-WN-ia9" secondAttribute="trailing" constant="22" id="UD4-ab-BVk"/>
                             <constraint firstItem="mm0-Yo-HyZ" firstAttribute="width" secondItem="DeA-cs-9x0" secondAttribute="width" id="UYf-E7-vlQ"/>
+                            <constraint firstItem="JYM-Lf-4VA" firstAttribute="centerX" secondItem="GMW-Ie-IUQ" secondAttribute="centerX" id="VQK-hj-IMk"/>
                             <constraint firstItem="mm0-Yo-HyZ" firstAttribute="leading" secondItem="JgF-bH-Yuc" secondAttribute="trailing" constant="22" id="WVR-wz-n37"/>
                             <constraint firstItem="ntF-WN-ia9" firstAttribute="width" secondItem="j1N-jW-zlK" secondAttribute="width" id="Xjw-Zb-9bj"/>
                             <constraint firstItem="nKm-3z-pbh" firstAttribute="top" secondItem="DeA-cs-9x0" secondAttribute="bottom" constant="20" id="Y7A-Ml-NEB"/>
@@ -181,16 +200,14 @@
                             <constraint firstItem="ntF-WN-ia9" firstAttribute="leading" secondItem="j1N-jW-zlK" secondAttribute="trailing" constant="21" id="jLI-Uw-5et"/>
                             <constraint firstItem="JgF-bH-Yuc" firstAttribute="width" secondItem="DeA-cs-9x0" secondAttribute="width" id="kcr-9g-eX9"/>
                             <constraint firstItem="Kls-e1-w0S" firstAttribute="leading" secondItem="T2p-ns-gQG" secondAttribute="trailing" constant="22" id="lOo-qC-iBo"/>
-                            <constraint firstItem="JYM-Lf-4VA" firstAttribute="leading" secondItem="u5h-OX-ykL" secondAttribute="leading" constant="100" id="n2f-LE-DsF"/>
                             <constraint firstItem="XLn-wc-zAS" firstAttribute="width" secondItem="j1N-jW-zlK" secondAttribute="width" id="n7b-Li-hiv"/>
                             <constraint firstItem="Kls-e1-w0S" firstAttribute="top" secondItem="mm0-Yo-HyZ" secondAttribute="bottom" constant="20" id="nVt-VH-2uH"/>
                             <constraint firstItem="T2p-ns-gQG" firstAttribute="leading" secondItem="nKm-3z-pbh" secondAttribute="trailing" constant="21" id="qTn-fY-Jxg"/>
-                            <constraint firstItem="u5h-OX-ykL" firstAttribute="trailing" secondItem="JYM-Lf-4VA" secondAttribute="trailing" constant="100" id="s6X-lR-qbx"/>
                             <constraint firstItem="u5h-OX-ykL" firstAttribute="trailing" secondItem="XLn-wc-zAS" secondAttribute="trailing" constant="16" id="uIa-f3-vSf"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="u5h-OX-ykL"/>
                     </view>
-                    <navigationItem key="navigationItem" id="dcX-dU-gOg"/>
+                    <navigationItem key="navigationItem" title="Demo" id="dcX-dU-gOg"/>
                     <connections>
                         <outlet property="dataDelegate" destination="JgF-bH-Yuc" id="G9o-Ap-N2f"/>
                         <outlet property="dataHandler" destination="DeA-cs-9x0" id="waY-Yt-kCQ"/>
