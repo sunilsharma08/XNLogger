@@ -57,10 +57,16 @@
 		10F8A9BD230E761400C17B4A /* XNUIExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10F8A9BC230E761400C17B4A /* XNUIExtensions.swift */; };
 		10FC10EB231501D900F347BF /* XNUILogDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10FC10E9231501D900F347BF /* XNUILogDetailVC.swift */; };
 		10FC10EC231501D900F347BF /* XNUILogDetailVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 10FC10EA231501D900F347BF /* XNUILogDetailVC.xib */; };
-		4AB65FD2711F23689A523C45 /* Pods_XNLogger.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6E2A8787D51D4750F5E58B0D /* Pods_XNLogger.framework */; };
+		650814A424B4E878001963B7 /* XNUIHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 650814A324B4E878001963B7 /* XNUIHeaderView.swift */; };
+		653A1B0624C85AB700FE7B04 /* XNUISettingsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 653A1B0424C85AB700FE7B04 /* XNUISettingsCell.swift */; };
+		653A1B0724C85AB700FE7B04 /* XNUISettingsCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 653A1B0524C85AB700FE7B04 /* XNUISettingsCell.xib */; };
 		6547BEF42437CEF5001F7B4D /* XNUIResponseFullScreenVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6547BEF32437CEF5001F7B4D /* XNUIResponseFullScreenVC.swift */; };
 		6547BEF72437D023001F7B4D /* XNUIResponseFullScreenVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6547BEF62437D023001F7B4D /* XNUIResponseFullScreenVC.xib */; };
-		975BF47A0FBC015433F3A430 /* Pods_XNLoggerTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DD1DC70CEE51FE911722686D /* Pods_XNLoggerTests.framework */; };
+		6558E4C724CEFD590005E65B /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6558E4C624CEFD590005E65B /* WebKit.framework */; };
+		65B90C3824A0F07E0007FAF0 /* XNUIWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65B90C3724A0F07E0007FAF0 /* XNUIWindow.swift */; };
+		65C1D51524B7AC9B00F92862 /* XNUIOptionItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65C1D51424B7AC9B00F92862 /* XNUIOptionItem.swift */; };
+		65C1D51724B7AD1900F92862 /* XNUIPopOverViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65C1D51624B7AD1900F92862 /* XNUIPopOverViewController.swift */; };
+		7E525394E5708C92A9ABDD64 /* Pods_XNLoggerTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6F93251698E0A19625D873F0 /* Pods_XNLoggerTests.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -116,8 +122,6 @@
 		1090C2072307250E00575550 /* XNUIFiltersVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XNUIFiltersVC.swift; sourceTree = "<group>"; };
 		1090C2092307252200575550 /* XNUISettingsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XNUISettingsVC.swift; sourceTree = "<group>"; };
 		1090C20B2307403900575550 /* XNUIHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XNUIHelper.swift; sourceTree = "<group>"; };
-		10AA00D721FE34E6006E4A48 /* R&DConclusions.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = "R&DConclusions.md"; sourceTree = "<group>"; };
-		10AA00D821FE34E6006E4A48 /* Technical.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = Technical.md; sourceTree = "<group>"; };
 		10B4076722626644000FD18E /* XNURLProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XNURLProtocol.swift; sourceTree = "<group>"; };
 		10BC314722CD2FD20020167D /* XNAuthenticationChallengeSender.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XNAuthenticationChallengeSender.swift; sourceTree = "<group>"; };
 		10BE806A2233C8B800A147BC /* TestUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestUtils.swift; sourceTree = "<group>"; };
@@ -129,15 +133,19 @@
 		10F8A9BC230E761400C17B4A /* XNUIExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XNUIExtensions.swift; sourceTree = "<group>"; };
 		10FC10E9231501D900F347BF /* XNUILogDetailVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XNUILogDetailVC.swift; sourceTree = "<group>"; };
 		10FC10EA231501D900F347BF /* XNUILogDetailVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = XNUILogDetailVC.xib; sourceTree = "<group>"; };
+		195A7F36183D14B7906F2D0A /* Pods-XNLoggerTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-XNLoggerTests.release.xcconfig"; path = "Target Support Files/Pods-XNLoggerTests/Pods-XNLoggerTests.release.xcconfig"; sourceTree = "<group>"; };
+		650814A324B4E878001963B7 /* XNUIHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XNUIHeaderView.swift; sourceTree = "<group>"; };
+		653A1B0424C85AB700FE7B04 /* XNUISettingsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XNUISettingsCell.swift; sourceTree = "<group>"; };
+		653A1B0524C85AB700FE7B04 /* XNUISettingsCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = XNUISettingsCell.xib; sourceTree = "<group>"; };
 		6547BEF32437CEF5001F7B4D /* XNUIResponseFullScreenVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XNUIResponseFullScreenVC.swift; sourceTree = "<group>"; };
 		6547BEF62437D023001F7B4D /* XNUIResponseFullScreenVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = XNUIResponseFullScreenVC.xib; sourceTree = "<group>"; };
-		6E2A8787D51D4750F5E58B0D /* Pods_XNLogger.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_XNLogger.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		7131FAE48986EDB635C3304F /* Pods-XNLogger.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-XNLogger.debug.xcconfig"; path = "Pods/Target Support Files/Pods-XNLogger/Pods-XNLogger.debug.xcconfig"; sourceTree = "<group>"; };
-		C0006DBBB3F7A78BE736997C /* Pods_XNLoggerExample.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_XNLoggerExample.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		DB2B06FE5CCDD620F9C71535 /* Pods-XNLoggerTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-XNLoggerTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-XNLoggerTests/Pods-XNLoggerTests.debug.xcconfig"; sourceTree = "<group>"; };
-		DC94A182B8660FE9407C4F6A /* Pods-XNLogger.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-XNLogger.release.xcconfig"; path = "Pods/Target Support Files/Pods-XNLogger/Pods-XNLogger.release.xcconfig"; sourceTree = "<group>"; };
-		DD1DC70CEE51FE911722686D /* Pods_XNLoggerTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_XNLoggerTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		F5C6874AF03B577DF413BA4B /* Pods-XNLoggerTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-XNLoggerTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-XNLoggerTests/Pods-XNLoggerTests.release.xcconfig"; sourceTree = "<group>"; };
+		6558E4C624CEFD590005E65B /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.15.sdk/System/Library/Frameworks/WebKit.framework; sourceTree = DEVELOPER_DIR; };
+		6558E4C824CF0A800005E65B /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		65B90C3724A0F07E0007FAF0 /* XNUIWindow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XNUIWindow.swift; sourceTree = "<group>"; };
+		65C1D51424B7AC9B00F92862 /* XNUIOptionItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XNUIOptionItem.swift; sourceTree = "<group>"; };
+		65C1D51624B7AD1900F92862 /* XNUIPopOverViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XNUIPopOverViewController.swift; sourceTree = "<group>"; };
+		6F93251698E0A19625D873F0 /* Pods_XNLoggerTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_XNLoggerTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		7CD0D3F6CEFB35BD0A6D3061 /* Pods-XNLoggerTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-XNLoggerTests.debug.xcconfig"; path = "Target Support Files/Pods-XNLoggerTests/Pods-XNLoggerTests.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -145,7 +153,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4AB65FD2711F23689A523C45 /* Pods_XNLogger.framework in Frameworks */,
+				6558E4C724CEFD590005E65B /* WebKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -154,7 +162,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				1005806821C65F4A0020288D /* XNLogger.framework in Frameworks */,
-				975BF47A0FBC015433F3A430 /* Pods_XNLoggerTests.framework in Frameworks */,
+				7E525394E5708C92A9ABDD64 /* Pods_XNLoggerTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -167,8 +175,8 @@
 				1005806021C65F490020288D /* XNLogger */,
 				1005806B21C65F4A0020288D /* XNLoggerTests */,
 				1005805F21C65F490020288D /* Products */,
-				5EF4AC20FDA5093C4C97ACF3 /* Pods */,
 				E8915F63EF3B82F0FF848A17 /* Frameworks */,
+				E6D89CC31E4425ADB5FF1363 /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -186,7 +194,6 @@
 			children = (
 				10B2CF07232EAA2200CD1D80 /* Core */,
 				106BB6922304A882007968A8 /* UI */,
-				10AA00D621FE34E6006E4A48 /* Docs */,
 				1005806121C65F490020288D /* XNLogger.h */,
 				1005806221C65F490020288D /* Info.plist */,
 			);
@@ -217,6 +224,7 @@
 			isa = PBXGroup;
 			children = (
 				103B7F802317CD64003DDDCB /* XNUILogDetail.swift */,
+				65C1D51424B7AC9B00F92862 /* XNUIOptionItem.swift */,
 			);
 			path = UIModels;
 			sourceTree = "<group>";
@@ -224,6 +232,7 @@
 		106BB6922304A882007968A8 /* UI */ = {
 			isa = PBXGroup;
 			children = (
+				653A1B0324C85A5200FE7B04 /* SettingsScreen */,
 				6547BEF52437CF08001F7B4D /* ResponseFullScreen */,
 				101750F92337EA1000CDAFF3 /* Resources */,
 				10E411862324A24D004E0C1F /* LogDetailScreen */,
@@ -232,12 +241,14 @@
 				10D094C322E4EE0A0020D9DB /* XNLoader.m */,
 				106BB6932304A91D007968A8 /* XNUIMain.storyboard */,
 				1090C2072307250E00575550 /* XNUIFiltersVC.swift */,
-				1090C2092307252200575550 /* XNUISettingsVC.swift */,
 				1090C20B2307403900575550 /* XNUIHelper.swift */,
 				10F8A9BA230E731300C17B4A /* XNUIManager.swift */,
 				10F8A9BC230E761400C17B4A /* XNUIExtensions.swift */,
 				101CA0B2230F23300063B0CF /* XNUIBaseViewController.swift */,
 				10289E75230FCE4A00FDE204 /* XNUILogHandler.swift */,
+				65B90C3724A0F07E0007FAF0 /* XNUIWindow.swift */,
+				650814A324B4E878001963B7 /* XNUIHeaderView.swift */,
+				65C1D51624B7AD1900F92862 /* XNUIPopOverViewController.swift */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -306,15 +317,6 @@
 			path = LogHandlers;
 			sourceTree = "<group>";
 		};
-		10AA00D621FE34E6006E4A48 /* Docs */ = {
-			isa = PBXGroup;
-			children = (
-				10AA00D721FE34E6006E4A48 /* R&DConclusions.md */,
-				10AA00D821FE34E6006E4A48 /* Technical.md */,
-			);
-			path = Docs;
-			sourceTree = "<group>";
-		};
 		10B2CF07232EAA2200CD1D80 /* Core */ = {
 			isa = PBXGroup;
 			children = (
@@ -342,8 +344,8 @@
 			isa = PBXGroup;
 			children = (
 				10FC10E9231501D900F347BF /* XNUILogDetailVC.swift */,
-				104D12EC2317132D0089D7FE /* XNUILogDetailView.xib */,
 				10FC10EA231501D900F347BF /* XNUILogDetailVC.xib */,
+				104D12EC2317132D0089D7FE /* XNUILogDetailView.xib */,
 				104D12EA2317131D0089D7FE /* XNUILogDetailView.swift */,
 				104D12EE231714E70089D7FE /* XNUILogDetailHeaderCell.swift */,
 				104D12EF231714E70089D7FE /* XNUILogDetailHeaderCell.xib */,
@@ -353,15 +355,14 @@
 			path = LogDetailScreen;
 			sourceTree = "<group>";
 		};
-		5EF4AC20FDA5093C4C97ACF3 /* Pods */ = {
+		653A1B0324C85A5200FE7B04 /* SettingsScreen */ = {
 			isa = PBXGroup;
 			children = (
-				7131FAE48986EDB635C3304F /* Pods-XNLogger.debug.xcconfig */,
-				DC94A182B8660FE9407C4F6A /* Pods-XNLogger.release.xcconfig */,
-				DB2B06FE5CCDD620F9C71535 /* Pods-XNLoggerTests.debug.xcconfig */,
-				F5C6874AF03B577DF413BA4B /* Pods-XNLoggerTests.release.xcconfig */,
+				1090C2092307252200575550 /* XNUISettingsVC.swift */,
+				653A1B0424C85AB700FE7B04 /* XNUISettingsCell.swift */,
+				653A1B0524C85AB700FE7B04 /* XNUISettingsCell.xib */,
 			);
-			name = Pods;
+			path = SettingsScreen;
 			sourceTree = "<group>";
 		};
 		6547BEF52437CF08001F7B4D /* ResponseFullScreen */ = {
@@ -373,12 +374,21 @@
 			path = ResponseFullScreen;
 			sourceTree = "<group>";
 		};
+		E6D89CC31E4425ADB5FF1363 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				7CD0D3F6CEFB35BD0A6D3061 /* Pods-XNLoggerTests.debug.xcconfig */,
+				195A7F36183D14B7906F2D0A /* Pods-XNLoggerTests.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
 		E8915F63EF3B82F0FF848A17 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				6E2A8787D51D4750F5E58B0D /* Pods_XNLogger.framework */,
-				DD1DC70CEE51FE911722686D /* Pods_XNLoggerTests.framework */,
-				C0006DBBB3F7A78BE736997C /* Pods_XNLoggerExample.framework */,
+				6558E4C824CF0A800005E65B /* UIKit.framework */,
+				6558E4C624CEFD590005E65B /* WebKit.framework */,
+				6F93251698E0A19625D873F0 /* Pods_XNLoggerTests.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -401,7 +411,6 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 1005807221C65F4A0020288D /* Build configuration list for PBXNativeTarget "XNLogger" */;
 			buildPhases = (
-				5385EA26D702ACFC603D01A9 /* [CP] Check Pods Manifest.lock */,
 				1005805921C65F490020288D /* Headers */,
 				1005805A21C65F490020288D /* Sources */,
 				1005805B21C65F490020288D /* Frameworks */,
@@ -420,11 +429,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 1005807521C65F4A0020288D /* Build configuration list for PBXNativeTarget "XNLoggerTests" */;
 			buildPhases = (
-				142854DAB4F368D733B6AEA4 /* [CP] Check Pods Manifest.lock */,
+				9402C8F72CB7B45D620CB278 /* [CP] Check Pods Manifest.lock */,
 				1005806321C65F4A0020288D /* Sources */,
 				1005806421C65F4A0020288D /* Frameworks */,
 				1005806521C65F4A0020288D /* Resources */,
-				7FE11F4C8C4D4508466E1D3B /* [CP] Embed Pods Frameworks */,
+				07B150993999517D55FAAF63 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -442,13 +451,13 @@
 		1005805521C65F490020288D /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 1010;
+				LastSwiftUpdateCheck = 1130;
 				LastUpgradeCheck = 1010;
 				ORGANIZATIONNAME = "Sunil Sharma";
 				TargetAttributes = {
 					1005805D21C65F490020288D = {
 						CreatedOnToolsVersion = 10.1;
-						LastSwiftMigration = 1010;
+						LastSwiftMigration = 1130;
 					};
 					1005806621C65F4A0020288D = {
 						CreatedOnToolsVersion = 10.1;
@@ -479,6 +488,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				653A1B0724C85AB700FE7B04 /* XNUISettingsCell.xib in Resources */,
 				106BB6942304A91D007968A8 /* XNUIMain.storyboard in Resources */,
 				104D12F1231714E70089D7FE /* XNUILogDetailHeaderCell.xib in Resources */,
 				101750FB2337EA6600CDAFF3 /* Media.xcassets in Resources */,
@@ -500,7 +510,24 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		142854DAB4F368D733B6AEA4 /* [CP] Check Pods Manifest.lock */ = {
+		07B150993999517D55FAAF63 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-XNLoggerTests/Pods-XNLoggerTests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-XNLoggerTests/Pods-XNLoggerTests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-XNLoggerTests/Pods-XNLoggerTests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		9402C8F72CB7B45D620CB278 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -522,45 +549,6 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		5385EA26D702ACFC603D01A9 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-XNLogger-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		7FE11F4C8C4D4508466E1D3B /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-XNLoggerTests/Pods-XNLoggerTests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-XNLoggerTests/Pods-XNLoggerTests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-XNLoggerTests/Pods-XNLoggerTests-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -568,6 +556,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				65B90C3824A0F07E0007FAF0 /* XNUIWindow.swift in Sources */,
 				108576A721FDD662008ABD2B /* XNAppConstants.swift in Sources */,
 				1090C206230724DC00575550 /* XNUILogListVC.swift in Sources */,
 				108576AE21FDD662008ABD2B /* URLRequest+cURL.swift in Sources */,
@@ -579,11 +568,13 @@
 				108576A621FDD662008ABD2B /* XNJSONUtils.swift in Sources */,
 				10C7268F222DA0BE00239900 /* XNFileLogHandler.swift in Sources */,
 				108576A221FDD662008ABD2B /* XNFilter.swift in Sources */,
+				65C1D51724B7AD1900F92862 /* XNUIPopOverViewController.swift in Sources */,
 				108576AB21FDD662008ABD2B /* XNConsoleLogHandler.swift in Sources */,
 				10BC314822CD2FD20020167D /* XNAuthenticationChallengeSender.swift in Sources */,
 				10F8A9BD230E761400C17B4A /* XNUIExtensions.swift in Sources */,
 				10289E7923105D5800FDE204 /* XNUILogListTableViewCell.swift in Sources */,
 				1090C2082307250E00575550 /* XNUIFiltersVC.swift in Sources */,
+				65C1D51524B7AC9B00F92862 /* XNUIOptionItem.swift in Sources */,
 				10C72691222DAC2D00239900 /* XNBaseLogHandler.swift in Sources */,
 				108576AA21FDD662008ABD2B /* XNRemoteLogHandler.swift in Sources */,
 				10F8A9BB230E731300C17B4A /* XNUIManager.swift in Sources */,
@@ -598,6 +589,7 @@
 				10FC10EB231501D900F347BF /* XNUILogDetailVC.swift in Sources */,
 				10142E0522F4710100217BF2 /* XNMIMEChecker.swift in Sources */,
 				10B4076822626644000FD18E /* XNURLProtocol.swift in Sources */,
+				653A1B0624C85AB700FE7B04 /* XNUISettingsCell.swift in Sources */,
 				6547BEF42437CEF5001F7B4D /* XNUIResponseFullScreenVC.swift in Sources */,
 				1005807921C685000020288D /* XNLogger.swift in Sources */,
 				10F73E5D22DA011900257A7B /* XNLogFormatter.swift in Sources */,
@@ -606,6 +598,7 @@
 				10289E76230FCE4A00FDE204 /* XNUILogHandler.swift in Sources */,
 				108576B821FDD99A008ABD2B /* XNExtensions.swift in Sources */,
 				106DC65B22D4C9D10037DC28 /* XNLogData.swift in Sources */,
+				650814A424B4E878001963B7 /* XNUIHeaderView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -692,6 +685,7 @@
 				SDKROOT = iphoneos;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
 			};
@@ -751,6 +745,7 @@
 				SDKROOT = iphoneos;
 				SWIFT_COMPILATION_MODE = wholemodule;
 				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 5.0;
 				VALIDATE_PRODUCT = YES;
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
@@ -759,7 +754,6 @@
 		};
 		1005807321C65F4A0020288D /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 7131FAE48986EDB635C3304F /* Pods-XNLogger.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(inherited)";
 				CLANG_ENABLE_MODULES = YES;
@@ -776,18 +770,18 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
+				MARKETING_VERSION = 1.1.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.sunilsharma.XNLogger;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = NO;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
 		};
 		1005807421C65F4A0020288D /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = DC94A182B8660FE9407C4F6A /* Pods-XNLogger.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(inherited)";
 				CLANG_ENABLE_MODULES = YES;
@@ -804,48 +798,49 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
+				MARKETING_VERSION = 1.1.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.sunilsharma.XNLogger;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = NO;
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
 		};
 		1005807621C65F4A0020288D /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = DB2B06FE5CCDD620F9C71535 /* Pods-XNLoggerTests.debug.xcconfig */;
+			baseConfigurationReference = 7CD0D3F6CEFB35BD0A6D3061 /* Pods-XNLoggerTests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(inherited)";
 				CODE_SIGN_STYLE = Automatic;
-				INFOPLIST_FILE = NetworkLoggerTests/Info.plist;
+				INFOPLIST_FILE = XNLoggerTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.sunilsharma.NetworkLoggerTests;
+				PRODUCT_BUNDLE_IDENTIFIER = com.sunilsharma.XNLoggerTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
 		};
 		1005807721C65F4A0020288D /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = F5C6874AF03B577DF413BA4B /* Pods-XNLoggerTests.release.xcconfig */;
+			baseConfigurationReference = 195A7F36183D14B7906F2D0A /* Pods-XNLoggerTests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(inherited)";
 				CODE_SIGN_STYLE = Automatic;
-				INFOPLIST_FILE = NetworkLoggerTests/Info.plist;
+				INFOPLIST_FILE = XNLoggerTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.sunilsharma.NetworkLoggerTests;
+				PRODUCT_BUNDLE_IDENTIFIER = com.sunilsharma.XNLoggerTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;

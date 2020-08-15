@@ -1,19 +1,18 @@
 ## Task/Feature TODO list:
 
-* Library load logic should be inside framework - done
-* Guess MIME type - done
-* Move to detail screen and load data - This will avoid ui stuck due to large data. - done
-* Remove single log - done
-
-* Select All option
-* CURL fix - it does not work for x-www-form-urlencoded
-* Full screen
+XNLogger UI
+* Full screen - manual for response and request body.
 * Remove flicker from log details screen when moving from list to detail screen.
-* Copy
-* Share
-* UI for logger => In-progress
+* Share feature right or left swift on list view screen
+* Add Filter screen
+* Add more options in Setting like switch off reponse logging etc.
 
-* Example inside framework
+* Create development configuration
+* CI integration
+* Remove XNLogHandlerType not needed
+* SPM support from Xcode 12 - binary or source if possible
+* CURL fix - it does not work for x-www-form-urlencoded and in some other conditions
+* Network activity statistics
 * Encoding type
 * Redirect URLs
 * Cache policy for logger - Enable/Change change cache policy for all REST API via logger
@@ -21,7 +20,6 @@
 * Check how to log WKWebView
 * Check how to log background session
 * Check logger works for NSOperations
-* Check it works with other network libarary
 * Thread name
 * Path filter
 

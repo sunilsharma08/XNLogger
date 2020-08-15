@@ -14,6 +14,19 @@ internal extension URLRequest {
         return RequestCurlCommand().toCurlString(request: self)
     }
     
+    func getHttpBodyData() -> Data? {
+        if let data = getHttpBodyStreamData() {
+            return data
+        }
+        guard let httpBody = httpBody else {
+            return nil
+        }
+        if httpBody.isGzipped {
+            return try? httpBody.gunzipped()
+        }
+        return nil
+    }
+    
     func httpBodyString(prettyPrint: Bool) -> String? {
         if let httpBodyString = getHttpBodyStream(prettyPrint: prettyPrint) {
             return httpBodyString

@@ -16,6 +16,7 @@ Pod::Spec.new do |s|
   s.social_media_url   = "https://twitter.com/sunil5309"
 
   s.platform     = :ios
+  s.swift_version = '5.0'
   s.ios.deployment_target = "9.0"
   s.source       = { :git => "https://github.com/sunilsharma08/XNLogger.git", :tag => "v#{s.version}" }
 
@@ -24,4 +25,9 @@ Pod::Spec.new do |s|
 
   s.requires_arc = true
 
+  # Add framework as dependencies
+  # s.ios.frameworks = 'MobileCoreServices', 'SystemConfiguration'
+  # s.osx.frameworks = 'CoreServices', 'SystemConfiguration'
+
+  s.frameworks = 'WebKit'
 end

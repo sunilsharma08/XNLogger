@@ -13,6 +13,12 @@ enum XNUIDetailViewType {
     case response
 }
 
+enum XNUIShareOption {
+    case request
+    case response
+    case reqtAndResp
+}
+
 class XNUILogDetailVC: XNUIBaseViewController {
     
     class func instance() -> XNUILogDetailVC? {
@@ -20,33 +26,46 @@ class XNUILogDetailVC: XNUIBaseViewController {
         let controller = XNUILogDetailVC(nibName: String(describing: self), bundle: Bundle.current())
         return controller
     }
-
+    
     @IBOutlet weak var requestBtn: UIButton!
     @IBOutlet weak var responseBtn: UIButton!
     @IBOutlet weak var contentView: UIView!
     
-    var logData: XNLogData?
+    var logInfo: XNUILogInfo?
     private var requestView: XNUILogDetailView?
     private var responseView: XNUILogDetailView?
     private var isResponseSelected: Bool = false
-    private var logDataConverter: NLUILogDataConverter?
+    private var logDataConverter: XNUILogDataConverter?
+    private var moreOptionBtn: UIButton?
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         edgesForExtendedLayout = []
         automaticallyAdjustsScrollViewInsets = false
-        tabBarController?.tabBar.isHidden = true
+        NotificationCenter.default.addObserver(self, selector: #selector(didReceiveUpdate(_:)), name: .logDataUpdate, object: nil)
         
-        if let logData = self.logData {
-            self.logDataConverter = NLUILogDataConverter(logData: logData, formatter: XNUIManager.shared.uiLogHandler.logFormatter)
-        }
         configureViews()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        NotificationCenter.default.addObserver(self, selector: #selector(updateViewSource(_:)), name: UIMenuController.willShowMenuNotification, object: nil)
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        NotificationCenter.default.removeObserver(self, name: UIMenuController.willShowMenuNotification, object: nil)
+    }
+    
     private func configureViews() {
-        self.navigationItem.title = "Log details"
-        self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
-        self.view.layoutIfNeeded()
+        self.headerView?.setTitle("Log details")
+        self.headerView?.addBackButton(target: self.navigationController, selector: #selector(self.navigationController?.popViewController(animated:)))
+        let moreOptionBtn = helper.createNavButton(imageName: "menu", imageInsets: UIEdgeInsets(top: 10, left: 16, bottom: 10, right: 6))
+        moreOptionBtn.addTarget(self, action: #selector(clickedOnMoreOptions), for: .touchUpInside)
+        self.moreOptionBtn = moreOptionBtn
+        
+        self.headerView?.addRightBarItems([moreOptionBtn])
         
         if (requestView == nil) {
             requestView = XNUILogDetailView(frame: contentView.bounds)
@@ -69,13 +88,46 @@ class XNUILogDetailVC: XNUIBaseViewController {
                 self.contentView.addSubview(subView)
             }
         }
-        selectDefaultTab()
+
+        loadData {[weak self] in
+            DispatchQueue.main.async {
+                self?.selectDefaultTab()
+                self?.updateUI()
+            }
+        }
+    }
+    
+    @objc func updateViewSource(_ notification: Notification) {
+        // Just to update UITextEffectsWindow level and UIMenuController is visible
+        UIApplication.shared.windows.forEach { (windoww) in
+            if windoww.className == "UITextEffectsWindow" {
+                windoww.windowLevel = .init(CGFloat.greatestFiniteMagnitude)
+            }
+        }
     }
     
     private func selectDefaultTab() {
         self.responseView?.isHidden = false
         self.requestView?.isHidden = true
-        clickedOnRequest(self.requestBtn)
+        if let requestBtn = self.requestBtn {
+            clickedOnRequest(requestBtn)
+        }
+    }
+    
+    @objc func didReceiveUpdate(_ notification: Notification) {
+        guard let userInfo = notification.userInfo as? [String: Any],
+            let logId = userInfo[XNUIConstants.logIdKey] as? String,
+            /*Avoid UI update from other request notifications*/
+            logId == logInfo?.identifier
+            else { return }
+        loadData {[weak self] in
+            DispatchQueue.main.async {
+                self?.updateUI()
+            }
+        }
+    }
+    
+    func updateUI() {
         DispatchQueue.global(qos: .userInitiated).async { [weak self] in
             guard let self = self else { return }
             
@@ -90,6 +142,21 @@ class XNUILogDetailVC: XNUIBaseViewController {
                     self.responseView?.upadteView(with: respLogs)
                 }
             })
+        }
+    }
+    
+    func loadData(completion: @escaping () -> Void) {
+        if let logId = self.logInfo?.identifier {
+            let fileService: XNUIFileService = XNUIFileService()
+            
+            fileService.getLogData(for: logId) {[weak self] (logData) in
+                guard let self = self else { return }
+                
+                if let logDataObj = logData {
+                    self.logDataConverter = XNUILogDataConverter(logData: logDataObj, formatter: XNUIManager.shared.uiLogHandler.logFormatter)
+                }
+                completion()
+            }
         }
     }
     
@@ -132,6 +199,97 @@ class XNUILogDetailVC: XNUIBaseViewController {
         unSelButton.layer.borderWidth = 1
         
     }
+    
+    @objc func clickedOnMoreOptions() {
+        
+        guard let moreOptionButton = self.moreOptionBtn else { return }
+        let popoverVC = XNUIPopOverViewController()
+        let optionItems: [XNUIOptionItem] = [
+            XNUIOptionItem(title: "Share Request and Response", type: .shareReqtAndResp),
+            XNUIOptionItem(title: "Share Request", type: .shareRequest),
+            XNUIOptionItem(title: "Share Response", type: .shareResponse)
+        ]
+        popoverVC.items = optionItems
+        popoverVC.delegate = self
+        var sourceRect = moreOptionButton.convert(moreOptionButton.frame, to: self.headerView)
+        if let headerView = self.headerView {
+            sourceRect = headerView.convert(sourceRect, to: self.view)
+        }
+        popoverVC.popoverPresentationController?.sourceRect = sourceRect
+        popoverVC.popoverPresentationController?.sourceView = self.view
+
+        self.present(popoverVC, animated: true, completion: nil)
+    }
+    
+    func showShareController(shareOption: XNUIShareOption) {
+        
+        func showError(message: String = "Unable to perform action.") {
+            XNUIHelper().showError(on: self, message: message)
+        }
+        
+        var shareList: [XNUILogDetail] = []
+        switch shareOption {
+        case .request:
+            if let reqList = requestView?.detailsArray {
+                shareList.append(contentsOf: reqList)
+            } else {
+                showError()
+            }
+        case .response:
+            if let respList = responseView?.detailsArray {
+                shareList.append(contentsOf: respList)
+            } else {
+                showError()
+            }
+        case .reqtAndResp:
+            if let reqList = requestView?.detailsArray, let respList = responseView?.detailsArray {
+                shareList.append(contentsOf: reqList)
+                shareList.append(contentsOf: respList)
+            } else {
+                showError()
+            }
+        }
+        
+        let shareDetails = XNUIShareData(logDetails: shareList)
+        
+        helper.showActivityIndicator(on: self.view)
+        shareDetails.preProcess {[weak self] (completed) in
+            guard let self = self else {
+                shareDetails.clean()
+                return
+            }
+            
+            DispatchQueue.main.async {
+                self.helper.hideActivityIndicator(from: self.view)
+                
+                let shareVC = UIActivityViewController(activityItems: [shareDetails], applicationActivities: nil)
+                if (UIDevice.current.userInterfaceIdiom == UIUserInterfaceIdiom.pad) {
+                    
+                    guard let moreOptionButton = self.moreOptionBtn else { return }
+                    var sourceRect = moreOptionButton.convert(moreOptionButton.frame, to: self.headerView)
+                    if let headerView = self.headerView {
+                        sourceRect = headerView.convert(sourceRect, to: self.view)
+                    }
+                    
+                    shareVC.popoverPresentationController?.sourceView = self.view
+                    shareVC.popoverPresentationController?.sourceRect = sourceRect
+                }
+                shareVC.completionWithItemsHandler = {(activityType, completed, returnedItems, activityError) in
+                    
+                    shareDetails.clean()
+                    if let error = activityError {
+                        XNUIHelper().showError(on: self, message: error.localizedDescription)
+                    }
+                }
+                self.present(shareVC, animated: true)
+            }
+        }
+    }
+    
+    deinit {
+        // print("\(type(of: self)) \(#function)")
+        NotificationCenter.default.removeObserver(self, name: .logDataUpdate, object: nil)
+    }
 }
 
 extension XNUILogDetailVC: XNUIDetailViewDelegate {
@@ -143,7 +301,28 @@ extension XNUILogDetailVC: XNUIDetailViewDelegate {
     }
 }
 
-class NLUILogDataConverter {
+extension XNUILogDetailVC: XNUIPopoverDelegate {
+    
+    func popover(_ popover: XNUIPopOverViewController, didSelectItem item: XNUIOptionItem, indexPath: IndexPath) {
+        
+        popover.dismiss(animated: false) {[weak self] in
+            guard let self = self else { return }
+            
+            switch item.type {
+            case .shareReqtAndResp:
+                self.showShareController(shareOption: .reqtAndResp)
+            case .shareRequest:
+                self.showShareController(shareOption: .request)
+            case .shareResponse:
+                self.showShareController(shareOption: .response)
+            default:
+                break
+            }
+        }
+    }
+}
+
+class XNUILogDataConverter {
     
     private var logData: XNLogData!
     private var formatter: XNLogFormatter!
@@ -176,7 +355,7 @@ class NLUILogDataConverter {
                         headerInfo.addMessage("\(key) = \(value)")
                     }
                 } else {
-                    headerInfo.addMessage("Header field is empty")
+                    headerInfo.addMessage("Header field is empty", isEmptyDataMsg: true)
                 }
                 requestLogs.append(headerInfo)
                 
@@ -184,13 +363,16 @@ class NLUILogDataConverter {
                 
                 if let httpBody = self.logData.urlRequest.httpBodyString(prettyPrint: self.formatter.prettyPrintJSON), httpBody.isEmpty == false {
                     // Log HTTP body either `logUnreadableReqstBody` is true or when content is readable.
-                    if self.formatter.logUnreadableReqstBody || XNAppUtils.shared.isContentTypeReadable(self.logData.reqstContentType) {
+                    if XNAppUtils.shared.isContentTypeReadable(self.logData.reqstContentMeta.contentType) {
                         httpBodyInfo.addMessage("\(httpBody)")
+                    } else if self.formatter.logUnreadableReqstBody, let httpBodyData = self.logData.urlRequest.getHttpBodyData() {
+                        httpBodyInfo.addData(httpBodyData, fileMeta: self.logData.reqstContentMeta)
                     } else {
-                        httpBodyInfo.addMessage("\(self.logData.reqstContentType.getName())", showOnlyInFullScreen: true)
+                        httpBodyInfo.addMessage(self.logData.reqstContentMeta.contentType.getName() + " data")
                     }
-                } else {
-                    httpBodyInfo.addMessage("Http body is empty")
+                }
+                else {
+                    httpBodyInfo.addMessage("Http body is empty", isEmptyDataMsg: true)
                 }
                 
                 requestLogs.append(httpBodyInfo)
@@ -238,21 +420,23 @@ class NLUILogDataConverter {
                 let responseInfo: XNUILogDetail = XNUILogDetail(title: "Response Content")
                 if let data = self.logData.receivedData, data.isEmpty == false {
                     let jsonUtil = XNJSONUtils()
-                    if self.formatter.logUnreadableRespBody || XNAppUtils.shared.isContentTypeReadable(self.logData.respContentType) {
+                    if XNAppUtils.shared.isContentTypeReadable(self.logData.respContentMeta.contentType) {
                         let str = jsonUtil.getJSONStringORStringFrom(jsonData: data, prettyPrint: self.formatter.prettyPrintJSON)
                         responseInfo.addMessage(str)
+                    } else if self.formatter.logUnreadableRespBody, let responseData = self.logData.receivedData {
+                        responseInfo.addData(responseData, fileMeta: self.logData.respContentMeta, suggestedFileName: self.logData.response?.suggestedFilename)
                     } else {
-                        responseInfo.addMessage(self.logData.respContentType.getName(), showOnlyInFullScreen: true)
+                        responseInfo.addMessage(self.logData.respContentMeta.contentType.getName() + " data")
                     }
                 }
                 else {
-                    responseInfo.addMessage("Respose data is empty")
+                    responseInfo.addMessage("Respose data is empty", isEmptyDataMsg: true)
                 }
                 responseLogs.append(responseInfo)
                 
                 let respMetaInfo: XNUILogDetail = XNUILogDetail(title: "Response Meta Info")
                 if self.formatter.showRespMetaInfo.isEmpty == false {
-                    let respHeaderInfo: XNUILogDetail = XNUILogDetail(title: "Response headers fields:")
+                    let respHeaderInfo: XNUILogDetail = XNUILogDetail(title: "Response headers fields")
                     let response = self.logData.response
                     for property in self.formatter.showRespMetaInfo {
                         
@@ -303,7 +487,7 @@ class NLUILogDataConverter {
                     }
                 }
                 else {
-                    respMetaInfo.addMessage("Response meta info is empty")
+                    respMetaInfo.addMessage("Response meta info is empty", isEmptyDataMsg: true)
                 }
                 
                 if let error = self.logData.error {

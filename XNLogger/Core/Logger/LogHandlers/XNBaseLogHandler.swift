@@ -17,11 +17,11 @@ import Foundation
     private var filterManager: XNFilterManager = XNFilterManager()
     public let logFormatter: XNLogFormatter = XNLogFormatter()
     
-    open func addFilters(_ filters: [NLFilter]) {
+    open func addFilters(_ filters: [XNFilter]) {
         self.filterManager.addFilters(filters)
     }
     
-    open func removeFilters(_ filters: [NLFilter]) {
+    open func removeFilters(_ filters: [XNFilter]) {
         self.filterManager.removeFilters(filters)
     }
     

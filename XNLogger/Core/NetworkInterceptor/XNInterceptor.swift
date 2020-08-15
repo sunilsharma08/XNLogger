@@ -18,6 +18,9 @@ internal class XNInterceptor: NSObject {
         /// If it already swizzled skip else swizzle for logging.
         /// This check make safe to call multiple times.
         if isProtocolSwizzled() == false {
+            // Let cache URLSession protocol classes without Custom log URL protocol class.
+            // So that later custom URL protocol can be disabled
+            _ = URLSession.shared
             swizzleProtocolClasses()
         }
     }
@@ -49,10 +52,10 @@ internal class XNInterceptor: NSObject {
         let instance = URLSessionConfiguration.default
         if let uRLSessionConfigurationClass: AnyClass = object_getClass(instance),
             let originalProtocolGetter: Method = class_getInstanceMethod(uRLSessionConfigurationClass, #selector(getter: uRLSessionConfigurationClass.protocolClasses)),
-            let customProtocolClass: Method = class_getInstanceMethod(URLSessionConfiguration.self, #selector(URLSessionConfiguration.nlProcotolClasses)) {
+            let customProtocolClass: Method = class_getInstanceMethod(URLSessionConfiguration.self, #selector(URLSessionConfiguration.xnProcotolClasses)) {
             method_exchangeImplementations(originalProtocolGetter, customProtocolClass)
         } else {
-            print("NL: Failed to swizzle protocol classes")
+            print("XNL: Failed to swizzle protocol classes")
         }
     }
     
@@ -64,11 +67,11 @@ extension URLSessionConfiguration {
     Never call this method directly.
     Always use `protocolClasses` to get protocol classes.
     */
-    @objc func nlProcotolClasses() -> [AnyClass]? {
-        guard let nlProcotolClasses = self.nlProcotolClasses() else {
+    @objc func xnProcotolClasses() -> [AnyClass]? {
+        guard let xnlProcotolClasses = self.xnProcotolClasses() else {
             return []
         }
-        var originalProtocolClasses = nlProcotolClasses.filter {
+        var originalProtocolClasses = xnlProcotolClasses.filter {
             return $0 != XNURLProtocol.self
         }
         // Make sure XNURLProtocol class is at top in protocol classes list.
@@ -76,4 +79,3 @@ extension URLSessionConfiguration {
         return originalProtocolClasses
     }
 }
-

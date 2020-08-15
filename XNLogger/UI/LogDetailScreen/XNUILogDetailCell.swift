@@ -11,6 +11,15 @@ import UIKit
 class XNUILogTextView: UITextView {
     
     override func canPerformAction(_ action: Selector, withSender sender: Any?) -> Bool {
+        
+        // Disabling edit action menus for iOS 13 and above, as menu appear at wrong position for mini view mode
+        // Need to fix.
+        if #available(iOS 13.0, *), XNUIManager.shared.isMiniModeActive {
+            return false
+        }
+        if action.description == "_define:" || action.description == "_lookup:" {
+            return false
+        }
         if action == #selector(selectAll) {
             
             if let range = selectedTextRange, range.start == beginningOfDocument, range.end == endOfDocument {
@@ -20,12 +29,12 @@ class XNUILogTextView: UITextView {
         }
         return super.canPerformAction(action, withSender: sender)
     }
-    
 }
 
 class XNUILogDetailCell: UITableViewCell {
     
     @IBOutlet weak var logDetailMsg: XNUILogTextView!
+    var indexPath: IndexPath?
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -36,11 +45,17 @@ class XNUILogDetailCell: UITableViewCell {
         self.selectionStyle = UITableViewCell.SelectionStyle.none
     }
     
-    func configureViews(_ messageData: XNUIMessageData) {
+    func configureViews(_ messageData: XNUIMessageData, indexPath: IndexPath) {
         self.logDetailMsg.layoutIfNeeded()
+        self.indexPath = indexPath
         if messageData.showOnlyInFullScreen == false {
             
-            self.logDetailMsg.textColor = .black
+            if messageData.isEmptyDataMsg {
+                self.logDetailMsg.textColor = XNUIAppColor.subtitle
+            } else {
+                self.logDetailMsg.textColor = .black
+            }
+            
             self.logDetailMsg.textAlignment = .left
             self.logDetailMsg.isUserInteractionEnabled = true
             self.logDetailMsg.attributedText = nil
@@ -49,7 +64,7 @@ class XNUILogDetailCell: UITableViewCell {
             if messageData.msgCount > XNUIConstants.msgCellMaxCharCount {
                 self.logDetailMsg.isScrollEnabled = true
             } else {
-                if Int(messageData.message.heightWithConstrainedWidth(self.frame.width - 20, font: XNUIConstants.messageFont)) > XNUIConstants.msgCellMaxLength {
+                if Int(messageData.message.heightWithConstrainedWidth(self.frame.width - 20, font: XNUIConstants.messageFont).height) > XNUIConstants.msgCellMaxLength {
                     self.logDetailMsg.isScrollEnabled = true
                 } else {
                     self.logDetailMsg.isScrollEnabled = false
@@ -66,22 +81,25 @@ class XNUILogDetailCell: UITableViewCell {
             self.logDetailMsg.isUserInteractionEnabled = false
             self.logDetailMsg.isScrollEnabled = false
             self.logDetailMsg.text = nil
-            
-            self.logDetailMsg.attributedText = getLargeMessage()
+            if messageData.data == nil {
+                self.logDetailMsg.attributedText = getAttrString(title: "\nData size is too big.\n", subTitle: "\nClick to view data.\n")
+            } else {
+                let contentTypeName = messageData.fileMeta?.contentType.getName() ?? ""
+                self.logDetailMsg.attributedText = getAttrString(title: "\nMultimedia data detected.\n(\(contentTypeName))\n", subTitle: "\nClick to preview data.\n")
+            }
         }
     }
     
-    func getLargeMessage() -> NSAttributedString {
+    func getAttrString(title: String, subTitle: String) -> NSAttributedString {
         let paragraphStyle = NSMutableParagraphStyle()
         paragraphStyle.alignment = .center
         
         var msgAttributes = [NSAttributedString.Key.font: XNUIConstants.messageFont, .paragraphStyle: paragraphStyle, NSAttributedString.Key.foregroundColor: XNUIAppColor.subtitle]
         
-        let largeDataMsg = NSMutableAttributedString(string: "\nData size is too big.\n", attributes: msgAttributes)
-        msgAttributes[NSAttributedString.Key.foregroundColor] = UIColor(red: 0, green: 0, blue: 1, alpha: 1)
-        largeDataMsg.append(NSAttributedString(string: "\nClick to view data.\n", attributes: msgAttributes))
+        let largeDataMsg = NSMutableAttributedString(string: title, attributes: msgAttributes)
+        msgAttributes[NSAttributedString.Key.foregroundColor] = UIColor.systemBlue
+        largeDataMsg.append(NSAttributedString(string: subTitle, attributes: msgAttributes))
         
         return largeDataMsg
     }
-    
 }

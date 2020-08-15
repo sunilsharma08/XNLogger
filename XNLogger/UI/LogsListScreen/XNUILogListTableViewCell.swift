@@ -32,17 +32,12 @@ class XNUILogListTableViewCell: UITableViewCell {
         self.statusIcon.tintColor = .white
     }
     
-    func configureViews(withData data: XNLogData) {
+    func configureViews(withData data: XNUILogInfo) {
         
-        if let scheme = data.urlRequest.url?.scheme,
-            let host = data.urlRequest.url?.host {
-            urlPathLbl.text = "\(scheme)://\(host)\(data.urlRequest.url?.path ?? "")"
-        } else {
-            urlPathLbl.text = data.urlRequest.url?.absoluteString ?? "No URL found"
-        }
+        urlPathLbl.text = data.title
         urlPathLbl.sizeToFit()
-        updateHTTPStatus(data.state, response: data.response)
-        httpMethodLbl.text = data.urlRequest.httpMethod
+        updateHTTPStatus(data.state, statusCode: data.statusCode)
+        httpMethodLbl.text = data.httpMethod
         
         if let startDate = data.startTime {
             requestStartTimeLbl.text = dateFormatter.string(from: startDate)
@@ -50,11 +45,11 @@ class XNUILogListTableViewCell: UITableViewCell {
         else {
             requestStartTimeLbl.text = ""
         }
-        requestDurationLbl.text = data.getDurationString()
+        requestDurationLbl.text = data.durationStr
         self.selectionStyle = UITableViewCell.SelectionStyle.none
     }
     
-    private func updateHTTPStatus(_ status: XNSessionState?, response: URLResponse?) {
+    private func updateHTTPStatus(_ status: XNSessionState?, statusCode: Int?) {
         
         func updateStatusLabel(color: UIColor, message: String?, icon: UIImage? = nil) {
             self.statusView.backgroundColor = color
@@ -77,8 +72,7 @@ class XNUILogListTableViewCell: UITableViewCell {
         }
         
         func updateStatusFromResponse() {
-            if let httpResponse = response as? HTTPURLResponse {
-                let statusCode = httpResponse.statusCode
+            if let statusCode = statusCode {
                 if 100...199 ~= statusCode {
                     updateStatusLabel(color: XNUIHTTPStatusColor.status1xx, message: "\(statusCode)")
                 } else if 200...299 ~= statusCode {
@@ -98,7 +92,7 @@ class XNUILogListTableViewCell: UITableViewCell {
             }
         }
         
-        if response != nil {
+        if statusCode != nil {
             updateStatusFromResponse()
             return
         }

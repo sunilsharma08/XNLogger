@@ -54,7 +54,7 @@ open class XNURLProtocol: URLProtocol {
     
     open override func startLoading() {
         if request.url == nil {
-            debugPrint("NL: No URL found")
+            debugPrint("XNL: No URL found")
         }
         
         if session == nil {
@@ -82,27 +82,19 @@ open class XNURLProtocol: URLProtocol {
         
         // Reason for log in console on cancel session
         // https://forums.developer.apple.com/thread/88020
-        
-        self.session?.invalidateAndCancel()
         self.sessionTask?.cancel()
+        self.session?.invalidateAndCancel()
         
         self.logData?.endTime = Date()
         self.logData?.response = self.response
         self.logData?.receivedData = self.receivedData
         self.logData?.error = self.responseError
+        self.logData?.setSessionState(self.sessionTask?.state)
         
         if let logData = self.logData {
             XNLogger.shared.logResponse(from: logData)
             XNLogger.shared.delegate?.xnLogger?(didReceiveResponse: logData)
         }
-        
-        // Make sure to clear all data. To avoid memory leaks.
-        self.response = nil
-        self.receivedData = nil
-        self.responseError = nil
-        self.sessionTask = nil
-        self.session = nil
-        self.logData = nil
     }
     
     override open class func requestIsCacheEquivalent(_ a: URLRequest, to b: URLRequest) -> Bool {
@@ -127,9 +119,10 @@ extension XNURLProtocol: URLSessionDataDelegate {
     }
 
     public func urlSession(_ session: URLSession, task: URLSessionTask, didCompleteWithError error: Error?) {
-        if let error = error {
-            client?.urlProtocol(self, didFailWithError: error)
-            self.responseError = error
+        if let taskError = error {
+            client?.urlProtocol(self, didFailWithError: taskError)
+            self.responseError = taskError
+            self.logData?.error = self.responseError
         } else {
             client?.urlProtocolDidFinishLoading(self)
         }
@@ -139,7 +132,7 @@ extension XNURLProtocol: URLSessionDataDelegate {
         self.logData?.redirectRequest = request
         self.response = response
         if let mutableRequest = request.getNSMutableURLRequest() {
-            URLProtocol.removeProperty(forKey: XNAppConstants.NLRequestFlagKey, in: mutableRequest)
+            URLProtocol.removeProperty(forKey: XNAppConstants.XNRequestFlagKey, in: mutableRequest)
             client?.urlProtocol(self, wasRedirectedTo: mutableRequest as URLRequest, redirectResponse: response)
         }
     }
@@ -150,6 +143,7 @@ extension XNURLProtocol: URLSessionDataDelegate {
         
         client?.urlProtocol(self, didFailWithError: error)
         self.responseError = error
+        self.logData?.error = self.responseError
     }
 
     public func urlSession(_ session: URLSession, didReceive challenge: URLAuthenticationChallenge, completionHandler: @escaping (URLSession.AuthChallengeDisposition, URLCredential?) -> Void) {
@@ -165,7 +159,7 @@ fileprivate extension XNURLProtocol {
     
     class func shouldHandle(request: URLRequest) -> Bool {
         
-        if let _ = URLProtocol.property(forKey: XNAppConstants.NLRequestFlagKey, in: request) {
+        if let _ = URLProtocol.property(forKey: XNAppConstants.XNRequestFlagKey, in: request) {
             return false
         }
         else if (XNLogger.shared.filterManager.isAllowed(urlRequest: request)) {

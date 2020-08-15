@@ -124,7 +124,7 @@ internal extension URLRequest {
         }
     }
     
-    func sniffMimeEnum() -> XNContentType {
+    func sniffMimeEnum() -> XNFileMeta {
         if let data = httpBody, data.isEmpty == false {
             return data.sniffMimeEnum()
         }
@@ -132,7 +132,7 @@ internal extension URLRequest {
             return data.sniffMimeEnum()
         }
         else {
-            return .unknown(nil)
+            return XNFileMeta(ext: nil, mime: nil, contentType: .unknown(nil))
         }
     }
 }
@@ -140,7 +140,7 @@ internal extension URLRequest {
 extension NSMutableURLRequest {
     
     func setNLFlag(value: Any) {
-        URLProtocol.setProperty(value, forKey: XNAppConstants.NLRequestFlagKey, in: self)
+        URLProtocol.setProperty(value, forKey: XNAppConstants.XNRequestFlagKey, in: self)
     }
 }
 
@@ -179,9 +179,13 @@ extension TimeInterval {
 
 extension Data {
     
-    func sniffMimeEnum() -> XNContentType {
+    func sniffMimeEnum() -> XNFileMeta {
         var magicNumbers = [UInt8](repeating: 0, count: XNMIMEChecker.maxDataNeed)
         copyBytes(to: &magicNumbers, count: XNMIMEChecker.maxDataNeed)
-        return XNAppUtils.shared.getMimeEnum(from: magicNumbers)
+        return XNAppUtils.shared.getFileMeta(from: magicNumbers)
+    }
+    
+    func hexEncodedString() -> String {
+        return map { String(format: "%02hhx", $0) }.joined()
     }
 }

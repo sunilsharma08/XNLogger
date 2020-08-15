@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
-    <device id="retina4_7" orientation="portrait">
-        <adaptation id="fullscreen"/>
-    </device>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait" appearance="dark"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -13,30 +11,60 @@
         <!--XNLogger-->
         <scene sceneID="hXp-Fz-Gco">
             <objects>
-                <viewController id="ALm-8y-hsn" customClass="XNUILogListVC" customModule="XNLogger" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController automaticallyAdjustsScrollViewInsets="NO" id="ALm-8y-hsn" customClass="XNUILogListVC" customModule="XNLogger" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="ehX-ww-Y4Q">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="qjk-kd-DrC">
-                                <rect key="frame" x="0.0" y="64" width="375" height="554"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="d9j-Yq-bqc">
+                                <rect key="frame" x="0.0" y="45" width="375" height="45"/>
+                                <subviews>
+                                    <searchBar contentMode="redraw" searchBarStyle="prominent" placeholder="Search" translucent="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iOE-dT-yQF">
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="45"/>
+                                        <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" keyboardType="URL" returnKeyType="search" enablesReturnKeyAutomatically="YES" textContentType="url"/>
+                                    </searchBar>
+                                </subviews>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="bottom" secondItem="iOE-dT-yQF" secondAttribute="bottom" id="3cp-Wn-qGg"/>
+                                    <constraint firstItem="iOE-dT-yQF" firstAttribute="top" secondItem="d9j-Yq-bqc" secondAttribute="top" id="YNP-kl-PZt"/>
+                                    <constraint firstItem="iOE-dT-yQF" firstAttribute="leading" secondItem="d9j-Yq-bqc" secondAttribute="leading" id="c4M-Rw-CBF"/>
+                                    <constraint firstAttribute="height" constant="45" id="dXv-ky-e0D"/>
+                                    <constraint firstAttribute="trailing" secondItem="iOE-dT-yQF" secondAttribute="trailing" id="rV5-f5-njI"/>
+                                </constraints>
+                            </view>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="qjk-kd-DrC">
+                                <rect key="frame" x="0.0" y="90" width="375" height="528"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </tableView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wW4-aW-RtI">
-                                <rect key="frame" x="187.5" y="269.5" width="0.0" height="0.0"/>
+                                <rect key="frame" x="187.5" y="300" width="0.0" height="0.0"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="19"/>
                                 <color key="textColor" red="0.50980392156862742" green="0.50980392156862742" blue="0.50980392156862742" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CZa-Lp-sjI" customClass="XNUIHeaderView" customModule="XNLogger" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="45"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="45" id="7t2-he-WYN"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="qjk-kd-DrC" firstAttribute="bottom" secondItem="yfi-o1-kSR" secondAttribute="bottom" id="5D6-BH-FSc"/>
+                            <constraint firstItem="yfi-o1-kSR" firstAttribute="bottom" secondItem="qjk-kd-DrC" secondAttribute="bottom" id="5D6-BH-FSc"/>
+                            <constraint firstItem="qjk-kd-DrC" firstAttribute="top" secondItem="d9j-Yq-bqc" secondAttribute="bottom" id="6hZ-1D-Kq0"/>
+                            <constraint firstItem="d9j-Yq-bqc" firstAttribute="leading" secondItem="yfi-o1-kSR" secondAttribute="leading" id="6lH-Lb-uxv"/>
                             <constraint firstItem="qjk-kd-DrC" firstAttribute="leading" secondItem="yfi-o1-kSR" secondAttribute="leading" id="MQu-tB-Xlx"/>
                             <constraint firstItem="wW4-aW-RtI" firstAttribute="centerX" secondItem="ehX-ww-Y4Q" secondAttribute="centerX" id="PKE-Qt-25e"/>
-                            <constraint firstItem="qjk-kd-DrC" firstAttribute="top" secondItem="yfi-o1-kSR" secondAttribute="top" id="Y0m-ch-qFw"/>
-                            <constraint firstItem="wW4-aW-RtI" firstAttribute="centerY" secondItem="ehX-ww-Y4Q" secondAttribute="centerY" constant="-64" id="sgq-KO-Iif"/>
+                            <constraint firstItem="CZa-Lp-sjI" firstAttribute="trailing" secondItem="yfi-o1-kSR" secondAttribute="trailing" id="Q7p-xE-uEd"/>
+                            <constraint firstItem="CZa-Lp-sjI" firstAttribute="top" secondItem="ehX-ww-Y4Q" secondAttribute="top" id="WIS-L5-QPK"/>
+                            <constraint firstItem="d9j-Yq-bqc" firstAttribute="top" secondItem="CZa-Lp-sjI" secondAttribute="bottom" id="ZGA-sQ-6Go"/>
+                            <constraint firstItem="CZa-Lp-sjI" firstAttribute="leading" secondItem="yfi-o1-kSR" secondAttribute="leading" id="cye-SU-OOO"/>
+                            <constraint firstItem="wW4-aW-RtI" firstAttribute="centerY" secondItem="ehX-ww-Y4Q" secondAttribute="centerY" multiplier="0.9" id="sgq-KO-Iif"/>
                             <constraint firstItem="qjk-kd-DrC" firstAttribute="trailing" secondItem="yfi-o1-kSR" secondAttribute="trailing" id="xkR-q0-KLl"/>
+                            <constraint firstItem="d9j-Yq-bqc" firstAttribute="trailing" secondItem="yfi-o1-kSR" secondAttribute="trailing" id="zyF-dm-leo"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="yfi-o1-kSR"/>
                     </view>
@@ -45,17 +73,22 @@
                     </navigationItem>
                     <connections>
                         <outlet property="emptyMsgLabel" destination="wW4-aW-RtI" id="TyE-Gz-HfY"/>
+                        <outlet property="headerView" destination="CZa-Lp-sjI" id="fJB-yE-obx"/>
                         <outlet property="logListTableView" destination="qjk-kd-DrC" id="c1k-Rl-pCN"/>
+                        <outlet property="logSearchBar" destination="iOE-dT-yQF" id="EHh-pD-TsH"/>
+                        <outlet property="searchContainerHeight" destination="dXv-ky-e0D" id="Jv8-wW-fKJ"/>
+                        <outlet property="searchContainerView" destination="d9j-Yq-bqc" id="XfJ-7A-rWb"/>
+                        <outlet property="tableViewBottomConstraint" destination="5D6-BH-FSc" id="VJC-vl-Pyh"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="mKa-2x-SVm" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2127" y="-475"/>
+            <point key="canvasLocation" x="2125.5999999999999" y="-475.41229385307349"/>
         </scene>
         <!--Filters-->
         <scene sceneID="q1D-Wa-t2I">
             <objects>
-                <viewController id="mGd-7n-ug5" customClass="XNUIFiltersVC" customModule="XNLogger" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="XNUIFiltersVC" id="mGd-7n-ug5" customClass="XNUIFiltersVC" customModule="XNLogger" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="iIM-kB-H7G">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -68,26 +101,52 @@
             </objects>
             <point key="canvasLocation" x="1145" y="249"/>
         </scene>
-        <!--Settings-->
+        <!--SettingsVC-->
         <scene sceneID="hXm-ah-E87">
             <objects>
                 <viewController id="97Q-Dw-GpS" customClass="XNUISettingsVC" customModule="XNLogger" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="g01-Ol-hZM">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xl6-bF-Uw5" customClass="XNUIHeaderView" customModule="XNLogger" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="45"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="45" id="Xeo-BS-GCD"/>
+                                </constraints>
+                            </view>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" sectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="Wdg-Hx-VIm">
+                                <rect key="frame" x="0.0" y="45" width="375" height="573"/>
+                                <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                            </tableView>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="xl6-bF-Uw5" firstAttribute="top" secondItem="g01-Ol-hZM" secondAttribute="top" id="1zU-C1-qnn"/>
+                            <constraint firstItem="xl6-bF-Uw5" firstAttribute="trailing" secondItem="Doo-TS-72w" secondAttribute="trailing" id="HZN-WS-uQ7"/>
+                            <constraint firstItem="Wdg-Hx-VIm" firstAttribute="trailing" secondItem="Doo-TS-72w" secondAttribute="trailing" id="KrW-Yu-STY"/>
+                            <constraint firstItem="xl6-bF-Uw5" firstAttribute="leading" secondItem="Doo-TS-72w" secondAttribute="leading" id="PCk-7F-qQa"/>
+                            <constraint firstItem="Wdg-Hx-VIm" firstAttribute="top" secondItem="xl6-bF-Uw5" secondAttribute="bottom" id="Srl-vt-af4"/>
+                            <constraint firstItem="Wdg-Hx-VIm" firstAttribute="bottom" secondItem="Doo-TS-72w" secondAttribute="bottom" id="clZ-D8-cX4"/>
+                            <constraint firstItem="Wdg-Hx-VIm" firstAttribute="leading" secondItem="Doo-TS-72w" secondAttribute="leading" id="p0k-Un-enG"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="Doo-TS-72w"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Settings" id="Ith-h9-pzc"/>
+                    <tabBarItem key="tabBarItem" title="" image="settings" id="Ith-h9-pzc"/>
+                    <connections>
+                        <outlet property="headerView" destination="xl6-bF-Uw5" id="3yl-4E-0aY"/>
+                        <outlet property="settingsTableView" destination="Wdg-Hx-VIm" id="rqB-b1-xTH"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="eHn-od-0Mn" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="49" y="908"/>
+            <point key="canvasLocation" x="48.799999999999997" y="907.1964017991005"/>
         </scene>
         <!--Base Tab Bar Controller-->
         <scene sceneID="22G-xP-7rc">
             <objects>
-                <tabBarController storyboardIdentifier="nlMainTabBarController" automaticallyAdjustsScrollViewInsets="NO" id="xzs-xp-vNi" customClass="XNUIBaseTabBarController" customModule="XNLogger" customModuleProvider="target" sceneMemberID="viewController">
+                <tabBarController storyboardIdentifier="xnlMainTabBarController" automaticallyAdjustsScrollViewInsets="NO" id="xzs-xp-vNi" customClass="XNUIBaseTabBarController" customModule="XNLogger" customModuleProvider="target" sceneMemberID="viewController">
                     <toolbarItems/>
                     <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="qmM-hv-jHO">
                         <rect key="frame" x="0.0" y="0.0" width="1000" height="1000"/>
@@ -96,7 +155,6 @@
                     </tabBar>
                     <connections>
                         <segue destination="HNy-Xg-lEt" kind="relationship" relationship="viewControllers" id="pl8-aB-Lj3"/>
-                        <segue destination="mGd-7n-ug5" kind="relationship" relationship="viewControllers" id="QNF-rx-rem"/>
                         <segue destination="97Q-Dw-GpS" kind="relationship" relationship="viewControllers" id="D59-d6-fpd"/>
                     </connections>
                 </tabBarController>
@@ -104,14 +162,15 @@
             </objects>
             <point key="canvasLocation" x="48.799999999999997" y="100.29985007496252"/>
         </scene>
-        <!--Logs-->
+        <!--Navigation Controller-->
         <scene sceneID="ilq-6i-bDR">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="HNy-Xg-lEt" customClass="XNUINavigationController" customModule="XNLogger" customModuleProvider="target" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Logs" id="MHn-CO-oii"/>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" navigationBarHidden="YES" id="HNy-Xg-lEt" customClass="XNUINavigationController" customModule="XNLogger" customModuleProvider="target" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="" image="log" id="MHn-CO-oii">
+                        <offsetWrapper key="titlePositionAdjustment" horizontal="0.0" vertical="0.0"/>
+                    </tabBarItem>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="Mm3-jr-CJp">
-                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
@@ -124,4 +183,8 @@
             <point key="canvasLocation" x="1180" y="-475.41229385307349"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="log" width="25" height="25"/>
+        <image name="settings" width="25" height="25"/>
+    </resources>
 </document>

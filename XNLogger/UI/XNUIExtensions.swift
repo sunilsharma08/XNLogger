@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import UIKit
 
 extension UIWindow {
     
@@ -14,7 +15,7 @@ extension UIWindow {
         
         if XNUIManager.shared.startGesture == .shake,
             motion == .motionShake {
-            XNUIManager.shared.presentNetworkLogUI()
+            XNUIManager.shared.presentUI()
         } else {
             super.motionEnded(motion, with: event)
         }
@@ -53,7 +54,9 @@ extension UITableViewHeaderFooterView: NibLoadableView, ReusableView {
 }
 
 extension UITableView {
-    
+    /**
+     Use when xib and class name is same.
+     */
     func register<T: UITableViewCell>(ofType _: T.Type) {
         let bundle = Bundle(for: T.self)
         let nib = UINib(nibName: T.nibName, bundle: bundle)
@@ -75,13 +78,63 @@ extension UITableView {
     }
 }
 
-extension UIView {
-}
-
 extension String {
-    public func heightWithConstrainedWidth(_ width: CGFloat, font: UIFont, options: NSStringDrawingOptions = [.usesLineFragmentOrigin, .usesFontLeading]) -> CGFloat {
+    
+    public func heightWithConstrainedWidth(_ width: CGFloat, font: UIFont, options: NSStringDrawingOptions = [.usesLineFragmentOrigin, .usesFontLeading]) -> CGSize {
         let constraintRect = CGSize(width: width, height: CGFloat.greatestFiniteMagnitude)
         let boundingBox = self.boundingRect(with: constraintRect, options: options, attributes: [NSAttributedString.Key.font: font], context: nil)
-        return boundingBox.height
+        return boundingBox.size
     }
+    
+    public func widthWithConstrainedHeight(_ height: CGFloat, font: UIFont, options: NSStringDrawingOptions = [.usesLineFragmentOrigin, .usesFontLeading]) -> CGSize {
+        let constraintRect = CGSize(width: CGFloat.greatestFiniteMagnitude, height: height)
+        let boundingBox = self.boundingRect(with: constraintRect, options: options, attributes: [NSAttributedString.Key.font: font], context: nil)
+        return boundingBox.size
+    }
+    
+}
+
+extension NSNotification.Name {
+    static let logDataUpdate = NSNotification.Name("com.xnLogger.logDataUpdateNotification")
+}
+
+extension UIEdgeInsets {
+    
+    init(inset: CGFloat) {
+        self.init()
+        top = inset
+        bottom = inset
+        left = inset
+        right = inset
+    }
+}
+
+extension UIView {
+    /**
+     Add constraints to current view to match with given another view with specified margin.
+     
+     Another view can be parent or child of current view.
+     
+     - Parameter pView: View to match current view.
+     - Parameter margin: Margin between current view and the other view
+     */
+    func match(to pView: UIView, margin: CGFloat) {
+        self.leadingAnchor.constraint(equalTo: pView.leadingAnchor, constant: margin).isActive = true
+        self.trailingAnchor.constraint(equalTo: pView.trailingAnchor, constant: margin).isActive = true
+        self.topAnchor.constraint(equalTo: pView.topAnchor, constant: margin).isActive = true
+        self.bottomAnchor.constraint(equalTo: pView.bottomAnchor, constant: margin).isActive = true
+    }
+}
+
+extension CGRect: Comparable {
+    
+    public static func == (lhs: CGRect, rhs: CGRect) -> Bool {
+        return lhs.width == rhs.width && lhs.width == rhs.width
+    }
+    
+    public static func < (lhs: CGRect, rhs: CGRect) -> Bool {
+        return lhs.width < rhs.width && lhs.width < rhs.width
+    }
+    
+    
 }

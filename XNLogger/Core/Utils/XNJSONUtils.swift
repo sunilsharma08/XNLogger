@@ -11,25 +11,23 @@ import UIKit
 class XNJSONUtils: NSObject {
     
     func getJSONStringFrom(jsonData data: Data, prettyPrint: Bool) -> String? {
-        if data.isEmpty {
-            return nil
+        guard data.isEmpty == false, let jsonObj = getJsonObjectFrom(jsonData: data)
+        else { return nil }
+        
+        var jsonWriteOption: JSONSerialization.WritingOptions = []
+        if prettyPrint {
+            jsonWriteOption = [.prettyPrinted]
+        }
+        if #available(iOS 13.0, *) {
+            jsonWriteOption.update(with: .withoutEscapingSlashes)
+        } else {
+            // Fallback on earlier versions
         }
         do {
-            let jsonObj = try getJsonObjectFrom(jsonData: data)
-            var jsonWriteOption: JSONSerialization.WritingOptions = []
-            if prettyPrint {
-                jsonWriteOption = [.prettyPrinted]
-            }
-            
             let jsonData = try JSONSerialization.data(withJSONObject: jsonObj, options: jsonWriteOption)
-            
-            guard let jsonString = String(data: jsonData, encoding: String.Encoding.utf8) else {
-                print("NL: Can't create string with data.")
-                return nil
-            }
-            return jsonString
+            return getStringFrom(data: jsonData)
         } catch let parseError {
-            print("NL: JSON serialization error: \(parseError)")
+            print("XNL: JSON serialization error: \(parseError)")
             return nil
         }
     }
@@ -48,27 +46,10 @@ class XNJSONUtils: NSObject {
     }
     
     func getDictionaryFrom(jsonData: Data) -> [String: Any]? {
-        
-        do {
-            if let jsonObj = try getJsonObjectFrom(jsonData: jsonData) as? [String: Any] {
-                return jsonObj
-            } else {
-                return nil
-            }
-        } catch let parseError {
-            print("NL: JSON serialization error: \(parseError)")
-            return nil
-        }
+        return getJsonObjectFrom(jsonData: jsonData) as? [String: Any]
     }
     
-    func getJsonObjectFrom(jsonData: Data) throws -> Any {
-        do {
-            let jsonObj = try JSONSerialization.jsonObject(with: jsonData, options: [])
-            return jsonObj
-        } catch let parseError {
-            print("NL: JSON serialization error: \(parseError)")
-            throw parseError
-        }
+    func getJsonObjectFrom(jsonData: Data) -> Any? {
+        try? JSONSerialization.jsonObject(with: jsonData, options: [])
     }
-
 }

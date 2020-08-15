@@ -96,7 +96,7 @@ extension XNUILogDetailView: UITableViewDataSource {
             if msgData.msgCount > XNUIConstants.msgCellMaxCharCount {
                 return UIScreen.main.bounds.height * 0.6
             }
-            else if Int(msgData.message.heightWithConstrainedWidth(tableView.frame.width - 20, font: XNUIConstants.messageFont)) > XNUIConstants.msgCellMaxLength {
+            else if Int(msgData.message.heightWithConstrainedWidth(tableView.frame.width - 20, font: XNUIConstants.messageFont).height) > XNUIConstants.msgCellMaxLength {
                 return UIScreen.main.bounds.height * 0.6
             }
         }
@@ -110,7 +110,7 @@ extension XNUILogDetailView: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell: XNUILogDetailCell = tableView.dequeueReusableCell(for: indexPath)
-        cell.configureViews(self.detailsArray[indexPath.section].messages[indexPath.row])
+        cell.configureViews(self.detailsArray[indexPath.section].messages[indexPath.row], indexPath: indexPath)
         return cell
     }
     
@@ -127,7 +127,7 @@ extension XNUILogDetailView: UITableViewDataSource {
 extension XNUILogDetailView: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        print("Selected")
+        
         let msgData = self.detailsArray[indexPath.section].messages[indexPath.row]
         if msgData.showOnlyInFullScreen {
             delegate?.showMessageFullScreen(logData: msgData, title: self.detailsArray[indexPath.section].title)

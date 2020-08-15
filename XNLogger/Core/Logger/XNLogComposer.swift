@@ -44,10 +44,10 @@ internal class XNLogComposer {
         urlRequestStr.append("\n\nHttp body:")
         if let httpBody = urlRequest.httpBodyString(prettyPrint: formatter.prettyPrintJSON), httpBody.isEmpty == false {
             // Log HTTP body either `logUnreadableReqstBody` is true or when content is readable.
-            if formatter.logUnreadableReqstBody || XNAppUtils.shared.isContentTypeReadable(logData.reqstContentType) {
+            if formatter.logUnreadableReqstBody || XNAppUtils.shared.isContentTypeReadable(logData.reqstContentMeta.contentType) {
                 urlRequestStr.append("\n\(httpBody)\n")
             } else {
-                urlRequestStr.append("\n\(logData.reqstContentType.getName())\n")
+                urlRequestStr.append("\n\(logData.reqstContentMeta.contentType.getName()) data \n")
             }
         } else {
             urlRequestStr.append("\n\(getEmptyDataBoundary(for: "Http body is empty"))\n")
@@ -158,11 +158,11 @@ internal class XNLogComposer {
         responseStr += "\n\nResponse Content: \n"
         if let data = logData.receivedData, data.isEmpty == false {
             
-            if formatter.logUnreadableRespBody || XNAppUtils.shared.isContentTypeReadable(logData.respContentType) {
+            if formatter.logUnreadableRespBody || XNAppUtils.shared.isContentTypeReadable(logData.respContentMeta.contentType) {
                 let str = XNJSONUtils().getJSONStringORStringFrom(jsonData: data, prettyPrint: formatter.prettyPrintJSON)
                 responseStr.append(str)
             } else {
-                responseStr.append(logData.respContentType.getName())
+                responseStr.append(logData.respContentMeta.contentType.getName() + " data")
             }
         }
         else {
