@@ -76,10 +76,9 @@ class XNUIResponseFullScreenVC: XNUIBaseViewController {
     }
     
     func addWebContraint() {
-        let margins = view.layoutMarginsGuide
         NSLayoutConstraint.activate([
-          mediaWebView.leadingAnchor.constraint(equalTo: margins.leadingAnchor),
-          mediaWebView.trailingAnchor.constraint(equalTo: margins.trailingAnchor)
+          mediaWebView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+          mediaWebView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
         ])
         
         if let headerView = self.headerView {
