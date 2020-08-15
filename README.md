@@ -165,7 +165,8 @@ httpScheme.invert = true
 ```
 
 ## Formatters
-class `XNLogFormatter` has following properties:
+By default logger logs all informations except binary data. These setting can be adjusted as per requirement. Formatter allows to control what fields to log and what to skip.
+Formatter class `XNLogFormatter` has following properties:
 ```swift
 public var showRequest: Bool = true // Hide or show requests log.
 public var showResponse: Bool = true // Hide or show response log.
@@ -179,7 +180,15 @@ public var showReqstMetaInfo: [XNRequestMetaInfo] = XNRequestMetaInfo.allCases /
 public var showRespMetaInfo: [XNResponseMetaInfo] = XNResponseMetaInfo.allCases // Details to be displayed in response log portion.
 public var showReqstMetaInfoWithResp: [XNRequestMetaInfo] = XNRequestMetaInfo.allCases // Details to display for request when display as response portion.
 ```
-# Contributions
+
+### Limitations
+1. Does not log background url session tasks.
+2. WKWebView urls will be not logged.
+Trying to log background tasks and WKWebView urls without using any private API. These limitation may be removed in next releases.
+
+# Contribution
+Feel free to raise PR for any bug fixes, features or enchancements. When you are done with changes raise PR to develop branch.
+Another way to contribute to the project is to send a detailed issue when you encounter a problem. In bug detail please provide steps to reproduce and some other details like Swift version, url(if possible), URLSession configuration, etc.
 
 # License
 XNLogger is available under the [MIT license](https://raw.githubusercontent.com/sunilsharma08/XNLogger/master/LICENSE).
