@@ -187,6 +187,7 @@ Trying to log background tasks and WKWebView urls without using any private API.
 
 # Contribution
 Feel free to raise PR for any bug fixes, features or enchancements. When you are done with changes raise PR to develop branch.
+
 Another way to contribute to the project is to send a detailed issue when you encounter a problem. In bug detail please provide steps to reproduce and some other details like Swift version, url(if possible), URLSession configuration, etc.
 
 # License
