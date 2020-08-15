@@ -184,6 +184,7 @@ public var showReqstMetaInfoWithResp: [XNRequestMetaInfo] = XNRequestMetaInfo.al
 ### Limitations
 1. Does not log background url session tasks.
 2. WKWebView urls will be not logged.
+
 Trying to log background tasks and WKWebView urls without using any private API. These limitation may be removed in next releases.
 
 # Contribution
