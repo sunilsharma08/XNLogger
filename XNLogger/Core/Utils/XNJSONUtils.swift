@@ -27,7 +27,7 @@ class XNJSONUtils: NSObject {
             let jsonData = try JSONSerialization.data(withJSONObject: jsonObj, options: jsonWriteOption)
             return getStringFrom(data: jsonData)
         } catch let parseError {
-            print("NL: JSON serialization error: \(parseError)")
+            print("XNL: JSON serialization error: \(parseError)")
             return nil
         }
     }

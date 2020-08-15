@@ -15,7 +15,7 @@ extension UIWindow {
         
         if XNUIManager.shared.startGesture == .shake,
             motion == .motionShake {
-            XNUIManager.shared.presentNetworkLogUI()
+            XNUIManager.shared.presentUI()
         } else {
             super.motionEnded(motion, with: event)
         }

@@ -37,19 +37,31 @@ public enum XNResponseMetaInfo: Int, CaseIterable {
 @objcMembers
 public class XNLogFormatter: NSObject {
     
+    // Hide or show requests log.
     public var showRequest: Bool = true
+    
+    // Hide or show response log.
     public var showResponse: Bool = true
     
+    // Show request with response, useful when `showRequest` is disabled.
     public var showReqstWithResp: Bool = false
     
+    // Show curl request with request log.
     public var showCurlWithReqst: Bool = true
+    
+    // Show curl request when url request is displayed with response.
     public var showCurlWithResp: Bool = true
     
+    // Log pretty printed json data .
     public var prettyPrintJSON: Bool = true
     
+    // Show binary data like image, video, etc in response.
     public var logUnreadableRespBody: Bool = false
+    
+    // Show binary data like image, video, etc in request body.
     public var logUnreadableReqstBody: Bool = false
     
+    // Details to be displayed in request log portion.
     public var showReqstMetaInfo: [XNRequestMetaInfo] = XNRequestMetaInfo.allCases {
         didSet {
             showReqstMetaInfo = Set(showReqstMetaInfo).sorted(by: { (property1, property2) -> Bool in
@@ -58,6 +70,7 @@ public class XNLogFormatter: NSObject {
         }
     }
     
+    // Details to be displayed in response log portion.
     public var showRespMetaInfo: [XNResponseMetaInfo] = XNResponseMetaInfo.allCases{
         didSet {
             showRespMetaInfo = Set(showRespMetaInfo).sorted(by: { (property1, property2) -> Bool in
@@ -66,6 +79,7 @@ public class XNLogFormatter: NSObject {
         }
     }
     
+    // Details to display for request when display as response portion.
     public var showReqstMetaInfoWithResp: [XNRequestMetaInfo] = XNRequestMetaInfo.allCases {
         didSet {
             showReqstMetaInfo = Set(showReqstMetaInfo).sorted(by: { (property1, property2) -> Bool in

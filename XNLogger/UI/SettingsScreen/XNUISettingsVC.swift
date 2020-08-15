@@ -103,7 +103,7 @@ class XNUISettingsVC: XNUIBaseViewController {
     }
     
     @objc func dismissNetworkUI() {
-        XNUIManager.shared.dismissNetworkUI()
+        XNUIManager.shared.dismissUI()
     }
 
 }

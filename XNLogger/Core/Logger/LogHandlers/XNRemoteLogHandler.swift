@@ -50,7 +50,7 @@ public class XNRemoteLogHandler: XNBaseLogHandler, XNLogHandler, XNRemoteLogger 
             bodyJson = json
         }
         
-        bodyJson["nl-log-msg"] = message
+        bodyJson["xn-log-msg"] = message
         let jsonData = try? JSONSerialization.data(withJSONObject: bodyJson)
         urlRequest.httpBody = jsonData
         return urlRequest as URLRequest

@@ -36,11 +36,15 @@ class ExamplesVC: UIViewController {
         let buttonList = [dataHandler, dataDelegate, downloadHandler, downloadDelegate, uploadHandler, uploadDelegate, downloadResume, downloadBackground, webViewLoad]
         
         for button in buttonList {
-            button?.backgroundColor = .white
+            button?.backgroundColor = UIColor(red: 42/255.0, green: 168/255.0, blue: 250/255.0, alpha: 1)
             button?.titleLabel?.numberOfLines = 0
-            button?.titleLabel?.textColor = .black
-            button?.setTitleColor(UIColor.black, for: .normal)
+            button?.setTitleColor(UIColor.white, for: .normal)
+            button?.clipsToBounds = true
+            button?.layer.cornerRadius = 5
         }
+        
+        downloadBackground.isHidden = true
+        webViewLoad.isHidden = true
     }
     
     func getJSONFrom(data: Data?) -> Any? {
@@ -57,7 +61,7 @@ class ExamplesVC: UIViewController {
     }
     
     @IBAction func clickedOnShowXNLogger() {
-        XNUIManager.shared.presentNetworkLogUI()
+        XNUIManager.shared.presentUI()
     }
 }
 
@@ -70,7 +74,7 @@ extension ExamplesVC {
         
         var urlRequest: URLRequest = URLRequest(url: url)
         urlRequest.httpMethod = "POST"
-        urlRequest.addValue("alloo", forHTTPHeaderField: "sabji")
+        urlRequest.addValue("abbbbc", forHTTPHeaderField: "xyzzz")
         urlRequest.setValue("gjghj", forHTTPHeaderField: "llnlnoln")
         let json: [String: Any] = ["title": "AB'C",
                                    "dict": ["1":"First", "2":"Second"]]
@@ -131,36 +135,18 @@ extension ExamplesVC {
         guard let button = sender as? UIButton
             else { return }
         /**
+         Links for testing and debugging.
          Video Urls
          https://file-examples.com/wp-content/uploads/2018/04/file_example_AVI_480_750kB.avi
-         http://file-examples.com/wp-content/uploads/2017/04/file_example_MP4_640_3MG.mp4
-         https://file-examples.com/wp-content/uploads/2018/04/file_example_OGG_480_1_7mg.ogg
-         https://file-examples.com/wp-content/uploads/2018/04/file_example_MOV_480_700kB.mov
-         https://docs.google.com/uc?export=download&id=1NmdZuEQmxyYgptuPJtacoFC3d8Yj8bQY
-         http://techslides.com/demos/sample-videos/small.3gp
+         https://file-examples-com.github.io/uploads/2018/04/file_example_OGG_480_1_7mg.ogg
+         https://file-examples-com.github.io/uploads/2018/04/file_example_MOV_480_700kB.mov
          
-         PDF
-         https://file-examples.com/wp-content/uploads/2017/10/file-sample_150kB.pdf
          Images
-         https://file-examples.com/wp-content/uploads/2017/10/file_example_JPG_100kB.jpg
+         https://file-examples-com.github.io/uploads/2017/10/file_example_JPG_100kB.jpg
          https://file-examples.com/wp-content/uploads/2017/10/file_example_PNG_500kB.png
-         https://file-examples.com/wp-content/uploads/2017/10/file_example_GIF_500kB.gif
-         https://file-examples.com/wp-content/uploads/2017/10/file_example_TIFF_1MB.tiff
-         https://file-examples.com/wp-content/uploads/2017/10/file_example_favicon.ico
-         https://file-examples.com/wp-content/uploads/2020/03/file_example_SVG_20kB.svg
-         https://file-examples.com/wp-content/uploads/2020/03/file_example_WEBP_50kB.webp
-         
-         Audio
-         https://file-examples.com/wp-content/uploads/2017/11/file_example_MP3_700KB.mp3
-         
-         Text
-         https://file-examples.com/wp-content/uploads/2017/02/file_example_CSV_5000.csv
-         https://file-examples.com/wp-content/uploads/2017/02/file_example_JSON_1kb.json
-         https://file-examples.com/wp-content/uploads/2017/02/file_example_XML_24kb.xml
-         https://file-examples.com/wp-content/uploads/2017/02/index.html
-         https://file-examples.com/wp-content/uploads/2019/09/file-sample_100kB.rtf
+         https://file-examples-com.github.io/uploads/2017/10/file_example_PNG_500kB.png
          */
-        let url = URL(string: "http://file-examples.com/wp-content/uploads/2017/04/file_example_MP4_640_3MG.mp4")!
+        let url = URL(string: "https://file-examples-com.github.io/uploads/2018/04/file_example_MOV_480_700kB.mov")!
         let configuration = URLSessionConfiguration.default
         let session = URLSession(configuration: configuration, delegate: self, delegateQueue: nil)
         if button.tag == 0 {
