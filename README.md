@@ -7,9 +7,10 @@
 [![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-brightgreen.svg)](https://github.com/sunilsharma08/XNLogger)
 [![License](https://img.shields.io/github/license/sunilsharma08/XNLogger?color=blue)](https://raw.githubusercontent.com/sunilsharma08/XNLogger/master/LICENSE)
 [![Pod platforms](https://img.shields.io/cocoapods/p/XNLogger)](https://github.com/sunilsharma08/XNLogger)
-
+<br/>
 <br/>
 XNLogger is network logging framework, which can be easily extended and modified as per requirements. It can be formatted to log just url or complete network traffic details. It provides in-app logger UI for debugging and testing purpose. Logs can be written on files, print on Xcode console, send to network or use inbuild logger UI. Network logger UI appears in app with shake gesture on device and simulators.
+
 <br/>
 
 Network loggers can generate huge data specially when binary data(like image, video, etc.) logging is enabled, this can increase memory usage and may result in app crash. To avoid such situation XNLogger is designed to use memory efficiently, it write logs on disk and only on requirement loads in memory. 
