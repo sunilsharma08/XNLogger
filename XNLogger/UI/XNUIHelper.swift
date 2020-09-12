@@ -64,6 +64,7 @@ final class XNUIConstants {
     static let activityIndicatorTag: Int = 10263
     static let logIdKey: String = "logIdentifier"
     static let isResponseLogUpdate: String = "isResponseLogUpdate"
+    static let txtLogFileName: String = "XNLogger-log-%@.txt"
 }
 
 class XNUIHelper {
