@@ -262,7 +262,9 @@ class XNUILogDetailVC: XNUIBaseViewController {
             DispatchQueue.main.async {
                 self.helper.hideActivityIndicator(from: self.view)
                 
-                let shareVC = UIActivityViewController(activityItems: [shareDetails], applicationActivities: nil)
+                let saveToDesktopActivities = [XNUISaveToDesktopActivity(), XNUISaveToPathActivity()]
+                
+                let shareVC = UIActivityViewController(activityItems: [shareDetails], applicationActivities: saveToDesktopActivities)
                 if (UIDevice.current.userInterfaceIdiom == UIUserInterfaceIdiom.pad) {
                     
                     guard let moreOptionButton = self.moreOptionBtn else { return }

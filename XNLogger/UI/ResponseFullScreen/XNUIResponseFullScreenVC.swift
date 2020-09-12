@@ -169,7 +169,9 @@ class XNUIResponseFullScreenVC: XNUIBaseViewController {
             }
             DispatchQueue.main.async {
                 self.helper.hideActivityIndicator(from: self.view)
-                let shareVC = UIActivityViewController(activityItems: [shareItem], applicationActivities: nil)
+                let saveToDesktopActivities = [XNUISaveToDesktopActivity(), XNUISaveToPathActivity()]
+                
+                let shareVC = UIActivityViewController(activityItems: [shareItem], applicationActivities: saveToDesktopActivities)
                 
                 if (UIDevice.current.userInterfaceIdiom == UIUserInterfaceIdiom.pad) {
                     
