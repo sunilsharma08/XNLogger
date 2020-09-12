@@ -20,6 +20,7 @@ Network loggers can generate huge data specially when binary data(like image, vi
 - [x] Network logs can be viewed In-App, by default shake gesture present XNLogger UI.
 - [x] Mini view mode, makes debugging easier. Mini view can be resized and moved on screen.
 - [x] Share network logs via email, airdrop or copy to clipboard.
+- [x] Save logs file to desktop or any other location when running app on Simulator.
 - [x] Memory efficient, logs are written to disk to reduce memory pressure.
 - [x] Filters for scheme(http, https), host(www.example.com), contains(any string in url).
 - [x] Mutiple log writer/handlers support(e.g. console, file, etc.), more than one handlers can be used simultaneously.
