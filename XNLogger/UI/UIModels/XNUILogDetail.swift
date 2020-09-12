@@ -91,7 +91,7 @@ class XNUIShareData: NSObject, UIActivityItemSource {
     
     var logDetails: [XNUILogDetail] = []
     var tempFileURL: URL?
-    var tempFileName: String = "XNLogger-log-\(XNUIHelper().randomString(length: 5)).txt"
+    var tempFileName: String =  String(format: XNUIConstants.txtLogFileName, XNUIHelper().randomString(length: 5))
     var processedStr: String = ""
     
     init(logDetails: [XNUILogDetail]) {
