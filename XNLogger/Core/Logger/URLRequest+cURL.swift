@@ -11,7 +11,7 @@ import Foundation
 internal extension URLRequest {
     
     var cURL: String {
-        return RequestCurlCommand().toCurlString(request: self)
+        return CurlRequest().cURLCommand(from: self)
     }
     
     func getHttpBodyData() -> Data? {
@@ -102,28 +102,58 @@ internal extension URLRequest {
     
 }
 
-class RequestCurlCommand {
+class CurlRequest {
     
-    func toCurlString(request: URLRequest) -> String{
+    func cURLCommand(from request: URLRequest) -> String {
         
-        guard let url = request.url else { return "" }
-        var method = "GET"
-        if let aMethod = request.httpMethod {
-            method = aMethod
-        }
-        let baseCommand = "curl -X \(method) '\(url.absoluteString)'"
+        guard let url = request.url,
+        let host = url.host,
+        let method = request.httpMethod
+        else { return "curl command could not be created" }
         
-        var command: [String] = [baseCommand]
+        var curlComponents: [String] = ["curl -v"]
+        curlComponents.append("-X \(method)")
         
-        if let headers = request.allHTTPHeaderFields {
-            for (key, value) in headers {
-                command.append("-H '\(key): \(value)'")
+        if let credentialStorage = URLSessionConfiguration.default.urlCredentialStorage {
+            let protectionSpace = URLProtectionSpace(host: host,
+                                                 port: url.port ?? 0,
+                                                 protocol: url.scheme,
+                                                 realm: host,
+                                                 authenticationMethod: NSURLAuthenticationMethodHTTPBasic)
+            
+            if let credentials = credentialStorage.credentials(for: protectionSpace)?.values {
+                for credential in credentials {
+                    guard let user = credential.user, let password = credential.password
+                    else { continue }
+                    curlComponents.append("-u \(user):\(password)")
+                }
             }
+            
+            if request.httpShouldHandleCookies {
+                if let cookies = HTTPCookieStorage.shared.cookies(for: url),
+                    cookies.isEmpty == false {
+                    let allCookies = cookies.map { "\($0.name)=\($0.value)" }.joined(separator: ";")
+                    curlComponents.append("-b \"\(allCookies)\"")
+                }
+            }
+            
+            if let headerFields = request.allHTTPHeaderFields {
+                for header in headerFields where header.key.lowercased() != "cookie" {
+                    let escapedValue = header.value.replacingOccurrences(of: "\"", with: "\\\"")
+                    curlComponents.append("-H \"\(header.key): \(escapedValue)\"")
+                }
+            }
+            
+            if let httpBody = request.httpBodyString(prettyPrint: false) {
+                var escapedBody = httpBody.replacingOccurrences(of: "\\\"", with: "\\\\\"")
+                escapedBody = escapedBody.replacingOccurrences(of: "\"", with: "\\\"")
+
+                curlComponents.append("-d \"\(escapedBody)\"")
+            }
+
+            curlComponents.append("\"\(url.absoluteString)\"")
         }
-        if let httpBodyString = request.httpBodyString(prettyPrint: false) {
-            command.append("-d '\(httpBodyString)'")
-        }
-        return command.joined(separator: " ")
+        
+        return curlComponents.joined(separator: " \\\n\t")
     }
-    
 }
