@@ -64,7 +64,33 @@ open class XNURLProtocol: URLProtocol {
             let urlRequest = XNAppUtils.shared.createNLRequest(XNURLProtocol.canonicalRequest(for: self.request))
         else { return }
         
-        self.logData = XNLogData(identifier: XNAppUtils.shared.nextLogIdentifier(), request: urlRequest)
+        if var logRequest = urlRequest.getNSMutableURLRequest() as URLRequest? {
+            if logRequest.httpShouldHandleCookies {
+                let isCookiePresent = logRequest.allHTTPHeaderFields?.keys.contains(where: { (key) -> Bool in
+                    return key.lowercased() == "cookie"
+                })
+                if isCookiePresent == false, let logUrl = urlRequest.url,
+                    let cookies = HTTPCookieStorage.shared.cookies(for: logUrl),
+                    cookies.isEmpty == false {
+                    var cookieStr = ""
+                    for (idx, cookie) in cookies.enumerated() {
+                        var separator = ";"
+                        if idx == cookies.endIndex - 1 {
+                            separator = ""
+                        }
+                        cookieStr.append("\(cookie.name)=\(cookie.value)\(separator)")
+                    }
+                    
+                    logRequest.addValue(cookieStr, forHTTPHeaderField: "cookie")
+                }
+            }
+            
+            self.logData = XNLogData(identifier: XNAppUtils.shared.nextLogIdentifier(), request: logRequest)
+        } else {
+            // Incase NSMutableURLRequest copy does not work.
+            self.logData = XNLogData(identifier: XNAppUtils.shared.nextLogIdentifier(), request: urlRequest)
+        }
+        
         self.logData?.startTime = Date()
         
         self.sessionTask = pSession.dataTask(with: urlRequest)
@@ -100,7 +126,6 @@ open class XNURLProtocol: URLProtocol {
     override open class func requestIsCacheEquivalent(_ a: URLRequest, to b: URLRequest) -> Bool {
         return super.requestIsCacheEquivalent(a, to: b)
     }
-    
 }
 
 extension XNURLProtocol: URLSessionDataDelegate {
