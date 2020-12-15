@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import UIKit
 
 extension UIActivity.ActivityType {
     static let saveToPath = UIActivity.ActivityType("com.xnlogger.saveToPath")
