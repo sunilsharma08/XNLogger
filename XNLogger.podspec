@@ -1,10 +1,10 @@
 Pod::Spec.new do |s|
 
   s.name         = "XNLogger"
-  s.version      = "2.1.1"
+  s.version      = "2.2.1"
   s.summary      = "Network Logger - Framework to log network traffics"
   s.description  = <<-DESC 
-  XNLogger is simple and extensible network traffic logger. It makes easy to log network request and response on file, Xcode console or send log to servers. XNLogger provides user friendly UI for debugging and testing purpose. 
+  XNLogger is simple and extensible network traffic logger. It makes easy to log network request and response on file, Xcode console or send log to servers. It provides user friendly UI for debugging and testing purpose. 
                    DESC
 
   s.homepage     = "https://github.com/sunilsharma08/XNLogger"
