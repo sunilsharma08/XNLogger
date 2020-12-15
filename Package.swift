@@ -26,7 +26,7 @@ let package = Package(
             dependencies: [],
             path: "XNLogger",
             exclude: ["UI/XNLoader.m", "Info.plist", "XNLogger.h"],
-            sources: ["XNLogger"]),
+            sources: ["."]),
         .target(
             name: "XNLogger-ObjC",
             dependencies: ["XNLogger"],
