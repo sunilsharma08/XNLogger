@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="https://raw.githubusercontent.com/sunilsharma08/XNLogger/cookieHandling/XNLoggerLogo.jpg" title="XNLogger logo"    float=left width="600">
+  <img src="https://raw.githubusercontent.com/sunilsharma08/XNLogger/master/XNLoggerLogo.jpg" title="XNLogger logo"    float=left width="600">
 </p>
 
 [![Swift version](https://img.shields.io/badge/Swift-5.0-orange)](https://swift.org/getting-started/#installing-swift)
