@@ -1,4 +1,4 @@
-// swift-tools-version:5.1
+// swift-tools-version:5.2
 // The swift-tools-version declares the minimum version of Swift required to build this package.
 
 import PackageDescription
@@ -26,7 +26,7 @@ let package = Package(
             dependencies: [],
             path: "XNLogger",
             exclude: ["UI/XNLoader.m", "Info.plist", "XNLogger.h"],
-            sources: ["."]),
+            sources: ["XNLogger"]),
         .target(
             name: "XNLogger-ObjC",
             dependencies: ["XNLogger"],
