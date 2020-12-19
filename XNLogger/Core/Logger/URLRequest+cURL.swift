@@ -125,7 +125,7 @@ class CurlRequest {
                 for credential in credentials {
                     guard let user = credential.user, let password = credential.password
                     else { continue }
-                    curlComponents.append("-u \(user):\(password)")
+                    curlComponents.append("-u \"\(user):\(password)\"")
                 }
             }
             
@@ -144,11 +144,11 @@ class CurlRequest {
                 }
             }
             
-            if let httpBody = request.httpBodyString(prettyPrint: false) {
+            if let httpBody = request.httpBodyString(prettyPrint: true) {
                 var escapedBody = httpBody.replacingOccurrences(of: "\\\"", with: "\\\\\"")
                 escapedBody = escapedBody.replacingOccurrences(of: "\"", with: "\\\"")
 
-                curlComponents.append("-d \"\(escapedBody)\"")
+                curlComponents.append("--data-binary \"\(escapedBody)\"")
             }
 
             curlComponents.append("\"\(url.absoluteString)\"")
