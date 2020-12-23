@@ -158,6 +158,15 @@ class XNUIHelper {
         return "Uknown"
     }
     
+    func swizzleKeyCommands() {
+        let windowClass: AnyClass = UIApplication.self
+        if let keyCommandsGetter: Method = class_getInstanceMethod(windowClass, #selector(getter: windowClass.keyCommands)),
+            let customKeyCommandGetter: Method = class_getInstanceMethod(UIApplication.self, #selector(UIApplication.handleKeyCommands)) {
+            method_exchangeImplementations(keyCommandsGetter, customKeyCommandGetter)
+        } else {
+            print("XNL: Failed to swap UIKeyCommands")
+        }
+    }
 }
 
 class XNUIFileService {

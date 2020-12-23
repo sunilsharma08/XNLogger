@@ -20,6 +20,59 @@ protocol XNUILogDataDelegate: class {
     func receivedLogData(_ logData: XNLogData, isResponse: Bool)
 }
 
+final class XNKeyCommand: UIKeyCommand {
+    
+    final class var hintTitle: String {
+        return "Show XNLogger"
+    }
+    
+    final class var selector: Selector {
+        return #selector(UIApplication.handleShortcutKeyCommand(sender:))
+    }
+    
+    class func instance() -> XNKeyCommand {
+        return XNKeyCommand(input: "x", modifierFlags: [.control], action: XNKeyCommand.selector, discoverabilityTitle: XNKeyCommand.hintTitle)
+    }
+}
+
+extension UIApplication {
+    
+    @objc func handleKeyCommands() -> [UIKeyCommand]? {
+        var newKeyCommands: [UIKeyCommand] = []
+        
+        if let commands = self.handleKeyCommands() {
+            newKeyCommands.append(contentsOf: commands)
+        }
+        
+        var originalProtocolClasses = newKeyCommands.filter {
+            return !($0 is XNKeyCommand)
+        }
+        
+        if isEditing() == false {
+            originalProtocolClasses.append(XNUIManager.shared.shortcutKey)
+        }
+        
+        return originalProtocolClasses
+    }
+    
+    func isEditing() -> Bool {
+        for window in UIApplication.shared.windows {
+            if (window.value(forKey: "firstResponder") != nil) {
+                return true
+            }
+        }
+        return false
+    }
+    
+    @objc func handleShortcutKeyCommand(sender: UIKeyCommand) {
+        if XNUIManager.shared.isXNLoggerUIVisible() == false {
+            XNUIManager.shared.presentUI()
+        } else {
+            XNUIManager.shared.dismissUI()
+        }
+    }
+}
+
 /**
  Handle XNLogger UI data
  */
@@ -36,6 +89,7 @@ public final class XNUIManager: NSObject {
     var logWindow: XNUIWindow?
     var isMiniModeActive: Bool = false
     weak var viewModeDelegate: XNUIViewModeDelegate? = nil
+    var shortcutKey: XNKeyCommand = XNKeyCommand.instance()
     
     private override init() {
         super.init()
@@ -46,6 +100,12 @@ public final class XNUIManager: NSObject {
         
         // Enable for debugging
         // XNLogger.shared.addLogHandlers([XNConsoleLogHandler.create()])
+        
+        XNUIHelper().swizzleKeyCommands()
+    }
+    
+    func isXNLoggerUIVisible() -> Bool {
+        return logWindow != nil
     }
     
     // Return current root view controller
@@ -199,5 +259,13 @@ extension XNUIManager: XNUILogDataDelegate {
                 }
             }
         }
+    }
+}
+
+extension XNUIManager {
+    
+    func registerShortcutKey(_ inputKey: String, modifierFlags: UIKeyModifierFlags) {
+        let shortcutKey = XNKeyCommand(input: inputKey, modifierFlags: modifierFlags, action: XNKeyCommand.selector, discoverabilityTitle: XNKeyCommand.hintTitle)
+        self.shortcutKey = shortcutKey
     }
 }
