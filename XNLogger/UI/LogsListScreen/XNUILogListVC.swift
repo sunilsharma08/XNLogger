@@ -155,7 +155,7 @@ class XNUILogListVC: XNUIBaseViewController {
     }
     
     @objc func receivedLogUpdateNotification(_ notification: Notification) {
-        DispatchQueue.main.async {
+        DispatchQueue.main.safeAsync {
             if self.isSearchActive(), let userInfo = notification.userInfo as? [String: Any],
                 let logId = userInfo[XNUIConstants.logIdKey] as? String, let isResponseLogUpdate = userInfo[XNUIConstants.isResponseLogUpdate] as? Bool, isResponseLogUpdate == false {
                 if self.shouldIncludeInSearchResult(logId, searchText: self.logSearchBar.text ?? "") {
@@ -167,7 +167,7 @@ class XNUILogListVC: XNUIBaseViewController {
     }
     
     func updateLoggerUI() {
-        DispatchQueue.main.async {
+        DispatchQueue.main.safeAsync {
             self.logListTableView.reloadData()
             self.emptyMsgLabel.isHidden = !self.logsIdArray.isEmpty
             if self.logsIdArray.isEmpty {

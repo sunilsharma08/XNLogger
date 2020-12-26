@@ -126,6 +126,16 @@ extension UIView {
     }
 }
 
+extension DispatchQueue {
+    func safeAsync(_ block: @escaping ()->()) {
+        if self === DispatchQueue.main && Thread.isMainThread {
+            block()
+        } else {
+            async { block() }
+        }
+    }
+}
+
 extension CGRect: Comparable {
     
     public static func == (lhs: CGRect, rhs: CGRect) -> Bool {

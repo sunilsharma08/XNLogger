@@ -158,6 +158,15 @@ class XNUIHelper {
         return "Uknown"
     }
     
+    func swizzleKeyCommands() {
+        let windowClass: AnyClass = UIApplication.self
+        if let keyCommandsGetter: Method = class_getInstanceMethod(windowClass, #selector(getter: windowClass.keyCommands)),
+            let customKeyCommandGetter: Method = class_getInstanceMethod(UIApplication.self, #selector(UIApplication.handleKeyCommands)) {
+            method_exchangeImplementations(keyCommandsGetter, customKeyCommandGetter)
+        } else {
+            print("XNL: Failed to swap UIKeyCommands")
+        }
+    }
 }
 
 class XNUIFileService {
@@ -229,7 +238,7 @@ class XNUIFileService {
             if let logDirPath = self.getLogsDirectory() {
                 let logFileURL = logDirPath.appendingPathComponent(self.getLogFileName(for: logId))
                 let logData = NSKeyedUnarchiver.unarchiveObject(withFile: logFileURL.path) as? XNLogData
-                DispatchQueue.main.async {
+                DispatchQueue.main.safeAsync {
                     completion(logData)
                 }
             }

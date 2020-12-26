@@ -176,7 +176,6 @@ extension XNURLProtocol: URLSessionDataDelegate {
         let challengeHandler = URLAuthenticationChallenge(authenticationChallenge: challenge, sender: XNAuthenticationChallengeSender(handler: completionHandler))
         client?.urlProtocol(self, didReceive: challengeHandler)
     }
-
 }
 
 // Helper private methods
@@ -194,5 +193,4 @@ fileprivate extension XNURLProtocol {
             return false
         }
     }
-    
 }

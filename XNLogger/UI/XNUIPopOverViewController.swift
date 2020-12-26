@@ -128,7 +128,7 @@ extension XNUIPopOverViewController: UITableViewDelegate, UITableViewDataSource 
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        DispatchQueue.main.async {[weak self] in
+        DispatchQueue.main.safeAsync {[weak self] in
             guard let self = self else { return }
             let item = self.items[indexPath.row]
             for (index, _) in self.items.enumerated() {

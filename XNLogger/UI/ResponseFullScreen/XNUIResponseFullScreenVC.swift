@@ -125,7 +125,7 @@ class XNUIResponseFullScreenVC: XNUIBaseViewController {
             fileService.writeMedia(data: contentData, ext: ext) {[weak self] (fileUrl) in
                 guard let self = self else { return }
                 
-                DispatchQueue.main.async {
+                DispatchQueue.main.safeAsync {
                     self.mediaFileUrl = fileUrl
                     if let fileURL = fileUrl {
                         self.mediaWebView.loadFileURL(fileURL, allowingReadAccessTo: fileURL.deletingLastPathComponent())
@@ -167,7 +167,7 @@ class XNUIResponseFullScreenVC: XNUIBaseViewController {
                 shareItem.clean()
                 return
             }
-            DispatchQueue.main.async {
+            DispatchQueue.main.safeAsync {
                 self.helper.hideActivityIndicator(from: self.view)
                 let saveToDesktopActivities = [XNUISaveToDesktopActivity(), XNUISaveToPathActivity()]
                 

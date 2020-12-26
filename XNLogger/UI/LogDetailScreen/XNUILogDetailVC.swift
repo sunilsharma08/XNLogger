@@ -90,7 +90,7 @@ class XNUILogDetailVC: XNUIBaseViewController {
         }
 
         loadData {[weak self] in
-            DispatchQueue.main.async {
+            DispatchQueue.main.safeAsync {
                 self?.selectDefaultTab()
                 self?.updateUI()
             }
@@ -121,7 +121,7 @@ class XNUILogDetailVC: XNUIBaseViewController {
             logId == logInfo?.identifier
             else { return }
         loadData {[weak self] in
-            DispatchQueue.main.async {
+            DispatchQueue.main.safeAsync {
                 self?.updateUI()
             }
         }
@@ -132,13 +132,13 @@ class XNUILogDetailVC: XNUIBaseViewController {
             guard let self = self else { return }
             
             self.logDataConverter?.getRequestLogDetails(completion: { (reqLogs) in
-                DispatchQueue.main.async {
+                DispatchQueue.main.safeAsync {
                     self.requestView?.upadteView(with: reqLogs)
                 }
             })
             
             self.logDataConverter?.getResponseLogDetails(completion: { (respLogs) in
-                DispatchQueue.main.async {
+                DispatchQueue.main.safeAsync {
                     self.responseView?.upadteView(with: respLogs)
                 }
             })
@@ -259,7 +259,7 @@ class XNUILogDetailVC: XNUIBaseViewController {
                 return
             }
             
-            DispatchQueue.main.async {
+            DispatchQueue.main.safeAsync {
                 self.helper.hideActivityIndicator(from: self.view)
                 
                 let saveToDesktopActivities = [XNUISaveToDesktopActivity(), XNUISaveToPathActivity()]
