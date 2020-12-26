@@ -246,14 +246,14 @@ extension XNUIManager: XNUILogDataDelegate {
             if isResponse == false {
                 // Request
                 self.fileService.saveLogsDataOnDisk(logData, completion: nil)
-                DispatchQueue.main.async {
+                DispatchQueue.main.safeAsync {
                     NotificationCenter.default.post(name: .logDataUpdate, object: nil, userInfo: [XNUIConstants.logIdKey: logData.identifier, XNUIConstants.isResponseLogUpdate: false])
                 }
             } else {
                 // Response
                 self.fileService.saveLogsDataOnDisk(logData) {
                     // Post response notification on completion of write operation
-                    DispatchQueue.main.async {
+                    DispatchQueue.main.safeAsync {
                         NotificationCenter.default.post(name: .logDataUpdate, object: nil, userInfo: [XNUIConstants.logIdKey: logData.identifier, XNUIConstants.isResponseLogUpdate: true])
                     }
                 }

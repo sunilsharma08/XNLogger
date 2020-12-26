@@ -238,7 +238,7 @@ class XNUIFileService {
             if let logDirPath = self.getLogsDirectory() {
                 let logFileURL = logDirPath.appendingPathComponent(self.getLogFileName(for: logId))
                 let logData = NSKeyedUnarchiver.unarchiveObject(withFile: logFileURL.path) as? XNLogData
-                DispatchQueue.main.async {
+                DispatchQueue.main.safeAsync {
                     completion(logData)
                 }
             }
