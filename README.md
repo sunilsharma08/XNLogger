@@ -17,7 +17,7 @@ Network loggers can generate huge data specially when binary data(like image, vi
 
 # Features
 - [x] Logs all network traffics.
-- [x] Network logs can be viewed In-App by pressing `CTRL + x` or via shake gesture.
+- [x] Network logs can be viewed In-App by pressing `CTRL + X` or via shake gesture.
 - [x] Mini view mode, makes debugging easier. Mini view can be resized and moved on screen.
 - [x] Share network logs via email, airdrop or copy to clipboard.
 - [x] Save logs file to desktop or any other location when running app on Simulator.
@@ -91,7 +91,7 @@ For example your app target name is AwesomeApp, then import statement will be
 For more details on how to bridge swift code in Objectiv-C file check this apple doc - [Importing Swift into Objective-C](https://developer.apple.com/documentation/swift/imported_c_and_objective-c_apis/importing_swift_into_objective-c)
 
 # Usage
-**Logging starts automatically after integration in project. Press `CTRL + x` or shake device/simulator(Device -> Shake) to see logs in app.**
+**Logging starts automatically after integration in project. Press `CTRL + X` or shake device/simulator(Device -> Shake) to see logs in app.**
 
 ### Start Logging manually
 ```swift
