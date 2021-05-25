@@ -138,7 +138,9 @@ class CurlRequest {
             }
             
             if let headerFields = request.allHTTPHeaderFields {
-                for header in headerFields where header.key.lowercased() != "cookie" {
+                for header in headerFields where header.key.lowercased() != "cookie"
+                    && header.key.lowercased() != "content-length" {
+                    
                     let escapedValue = header.value.replacingOccurrences(of: "\"", with: "\\\"")
                     curlComponents.append("-H \"\(header.key): \(escapedValue)\"")
                 }
