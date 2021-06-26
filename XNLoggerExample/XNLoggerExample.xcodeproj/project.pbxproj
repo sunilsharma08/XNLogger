@@ -16,8 +16,8 @@
 		10A9493F2335FAD40055C326 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10A9493E2335FAD40055C326 /* AppDelegate.swift */; };
 		10A949462335FAD50055C326 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 10A949452335FAD50055C326 /* Assets.xcassets */; };
 		10A949572335FB0B0055C326 /* XNLoggerExampleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10A949562335FB0B0055C326 /* XNLoggerExampleTests.swift */; };
-		2A48385F3826527ADF5938AB /* Pods_XNLoggerExample.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A12D2E0B51B78977E3EDADD6 /* Pods_XNLoggerExample.framework */; };
 		6577C0C0248938B500DCE479 /* Groundwork.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6577C0BF248938B500DCE479 /* Groundwork.swift */; };
+		65DCB547268741E60009B739 /* Pods_XNLoggerExample.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A12D2E0B51B78977E3EDADD6 /* Pods_XNLoggerExample.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -70,7 +70,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				1063829F23365BF3009B0C79 /* XNLogger.framework in Frameworks */,
-				2A48385F3826527ADF5938AB /* Pods_XNLoggerExample.framework in Frameworks */,
+				65DCB547268741E60009B739 /* Pods_XNLoggerExample.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -398,7 +398,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -455,7 +455,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -474,13 +474,13 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = K8NV2PJ4RN;
 				INFOPLIST_FILE = XNLoggerExample/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.sunilsharma.XNLoggerExamples;
+				PRODUCT_BUNDLE_IDENTIFIER = com.sunilsharma.XNLoggerExample;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "XNLoggerExample/XNLoggerExample-Bridging-Header.h";
@@ -498,13 +498,13 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = K8NV2PJ4RN;
 				INFOPLIST_FILE = XNLoggerExample/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.sunilsharma.XNLoggerExamples;
+				PRODUCT_BUNDLE_IDENTIFIER = com.sunilsharma.XNLoggerExample;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "XNLoggerExample/XNLoggerExample-Bridging-Header.h";
