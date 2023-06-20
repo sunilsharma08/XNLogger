@@ -1,5 +1,5 @@
 # Global configuration
-platform :ios, '9.0'
+platform :ios, '12.0'
 use_frameworks!
 
 target 'XNLoggerTests' do

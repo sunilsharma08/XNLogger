@@ -31,7 +31,7 @@ public enum XNFilterType {
     }
 }
 
-@objc public protocol XNFilter: class {
+@objc public protocol XNFilter: AnyObject {
     
     var invert: Bool { get set }
     func isAllowed(urlRequest: URLRequest) -> Bool

@@ -11,7 +11,7 @@ import Foundation
 /**
  Log handler protocol. All log handler must adopt this protocol.
  */
-@objc public protocol XNLogHandler: class {
+@objc public protocol XNLogHandler: AnyObject {
     
     @objc optional func xnLogger(logRequest logData: XNLogData)
     @objc optional func xnLogger(logResponse logData: XNLogData)
