@@ -17,7 +17,7 @@ Pod::Spec.new do |s|
 
   s.platform     = :ios
   s.swift_version = '5.0'
-  s.ios.deployment_target = "9.0"
+  s.ios.deployment_target = "12.0"
   s.source       = { :git => "https://github.com/sunilsharma08/XNLogger.git", :tag => "v#{s.version}" }
 
   s.source_files  = "XNLogger/**/*.{swift,h,m}"
