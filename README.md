@@ -60,7 +60,7 @@ Network loggers can generate huge data specially when binary data(like image, vi
 
 ## Requirements
 
-iOS 9.0 or later
+iOS 12.0 or later
 
 # Installation
 ## Cocoapods
