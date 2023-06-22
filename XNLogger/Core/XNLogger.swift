@@ -8,7 +8,7 @@
 
 import Foundation
 
-@objc public protocol XNLoggerDelegate: class {
+@objc public protocol XNLoggerDelegate: AnyObject {
     
     @objc optional func xnLogger(didStartRequest logData: XNLogData)
     @objc optional func xnLogger(didReceiveResponse logData: XNLogData)

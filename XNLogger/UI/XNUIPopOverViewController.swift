@@ -58,8 +58,7 @@ class XNUIPopOverViewController: UIViewController {
             maxPopoverSize = CGSize(width: maxPopoverWidth, height: maxPopoverHeight)
         }
         self.view.addSubview(itemsTableView)
-        self.automaticallyAdjustsScrollViewInsets = false
-        
+        self.itemsTableView.contentInsetAdjustmentBehavior = .automatic
         itemsTableView.clipsToBounds = true
         itemsTableView.translatesAutoresizingMaskIntoConstraints = false
         itemsTableView.showsVerticalScrollIndicator = false

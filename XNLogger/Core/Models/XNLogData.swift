@@ -35,7 +35,11 @@ public enum XNSessionState: Int {
  XNLogData model is exposed as READ only i.e. variables can be read from
  outside module but variables cannot be WRITTEN or UPDATED from outside of module.
  */
-public class XNLogData: NSObject, NSCoding {
+public class XNLogData: NSObject, NSSecureCoding {
+    
+    public static var supportsSecureCoding: Bool {
+        return true
+    }
     
     public let identifier: String
     public let urlRequest: URLRequest
@@ -107,7 +111,7 @@ public class XNLogData: NSObject, NSCoding {
         let ms = Int((timeInterval.truncatingRemainder(dividingBy: 1)) * 1000)
         
         readableStr = "\(ms)ms"
-        /** Currently formatting in unnecessary
+        /** Currently formatting is unnecessary
         // Seconds
         let s = Int(timeInterval) % 60
         // Minutes
@@ -159,23 +163,24 @@ public class XNLogData: NSObject, NSCoding {
     }
     
     public required init?(coder aDecoder: NSCoder) {
-        guard let identifier = aDecoder.decodeObject(forKey: Key.identifier.rawValue) as? String,
-        let urlRequest = aDecoder.decodeObject(forKey: Key.urlRequest.rawValue) as? URLRequest
+        
+        guard let identifier = aDecoder.decodeObject(of: NSString.self, forKey: Key.identifier.rawValue) as? String,
+              let urlRequest = aDecoder.decodeObject(of: NSURLRequest.self ,forKey: Key.urlRequest.rawValue) as? URLRequest
         else { return nil }
         
         self.identifier = identifier
         self.urlRequest = urlRequest
         
-        self.response = aDecoder.decodeObject(forKey: Key.response.rawValue) as? URLResponse
-        self.receivedData = aDecoder.decodeObject(forKey: Key.receivedData.rawValue) as? Data
-        self.error = aDecoder.decodeObject(forKey: Key.error.rawValue) as? Error
-        self.startTime = aDecoder.decodeObject(forKey: Key.startTime.rawValue) as? Date
-        self.endTime = aDecoder.decodeObject(forKey: Key.endTime.rawValue) as? Date
-        self.redirectRequest = aDecoder.decodeObject(forKey: Key.redirectRequest.rawValue) as? URLRequest
-        if let stateRawValue = aDecoder.decodeObject(forKey: Key.state.rawValue) as? Int {
+        self.response = aDecoder.decodeObject(of: URLResponse.self ,forKey: Key.response.rawValue)
+        self.receivedData = aDecoder.decodeObject(of: NSData.self ,forKey: Key.receivedData.rawValue) as? Data
+        self.error = aDecoder.decodeObject(of: NSError.self ,forKey: Key.error.rawValue)
+        self.startTime = aDecoder.decodeObject(of: NSDate.self ,forKey: Key.startTime.rawValue) as? Date
+        self.endTime = aDecoder.decodeObject(of: NSDate.self ,forKey: Key.endTime.rawValue) as? Date
+        self.redirectRequest = aDecoder.decodeObject(of: NSURLRequest.self ,forKey: Key.redirectRequest.rawValue) as? URLRequest
+        if let stateRawValue = aDecoder.decodeObject(of: NSNumber.self ,forKey: Key.state.rawValue)?.intValue {
             self.state = XNSessionState(rawValue: stateRawValue)
         }
-        self.duration = aDecoder.decodeObject(forKey: Key.duration.rawValue) as? Double
+        self.duration = aDecoder.decodeObject(of: NSNumber.self ,forKey: Key.duration.rawValue)?.doubleValue
         
     }
     
