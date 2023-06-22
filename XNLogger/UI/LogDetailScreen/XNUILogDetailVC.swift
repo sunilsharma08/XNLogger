@@ -42,7 +42,6 @@ class XNUILogDetailVC: XNUIBaseViewController {
         super.viewDidLoad()
         
         edgesForExtendedLayout = []
-        automaticallyAdjustsScrollViewInsets = false
         NotificationCenter.default.addObserver(self, selector: #selector(didReceiveUpdate(_:)), name: .logDataUpdate, object: nil)
         
         configureViews()
@@ -120,6 +119,7 @@ class XNUILogDetailVC: XNUIBaseViewController {
             /*Avoid UI update from other request notifications*/
             logId == logInfo?.identifier
             else { return }
+        
         loadData {[weak self] in
             DispatchQueue.main.safeAsync {
                 self?.updateUI()

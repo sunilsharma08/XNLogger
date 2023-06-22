@@ -16,7 +16,7 @@ public enum XNGestureType: Int {
     case none
 }
 
-protocol XNUILogDataDelegate: class {
+protocol XNUILogDataDelegate: AnyObject {
     func receivedLogData(_ logData: XNLogData, isResponse: Bool)
 }
 

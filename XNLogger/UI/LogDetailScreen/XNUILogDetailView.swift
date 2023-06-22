@@ -8,7 +8,7 @@
 
 import UIKit
 
-protocol XNUIDetailViewDelegate: class {
+protocol XNUIDetailViewDelegate: AnyObject {
     func showMessageFullScreen(logData: XNUIMessageData, title: String)
 }
 
@@ -67,6 +67,12 @@ class XNUILogDetailView: UIView, NibLoadableView {
         self.logDetailsTableView.register(ofType: XNUILogDetailCell.self)
         self.logDetailsTableView.dataSource = self
         self.logDetailsTableView.delegate = self
+        self.logDetailsTableView.contentInsetAdjustmentBehavior = .never
+        if #available(iOS 15.0, *) {
+            self.logDetailsTableView.sectionHeaderTopPadding = 0
+        } else {
+            // Fallback on earlier versions
+        }
     }
     
     func upadteView(with logDetails: [XNUILogDetail]) {

@@ -160,7 +160,7 @@ extension XNUISettingsVC: UITableViewDelegate, UITableViewDataSource {
         
         if item.type == .help, let helpUrl = URL(string: "https://github.com/sunilsharma08/XNLogger") {
             if UIApplication.shared.canOpenURL(helpUrl) {
-                UIApplication.shared.openURL(helpUrl)
+                UIApplication.shared.open(helpUrl)
             }
         }
         DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(200)) {

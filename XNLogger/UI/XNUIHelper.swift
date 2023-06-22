@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-protocol NibLoadableView: class {
+protocol NibLoadableView: AnyObject {
     static var nibName: String { get }
 }
 
@@ -19,7 +19,7 @@ extension NibLoadableView where Self: UIView {
     }
 }
 
-protocol ReusableView: class {
+protocol ReusableView: AnyObject {
     static var defaultReuseIdentifier: String { get }
 }
 
@@ -201,7 +201,12 @@ class XNUIFileService {
         DispatchQueue.global(qos: .userInitiated).async {
             if let logDirPath = self.getLogsDirectory() {
                 let logFileURL = logDirPath.appendingPathComponent(self.getLogFileName(for: logData.identifier))
-                NSKeyedArchiver.archiveRootObject(logData, toFile: logFileURL.path)
+                do {
+                    let dataToArchive = try NSKeyedArchiver.archivedData(withRootObject: logData, requiringSecureCoding: true)
+                    try dataToArchive.write(to: logFileURL)
+                } catch let error {
+                    print(error.localizedDescription)
+                }
             }
             completion?()
         }
@@ -237,9 +242,16 @@ class XNUIFileService {
         DispatchQueue.global(qos: .userInteractive).async {
             if let logDirPath = self.getLogsDirectory() {
                 let logFileURL = logDirPath.appendingPathComponent(self.getLogFileName(for: logId))
-                let logData = NSKeyedUnarchiver.unarchiveObject(withFile: logFileURL.path) as? XNLogData
-                DispatchQueue.main.safeAsync {
-                    completion(logData)
+                do {
+                    let archivedData = try Data(contentsOf: logFileURL)
+                    let logData = try NSKeyedUnarchiver.unarchivedObject(ofClass: XNLogData.self, from: archivedData)
+                    
+                    DispatchQueue.main.safeAsync {
+                        completion(logData)
+                    }
+                } catch let error {
+                    print(error.localizedDescription)
+                    completion(nil)
                 }
             }
         }
