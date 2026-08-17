@@ -152,10 +152,14 @@ class XNUIHelper {
     }
     
     func getVersion() -> String {
+        #if SWIFT_PACKAGE
+        return "3.0.0"
+        #else
         if let sdkVersion = Bundle.current().infoDictionary?["CFBundleShortVersionString"] as? String {
             return sdkVersion
         }
-        return "Uknown"
+        return "Unknown"
+        #endif
     }
     
     func swizzleKeyCommands() {

@@ -25,7 +25,11 @@ extension UIWindow {
 extension Bundle {
     
     class func current() -> Bundle {
+        #if SWIFT_PACKAGE
+        return Bundle.module
+        #else
         return Bundle(for: XNUIManager.self)
+        #endif
     }
     
 }
@@ -58,13 +62,13 @@ extension UITableView {
      Use when xib and class name is same.
      */
     func register<T: UITableViewCell>(ofType _: T.Type) {
-        let bundle = Bundle(for: T.self)
+        let bundle = Bundle.current()
         let nib = UINib(nibName: T.nibName, bundle: bundle)
         register(nib, forCellReuseIdentifier: T.defaultReuseIdentifier)
     }
     
     func registerForHeaderFooterView<T: UITableViewHeaderFooterView>(ofType _: T.Type) {
-        let bundle = Bundle(for: T.self)
+        let bundle = Bundle.current()
         let nib = UINib(nibName: T.nibName, bundle: bundle)
         register(nib, forHeaderFooterViewReuseIdentifier: T.defaultReuseIdentifier)
     }
