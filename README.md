@@ -4,6 +4,7 @@
 
 [![Swift version](https://img.shields.io/badge/Swift-5.0-orange)](https://swift.org/getting-started/#installing-swift)
 [![Pod version](https://img.shields.io/cocoapods/v/XNLogger)](https://github.com/sunilsharma08/XNLogger)
+[![SPM compatible](https://img.shields.io/badge/SPM-compatible-brightgreen.svg)](https://swift.org/package-manager/)
 [![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-brightgreen.svg)](https://github.com/sunilsharma08/XNLogger)
 [![License](https://img.shields.io/github/license/sunilsharma08/XNLogger?color=blue)](https://raw.githubusercontent.com/sunilsharma08/XNLogger/master/LICENSE)
 [![Pod platforms](https://img.shields.io/cocoapods/p/XNLogger)](https://github.com/sunilsharma08/XNLogger)
@@ -71,6 +72,14 @@ To integrate with project only for `debug` configuration
 ```ruby
 pod 'XNLogger', :configurations => ['Debug']
 ```
+
+## Swift Package Manager
+Add XNLogger to your project via Xcode:
+1. Go to **File > Add Package Dependencies**
+2. Enter the repository URL: `https://github.com/sunilsharma08/XNLogger.git`
+3. Choose your version rules (e.g., "Up to Next Major" from 3.1.0)
+
+> **Note:** When using SPM, auto-start is not available. You must manually start logging. See [Start Logging manually](#start-logging-manually) section below.
 
 ## Carthage
 ```
