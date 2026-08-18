@@ -171,7 +171,7 @@ extension XNURLProtocol: URLSessionDataDelegate {
         self.logData?.error = self.responseError
     }
 
-    public func urlSession(_ session: URLSession, didReceive challenge: URLAuthenticationChallenge, completionHandler: @escaping (URLSession.AuthChallengeDisposition, URLCredential?) -> Void) {
+    public func urlSession(_ session: URLSession, didReceive challenge: URLAuthenticationChallenge, completionHandler: @escaping @Sendable (URLSession.AuthChallengeDisposition, URLCredential?) -> Void) {
         
         let challengeHandler = URLAuthenticationChallenge(authenticationChallenge: challenge, sender: XNAuthenticationChallengeSender(handler: completionHandler))
         client?.urlProtocol(self, didReceive: challengeHandler)
