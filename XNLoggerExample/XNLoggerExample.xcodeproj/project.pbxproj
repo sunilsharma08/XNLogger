@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 54;
+	objectVersion = 60;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -15,6 +15,7 @@
 		10A949462335FAD50055C326 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 10A949452335FAD50055C326 /* Assets.xcassets */; };
 		10A949572335FB0B0055C326 /* XNLoggerExampleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10A949562335FB0B0055C326 /* XNLoggerExampleTests.swift */; };
 		6577C0C0248938B500DCE479 /* Groundwork.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6577C0BF248938B500DCE479 /* Groundwork.swift */; };
+		65AA6EBD3040BADE001568A8 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65AA6EBC3040BADE001568A8 /* SceneDelegate.swift */; };
 		AA000001AABBCCDD00000001 /* XNLogger in Frameworks */ = {isa = PBXBuildFile; productRef = AA000001AABBCCDD00000002 /* XNLogger */; };
 /* End PBXBuildFile section */
 
@@ -42,6 +43,7 @@
 		10A949562335FB0B0055C326 /* XNLoggerExampleTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XNLoggerExampleTests.swift; sourceTree = "<group>"; };
 		10A949582335FB0B0055C326 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		6577C0BF248938B500DCE479 /* Groundwork.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Groundwork.swift; sourceTree = "<group>"; };
+		65AA6EBC3040BADE001568A8 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -96,7 +98,7 @@
 				10A9493D2335FAD40055C326 /* XNLoggerExample */,
 				10A949552335FB0B0055C326 /* XNLoggerExampleTests */,
 				10A9493C2335FAD40055C326 /* Products */,
-				);
+			);
 			sourceTree = "<group>";
 		};
 		10A9493C2335FAD40055C326 /* Products */ = {
@@ -111,6 +113,7 @@
 		10A9493D2335FAD40055C326 /* XNLoggerExample */ = {
 			isa = PBXGroup;
 			children = (
+				65AA6EBC3040BADE001568A8 /* SceneDelegate.swift */,
 				10281DC82335FF8300016ABF /* Controllers */,
 				10281DC12335FF7300016ABF /* Storyboard */,
 				10281DD42335FFE400016ABF /* Resources */,
@@ -202,7 +205,7 @@
 			);
 			mainGroup = 10A949322335FAD40055C326;
 			packageReferences = (
-				AA000001AABBCCDD00000003 /* XCLocalSwiftPackageReference "XNLogger" */,
+				AA000001AABBCCDD00000003 /* XCLocalSwiftPackageReference ".." */,
 			);
 			productRefGroup = 10A9493C2335FAD40055C326 /* Products */;
 			projectDirPath = "";
@@ -235,7 +238,6 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
-
 /* Begin PBXSourcesBuildPhase section */
 		10A949372335FAD40055C326 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -244,6 +246,7 @@
 				10A9493F2335FAD40055C326 /* AppDelegate.swift in Sources */,
 				10281DCD2335FF8300016ABF /* ExamplesVC.swift in Sources */,
 				6577C0C0248938B500DCE479 /* Groundwork.swift in Sources */,
+				65AA6EBD3040BADE001568A8 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -529,7 +532,7 @@
 /* End XCConfigurationList section */
 
 /* Begin XCLocalSwiftPackageReference section */
-		AA000001AABBCCDD00000003 /* XCLocalSwiftPackageReference "XNLogger" */ = {
+		AA000001AABBCCDD00000003 /* XCLocalSwiftPackageReference ".." */ = {
 			isa = XCLocalSwiftPackageReference;
 			relativePath = ..;
 		};

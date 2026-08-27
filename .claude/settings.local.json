@@ -3,7 +3,8 @@
     "allow": [
       "Bash(find:*)",
       "Bash(swift:*)",
-      "Bash(xcodebuild:*)"
+      "Bash(xcodebuild:*)",
+      "Bash(grep:*)"
     ]
   }
 }
