@@ -8,7 +8,7 @@
 
 import Foundation
 
-internal class XNAuthenticationChallengeSender: NSObject, URLAuthenticationChallengeSender {
+internal class XNAuthenticationChallengeSender: NSObject, URLAuthenticationChallengeSender, @unchecked Sendable {
     
     typealias XNAuthenticationChallengeHandler = (URLSession.AuthChallengeDisposition, URLCredential?) -> Void
     

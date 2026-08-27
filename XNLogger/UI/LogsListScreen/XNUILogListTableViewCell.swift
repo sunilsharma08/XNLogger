@@ -22,14 +22,16 @@ class XNUILogListTableViewCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        self.urlPathLbl.textColor = XNUIAppColor.title
-        self.httpMethodLbl.textColor = XNUIAppColor.subtitle
-        self.requestStartTimeLbl.textColor = XNUIAppColor.subtitle
-        self.requestDurationLbl.textColor = XNUIAppColor.subtitle
-        self.dateFormatter.dateFormat = "hh:mm:ss a"
-        self.httpStatusLbl.backgroundColor = .clear
-        self.statusIcon.isHidden = true
-        self.statusIcon.tintColor = .white
+        MainActor.assumeIsolated {
+            self.urlPathLbl.textColor = XNUIAppColor.title
+            self.httpMethodLbl.textColor = XNUIAppColor.subtitle
+            self.requestStartTimeLbl.textColor = XNUIAppColor.subtitle
+            self.requestDurationLbl.textColor = XNUIAppColor.subtitle
+            self.dateFormatter.dateFormat = "hh:mm:ss a"
+            self.httpStatusLbl.backgroundColor = .clear
+            self.statusIcon.isHidden = true
+            self.statusIcon.tintColor = .white
+        }
     }
     
     func configureViews(withData data: XNUILogInfo) {

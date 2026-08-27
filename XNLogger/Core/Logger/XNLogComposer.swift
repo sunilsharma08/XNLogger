@@ -8,7 +8,7 @@
 
 import Foundation
 
-internal class XNLogComposer {
+internal class XNLogComposer: @unchecked Sendable {
     
     let formatter: XNLogFormatter
     let dateFormatter = DateFormatter()

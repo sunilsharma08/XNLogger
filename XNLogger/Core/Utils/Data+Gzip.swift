@@ -34,7 +34,7 @@ import struct Foundation.Data
 #endif
 
 /// Compression level whose rawValue is based on the zlib's constants.
-public struct CompressionLevel: RawRepresentable {
+public struct CompressionLevel: RawRepresentable, Sendable {
     
     /// Compression level in the range of `0` (no compression) to `9` (maximum compression).
     public let rawValue: Int32
@@ -64,7 +64,7 @@ public struct CompressionLevel: RawRepresentable {
 public struct GzipError: Swift.Error {
     // cf. http://www.zlib.net/manual.html
     
-    public enum Kind: Equatable {
+    public enum Kind: Equatable, Sendable {
         /// The stream structure was inconsistent.
         ///
         /// - underlying zlib error: `Z_STREAM_ERROR` (-2)
@@ -107,7 +107,7 @@ public struct GzipError: Swift.Error {
     internal init(code: Int32, msg: UnsafePointer<CChar>?) {
         
         self.message = {
-            guard let msg = msg, let message = String(validatingUTF8: msg) else {
+            guard let msg = msg, let message = String(validatingCString: msg) else {
                 return "Unknown gzip error"
             }
             return message

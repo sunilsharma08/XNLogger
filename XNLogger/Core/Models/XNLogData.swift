@@ -35,7 +35,7 @@ public enum XNSessionState: Int {
  XNLogData model is exposed as READ only i.e. variables can be read from
  outside module but variables cannot be WRITTEN or UPDATED from outside of module.
  */
-public class XNLogData: NSObject, NSSecureCoding {
+public class XNLogData: NSObject, NSSecureCoding, @unchecked Sendable {
     
     public static var supportsSecureCoding: Bool {
         return true

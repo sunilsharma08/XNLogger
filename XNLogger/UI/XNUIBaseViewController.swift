@@ -8,7 +8,7 @@
 
 import UIKit
 
-protocol XNUIViewModeDelegate: AnyObject {
+@MainActor protocol XNUIViewModeDelegate: AnyObject {
     func viewModeDidChange(_ isMiniViewEnabled: Bool)
 }
 

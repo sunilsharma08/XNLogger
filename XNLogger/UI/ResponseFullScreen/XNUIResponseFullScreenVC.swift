@@ -80,30 +80,22 @@ class XNUIResponseFullScreenVC: XNUIBaseViewController {
         if let headerView = self.headerView {
             self.mediaWebView.topAnchor.constraint(equalTo: headerView.bottomAnchor).isActive = true
         } else {
-            if #available(iOS 11.0, *) {
-                self.mediaWebView.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor).isActive = true
-            } else {
-                // Fallback on earlier versions
-                self.mediaWebView.topAnchor.constraint(equalTo: topLayoutGuide.bottomAnchor).isActive = true
-            }
+            self.mediaWebView.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor).isActive = true
         }
-        if #available(iOS 11.0, *) {
-            self.view.safeAreaLayoutGuide.bottomAnchor.constraint(equalTo: self.mediaWebView.bottomAnchor).isActive = true
-            self.mediaWebView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor).isActive = true
-            self.mediaWebView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor).isActive = true
-        } else {
-            // Fallback on earlier versions
-            bottomLayoutGuide.topAnchor.constraint(equalTo: self.mediaWebView.bottomAnchor).isActive = true
-            self.mediaWebView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
-            self.mediaWebView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
-        }
+        self.view.safeAreaLayoutGuide.bottomAnchor.constraint(equalTo: self.mediaWebView.bottomAnchor).isActive = true
+        self.mediaWebView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor).isActive = true
+        self.mediaWebView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor).isActive = true
     }
     
     @objc func updateViewSource(_ notification: Notification) {
         // Just to update UITextEffectsWindow level and UIMenuController is visible
-        UIApplication.shared.windows.forEach { (windoww) in
-            if windoww.className == "UITextEffectsWindow" {
-                windoww.windowLevel = .init(CGFloat.greatestFiniteMagnitude)
+        let scenes = UIApplication.shared.connectedScenes
+            .compactMap { $0 as? UIWindowScene }
+        for scene in scenes {
+            for windoww in scene.windows {
+                if windoww.className == "UITextEffectsWindow" {
+                    windoww.windowLevel = .init(CGFloat.greatestFiniteMagnitude)
+                }
             }
         }
     }
@@ -123,15 +115,16 @@ class XNUIResponseFullScreenVC: XNUIBaseViewController {
             self.msgTextView.isHidden = true
             
             fileService.writeMedia(data: contentData, ext: ext) {[weak self] (fileUrl) in
-                guard let self = self else { return }
-                
-                DispatchQueue.main.safeAsync {
-                    self.mediaFileUrl = fileUrl
-                    if let fileURL = fileUrl {
-                        self.mediaWebView.loadFileURL(fileURL, allowingReadAccessTo: fileURL.deletingLastPathComponent())
-                    } else {
-                        self.helper.hideActivityIndicator(from: self.view)
-                        self.helper.showError(on: self, message: "Something went wrong while processing file.")
+                DispatchQueue.main.safeAsync { [weak self] in
+                    MainActor.assumeIsolated {
+                        guard let self = self else { return }
+                        self.mediaFileUrl = fileUrl
+                        if let fileURL = fileUrl {
+                            self.mediaWebView.loadFileURL(fileURL, allowingReadAccessTo: fileURL.deletingLastPathComponent())
+                        } else {
+                            self.helper.hideActivityIndicator(from: self.view)
+                            self.helper.showError(on: self, message: "Something went wrong while processing file.")
+                        }
                     }
                 }
             }
@@ -163,35 +156,38 @@ class XNUIResponseFullScreenVC: XNUIBaseViewController {
         }
         helper.showActivityIndicator(on: self.view)
         shareItem.preProcess {[weak self] (completed) in
-            guard let self = self else {
+            guard self != nil else {
                 shareItem.clean()
                 return
             }
-            DispatchQueue.main.safeAsync {
-                self.helper.hideActivityIndicator(from: self.view)
-                let saveToDesktopActivities = [XNUISaveToDesktopActivity(), XNUISaveToPathActivity()]
-                
-                let shareVC = UIActivityViewController(activityItems: [shareItem], applicationActivities: saveToDesktopActivities)
-                
-                if (UIDevice.current.userInterfaceIdiom == UIUserInterfaceIdiom.pad) {
-                    
-                    guard let shareButton = sender else { return }
-                    let sourceRect = shareButton.convert(shareButton.frame, to: self.view)
-                    
-                    shareVC.popoverPresentationController?.sourceView = self.view
-                    shareVC.popoverPresentationController?.sourceRect = sourceRect
-                }
-                
-                shareVC.completionWithItemsHandler = { (activityType, completed, returnedItems, activityError) in
-                    // Clear only in case of text because a new file is created for share.
-                    if self.logData.message.isEmpty == false {
-                        shareItem.clean()
+            DispatchQueue.main.safeAsync { [weak self] in
+                MainActor.assumeIsolated {
+                    guard let self = self else { return }
+                    self.helper.hideActivityIndicator(from: self.view)
+                    let saveToDesktopActivities = [XNUISaveToDesktopActivity(), XNUISaveToPathActivity()]
+
+                    let shareVC = UIActivityViewController(activityItems: [shareItem], applicationActivities: saveToDesktopActivities)
+
+                    if (UIDevice.current.userInterfaceIdiom == UIUserInterfaceIdiom.pad) {
+
+                        guard let shareButton = sender else { return }
+                        let sourceRect = shareButton.convert(shareButton.frame, to: self.view)
+
+                        shareVC.popoverPresentationController?.sourceView = self.view
+                        shareVC.popoverPresentationController?.sourceRect = sourceRect
                     }
-                    if let error = activityError {
-                        self.helper.showError(on: self, message: error.localizedDescription)
+
+                    shareVC.completionWithItemsHandler = { (activityType, completed, returnedItems, activityError) in
+                        // Clear only in case of text because a new file is created for share.
+                        if self.logData.message.isEmpty == false {
+                            shareItem.clean()
+                        }
+                        if let error = activityError {
+                            self.helper.showError(on: self, message: error.localizedDescription)
+                        }
                     }
+                    self.present(shareVC, animated: true)
                 }
-                self.present(shareVC, animated: true)
             }
         }
     }

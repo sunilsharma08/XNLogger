@@ -47,7 +47,7 @@ class ExamplesVC: UIViewController {
         webViewLoad.isHidden = true
     }
     
-    func getJSONFrom(data: Data?) -> Any? {
+    nonisolated func getJSONFrom(data: Data?) -> Any? {
         guard let jsonData = data
         else { return nil }
         
@@ -193,8 +193,8 @@ extension ExamplesVC {
                     print("Download - Resume: file url -> \(dataUrl?.absoluteString ?? "no file path")")
                     button.tag = 0
                     button.setTitle("Download - Resume", for: .normal)
+                    self.resumeData = nil
                 }
-                self.resumeData = nil
             })
             resumeDownloadtask?.resume()
         }
@@ -279,17 +279,17 @@ extension ExamplesVC {
 }
 
 extension ExamplesVC: URLSessionDelegate {
-    
-    public func urlSession(_ session: URLSession, didBecomeInvalidWithError error: Error?) {
+
+    nonisolated public func urlSession(_ session: URLSession, didBecomeInvalidWithError error: Error?) {
         print(#function)
     }
-    
-    public func urlSession(_ session: URLSession, didReceive challenge: URLAuthenticationChallenge, completionHandler: @escaping (URLSession.AuthChallengeDisposition, URLCredential?) -> Void) {
+
+    nonisolated public func urlSession(_ session: URLSession, didReceive challenge: URLAuthenticationChallenge, completionHandler: @escaping (URLSession.AuthChallengeDisposition, URLCredential?) -> Void) {
         print(#function)
         completionHandler(.performDefaultHandling, nil)
     }
-    
-    public func urlSessionDidFinishEvents(forBackgroundURLSession session: URLSession) {
+
+    nonisolated public func urlSessionDidFinishEvents(forBackgroundURLSession session: URLSession) {
         print(#function)
     }
 }

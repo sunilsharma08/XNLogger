@@ -14,7 +14,7 @@ class XNUILogTextView: UITextView {
         
         // Disabling edit action menus for iOS 13 and above, as menu appear at wrong position for mini view mode
         // Need to fix.
-        if #available(iOS 13.0, *), XNUIManager.shared.isMiniModeActive {
+        if XNUIManager.shared.isMiniModeActive {
             return false
         }
         if action.description == "_define:" || action.description == "_lookup:" {
@@ -38,11 +38,13 @@ class XNUILogDetailCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        self.logDetailMsg.textContainerInset = .zero
-        self.logDetailMsg.textContainer.lineFragmentPadding = 0
-        self.logDetailMsg.font = XNUIConstants.messageFont
-        self.logDetailMsg.layoutManager.allowsNonContiguousLayout = true
-        self.selectionStyle = UITableViewCell.SelectionStyle.none
+        MainActor.assumeIsolated {
+            self.logDetailMsg.textContainerInset = .zero
+            self.logDetailMsg.textContainer.lineFragmentPadding = 0
+            self.logDetailMsg.font = XNUIConstants.messageFont
+            self.logDetailMsg.layoutManager.allowsNonContiguousLayout = true
+            self.selectionStyle = UITableViewCell.SelectionStyle.none
+        }
     }
     
     func configureViews(_ messageData: XNUIMessageData, indexPath: IndexPath) {

@@ -12,7 +12,7 @@ import Foundation
  Base class for log handler. Not necessary to subclasss if you create your own handler.
  It just provide some convient methods to child class.
  */
-@objc open class XNBaseLogHandler: NSObject {
+@objc open class XNBaseLogHandler: NSObject, @unchecked Sendable {
     
     private var filterManager: XNFilterManager = XNFilterManager()
     public let logFormatter: XNLogFormatter = XNLogFormatter()

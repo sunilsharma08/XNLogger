@@ -8,7 +8,7 @@
 
 import UIKit
 
-protocol XNUISettingsCellDelegate: AnyObject {
+@MainActor protocol XNUISettingsCellDelegate: AnyObject {
     func switchValueChanged(_ isOn: Bool, settingItem: XNUISettingItem)
 }
 

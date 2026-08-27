@@ -22,16 +22,18 @@ protocol XNUILogDataDelegate: AnyObject {
 
 final class XNKeyCommand: UIKeyCommand {
     
-    final class var hintTitle: String {
+    nonisolated final class var hintTitle: String {
         return "Show XNLogger"
     }
-    
-    final class var selector: Selector {
+
+    nonisolated final class var selector: Selector {
         return #selector(UIApplication.handleShortcutKeyCommand(sender:))
     }
     
-    class func instance() -> XNKeyCommand {
-        return XNKeyCommand(input: "x", modifierFlags: [.control], action: XNKeyCommand.selector, discoverabilityTitle: XNKeyCommand.hintTitle)
+    @MainActor class func instance() -> XNKeyCommand {
+        let command = XNKeyCommand(input: "x", modifierFlags: [.control], action: XNKeyCommand.selector)
+        command.discoverabilityTitle = XNKeyCommand.hintTitle
+        return command
     }
 }
 
@@ -56,9 +58,13 @@ extension UIApplication {
     }
     
     func isEditing() -> Bool {
-        for window in UIApplication.shared.windows {
-            if (window.value(forKey: "firstResponder") != nil) {
-                return true
+        let scenes = UIApplication.shared.connectedScenes
+            .compactMap { $0 as? UIWindowScene }
+        for scene in scenes {
+            for window in scene.windows {
+                if (window.value(forKey: "firstResponder") != nil) {
+                    return true
+                }
             }
         }
         return false
@@ -77,11 +83,11 @@ extension UIApplication {
  Handle XNLogger UI data
  */
 @objc
-public final class XNUIManager: NSObject {
+public final class XNUIManager: NSObject, @unchecked Sendable {
     
     @objc public static let shared: XNUIManager = XNUIManager()
     @objc public var startGesture: XNGestureType = .shake
-    @objc public var uiLogHandler: XNUILogHandler = XNUILogHandler.create()
+    @objc public let uiLogHandler: XNUILogHandler = XNUILogHandler.create()
     private var logsDataDict: [String: XNUILogInfo] = [:]
     private var logsIdArray: [String] = []
     private var logsActionThread = DispatchQueue.init(label: "XNUILoggerLogListActionThread", qos: .userInteractive, attributes: .concurrent)
@@ -89,7 +95,11 @@ public final class XNUIManager: NSObject {
     var logWindow: XNUIWindow?
     var isMiniModeActive: Bool = false
     weak var viewModeDelegate: XNUIViewModeDelegate? = nil
-    var shortcutKey: XNKeyCommand = XNKeyCommand.instance()
+    nonisolated(unsafe) var shortcutKey: XNKeyCommand = {
+        MainActor.assumeIsolated {
+            XNKeyCommand.instance()
+        }
+    }()
     
     private override init() {
         super.init()
@@ -104,38 +114,41 @@ public final class XNUIManager: NSObject {
         XNUIHelper().swizzleKeyCommands()
     }
     
-    func isXNLoggerUIVisible() -> Bool {
+    @MainActor func isXNLoggerUIVisible() -> Bool {
         return logWindow != nil
     }
-    
+
     // Return current root view controller
-    private var presentingViewController: UIViewController? {
-        var rootViewController = UIApplication.shared.keyWindow?.rootViewController
+    @MainActor private var presentingViewController: UIViewController? {
+        var rootViewController: UIViewController? = nil
+        let scenes = UIApplication.shared.connectedScenes
+            .compactMap { $0 as? UIWindowScene }
+        for scene in scenes {
+            if let keyWindow = scene.keyWindow {
+                rootViewController = keyWindow.rootViewController
+                break
+            }
+        }
         while let controller = rootViewController?.presentedViewController {
             rootViewController = controller
         }
         return rootViewController
     }
     
-    func getKeyWindow() -> UIWindow? {
-        
-        if #available(iOS 13.0, *) {
+    @MainActor func getKeyWindow() -> UIWindow? {
         let keyWindow = UIApplication.shared
             .connectedScenes
             .filter { $0.activationState == .foregroundActive }
             .compactMap({ $0 as? UIWindowScene })
             .flatMap({ $0.windows })
             .filter({ $0.isKeyWindow }).first
-            return keyWindow
-        } else {
-            return UIApplication.shared.windows.filter {$0.isKeyWindow}.first
-        }
+        return keyWindow
     }
     
     /**
      Present network logger UI.
      */
-    @objc public func presentUI() {
+    @MainActor @objc public func presentUI() {
         
         if let presentingViewController = self.presentingViewController, !(presentingViewController is XNUIBaseTabBarController) {
             
@@ -145,9 +158,7 @@ public final class XNUIManager: NSObject {
                 logWindow = XNUIWindow()
                 let currenKeyWindow = getKeyWindow()
                 logWindow?.frame = currenKeyWindow?.bounds ?? UIScreen.main.bounds
-                if #available(iOS 13.0, *) {
-                    logWindow?.windowScene = currenKeyWindow?.windowScene
-                }
+                logWindow?.windowScene = currenKeyWindow?.windowScene
                 logWindow?.present(rootVC: tabbarVC)
             }
         }
@@ -156,7 +167,7 @@ public final class XNUIManager: NSObject {
     /**
      Dismiss network logger UI
      */
-    @objc public func dismissUI() {
+    @MainActor @objc public func dismissUI() {
         logWindow?.dismiss(completion: {
             self.logWindow = nil
             // Reset values
@@ -164,7 +175,7 @@ public final class XNUIManager: NSObject {
         })
     }
     
-    func updateViewMode(enableMiniView: Bool) {
+    @MainActor func updateViewMode(enableMiniView: Bool) {
         self.isMiniModeActive = enableMiniView
         guard let logWindow = self.logWindow else { return }
         
@@ -264,8 +275,9 @@ extension XNUIManager: XNUILogDataDelegate {
 
 extension XNUIManager {
     
-    func registerShortcutKey(_ inputKey: String, modifierFlags: UIKeyModifierFlags) {
-        let shortcutKey = XNKeyCommand(input: inputKey, modifierFlags: modifierFlags, action: XNKeyCommand.selector, discoverabilityTitle: XNKeyCommand.hintTitle)
+    @MainActor func registerShortcutKey(_ inputKey: String, modifierFlags: UIKeyModifierFlags) {
+        let shortcutKey = XNKeyCommand(input: inputKey, modifierFlags: modifierFlags, action: XNKeyCommand.selector)
+        shortcutKey.discoverabilityTitle = XNKeyCommand.hintTitle
         self.shortcutKey = shortcutKey
     }
 }

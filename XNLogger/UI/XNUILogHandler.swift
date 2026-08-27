@@ -8,10 +8,10 @@
 
 import Foundation
 
-@objc public class XNUILogHandler: XNBaseLogHandler, XNLogHandler {
-    
+@objc public class XNUILogHandler: XNBaseLogHandler, XNLogHandler, @unchecked Sendable {
+
     private var logComposer: XNLogComposer!
-    weak var delegate: XNUILogDataDelegate?
+    nonisolated(unsafe) weak var delegate: XNUILogDataDelegate?
     
     public class func create() -> XNUILogHandler {
         let instance: XNUILogHandler = XNUILogHandler()

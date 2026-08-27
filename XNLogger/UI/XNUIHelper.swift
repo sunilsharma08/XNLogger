@@ -56,10 +56,10 @@ struct XNUIAppColor {
     static let navTint: UIColor = UIColor.white
 }
 
-final class XNUIConstants {
-    static let messageFont: UIFont = UIFont.systemFont(ofSize: 15)
-    static let msgCellMaxLength: Int = Int(UIScreen.main.bounds.height * 3)
-    static let msgCellMaxCharCount: Int = Int(UIScreen.main.bounds.width * 0.05 * UIScreen.main.bounds.height * 0.1)
+final class XNUIConstants: @unchecked Sendable {
+    @MainActor static let messageFont: UIFont = UIFont.systemFont(ofSize: 15)
+    @MainActor static let msgCellMaxLength: Int = Int(UIScreen.main.bounds.height * 3)
+    @MainActor static let msgCellMaxCharCount: Int = Int(UIScreen.main.bounds.width * 0.05 * UIScreen.main.bounds.height * 0.1)
     static let msgCellMaxAllowedSize: Int = 100000
     static let activityIndicatorTag: Int = 10263
     static let logIdKey: String = "logIdentifier"
@@ -67,9 +67,10 @@ final class XNUIConstants {
     static let txtLogFileName: String = "XNLogger-log-%@.txt"
 }
 
+@MainActor
 class XNUIHelper {
     
-    func randomString(length: Int) -> String {
+    nonisolated func randomString(length: Int) -> String {
         let letters = "abcdefghijklmnopqrstuvwxyz0123456789"
         return String((0..<length).map{ _ in letters.randomElement() ?? "x" })
     }
@@ -98,7 +99,8 @@ class XNUIHelper {
         containerView.layer.cornerRadius = 10
         containerView.translatesAutoresizingMaskIntoConstraints = false
         
-        let activityIndicatorView = UIActivityIndicatorView(style: .whiteLarge)
+        let activityIndicatorView = UIActivityIndicatorView(style: .large)
+        activityIndicatorView.color = .white
         activityIndicatorView.tag = XNUIConstants.activityIndicatorTag
         activityIndicatorView.hidesWhenStopped = true
         activityIndicatorView.translatesAutoresizingMaskIntoConstraints = false
@@ -131,27 +133,31 @@ class XNUIHelper {
     }
     
     func createNavButton(imageName: String, imageInsets: UIEdgeInsets = .zero) -> UIButton {
-        
+
         let customButton = UIButton(type: .custom)
         customButton.tintColor = UIColor(red: 239/255.0, green: 239/255.0, blue: 239/255.0, alpha: 1)
-        customButton.adjustsImageWhenHighlighted = false
-        customButton.imageView?.contentMode = .scaleAspectFit
-        customButton.imageEdgeInsets = imageInsets
-        customButton.setImage(UIImage(named: imageName, in: Bundle.current(), compatibleWith: nil), for: .normal)
-        
+        var config = UIButton.Configuration.plain()
+        config.contentInsets = NSDirectionalEdgeInsets(top: imageInsets.top, leading: imageInsets.left, bottom: imageInsets.bottom, trailing: imageInsets.right)
+        config.image = UIImage(named: imageName, in: Bundle.current(), compatibleWith: nil)
+        customButton.configuration = config
+
         return customButton
     }
     
     func getWindow() -> UIWindow? {
-        for window in UIApplication.shared.windows {
-            if window is XNUIWindow {
-                return window
+        let scenes = UIApplication.shared.connectedScenes
+            .compactMap { $0 as? UIWindowScene }
+        for scene in scenes {
+            for window in scene.windows {
+                if window is XNUIWindow {
+                    return window
+                }
             }
         }
         return nil
     }
     
-    func getVersion() -> String {
+    nonisolated func getVersion() -> String {
         #if SWIFT_PACKAGE
         return "3.1.0"
         #else
@@ -162,7 +168,7 @@ class XNUIHelper {
         #endif
     }
     
-    func swizzleKeyCommands() {
+    nonisolated func swizzleKeyCommands() {
         let windowClass: AnyClass = UIApplication.self
         if let keyCommandsGetter: Method = class_getInstanceMethod(windowClass, #selector(getter: windowClass.keyCommands)),
             let customKeyCommandGetter: Method = class_getInstanceMethod(UIApplication.self, #selector(UIApplication.handleKeyCommands)) {
@@ -173,7 +179,7 @@ class XNUIHelper {
     }
 }
 
-class XNUIFileService {
+class XNUIFileService: @unchecked Sendable {
     
     func getLogsDirectory() -> URL? {
         
@@ -200,7 +206,7 @@ class XNUIFileService {
     /**
      Save log data(XNLogData) on disk.
      */
-    func saveLogsDataOnDisk(_ logData: XNLogData, completion: (() -> Void)?) {
+    func saveLogsDataOnDisk(_ logData: XNLogData, completion: (@Sendable () -> Void)?) {
         
         DispatchQueue.global(qos: .userInitiated).async {
             if let logDirPath = self.getLogsDirectory() {
@@ -241,7 +247,7 @@ class XNUIFileService {
         }
     }
     
-    func getLogData(for logId: String, completion: @escaping (_ logData: XNLogData?) -> Void) {
+    func getLogData(for logId: String, completion: @escaping @Sendable (_ logData: XNLogData?) -> Void) {
         
         DispatchQueue.global(qos: .userInteractive).async {
             if let logDirPath = self.getLogsDirectory() {
@@ -277,7 +283,7 @@ class XNUIFileService {
         return nil
     }
     
-    func writeMedia(data: Data, ext: String, completion: @escaping (_ fileURL: URL?) -> Void) {
+    func writeMedia(data: Data, ext: String, completion: @escaping @Sendable (_ fileURL: URL?) -> Void) {
         DispatchQueue.global(qos: .userInitiated).async {[weak self] in
             guard let self = self else { return }
             

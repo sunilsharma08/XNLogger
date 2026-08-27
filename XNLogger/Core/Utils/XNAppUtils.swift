@@ -8,14 +8,15 @@
 
 import Foundation
 
-class XNAppUtils {
-    
+class XNAppUtils: @unchecked Sendable {
+
     static let shared: XNAppUtils = XNAppUtils()
-    static private var logIdentifier: UInt64 = 0
+    nonisolated(unsafe) static private var logIdentifier: UInt64 = 0
+    static private let logIdentifierLock = NSLock()
     lazy var mimeChecker: XNMIMEChecker = {
         return XNMIMEChecker()
     }()
-    
+
     private init() {}
     
     /**
@@ -32,10 +33,14 @@ class XNAppUtils {
     }
     
     func getLogIdentifier() -> String {
+        XNAppUtils.logIdentifierLock.lock()
+        defer { XNAppUtils.logIdentifierLock.unlock() }
         return "\(XNAppUtils.logIdentifier)"
     }
-    
+
     func nextLogIdentifier() -> String {
+        XNAppUtils.logIdentifierLock.lock()
+        defer { XNAppUtils.logIdentifierLock.unlock() }
         XNAppUtils.logIdentifier += 1
         return "\(XNAppUtils.logIdentifier)"
     }

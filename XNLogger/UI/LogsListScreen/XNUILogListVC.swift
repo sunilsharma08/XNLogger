@@ -120,12 +120,15 @@ class XNUILogListVC: XNUIBaseViewController {
     }
     
     func updateViewModeIcon(isMiniViewEnabled: Bool) {
-        
+
         UIView.transition(with: self.viewModeBarButton, duration: 0.3, options: .transitionCrossDissolve, animations: {
-            if isMiniViewEnabled {
-                self.viewModeBarButton.setImage(UIImage(named: "maximise", in: Bundle.current(), compatibleWith: nil), for: .normal)
+            let imageName = isMiniViewEnabled ? "maximise" : "minimise"
+            let image = UIImage(named: imageName, in: Bundle.current(), compatibleWith: nil)
+            if var config = self.viewModeBarButton.configuration {
+                config.image = image
+                self.viewModeBarButton.configuration = config
             } else {
-                self.viewModeBarButton.setImage(UIImage(named: "minimise", in: Bundle.current(), compatibleWith: nil), for: .normal)
+                self.viewModeBarButton.setImage(image, for: .normal)
             }
         }, completion: nil)
     }
@@ -155,23 +158,30 @@ class XNUILogListVC: XNUIBaseViewController {
     }
     
     @objc func receivedLogUpdateNotification(_ notification: Notification) {
-        DispatchQueue.main.safeAsync {
-            if self.isSearchActive(), let userInfo = notification.userInfo as? [String: Any],
-                let logId = userInfo[XNUIConstants.logIdKey] as? String, let isResponseLogUpdate = userInfo[XNUIConstants.isResponseLogUpdate] as? Bool, isResponseLogUpdate == false {
-                if self.shouldIncludeInSearchResult(logId, searchText: self.logSearchBar.text ?? "") {
-                    self.searchResult.insert(logId, at: 0)
+        nonisolated(unsafe) let userInfo = notification.userInfo as? [String: Any]
+        DispatchQueue.main.safeAsync { [weak self] in
+            MainActor.assumeIsolated {
+                guard let self = self else { return }
+                if self.isSearchActive(), let userInfo = userInfo,
+                    let logId = userInfo[XNUIConstants.logIdKey] as? String, let isResponseLogUpdate = userInfo[XNUIConstants.isResponseLogUpdate] as? Bool, isResponseLogUpdate == false {
+                    if self.shouldIncludeInSearchResult(logId, searchText: self.logSearchBar.text ?? "") {
+                        self.searchResult.insert(logId, at: 0)
+                    }
                 }
+                self.updateLoggerUI()
             }
-            self.updateLoggerUI()
         }
     }
-    
+
     func updateLoggerUI() {
-        DispatchQueue.main.safeAsync {
-            self.logListTableView.reloadData()
-            self.emptyMsgLabel.isHidden = !self.logsIdArray.isEmpty
-            if self.logsIdArray.isEmpty {
-                self.updateSearchBar(height: self.minSearchBarHeight, animated: true)
+        DispatchQueue.main.safeAsync { [weak self] in
+            MainActor.assumeIsolated {
+                guard let self = self else { return }
+                self.logListTableView.reloadData()
+                self.emptyMsgLabel.isHidden = !self.logsIdArray.isEmpty
+                if self.logsIdArray.isEmpty {
+                    self.updateSearchBar(height: self.minSearchBarHeight, animated: true)
+                }
             }
         }
     }
@@ -406,11 +416,7 @@ extension XNUILogListVC {
         let percentage = openAmount / range
         var searchTextField: UITextField?
         
-        if #available(iOS 13.0, *) {
-            searchTextField = self.logSearchBar.searchTextField
-        } else {
-            searchTextField = self.logSearchBar.value(forKey: "searchField") as? UITextField
-        }
+        searchTextField = self.logSearchBar.searchTextField
         
         if percentage < 0.6 {
             searchTextField?.alpha = 0

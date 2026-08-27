@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 54;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -11,13 +11,11 @@
 		10281DC72335FF7300016ABF /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 10281DC42335FF7300016ABF /* Main.storyboard */; };
 		10281DCD2335FF8300016ABF /* ExamplesVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10281DCA2335FF8300016ABF /* ExamplesVC.swift */; };
 		10281DD62335FFF600016ABF /* water.png in Resources */ = {isa = PBXBuildFile; fileRef = 10281DD52335FFF600016ABF /* water.png */; };
-		1063829F23365BF3009B0C79 /* XNLogger.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1063829D23365BEA009B0C79 /* XNLogger.framework */; };
-		106382A023365BF3009B0C79 /* XNLogger.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 1063829D23365BEA009B0C79 /* XNLogger.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		10A9493F2335FAD40055C326 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10A9493E2335FAD40055C326 /* AppDelegate.swift */; };
 		10A949462335FAD50055C326 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 10A949452335FAD50055C326 /* Assets.xcassets */; };
 		10A949572335FB0B0055C326 /* XNLoggerExampleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10A949562335FB0B0055C326 /* XNLoggerExampleTests.swift */; };
-		2A48385F3826527ADF5938AB /* Pods_XNLoggerExample.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A12D2E0B51B78977E3EDADD6 /* Pods_XNLoggerExample.framework */; };
 		6577C0C0248938B500DCE479 /* Groundwork.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6577C0BF248938B500DCE479 /* Groundwork.swift */; };
+		AA000001AABBCCDD00000001 /* XNLogger in Frameworks */ = {isa = PBXBuildFile; productRef = AA000001AABBCCDD00000002 /* XNLogger */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -30,27 +28,12 @@
 		};
 /* End PBXContainerItemProxy section */
 
-/* Begin PBXCopyFilesBuildPhase section */
-		10281DF82336041A00016ABF /* Embed Frameworks */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 10;
-			files = (
-				106382A023365BF3009B0C79 /* XNLogger.framework in Embed Frameworks */,
-			);
-			name = "Embed Frameworks";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXCopyFilesBuildPhase section */
-
 /* Begin PBXFileReference section */
 		10281DC32335FF7300016ABF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		10281DC52335FF7300016ABF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		10281DCA2335FF8300016ABF /* ExamplesVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExamplesVC.swift; sourceTree = "<group>"; };
 		10281DCF2335FFB400016ABF /* XNLoggerExample-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "XNLoggerExample-Bridging-Header.h"; sourceTree = "<group>"; };
 		10281DD52335FFF600016ABF /* water.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = water.png; sourceTree = "<group>"; };
-		1063829D23365BEA009B0C79 /* XNLogger.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = XNLogger.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		10A9493B2335FAD40055C326 /* XNLoggerExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = XNLoggerExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		10A9493E2335FAD40055C326 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		10A949452335FAD50055C326 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -59,9 +42,6 @@
 		10A949562335FB0B0055C326 /* XNLoggerExampleTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XNLoggerExampleTests.swift; sourceTree = "<group>"; };
 		10A949582335FB0B0055C326 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		6577C0BF248938B500DCE479 /* Groundwork.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Groundwork.swift; sourceTree = "<group>"; };
-		A12D2E0B51B78977E3EDADD6 /* Pods_XNLoggerExample.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_XNLoggerExample.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		AABA15296F55C4A807790183 /* Pods-XNLoggerExample.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-XNLoggerExample.debug.xcconfig"; path = "Target Support Files/Pods-XNLoggerExample/Pods-XNLoggerExample.debug.xcconfig"; sourceTree = "<group>"; };
-		BBB9872C4AA44E0BA6E06B11 /* Pods-XNLoggerExample.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-XNLoggerExample.release.xcconfig"; path = "Target Support Files/Pods-XNLoggerExample/Pods-XNLoggerExample.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -69,8 +49,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1063829F23365BF3009B0C79 /* XNLogger.framework in Frameworks */,
-				2A48385F3826527ADF5938AB /* Pods_XNLoggerExample.framework in Frameworks */,
+				AA000001AABBCCDD00000001 /* XNLogger in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -111,24 +90,13 @@
 			path = Resources;
 			sourceTree = "<group>";
 		};
-		10281DDE2336027800016ABF /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				1063829D23365BEA009B0C79 /* XNLogger.framework */,
-				A12D2E0B51B78977E3EDADD6 /* Pods_XNLoggerExample.framework */,
-			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
 		10A949322335FAD40055C326 = {
 			isa = PBXGroup;
 			children = (
 				10A9493D2335FAD40055C326 /* XNLoggerExample */,
 				10A949552335FB0B0055C326 /* XNLoggerExampleTests */,
 				10A9493C2335FAD40055C326 /* Products */,
-				10281DDE2336027800016ABF /* Frameworks */,
-				1DC6F72B17F9F8303986AFE5 /* Pods */,
-			);
+				);
 			sourceTree = "<group>";
 		};
 		10A9493C2335FAD40055C326 /* Products */ = {
@@ -162,16 +130,6 @@
 			path = XNLoggerExampleTests;
 			sourceTree = "<group>";
 		};
-		1DC6F72B17F9F8303986AFE5 /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				AABA15296F55C4A807790183 /* Pods-XNLoggerExample.debug.xcconfig */,
-				BBB9872C4AA44E0BA6E06B11 /* Pods-XNLoggerExample.release.xcconfig */,
-			);
-			name = Pods;
-			path = ../Pods;
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -179,17 +137,18 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 10A9494D2335FAD50055C326 /* Build configuration list for PBXNativeTarget "XNLoggerExample" */;
 			buildPhases = (
-				712274E7FF2C69F70C9D4480 /* [CP] Check Pods Manifest.lock */,
 				10A949372335FAD40055C326 /* Sources */,
 				10A949382335FAD40055C326 /* Frameworks */,
 				10A949392335FAD40055C326 /* Resources */,
-				10281DF82336041A00016ABF /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 			);
 			name = XNLoggerExample;
+			packageProductDependencies = (
+				AA000001AABBCCDD00000002 /* XNLogger */,
+			);
 			productName = XNLoggerExample;
 			productReference = 10A9493B2335FAD40055C326 /* XNLoggerExample.app */;
 			productType = "com.apple.product-type.application";
@@ -218,8 +177,9 @@
 		10A949332335FAD40055C326 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				BuildIndependentTargetsInParallel = YES;
 				LastSwiftUpdateCheck = 1010;
-				LastUpgradeCheck = 1420;
+				LastUpgradeCheck = 2620;
 				ORGANIZATIONNAME = "Sunil Sharma";
 				TargetAttributes = {
 					10A9493A2335FAD40055C326 = {
@@ -241,6 +201,9 @@
 				Base,
 			);
 			mainGroup = 10A949322335FAD40055C326;
+			packageReferences = (
+				AA000001AABBCCDD00000003 /* XCLocalSwiftPackageReference "XNLogger" */,
+			);
 			productRefGroup = 10A9493C2335FAD40055C326 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -272,30 +235,6 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
-/* Begin PBXShellScriptBuildPhase section */
-		712274E7FF2C69F70C9D4480 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-XNLoggerExample-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		10A949372335FAD40055C326 /* Sources */ = {
@@ -384,6 +323,7 @@
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -398,14 +338,15 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 5.0;
+				SWIFT_VERSION = 6.0;
 			};
 			name = Debug;
 		};
@@ -447,6 +388,7 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
@@ -455,20 +397,20 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
 				SWIFT_COMPILATION_MODE = wholemodule;
 				SWIFT_OPTIMIZATION_LEVEL = "-O";
-				SWIFT_VERSION = 5.0;
+				SWIFT_VERSION = 6.0;
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
 		};
 		10A9494E2335FAD50055C326 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = AABA15296F55C4A807790183 /* Pods-XNLoggerExample.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
@@ -476,7 +418,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = BZCY6Y4SD9;
 				INFOPLIST_FILE = XNLoggerExample/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -486,14 +428,13 @@
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "XNLoggerExample/XNLoggerExample-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 5.0;
+				SWIFT_VERSION = 6.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
 		};
 		10A9494F2335FAD50055C326 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = BBB9872C4AA44E0BA6E06B11 /* Pods-XNLoggerExample.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
@@ -501,7 +442,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = BZCY6Y4SD9;
 				INFOPLIST_FILE = XNLoggerExample/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -510,7 +451,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "XNLoggerExample/XNLoggerExample-Bridging-Header.h";
-				SWIFT_VERSION = 5.0;
+				SWIFT_VERSION = 6.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
@@ -521,7 +462,7 @@
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				INFOPLIST_FILE = XNLoggerExampleTests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -529,7 +470,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.sunilsharma.XNLoggerExampleTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 5.0;
+				SWIFT_VERSION = 6.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/XNLoggerExample.app/XNLoggerExample";
 			};
@@ -541,7 +482,7 @@
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				INFOPLIST_FILE = XNLoggerExampleTests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -549,7 +490,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.sunilsharma.XNLoggerExampleTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 5.0;
+				SWIFT_VERSION = 6.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/XNLoggerExample.app/XNLoggerExample";
 			};
@@ -586,6 +527,20 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCLocalSwiftPackageReference section */
+		AA000001AABBCCDD00000003 /* XCLocalSwiftPackageReference "XNLogger" */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = ..;
+		};
+/* End XCLocalSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		AA000001AABBCCDD00000002 /* XNLogger */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = XNLogger;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 10A949332335FAD40055C326 /* Project object */;
 }

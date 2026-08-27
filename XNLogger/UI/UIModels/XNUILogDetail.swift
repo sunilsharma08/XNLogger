@@ -38,7 +38,7 @@ class XNUIMessageData {
     }
 }
 
-class XNUILogDetail {
+class XNUILogDetail: @unchecked Sendable {
     
     var title: String
     var messages: [XNUIMessageData] = []
@@ -87,7 +87,7 @@ class XNUILogDetail {
     }
 }
 
-class XNUIShareData: NSObject, UIActivityItemSource {
+class XNUIShareData: NSObject, UIActivityItemSource, @unchecked Sendable {
     
     var logDetails: [XNUILogDetail] = []
     var tempFileURL: URL?
@@ -110,7 +110,7 @@ class XNUIShareData: NSObject, UIActivityItemSource {
         }
     }
     
-    func preProcess(completion: @escaping (_ completed: Bool) -> Void) {
+    func preProcess(completion: @escaping @Sendable (_ completed: Bool) -> Void) {
         DispatchQueue.global(qos: .userInteractive).async {[weak self] in
             guard let self = self else { return }
             

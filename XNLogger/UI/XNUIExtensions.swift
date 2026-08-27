@@ -131,22 +131,11 @@ extension UIView {
 }
 
 extension DispatchQueue {
-    func safeAsync(_ block: @escaping ()->()) {
+    func safeAsync(_ block: @escaping @Sendable ()->()) {
         if self === DispatchQueue.main && Thread.isMainThread {
             block()
         } else {
             async { block() }
         }
-    }
-}
-
-extension CGRect: @retroactive Comparable {
-    
-    public static func == (lhs: CGRect, rhs: CGRect) -> Bool {
-        return lhs.width == rhs.width && lhs.width == rhs.width
-    }
-    
-    public static func < (lhs: CGRect, rhs: CGRect) -> Bool {
-        return lhs.width < rhs.width && lhs.width < rhs.width
     }
 }

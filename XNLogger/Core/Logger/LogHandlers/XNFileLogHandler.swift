@@ -8,7 +8,7 @@
 
 import Foundation
 
-public class XNFileLogHandler: XNBaseLogHandler, XNLogHandler {
+public class XNFileLogHandler: XNBaseLogHandler, XNLogHandler, @unchecked Sendable {
     
     private var logComposer: XNLogComposer!
     private(set) var fileName: String = "XNNetworkLog"

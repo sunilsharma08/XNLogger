@@ -61,11 +61,7 @@ class XNUISettingsVC: XNUIBaseViewController {
         version.textColor = UIColor.darkGray
         info.items.append(version)
         let help = XNUISettingItem(title: "Help", type: .help)
-        if #available(iOS 13.0, *) {
-            help.textColor = UIColor.link
-        } else {
-            help.textColor = UIColor.systemBlue
-        }
+        help.textColor = UIColor.link
         info.items.append(help)
         
         var categories: [XNUISettingCategory] = []

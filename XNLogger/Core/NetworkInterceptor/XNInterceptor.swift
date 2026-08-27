@@ -8,7 +8,7 @@
 
 import UIKit
 
-internal class XNInterceptor: NSObject {
+internal final class XNInterceptor: NSObject, Sendable {
     
     /**
      Setup and start logging network calls.
