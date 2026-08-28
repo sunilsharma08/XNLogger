@@ -8,6 +8,7 @@
 
 import UIKit
 import WebKit
+import SwiftUI
 import XNLogger
 
 class ExamplesVC: UIViewController {
@@ -34,7 +35,7 @@ class ExamplesVC: UIViewController {
     
     func configureViews() {
         let buttonList = [dataHandler, dataDelegate, downloadHandler, downloadDelegate, uploadHandler, uploadDelegate, downloadResume, downloadBackground, webViewLoad]
-        
+
         for button in buttonList {
             button?.backgroundColor = UIColor(red: 42/255.0, green: 168/255.0, blue: 250/255.0, alpha: 1)
             button?.titleLabel?.numberOfLines = 0
@@ -42,9 +43,31 @@ class ExamplesVC: UIViewController {
             button?.clipsToBounds = true
             button?.layer.cornerRadius = 5
         }
-        
+
         downloadBackground.isHidden = true
         webViewLoad.isHidden = true
+
+        addSwiftUIExampleButton()
+    }
+
+    private func addSwiftUIExampleButton() {
+        let button = UIButton(type: .system)
+        button.setTitle("SwiftUI Example", for: .normal)
+        button.backgroundColor = UIColor(red: 1, green: 95/255.0, blue: 88/255.0, alpha: 1)
+        button.setTitleColor(.white, for: .normal)
+        button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 16)
+        button.clipsToBounds = true
+        button.layer.cornerRadius = 5
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.addTarget(self, action: #selector(clickedOnSwiftUIExample), for: .touchUpInside)
+        view.addSubview(button)
+
+        NSLayoutConstraint.activate([
+            button.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
+            button.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
+            button.topAnchor.constraint(equalTo: downloadResume.bottomAnchor, constant: 30),
+            button.heightAnchor.constraint(equalToConstant: 50)
+        ])
     }
     
     nonisolated func getJSONFrom(data: Data?) -> Any? {
@@ -62,6 +85,15 @@ class ExamplesVC: UIViewController {
     
     @IBAction func clickedOnShowXNLogger() {
         XNUIManager.shared.presentUI()
+    }
+
+    @IBAction func clickedOnSwiftUIExample() {
+        let swiftUIView = SwiftUIExampleView(dismiss: { [weak self] in
+            self?.dismiss(animated: true)
+        })
+        let hostingController = UIHostingController(rootView: swiftUIView)
+        hostingController.modalPresentationStyle = .fullScreen
+        present(hostingController, animated: true)
     }
 }
 

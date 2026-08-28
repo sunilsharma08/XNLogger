@@ -2,7 +2,7 @@
   <img src="https://raw.githubusercontent.com/sunilsharma08/XNLogger/master/XNLoggerLogo.jpg" title="XNLogger logo"    float=left width="600">
 </p>
 
-[![Swift version](https://img.shields.io/badge/Swift-5.0-orange)](https://swift.org/getting-started/#installing-swift)
+[![Swift version](https://img.shields.io/badge/Swift-6.0-orange)](https://swift.org/getting-started/#installing-swift)
 [![Pod version](https://img.shields.io/cocoapods/v/XNLogger)](https://github.com/sunilsharma08/XNLogger)
 [![SPM compatible](https://img.shields.io/badge/SPM-compatible-brightgreen.svg)](https://swift.org/package-manager/)
 [![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-brightgreen.svg)](https://github.com/sunilsharma08/XNLogger)
@@ -33,6 +33,9 @@ Network loggers can generate huge data specially when binary data(like image, vi
 - [x] Swift & Objective-C compatibility.
 - [x] Works with external libraries like Alamofire & AFNetworking.
 - [x] Supports iPhone and iPad.
+- [x] SwiftUI support — present logger UI with `.xnLoggerSheet()` modifier or `XNLoggerView()`.
+- [x] AsyncStream-based log observation for Swift concurrency.
+- [x] Combine publisher for reactive log observation.
 
 
 # Screenshots
@@ -61,7 +64,7 @@ Network loggers can generate huge data specially when binary data(like image, vi
 
 ## Requirements
 
-iOS 12.0 or later
+iOS 15.0 or later
 
 # Installation
 ## Cocoapods
@@ -130,6 +133,82 @@ XNUIManager.shared.dismissUI()
 ### Clear logs
 ```swift
 XNUIManager.shared.clearLogs()
+```
+
+## SwiftUI Support
+
+### Shake-triggered logger sheet
+Attach the `.xnLoggerSheet()` modifier to your root view. The logger UI will appear as a sheet when the device is shaken.
+
+```swift
+@main
+struct MyApp: App {
+    init() {
+        XNLogger.shared.startLogging()
+        // Disable UIKit shake gesture to avoid duplicate UI
+        XNUIManager.shared.startGesture = .none
+    }
+
+    var body: some Scene {
+        WindowGroup {
+            ContentView()
+                .xnLoggerSheet()
+        }
+    }
+}
+```
+
+### Present logger manually
+Use `XNLoggerView()` directly in a `.sheet()` or `.fullScreenCover()`:
+
+```swift
+@State private var showLogger = false
+
+var body: some View {
+    Button("Show Logs") { showLogger = true }
+        .sheet(isPresented: $showLogger) {
+            XNLoggerView()
+        }
+}
+```
+
+## Observe Logs (AsyncStream)
+
+Use `logStream` to observe log events with Swift concurrency. Each caller gets an independent stream that auto-cancels when the `Task` is cancelled.
+
+```swift
+.task {
+    for await event in XNLogger.shared.logStream {
+        switch event {
+        case .request(let logData):
+            print("Request: \(logData.urlRequest.url?.absoluteString ?? "")")
+        case .response(let logData):
+            let status = (logData.response as? HTTPURLResponse)?.statusCode
+            print("Response [\(status ?? 0)]: \(logData.urlRequest.url?.absoluteString ?? "")")
+        }
+    }
+}
+```
+
+## Observe Logs (Combine)
+
+Use `logPublisher` to subscribe to log events reactively:
+
+```swift
+import Combine
+
+var cancellables = Set<AnyCancellable>()
+
+XNLogger.shared.logPublisher
+    .sink { event in
+        switch event {
+        case .request(let logData):
+            print("Request: \(logData.urlRequest.url?.absoluteString ?? "")")
+        case .response(let logData):
+            print("Response: \(logData.urlRequest.url?.absoluteString ?? "")")
+        }
+    }
+    .store(in: &cancellables)
 ```
 
 ## Add predefined log handlers

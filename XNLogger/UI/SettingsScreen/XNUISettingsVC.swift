@@ -97,7 +97,12 @@ class XNUISettingsVC: XNUIBaseViewController {
     }
     
     @objc func dismissNetworkUI() {
-        XNUIManager.shared.dismissUI()
+        if XNUIManager.shared.logWindow != nil {
+            XNUIManager.shared.dismissUI()
+        } else {
+            // Presented via SwiftUI sheet — dismiss the hosting controller
+            self.view.window?.rootViewController?.dismiss(animated: true)
+        }
     }
 
 }

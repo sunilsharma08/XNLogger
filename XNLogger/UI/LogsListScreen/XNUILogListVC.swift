@@ -74,9 +74,12 @@ class XNUILogListVC: XNUIBaseViewController {
 
         viewModeBarButton = helper.createNavButton(imageName: XNUIImageName.minimise, pointSize: 19, scale: .large)
         viewModeBarButton.addTarget(self, action: #selector(upadteViewMode), for: .touchUpInside)
-        
+
         self.headerView?.addRightBarItems([closeButton])
-        self.headerView?.addleftBarItems([viewModeBarButton])
+        // Hide minimize button when presented via SwiftUI (no logWindow for mini mode)
+        if XNUIManager.shared.logWindow != nil {
+            self.headerView?.addleftBarItems([viewModeBarButton])
+        }
         
         self.logListTableView.tableFooterView = UIView()
         self.logListTableView.register(ofType: XNUILogListTableViewCell.self)
@@ -108,7 +111,12 @@ class XNUILogListVC: XNUIBaseViewController {
     }
     
     @objc func dismissNetworkUI() {
-        XNUIManager.shared.dismissUI()
+        if XNUIManager.shared.logWindow != nil {
+            XNUIManager.shared.dismissUI()
+        } else {
+            // Presented via SwiftUI sheet — dismiss the hosting controller
+            self.view.window?.rootViewController?.dismiss(animated: true)
+        }
     }
     
     @objc func upadteViewMode() {
