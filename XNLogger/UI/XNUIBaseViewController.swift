@@ -38,8 +38,21 @@ class XNUIBaseViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.tabBarController?.tabBar.isHidden = false
+        let isMiniMode = XNUIManager.shared.isMiniModeActive
+        self.tabBarController?.tabBar.isHidden = isMiniMode
+        self.extendedLayoutIncludesOpaqueBars = isMiniMode
+        if isMiniMode {
+            self.edgesForExtendedLayout = .all
+            let toolbarHeight = miniModeToolbarHeight()
+            self.additionalSafeAreaInsets.bottom = toolbarHeight
+        }
         XNUIManager.shared.viewModeDelegate = self
+    }
+
+    func miniModeToolbarHeight() -> CGFloat {
+        let tabBarHeight = self.tabBarController?.tabBar.frame.height ?? 0
+        let realSafeAreaBottom = XNUIManager.shared.logWindow?.appWindow?.safeAreaInsets.bottom ?? 0
+        return tabBarHeight - realSafeAreaBottom
     }
     
     func baseConfigureViews() {
@@ -61,9 +74,14 @@ extension XNUIBaseViewController: XNUIViewModeDelegate {
     @objc func viewModeDidChange(_ isMiniViewEnabled: Bool) {
         if isMiniViewEnabled {
             self.tabBarController?.tabBar.isHidden = true
+            self.extendedLayoutIncludesOpaqueBars = true
+            self.edgesForExtendedLayout = .all
+            self.additionalSafeAreaInsets.bottom = miniModeToolbarHeight()
             self.headerView?.addGestureRecognizer(panGesture)
         } else {
             self.tabBarController?.tabBar.isHidden = false
+            self.extendedLayoutIncludesOpaqueBars = false
+            self.additionalSafeAreaInsets.bottom = 0
             self.headerView?.removeGestureRecognizer(panGesture)
         }
         self.view.endEditing(true)
