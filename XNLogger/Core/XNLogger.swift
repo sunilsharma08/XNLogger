@@ -49,6 +49,8 @@ public class XNLogger: NSObject, @unchecked Sendable {
 
     public func startLogging() {
         networkInterceptor.startInterceptingNetwork()
+        // Ensure XNUIManager (and its log handler) is initialized eagerly
+        _ = XNUIManager.shared
     }
 
     public func stopLogging() {
