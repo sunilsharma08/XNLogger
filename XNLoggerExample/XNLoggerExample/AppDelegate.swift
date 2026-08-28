@@ -13,6 +13,7 @@ import XNLogger
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+        XNLogger.shared.startLogging()
         return true
     }
 

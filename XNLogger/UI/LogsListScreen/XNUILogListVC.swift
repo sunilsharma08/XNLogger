@@ -72,7 +72,7 @@ class XNUILogListVC: XNUIBaseViewController {
       let closeButton = helper.createNavButton(imageName: XNUIImageName.close, pointSize: 19, scale: .large)
         closeButton.addTarget(self, action: #selector(dismissNetworkUI), for: .touchUpInside)
 
-        viewModeBarButton = helper.createNavButton(imageName: XNUIImageName.minimise)
+        viewModeBarButton = helper.createNavButton(imageName: XNUIImageName.minimise, pointSize: 19, scale: .large)
         viewModeBarButton.addTarget(self, action: #selector(upadteViewMode), for: .touchUpInside)
         
         self.headerView?.addRightBarItems([closeButton])
