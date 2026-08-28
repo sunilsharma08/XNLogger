@@ -60,7 +60,7 @@ class XNUILogDetailVC: XNUIBaseViewController {
     private func configureViews() {
         self.headerView?.setTitle("Log details")
         self.headerView?.addBackButton(target: self.navigationController, selector: #selector(self.navigationController?.popViewController(animated:)))
-        let moreOptionBtn = helper.createNavButton(imageName: "menu", imageInsets: UIEdgeInsets(top: 10, left: 16, bottom: 10, right: 6))
+        let moreOptionBtn = helper.createNavButton(imageName: XNUIImageName.menu)
         moreOptionBtn.addTarget(self, action: #selector(clickedOnMoreOptions), for: .touchUpInside)
         self.moreOptionBtn = moreOptionBtn
         

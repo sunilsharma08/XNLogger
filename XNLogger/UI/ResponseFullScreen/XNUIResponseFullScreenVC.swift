@@ -70,7 +70,7 @@ class XNUIResponseFullScreenVC: XNUIBaseViewController {
         self.headerView?.setTitle(headerTitle)
         self.headerView?.addBackButton(target: self.navigationController, selector: #selector(self.navigationController?.popViewController(animated:)))
         // Show share icon
-        let shareButton = helper.createNavButton(imageName: "share", imageInsets: UIEdgeInsets(top: 12, left: 17, bottom: 12, right: 7))
+        let shareButton = helper.createNavButton(imageName: XNUIImageName.share)
         shareButton.addTarget(self, action: #selector(self.clickedOnMoreOptions(_:)), for: .touchUpInside)
         self.headerView?.addRightBarItems([shareButton])
     }

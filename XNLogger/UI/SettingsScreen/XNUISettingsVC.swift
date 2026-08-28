@@ -24,9 +24,7 @@ class XNUISettingsVC: XNUIBaseViewController {
         self.headerView?.setTitle("Settings")
         self.edgesForExtendedLayout = []
         
-        let closeButton = helper.createNavButton(
-                        imageName: "close",
-                        imageInsets: UIEdgeInsets(top: 15, left: 25, bottom: 9, right: 5))
+        let closeButton = helper.createNavButton(imageName: XNUIImageName.close, pointSize: 19, scale: .large)
         closeButton.addTarget(self, action: #selector(dismissNetworkUI), for: .touchUpInside)
         self.headerView?.addRightBarItems([closeButton])
         

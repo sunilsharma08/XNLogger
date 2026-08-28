@@ -79,7 +79,7 @@ class XNUISaveToPathActivity: XNUISimulatorActivity {
     }
 
     override var activityImage: UIImage? {
-        return UIImage(named: "saveToLocation", in: Bundle.current(), compatibleWith: nil)
+        return UIImage(named: XNUIImageName.saveToLocation, in: Bundle.current(), compatibleWith: nil)
     }
     
     override var activityViewController: UIViewController? {
@@ -139,6 +139,6 @@ class XNUISaveToDesktopActivity: XNUISimulatorActivity {
     }
     
     override var activityImage: UIImage? {
-        return UIImage(named: "saveToDesktop", in: Bundle.current(), compatibleWith: nil)
+        return UIImage(named: XNUIImageName.saveToDesktop, in: Bundle.current(), compatibleWith: nil)
     }
 }

@@ -169,30 +169,28 @@ class XNUIWindow: UIWindow {
         toolView.addSubview(toolStackView)
         toolStackView.match(to: toolView, margin: 0)
         
-        func toolbarButton(imageName: String, orientation: UIImage.Orientation? = nil, insets: UIEdgeInsets = .zero) -> UIButton {
+        func toolbarButton(imageName: String, pointSize: CGFloat = 18) -> UIButton {
             let button = UIButton(type: .custom)
             button.translatesAutoresizingMaskIntoConstraints = false
             button.backgroundColor = .white
-            var image = UIImage(named: imageName, in: Bundle.current(), compatibleWith: nil)
-            if let imgOrientation = orientation, let cgEditImg = image?.cgImage {
-                image = UIImage(cgImage: cgEditImg, scale: CGFloat(1), orientation: imgOrientation).withRenderingMode(.alwaysTemplate)
-            }
+            let symbolConfig = UIImage.SymbolConfiguration(pointSize: pointSize, weight: .medium, scale: .large)
+            let image = UIImage(named: imageName, in: Bundle.current(), compatibleWith: nil)?
+                .withConfiguration(symbolConfig)
             var config = UIButton.Configuration.plain()
-            config.contentInsets = NSDirectionalEdgeInsets(top: insets.top, leading: insets.left, bottom: insets.bottom, trailing: insets.right)
             config.image = image
             button.configuration = config
             return button
         }
-        
-        let resizeBtn = toolbarButton(imageName: "resize", insets: UIEdgeInsets(inset: 14))
+
+        let resizeBtn = toolbarButton(imageName: XNUIImageName.resize, pointSize: 18)
         let pinchGesture = UIPanGestureRecognizer(target: self, action: #selector(clickedOnResize(_:)))
         resizeBtn.addGestureRecognizer(pinchGesture)
         toolStackView.addArrangedSubview(resizeBtn)
-        let moveBtn = toolbarButton(imageName: "move", insets: UIEdgeInsets(inset: 9))
+        let moveBtn = toolbarButton(imageName: XNUIImageName.move)
         let panGesture = UIPanGestureRecognizer(target: self, action: #selector(clickedOnMove(_:)))
         moveBtn.addGestureRecognizer(panGesture)
         toolStackView.addArrangedSubview(moveBtn)
-        let moreOptionBtn = toolbarButton(imageName: "menu", orientation: .right, insets: UIEdgeInsets(inset: 11))
+        let moreOptionBtn = toolbarButton(imageName: XNUIImageName.menuHorizontal)
         moreOptionBtn.addTarget(self, action: #selector(clickedOnMoreOption(_:)), for: .touchUpInside)
         toolStackView.addArrangedSubview(moreOptionBtn)
         

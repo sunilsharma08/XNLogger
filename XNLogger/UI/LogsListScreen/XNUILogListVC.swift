@@ -69,14 +69,10 @@ class XNUILogListVC: XNUIBaseViewController {
     }
     
     func configureViews() {
-        let closeButton = helper.createNavButton(
-            imageName: "close",
-            imageInsets: UIEdgeInsets(top: 15, left: 25, bottom: 9, right: 5))
+      let closeButton = helper.createNavButton(imageName: XNUIImageName.close, pointSize: 19, scale: .large)
         closeButton.addTarget(self, action: #selector(dismissNetworkUI), for: .touchUpInside)
-        
-        viewModeBarButton = helper.createNavButton(
-            imageName: "minimise",
-            imageInsets: UIEdgeInsets(top: 10, left: 6, bottom: 7, right: 12))
+
+        viewModeBarButton = helper.createNavButton(imageName: XNUIImageName.minimise)
         viewModeBarButton.addTarget(self, action: #selector(upadteViewMode), for: .touchUpInside)
         
         self.headerView?.addRightBarItems([closeButton])
@@ -122,8 +118,10 @@ class XNUILogListVC: XNUIBaseViewController {
     func updateViewModeIcon(isMiniViewEnabled: Bool) {
 
         UIView.transition(with: self.viewModeBarButton, duration: 0.3, options: .transitionCrossDissolve, animations: {
-            let imageName = isMiniViewEnabled ? "maximise" : "minimise"
-            let image = UIImage(named: imageName, in: Bundle.current(), compatibleWith: nil)
+            let name = isMiniViewEnabled ? XNUIImageName.maximise : XNUIImageName.minimise
+            let symbolConfig = UIImage.SymbolConfiguration(pointSize: 19)
+            let image = UIImage(named: name, in: Bundle.current(), compatibleWith: nil)?
+                .withConfiguration(symbolConfig)
             if var config = self.viewModeBarButton.configuration {
                 config.image = image
                 self.viewModeBarButton.configuration = config

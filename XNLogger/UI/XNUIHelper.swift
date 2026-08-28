@@ -47,6 +47,28 @@ struct XNUIHTTPStatusColor {
     static let suspended: UIColor = UIColor(red: 1, green: 183/255.0, blue: 15/255.0, alpha: 1)
 }
 
+enum XNUIImageName {
+    static let back = "back"
+    static let cancel = "cancel"
+    static let close = "close"
+    static let fullscreen = "fullscreen"
+    static let information = "information"
+    static let log = "log"
+    static let maximise = "maximise"
+    static let menu = "menu"
+    static let menuHorizontal = "menu"
+    static let minimise = "minimise"
+    static let move = "move"
+    static let pause = "pause"
+    static let resize = "resize"
+    static let saveToDesktop = "saveToDesktop"
+    static let saveToLocation = "saveToLocation"
+    static let settings = "settings"
+    static let share = "share"
+    static let trash = "trash"
+    static let wait = "wait"
+}
+
 struct XNUIAppColor {
     
     static let primary: UIColor = UIColor(red: 1, green: 95/255.0, blue: 88/255.0, alpha: 1)
@@ -132,14 +154,27 @@ class XNUIHelper {
         }
     }
     
-    func createNavButton(imageName: String, imageInsets: UIEdgeInsets = .zero) -> UIButton {
+  func createNavButton(imageName: String, pointSize: CGFloat = 19, weight: UIImage.SymbolWeight = .regular, scale: UIImage.SymbolScale = .default) -> UIButton {
 
         let customButton = UIButton(type: .custom)
-        customButton.tintColor = UIColor(red: 239/255.0, green: 239/255.0, blue: 239/255.0, alpha: 1)
+        let tintColor = UIColor(red: 239/255.0, green: 239/255.0, blue: 239/255.0, alpha: 1)
+        customButton.tintColor = tintColor
+
         var config = UIButton.Configuration.plain()
-        config.contentInsets = NSDirectionalEdgeInsets(top: imageInsets.top, leading: imageInsets.left, bottom: imageInsets.bottom, trailing: imageInsets.right)
-        config.image = UIImage(named: imageName, in: Bundle.current(), compatibleWith: nil)
+        config.baseForegroundColor = tintColor
+        config.baseBackgroundColor = .clear
+        config.background.backgroundColor = .clear
+
+        let symbolConfig = UIImage.SymbolConfiguration(pointSize: pointSize, weight: weight, scale: scale)
+        let image = UIImage(named: imageName, in: Bundle.current(), compatibleWith: nil)?
+            .withConfiguration(symbolConfig)
+        config.image = image
         customButton.configuration = config
+        customButton.configurationUpdateHandler = { button in
+            var config = button.configuration
+            config?.background.backgroundColor = .clear
+            button.configuration = config
+        }
 
         return customButton
     }
