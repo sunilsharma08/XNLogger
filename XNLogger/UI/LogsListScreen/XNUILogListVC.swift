@@ -193,7 +193,15 @@ class XNUILogListVC: XNUIBaseViewController {
         super.viewModeDidChange(isMiniViewEnabled)
         if isMiniViewEnabled {
             self.tableViewBottomConstraint.constant = 0
+            self.logSearchBar.resignFirstResponder()
+            self.isSearchBarFocused = false
+            self.logSearchBar.showsCancelButton = false
+            self.logListTableView.contentInsetAdjustmentBehavior = .never
+            self.searchContainerHeight.constant = 0
+            self.updateSearchBarUI()
+            self.view.layoutIfNeeded()
         } else {
+            self.logListTableView.contentInsetAdjustmentBehavior = .automatic
             self.tableViewBottomConstraint.constant = self.keyboardSize.height
         }
     }
@@ -330,29 +338,29 @@ extension XNUILogListVC: UISearchBarDelegate {
 extension XNUILogListVC {
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        
+
         defer {
             self.previousScrollViewHeight = scrollView.contentSize.height
             self.previousScrollOffset = scrollView.contentOffset.y
         }
-        
+
         let scrollSizeDiff = scrollView.contentSize.height - self.previousScrollViewHeight
         // If the scroll was caused by the height of the scroll view changing, we want to do nothing.
         guard scrollSizeDiff == 0 else { return }
-        
+
         let scrollDiff = scrollView.contentOffset.y - self.previousScrollOffset
         let absoluteTop: CGFloat = 0
         let absoluteBottom: CGFloat = max((scrollView.contentSize.height - scrollView.frame.size.height), scrollView.contentSize.height)
-        
+
         let isScrollingDown = scrollDiff > 0 && scrollView.contentOffset.y > absoluteTop
         let isScrollingUp = scrollDiff < 0 && scrollView.contentOffset.y < absoluteBottom
-        
+
         var newHeight = self.searchContainerHeight.constant
         // Display search bar when scroll view is at top
         if isScrollingUp && scrollView.contentOffset.y < 0 {
             newHeight = min(self.maxSearchBarHeight, self.searchContainerHeight.constant + abs(scrollDiff))
         }
-        
+
         if isScrollingDown {
             newHeight = max(self.minSearchBarHeight, self.searchContainerHeight.constant - abs(scrollDiff))
         }
@@ -375,7 +383,7 @@ extension XNUILogListVC {
     func scrollViewDidStopScrolling() {
         let range = self.maxSearchBarHeight - self.minSearchBarHeight
         let midPoint = self.minSearchBarHeight + (range * 0.6)
-        
+
         if self.searchContainerHeight.constant > midPoint {
             updateSearchBar(height: self.maxSearchBarHeight, animated: true)
         } else {
