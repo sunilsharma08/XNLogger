@@ -31,6 +31,7 @@ A lightweight, extensible network logging framework for iOS. Log every HTTP requ
   - [Observing Logs](#observing-logs)
 - [Limitations](#limitations)
 - [Contributing](#contributing)
+- [Support](#support)
 - [License](#license)
 
 ## Why XNLogger?
@@ -521,6 +522,12 @@ Working on logging background tasks and WKWebView URLs without using any private
 Feel free to raise a PR for any bug fixes, features, or enhancements. When you are done with changes, raise a PR to the `develop` branch.
 
 Another way to contribute to the project is to send a detailed issue when you encounter a problem. In bug details please provide steps to reproduce and some other details like Swift version, URL (if possible), URLSession configuration, etc.
+
+# Support
+
+[![GitHub stars](https://img.shields.io/github/stars/sunilsharma08/XNLogger?style=social)](https://github.com/sunilsharma08/XNLogger/stargazers)
+
+If you find XNLogger useful, please consider giving it a star on GitHub. It helps others discover the project and motivates continued development and maintenance.
 
 # License
 XNLogger is available under the [MIT license](https://raw.githubusercontent.com/sunilsharma08/XNLogger/master/LICENSE).
