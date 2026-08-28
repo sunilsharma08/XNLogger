@@ -14,6 +14,12 @@ import Foundation
     @objc optional func xnLogger(didReceiveResponse logData: XNLogData)
 }
 
+/// Represents a log event emitted by XNLogger.
+public enum XNLogEvent: Sendable {
+    case request(XNLogData)
+    case response(XNLogData)
+}
+
 @objcMembers
 public class XNLogger: NSObject, @unchecked Sendable {
 
@@ -44,6 +50,86 @@ public class XNLogger: NSObject, @unchecked Sendable {
     }
 
     let filterManager: XNFilterManager = XNFilterManager()
+
+    // MARK: - AsyncStream support
+
+    private let continuationsLock = NSLock()
+    private var _continuations: [UUID: AsyncStream<XNLogEvent>.Continuation] = [:]
+
+    /// An `AsyncStream` of log events. Each caller receives an independent stream.
+    /// The stream yields `.request` and `.response` events as they occur.
+    ///
+    /// Usage:
+    /// ```swift
+    /// for await event in XNLogger.shared.logStream {
+    ///     switch event {
+    ///     case .request(let data):
+    ///         print("Request: \(data.urlRequest.url)")
+    ///     case .response(let data):
+    ///         print("Response: \(data.response)")
+    ///     }
+    /// }
+    /// ```
+    public var logStream: AsyncStream<XNLogEvent> {
+        let id = UUID()
+        return AsyncStream { continuation in
+            continuationsLock.lock()
+            _continuations[id] = continuation
+            continuationsLock.unlock()
+
+            continuation.onTermination = { @Sendable _ in
+                self.continuationsLock.lock()
+                self._continuations.removeValue(forKey: id)
+                self.continuationsLock.unlock()
+            }
+        }
+    }
+
+    private func yieldToStreams(_ event: XNLogEvent) {
+        continuationsLock.lock()
+        let activeContinuations = _continuations.values
+        continuationsLock.unlock()
+
+        for continuation in activeContinuations {
+            continuation.yield(event)
+        }
+    }
+
+    // MARK: - Combine support (subject storage)
+
+    /// Internal subject for Combine publisher. Created lazily in XNLogger+Combine.swift.
+    private let _subjectLock = NSLock()
+    private var _logSubject: AnyObject?
+
+    /// Thread-safe accessor for the internal Combine subject.
+    func getOrCreateLogSubject<T: AnyObject>(create: () -> T) -> T {
+        _subjectLock.lock()
+        defer { _subjectLock.unlock() }
+        if let existing = _logSubject as? T {
+            return existing
+        }
+        let subject = create()
+        _logSubject = subject
+        return subject
+    }
+
+    func sendToSubject(_ event: XNLogEvent) {
+        _subjectLock.lock()
+        let subject = _logSubject
+        _subjectLock.unlock()
+
+        // Dynamically call send if subject exists — avoids importing Combine here.
+        // The actual typed send is done in XNLogger+Combine.swift via the stored closure.
+        if let sendClosure = _combineSendClosure {
+            sendClosure(event)
+        }
+        _ = subject // Suppress unused warning
+    }
+
+    /// Closure set by XNLogger+Combine.swift to send events without importing Combine in this file.
+    var _combineSendClosure: ((XNLogEvent) -> Void)?
+
+    // MARK: - Init
 
     override private init() {}
 
@@ -148,6 +234,9 @@ public class XNLogger: NSObject, @unchecked Sendable {
         for handler in currentHandlers {
             handler.xnLogger?(logResponse: logData)
         }
+        let event = XNLogEvent.response(logData)
+        yieldToStreams(event)
+        sendToSubject(event)
     }
 
     func logRequest(from logData: XNLogData) {
@@ -156,6 +245,9 @@ public class XNLogger: NSObject, @unchecked Sendable {
         for handler in currentHandlers {
             handler.xnLogger?(logRequest: logData)
         }
+        let event = XNLogEvent.request(logData)
+        yieldToStreams(event)
+        sendToSubject(event)
     }
 
 }

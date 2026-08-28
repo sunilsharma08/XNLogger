@@ -63,8 +63,8 @@ public class XNLogData: NSObject, NSSecureCoding, @unchecked Sendable {
     lazy var respContentMeta: XNFileMeta = {
         if let mimeStr = response?.mimeType {
             return XNAppUtils.shared.getFileMeta(from: mimeStr)
-        } else if receivedData != nil {
-            return receivedData!.sniffMimeEnum()
+        } else if let data = receivedData {
+            return data.sniffMimeEnum()
         } else {
             return XNFileMeta(ext: nil, mime: nil, contentType: .unknown(nil))
         }

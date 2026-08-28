@@ -128,28 +128,33 @@ public class XNFileLogHandler: XNBaseLogHandler, XNLogHandler, @unchecked Sendab
         }
     }
     
-    // Recursive method call to rename log files
+    // Iteratively rename log files from highest index down
     private func rename(_ index: Int) {
-        let path = "\(directory)/\(logName(index))"
-        let newPath = "\(directory)/\(logName(index+1))"
-        if self.fileManager.fileExists(atPath: newPath) {
-            rename(index+1)
+        // Find the highest existing file index
+        var highest = index
+        while fileManager.fileExists(atPath: "\(directory)/\(logName(highest + 1))") {
+            highest += 1
         }
-        do {
-            try self.fileManager.moveItem(atPath: path, toPath: newPath)
-        } catch let error {
-            debugPrint("Failed to move file \(path) to path \(newPath)")
-            debugPrint(error.localizedDescription)
+        // Rename from highest down to index
+        for i in stride(from: highest, through: index, by: -1) {
+            let path = "\(directory)/\(logName(i))"
+            let newPath = "\(directory)/\(logName(i + 1))"
+            do {
+                try self.fileManager.moveItem(atPath: path, toPath: newPath)
+            } catch let error {
+                debugPrint("Failed to move file \(path) to path \(newPath)")
+                debugPrint(error.localizedDescription)
+            }
         }
     }
     
     // The date formatter
-    private var dateFormatter: DateFormatter {
+    private lazy var dateFormatter: DateFormatter = {
         let formatter = DateFormatter()
         formatter.timeStyle = .medium
         formatter.dateStyle = .medium
         return formatter
-    }
+    }()
     
     // Gets the log name
     private func logName(_ num: Int) -> String {

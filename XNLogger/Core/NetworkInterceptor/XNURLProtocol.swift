@@ -61,7 +61,15 @@ open class XNURLProtocol: URLProtocol, @unchecked Sendable {
     }
 
     convenience init(task: URLSessionTask, cachedResponse: CachedURLResponse?, client: URLProtocolClient?) {
-        self.init(request: task.currentRequest!, cachedResponse: cachedResponse, client: client)
+        guard let request = task.currentRequest else {
+            self.init(request: URLRequest(url: URL(string: "about:blank")!), cachedResponse: cachedResponse, client: client)
+            return
+        }
+        self.init(request: request, cachedResponse: cachedResponse, client: client)
+    }
+
+    deinit {
+        _session?.invalidateAndCancel()
     }
 
     open override class func canInit(with task: URLSessionTask) -> Bool {
@@ -91,8 +99,9 @@ open class XNURLProtocol: URLProtocol, @unchecked Sendable {
     }
 
     open override func startLoading() {
-        if request.url == nil {
+        guard request.url != nil else {
             debugPrint("XNL: No URL found")
+            return
         }
 
         // Acquire lock for the entire startLoading sequence to prevent

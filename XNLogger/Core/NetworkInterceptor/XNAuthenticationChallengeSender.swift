@@ -24,7 +24,7 @@ internal class XNAuthenticationChallengeSender: NSObject, URLAuthenticationChall
     }
     
     func continueWithoutCredential(for challenge: URLAuthenticationChallenge) {
-        handler(URLSession.AuthChallengeDisposition.useCredential, nil)
+        handler(URLSession.AuthChallengeDisposition.performDefaultHandling, nil)
     }
     
     func cancel(_ challenge: URLAuthenticationChallenge) {
