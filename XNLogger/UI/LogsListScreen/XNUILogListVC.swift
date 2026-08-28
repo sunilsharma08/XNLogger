@@ -18,7 +18,7 @@ class XNUILogListVC: XNUIBaseViewController {
     
     @IBOutlet weak var tableViewBottomConstraint: NSLayoutConstraint!
     var isSearchBarFocused: Bool = false
-    let maxSearchBarHeight: CGFloat = 42;
+    let maxSearchBarHeight: CGFloat = 53;
     let minSearchBarHeight: CGFloat = 0;
     
     /// The last known scroll position
@@ -86,6 +86,8 @@ class XNUILogListVC: XNUIBaseViewController {
         
         self.searchContainerHeight.constant = 0
         self.logSearchBar.delegate = self
+        self.logSearchBar.backgroundImage = UIImage()
+        self.logSearchBar.backgroundColor = .clear
     }
     
     @objc func keyboardWillShow(_ notification: Notification) {

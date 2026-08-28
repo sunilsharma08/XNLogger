@@ -17,19 +17,19 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="d9j-Yq-bqc">
-                                <rect key="frame" x="0.0" y="45" width="375" height="45"/>
+                                <rect key="frame" x="0.0" y="45" width="375" height="53"/>
                                 <subviews>
                                     <searchBar contentMode="redraw" searchBarStyle="prominent" placeholder="Search" translucent="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iOE-dT-yQF">
-                                        <rect key="frame" x="0.0" y="0.0" width="375" height="45"/>
+                                        <rect key="frame" x="0.0" y="4" width="375" height="45"/>
                                         <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" keyboardType="URL" returnKeyType="search" enablesReturnKeyAutomatically="YES" textContentType="url"/>
                                     </searchBar>
                                 </subviews>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <color key="backgroundColor" systemColor="secondarySystemBackgroundColor"/>
                                 <constraints>
-                                    <constraint firstAttribute="bottom" secondItem="iOE-dT-yQF" secondAttribute="bottom" id="3cp-Wn-qGg"/>
-                                    <constraint firstItem="iOE-dT-yQF" firstAttribute="top" secondItem="d9j-Yq-bqc" secondAttribute="top" id="YNP-kl-PZt"/>
+                                    <constraint firstAttribute="bottom" secondItem="iOE-dT-yQF" secondAttribute="bottom" constant="4" id="3cp-Wn-qGg"/>
+                                    <constraint firstItem="iOE-dT-yQF" firstAttribute="top" secondItem="d9j-Yq-bqc" secondAttribute="top" constant="4" id="YNP-kl-PZt"/>
                                     <constraint firstItem="iOE-dT-yQF" firstAttribute="leading" secondItem="d9j-Yq-bqc" secondAttribute="leading" id="c4M-Rw-CBF"/>
-                                    <constraint firstAttribute="height" constant="45" id="dXv-ky-e0D"/>
+                                    <constraint firstAttribute="height" constant="53" id="dXv-ky-e0D"/>
                                     <constraint firstAttribute="trailing" secondItem="iOE-dT-yQF" secondAttribute="trailing" id="rV5-f5-njI"/>
                                 </constraints>
                             </view>
