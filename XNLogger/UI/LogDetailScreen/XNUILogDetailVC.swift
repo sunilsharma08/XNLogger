@@ -60,7 +60,7 @@ class XNUILogDetailVC: XNUIBaseViewController {
     private func configureViews() {
         self.headerView?.setTitle("Log details")
         self.headerView?.addBackButton(target: self.navigationController, selector: #selector(self.navigationController?.popViewController(animated:)))
-        let moreOptionBtn = helper.createNavButton(imageName: "menu", imageInsets: UIEdgeInsets(top: 10, left: 16, bottom: 10, right: 6))
+        let moreOptionBtn = helper.createNavButton(imageName: XNUIImageName.menu)
         moreOptionBtn.addTarget(self, action: #selector(clickedOnMoreOptions), for: .touchUpInside)
         self.moreOptionBtn = moreOptionBtn
         
@@ -89,22 +89,29 @@ class XNUILogDetailVC: XNUIBaseViewController {
         }
 
         loadData {[weak self] in
-            DispatchQueue.main.safeAsync {
-                self?.selectDefaultTab()
-                self?.updateUI()
+            guard self != nil else { return }
+            DispatchQueue.main.safeAsync { [weak self] in
+                MainActor.assumeIsolated {
+                    self?.selectDefaultTab()
+                    self?.updateUI()
+                }
             }
         }
     }
-    
+
     @objc func updateViewSource(_ notification: Notification) {
         // Just to update UITextEffectsWindow level and UIMenuController is visible
-        UIApplication.shared.windows.forEach { (windoww) in
-            if windoww.className == "UITextEffectsWindow" {
-                windoww.windowLevel = .init(CGFloat.greatestFiniteMagnitude)
+        let scenes = UIApplication.shared.connectedScenes
+            .compactMap { $0 as? UIWindowScene }
+        for scene in scenes {
+            for windoww in scene.windows {
+                if windoww.className == "UITextEffectsWindow" {
+                    windoww.windowLevel = .init(CGFloat.greatestFiniteMagnitude)
+                }
             }
         }
     }
-    
+
     private func selectDefaultTab() {
         self.responseView?.isHidden = false
         self.requestView?.isHidden = true
@@ -112,50 +119,56 @@ class XNUILogDetailVC: XNUIBaseViewController {
             clickedOnRequest(requestBtn)
         }
     }
-    
+
     @objc func didReceiveUpdate(_ notification: Notification) {
         guard let userInfo = notification.userInfo as? [String: Any],
             let logId = userInfo[XNUIConstants.logIdKey] as? String,
             /*Avoid UI update from other request notifications*/
             logId == logInfo?.identifier
             else { return }
-        
+
         loadData {[weak self] in
-            DispatchQueue.main.safeAsync {
-                self?.updateUI()
+            guard self != nil else { return }
+            DispatchQueue.main.safeAsync { [weak self] in
+                MainActor.assumeIsolated {
+                    self?.updateUI()
+                }
             }
         }
     }
-    
+
     func updateUI() {
-        DispatchQueue.global(qos: .userInitiated).async { [weak self] in
-            guard let self = self else { return }
-            
-            self.logDataConverter?.getRequestLogDetails(completion: { (reqLogs) in
-                DispatchQueue.main.safeAsync {
-                    self.requestView?.upadteView(with: reqLogs)
+        let converter = self.logDataConverter
+        converter?.getRequestLogDetails(completion: { [weak self] (reqLogs) in
+            DispatchQueue.main.safeAsync { [weak self] in
+                MainActor.assumeIsolated {
+                    self?.requestView?.upadteView(with: reqLogs)
                 }
-            })
-            
-            self.logDataConverter?.getResponseLogDetails(completion: { (respLogs) in
-                DispatchQueue.main.safeAsync {
-                    self.responseView?.upadteView(with: respLogs)
+            }
+        })
+
+        converter?.getResponseLogDetails(completion: { [weak self] (respLogs) in
+            DispatchQueue.main.safeAsync { [weak self] in
+                MainActor.assumeIsolated {
+                    self?.responseView?.upadteView(with: respLogs)
                 }
-            })
-        }
+            }
+        })
     }
-    
-    func loadData(completion: @escaping () -> Void) {
+
+    func loadData(completion: @escaping @Sendable () -> Void) {
         if let logId = self.logInfo?.identifier {
             let fileService: XNUIFileService = XNUIFileService()
-            
+
             fileService.getLogData(for: logId) {[weak self] (logData) in
-                guard let self = self else { return }
-                
-                if let logDataObj = logData {
-                    self.logDataConverter = XNUILogDataConverter(logData: logDataObj, formatter: XNUIManager.shared.uiLogHandler.logFormatter)
+                MainActor.assumeIsolated {
+                    guard let self = self else { return }
+
+                    if let logDataObj = logData {
+                        self.logDataConverter = XNUILogDataConverter(logData: logDataObj, formatter: XNUIManager.shared.uiLogHandler.logFormatter)
+                    }
+                    completion()
                 }
-                completion()
             }
         }
     }
@@ -258,32 +271,35 @@ class XNUILogDetailVC: XNUIBaseViewController {
                 shareDetails.clean()
                 return
             }
-            
-            DispatchQueue.main.safeAsync {
-                self.helper.hideActivityIndicator(from: self.view)
-                
-                let saveToDesktopActivities = [XNUISaveToDesktopActivity(), XNUISaveToPathActivity()]
-                
-                let shareVC = UIActivityViewController(activityItems: [shareDetails], applicationActivities: saveToDesktopActivities)
-                if (UIDevice.current.userInterfaceIdiom == UIUserInterfaceIdiom.pad) {
-                    
-                    guard let moreOptionButton = self.moreOptionBtn else { return }
-                    var sourceRect = moreOptionButton.convert(moreOptionButton.frame, to: self.headerView)
-                    if let headerView = self.headerView {
-                        sourceRect = headerView.convert(sourceRect, to: self.view)
+
+            DispatchQueue.main.safeAsync { [weak self] in
+                MainActor.assumeIsolated {
+                    guard let self = self else { return }
+                    self.helper.hideActivityIndicator(from: self.view)
+
+                    let saveToDesktopActivities = [XNUISaveToDesktopActivity(), XNUISaveToPathActivity()]
+
+                    let shareVC = UIActivityViewController(activityItems: [shareDetails], applicationActivities: saveToDesktopActivities)
+                    if (UIDevice.current.userInterfaceIdiom == UIUserInterfaceIdiom.pad) {
+
+                        guard let moreOptionButton = self.moreOptionBtn else { return }
+                        var sourceRect = moreOptionButton.convert(moreOptionButton.frame, to: self.headerView)
+                        if let headerView = self.headerView {
+                            sourceRect = headerView.convert(sourceRect, to: self.view)
+                        }
+
+                        shareVC.popoverPresentationController?.sourceView = self.view
+                        shareVC.popoverPresentationController?.sourceRect = sourceRect
                     }
-                    
-                    shareVC.popoverPresentationController?.sourceView = self.view
-                    shareVC.popoverPresentationController?.sourceRect = sourceRect
-                }
-                shareVC.completionWithItemsHandler = {(activityType, completed, returnedItems, activityError) in
-                    
-                    shareDetails.clean()
-                    if let error = activityError {
-                        XNUIHelper().showError(on: self, message: error.localizedDescription)
+                    shareVC.completionWithItemsHandler = {(activityType, completed, returnedItems, activityError) in
+
+                        shareDetails.clean()
+                        if let error = activityError {
+                            XNUIHelper().showError(on: self, message: error.localizedDescription)
+                        }
                     }
+                    self.present(shareVC, animated: true)
                 }
-                self.present(shareVC, animated: true)
             }
         }
     }
@@ -324,12 +340,12 @@ extension XNUILogDetailVC: XNUIPopoverDelegate {
     }
 }
 
-class XNUILogDataConverter {
-    
+class XNUILogDataConverter: @unchecked Sendable {
+
     private var logData: XNLogData!
     private var formatter: XNLogFormatter!
     let dateFormatter = DateFormatter()
-    var msgFont: UIFont = XNUIConstants.messageFont
+    nonisolated(unsafe) var msgFont: UIFont = UIFont.systemFont(ofSize: 15)
     
     init(logData: XNLogData, formatter: XNLogFormatter) {
         self.logData = logData
@@ -337,7 +353,7 @@ class XNUILogDataConverter {
         self.dateFormatter.dateFormat = "yyyy-MM-dd H:m:ss.SSSS"
     }
     
-    func getRequestLogDetails(completion: @escaping (_ reqLogDetails: [XNUILogDetail]) -> Void) {
+    func getRequestLogDetails(completion: @escaping @Sendable (_ reqLogDetails: [XNUILogDetail]) -> Void) {
         
         DispatchQueue.global(qos: .userInitiated).async { [weak self] in
             guard let self = self else { return }
@@ -411,7 +427,7 @@ class XNUILogDataConverter {
         }
     }
     
-    func getResponseLogDetails(completion: @escaping (_ respLogDetails: [XNUILogDetail]) -> Void) {
+    func getResponseLogDetails(completion: @escaping @Sendable (_ respLogDetails: [XNUILogDetail]) -> Void) {
         
         DispatchQueue.global(qos: .userInitiated).async {[weak self] in
             guard let self = self else { return }

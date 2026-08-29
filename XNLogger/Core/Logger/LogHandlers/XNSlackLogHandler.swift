@@ -8,7 +8,7 @@
 
 import UIKit
 
-public class XNSlackLogHandler: XNBaseLogHandler, XNLogHandler, XNRemoteLogger {
+public class XNSlackLogHandler: XNBaseLogHandler, XNLogHandler, XNRemoteLogger, @unchecked Sendable {
     
     private let webhookUrl: String
     private var logComposer: XNLogComposer!

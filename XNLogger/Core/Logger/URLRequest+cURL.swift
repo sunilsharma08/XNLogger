@@ -24,7 +24,7 @@ internal extension URLRequest {
         if httpBody.isGzipped {
             return try? httpBody.gunzipped()
         }
-        return nil
+        return httpBody
     }
     
     func httpBodyString(prettyPrint: Bool) -> String? {

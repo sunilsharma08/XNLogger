@@ -37,7 +37,7 @@ public enum XNFilterType {
     func isAllowed(urlRequest: URLRequest) -> Bool
 }
 
-@objc public class XNSchemeFilter: NSObject, XNFilter {
+@objc public class XNSchemeFilter: NSObject, XNFilter, @unchecked Sendable {
     
     private let scheme: String
     public var invert: Bool = false
@@ -66,7 +66,7 @@ public enum XNFilterType {
     }
 }
 
-@objc public class XNHostFilter: NSObject, XNFilter {
+@objc public class XNHostFilter: NSObject, XNFilter, @unchecked Sendable {
     
     private let host: String
     public var invert: Bool = false
@@ -95,7 +95,7 @@ public enum XNFilterType {
     }
 }
 
-@objc public class XNContainsFilter: NSObject, XNFilter {
+@objc public class XNContainsFilter: NSObject, XNFilter, @unchecked Sendable {
     
     private let filterString: String
     public var invert: Bool = false

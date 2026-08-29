@@ -11,25 +11,25 @@
         <!--XNLogger-->
         <scene sceneID="hXp-Fz-Gco">
             <objects>
-                <viewController automaticallyAdjustsScrollViewInsets="NO" id="ALm-8y-hsn" customClass="XNUILogListVC" customModule="XNLogger" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController automaticallyAdjustsScrollViewInsets="NO" id="ALm-8y-hsn" customClass="XNUILogListVC" customModule="XNLogger" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="ehX-ww-Y4Q">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="d9j-Yq-bqc">
-                                <rect key="frame" x="0.0" y="45" width="375" height="45"/>
+                                <rect key="frame" x="0.0" y="45" width="375" height="53"/>
                                 <subviews>
                                     <searchBar contentMode="redraw" searchBarStyle="prominent" placeholder="Search" translucent="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iOE-dT-yQF">
-                                        <rect key="frame" x="0.0" y="0.0" width="375" height="45"/>
+                                        <rect key="frame" x="0.0" y="4" width="375" height="45"/>
                                         <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" keyboardType="URL" returnKeyType="search" enablesReturnKeyAutomatically="YES" textContentType="url"/>
                                     </searchBar>
                                 </subviews>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <color key="backgroundColor" systemColor="secondarySystemBackgroundColor"/>
                                 <constraints>
-                                    <constraint firstAttribute="bottom" secondItem="iOE-dT-yQF" secondAttribute="bottom" id="3cp-Wn-qGg"/>
-                                    <constraint firstItem="iOE-dT-yQF" firstAttribute="top" secondItem="d9j-Yq-bqc" secondAttribute="top" id="YNP-kl-PZt"/>
+                                    <constraint firstAttribute="bottom" secondItem="iOE-dT-yQF" secondAttribute="bottom" constant="4" id="3cp-Wn-qGg"/>
+                                    <constraint firstItem="iOE-dT-yQF" firstAttribute="top" secondItem="d9j-Yq-bqc" secondAttribute="top" constant="4" id="YNP-kl-PZt"/>
                                     <constraint firstItem="iOE-dT-yQF" firstAttribute="leading" secondItem="d9j-Yq-bqc" secondAttribute="leading" id="c4M-Rw-CBF"/>
-                                    <constraint firstAttribute="height" constant="45" id="dXv-ky-e0D"/>
+                                    <constraint firstAttribute="height" constant="53" id="dXv-ky-e0D"/>
                                     <constraint firstAttribute="trailing" secondItem="iOE-dT-yQF" secondAttribute="trailing" id="rV5-f5-njI"/>
                                 </constraints>
                             </view>
@@ -43,7 +43,7 @@
                                 <color key="textColor" red="0.50980392156862742" green="0.50980392156862742" blue="0.50980392156862742" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CZa-Lp-sjI" customClass="XNUIHeaderView" customModule="XNLogger" customModuleProvider="target">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CZa-Lp-sjI" customClass="XNUIHeaderView" customModule="XNLogger">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="45"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <constraints>
@@ -88,7 +88,7 @@
         <!--Filters-->
         <scene sceneID="q1D-Wa-t2I">
             <objects>
-                <viewController storyboardIdentifier="XNUIFiltersVC" id="mGd-7n-ug5" customClass="XNUIFiltersVC" customModule="XNLogger" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="XNUIFiltersVC" id="mGd-7n-ug5" customClass="XNUIFiltersVC" customModule="XNLogger" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="iIM-kB-H7G">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -104,12 +104,12 @@
         <!--SettingsVC-->
         <scene sceneID="hXm-ah-E87">
             <objects>
-                <viewController id="97Q-Dw-GpS" customClass="XNUISettingsVC" customModule="XNLogger" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="97Q-Dw-GpS" customClass="XNUISettingsVC" customModule="XNLogger" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="g01-Ol-hZM">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xl6-bF-Uw5" customClass="XNUIHeaderView" customModule="XNLogger" customModuleProvider="target">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xl6-bF-Uw5" customClass="XNUIHeaderView" customModule="XNLogger">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="45"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <constraints>
@@ -146,7 +146,7 @@
         <!--Base Tab Bar Controller-->
         <scene sceneID="22G-xP-7rc">
             <objects>
-                <tabBarController storyboardIdentifier="xnlMainTabBarController" automaticallyAdjustsScrollViewInsets="NO" id="xzs-xp-vNi" customClass="XNUIBaseTabBarController" customModule="XNLogger" customModuleProvider="target" sceneMemberID="viewController">
+                <tabBarController storyboardIdentifier="xnlMainTabBarController" automaticallyAdjustsScrollViewInsets="NO" id="xzs-xp-vNi" customClass="XNUIBaseTabBarController" customModule="XNLogger" sceneMemberID="viewController">
                     <toolbarItems/>
                     <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" itemPositioning="fill" id="qmM-hv-jHO">
                         <rect key="frame" x="0.0" y="0.0" width="1000" height="1000"/>
@@ -165,7 +165,7 @@
         <!--Navigation Controller-->
         <scene sceneID="ilq-6i-bDR">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" navigationBarHidden="YES" id="HNy-Xg-lEt" customClass="XNUINavigationController" customModule="XNLogger" customModuleProvider="target" sceneMemberID="viewController">
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" navigationBarHidden="YES" id="HNy-Xg-lEt" customClass="XNUINavigationController" customModule="XNLogger" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="" image="log" id="MHn-CO-oii">
                         <offsetWrapper key="titlePositionAdjustment" horizontal="0.0" vertical="0.0"/>
                     </tabBarItem>

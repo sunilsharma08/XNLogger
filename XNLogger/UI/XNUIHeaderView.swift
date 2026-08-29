@@ -97,16 +97,12 @@ class XNUIHeaderView: UIView {
     }
     
     func statusBarHeight() -> CGFloat {
-        var height: CGFloat = 0
         if ignoreStatusBarHeight {
-            return height
+            return 0
         }
-        if #available(iOS 13.0, *) {
-            height = UIApplication.shared.keyWindow?.windowScene?.statusBarManager?.statusBarFrame.height ?? 0
-        } else {
-            height = UIApplication.shared.statusBarFrame.height
-        }
-        return height
+        let scenes = UIApplication.shared.connectedScenes
+            .compactMap { $0 as? UIWindowScene }
+        return scenes.first?.statusBarManager?.statusBarFrame.height ?? 0
     }
     
     func updateHeaderHeight() {
@@ -148,7 +144,10 @@ class XNUIHeaderView: UIView {
     }
     
     func addBackButton(target: Any?, selector: Selector) {
-        let backButton = XNUIHelper().createNavButton(imageName: "back", imageInsets: UIEdgeInsets(top: 11, left: 0, bottom: 11, right: 24))
+      let backButton = XNUIHelper().createNavButton(imageName: XNUIImageName.back,
+                                                    pointSize: 18,
+                                                    weight: .regular,
+                                                    scale: .default)
         backButton.addTarget(target, action: selector, for: .touchUpInside)
         addBarButtonConstraints(backButton)
         leftBarView.insertArrangedSubview(backButton, at: 0)

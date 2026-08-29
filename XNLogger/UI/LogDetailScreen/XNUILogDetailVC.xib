@@ -9,7 +9,7 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
-        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="XNUILogDetailVC" customModule="XNLogger" customModuleProvider="target">
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="XNUILogDetailVC" customModule="XNLogger">
             <connections>
                 <outlet property="contentView" destination="Ir6-Ni-XN5" id="zYE-3N-Okq"/>
                 <outlet property="headerView" destination="kgy-HN-MLu" id="a8n-pM-fRd"/>
@@ -23,7 +23,7 @@
             <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kgy-HN-MLu" customClass="XNUIHeaderView" customModule="XNLogger" customModuleProvider="target">
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kgy-HN-MLu" customClass="XNUIHeaderView" customModule="XNLogger">
                     <rect key="frame" x="0.0" y="0.0" width="375" height="45"/>
                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     <constraints>

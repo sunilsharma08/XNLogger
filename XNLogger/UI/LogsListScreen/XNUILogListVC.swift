@@ -18,7 +18,7 @@ class XNUILogListVC: XNUIBaseViewController {
     
     @IBOutlet weak var tableViewBottomConstraint: NSLayoutConstraint!
     var isSearchBarFocused: Bool = false
-    let maxSearchBarHeight: CGFloat = 42;
+    let maxSearchBarHeight: CGFloat = 53;
     let minSearchBarHeight: CGFloat = 0;
     
     /// The last known scroll position
@@ -69,18 +69,17 @@ class XNUILogListVC: XNUIBaseViewController {
     }
     
     func configureViews() {
-        let closeButton = helper.createNavButton(
-            imageName: "close",
-            imageInsets: UIEdgeInsets(top: 15, left: 25, bottom: 9, right: 5))
+      let closeButton = helper.createNavButton(imageName: XNUIImageName.close, pointSize: 19, scale: .large)
         closeButton.addTarget(self, action: #selector(dismissNetworkUI), for: .touchUpInside)
-        
-        viewModeBarButton = helper.createNavButton(
-            imageName: "minimise",
-            imageInsets: UIEdgeInsets(top: 10, left: 6, bottom: 7, right: 12))
+
+        viewModeBarButton = helper.createNavButton(imageName: XNUIImageName.minimise, pointSize: 19, scale: .large)
         viewModeBarButton.addTarget(self, action: #selector(upadteViewMode), for: .touchUpInside)
-        
+
         self.headerView?.addRightBarItems([closeButton])
-        self.headerView?.addleftBarItems([viewModeBarButton])
+        // Hide minimize button when presented via SwiftUI (no logWindow for mini mode)
+        if XNUIManager.shared.logWindow != nil {
+            self.headerView?.addleftBarItems([viewModeBarButton])
+        }
         
         self.logListTableView.tableFooterView = UIView()
         self.logListTableView.register(ofType: XNUILogListTableViewCell.self)
@@ -90,6 +89,8 @@ class XNUILogListVC: XNUIBaseViewController {
         
         self.searchContainerHeight.constant = 0
         self.logSearchBar.delegate = self
+        self.logSearchBar.backgroundImage = UIImage()
+        self.logSearchBar.backgroundColor = .clear
     }
     
     @objc func keyboardWillShow(_ notification: Notification) {
@@ -110,7 +111,12 @@ class XNUILogListVC: XNUIBaseViewController {
     }
     
     @objc func dismissNetworkUI() {
-        XNUIManager.shared.dismissUI()
+        if XNUIManager.shared.logWindow != nil {
+            XNUIManager.shared.dismissUI()
+        } else {
+            // Presented via SwiftUI sheet — dismiss the hosting controller
+            self.view.window?.rootViewController?.dismiss(animated: true)
+        }
     }
     
     @objc func upadteViewMode() {
@@ -120,12 +126,17 @@ class XNUILogListVC: XNUIBaseViewController {
     }
     
     func updateViewModeIcon(isMiniViewEnabled: Bool) {
-        
+
         UIView.transition(with: self.viewModeBarButton, duration: 0.3, options: .transitionCrossDissolve, animations: {
-            if isMiniViewEnabled {
-                self.viewModeBarButton.setImage(UIImage(named: "maximise", in: Bundle.current(), compatibleWith: nil), for: .normal)
+            let name = isMiniViewEnabled ? XNUIImageName.maximise : XNUIImageName.minimise
+            let symbolConfig = UIImage.SymbolConfiguration(pointSize: 19)
+            let image = UIImage(named: name, in: Bundle.current(), compatibleWith: nil)?
+                .withConfiguration(symbolConfig)
+            if var config = self.viewModeBarButton.configuration {
+                config.image = image
+                self.viewModeBarButton.configuration = config
             } else {
-                self.viewModeBarButton.setImage(UIImage(named: "minimise", in: Bundle.current(), compatibleWith: nil), for: .normal)
+                self.viewModeBarButton.setImage(image, for: .normal)
             }
         }, completion: nil)
     }
@@ -155,23 +166,30 @@ class XNUILogListVC: XNUIBaseViewController {
     }
     
     @objc func receivedLogUpdateNotification(_ notification: Notification) {
-        DispatchQueue.main.safeAsync {
-            if self.isSearchActive(), let userInfo = notification.userInfo as? [String: Any],
-                let logId = userInfo[XNUIConstants.logIdKey] as? String, let isResponseLogUpdate = userInfo[XNUIConstants.isResponseLogUpdate] as? Bool, isResponseLogUpdate == false {
-                if self.shouldIncludeInSearchResult(logId, searchText: self.logSearchBar.text ?? "") {
-                    self.searchResult.insert(logId, at: 0)
+        nonisolated(unsafe) let userInfo = notification.userInfo as? [String: Any]
+        DispatchQueue.main.safeAsync { [weak self] in
+            MainActor.assumeIsolated {
+                guard let self = self else { return }
+                if self.isSearchActive(), let userInfo = userInfo,
+                    let logId = userInfo[XNUIConstants.logIdKey] as? String, let isResponseLogUpdate = userInfo[XNUIConstants.isResponseLogUpdate] as? Bool, isResponseLogUpdate == false {
+                    if self.shouldIncludeInSearchResult(logId, searchText: self.logSearchBar.text ?? "") {
+                        self.searchResult.insert(logId, at: 0)
+                    }
                 }
+                self.updateLoggerUI()
             }
-            self.updateLoggerUI()
         }
     }
-    
+
     func updateLoggerUI() {
-        DispatchQueue.main.safeAsync {
-            self.logListTableView.reloadData()
-            self.emptyMsgLabel.isHidden = !self.logsIdArray.isEmpty
-            if self.logsIdArray.isEmpty {
-                self.updateSearchBar(height: self.minSearchBarHeight, animated: true)
+        DispatchQueue.main.safeAsync { [weak self] in
+            MainActor.assumeIsolated {
+                guard let self = self else { return }
+                self.logListTableView.reloadData()
+                self.emptyMsgLabel.isHidden = !self.logsIdArray.isEmpty
+                if self.logsIdArray.isEmpty {
+                    self.updateSearchBar(height: self.minSearchBarHeight, animated: true)
+                }
             }
         }
     }
@@ -185,7 +203,15 @@ class XNUILogListVC: XNUIBaseViewController {
         super.viewModeDidChange(isMiniViewEnabled)
         if isMiniViewEnabled {
             self.tableViewBottomConstraint.constant = 0
+            self.logSearchBar.resignFirstResponder()
+            self.isSearchBarFocused = false
+            self.logSearchBar.showsCancelButton = false
+            self.logListTableView.contentInsetAdjustmentBehavior = .never
+            self.searchContainerHeight.constant = 0
+            self.updateSearchBarUI()
+            self.view.layoutIfNeeded()
         } else {
+            self.logListTableView.contentInsetAdjustmentBehavior = .automatic
             self.tableViewBottomConstraint.constant = self.keyboardSize.height
         }
     }
@@ -322,29 +348,29 @@ extension XNUILogListVC: UISearchBarDelegate {
 extension XNUILogListVC {
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        
+
         defer {
             self.previousScrollViewHeight = scrollView.contentSize.height
             self.previousScrollOffset = scrollView.contentOffset.y
         }
-        
+
         let scrollSizeDiff = scrollView.contentSize.height - self.previousScrollViewHeight
         // If the scroll was caused by the height of the scroll view changing, we want to do nothing.
         guard scrollSizeDiff == 0 else { return }
-        
+
         let scrollDiff = scrollView.contentOffset.y - self.previousScrollOffset
         let absoluteTop: CGFloat = 0
         let absoluteBottom: CGFloat = max((scrollView.contentSize.height - scrollView.frame.size.height), scrollView.contentSize.height)
-        
+
         let isScrollingDown = scrollDiff > 0 && scrollView.contentOffset.y > absoluteTop
         let isScrollingUp = scrollDiff < 0 && scrollView.contentOffset.y < absoluteBottom
-        
+
         var newHeight = self.searchContainerHeight.constant
         // Display search bar when scroll view is at top
         if isScrollingUp && scrollView.contentOffset.y < 0 {
             newHeight = min(self.maxSearchBarHeight, self.searchContainerHeight.constant + abs(scrollDiff))
         }
-        
+
         if isScrollingDown {
             newHeight = max(self.minSearchBarHeight, self.searchContainerHeight.constant - abs(scrollDiff))
         }
@@ -367,7 +393,7 @@ extension XNUILogListVC {
     func scrollViewDidStopScrolling() {
         let range = self.maxSearchBarHeight - self.minSearchBarHeight
         let midPoint = self.minSearchBarHeight + (range * 0.6)
-        
+
         if self.searchContainerHeight.constant > midPoint {
             updateSearchBar(height: self.maxSearchBarHeight, animated: true)
         } else {
@@ -406,11 +432,7 @@ extension XNUILogListVC {
         let percentage = openAmount / range
         var searchTextField: UITextField?
         
-        if #available(iOS 13.0, *) {
-            searchTextField = self.logSearchBar.searchTextField
-        } else {
-            searchTextField = self.logSearchBar.value(forKey: "searchField") as? UITextField
-        }
+        searchTextField = self.logSearchBar.searchTextField
         
         if percentage < 0.6 {
             searchTextField?.alpha = 0

@@ -28,7 +28,13 @@ fileprivate struct XNUITouchEdges {
 class XNUIWindow: UIWindow {
     
     var windowMinSize: CGSize {
-        if UIApplication.shared.statusBarOrientation.isLandscape {
+        let isLandscape: Bool
+        if let scene = self.windowScene {
+            isLandscape = scene.interfaceOrientation.isLandscape
+        } else {
+            isLandscape = UIScreen.main.bounds.width > UIScreen.main.bounds.height
+        }
+        if isLandscape {
             return CGSize(width: 160, height: 140)
         } else {
             return CGSize(width: 140, height: 160)
@@ -62,11 +68,7 @@ class XNUIWindow: UIWindow {
         if isMiniModeActive {
             return .zero
         } else {
-            if #available(iOS 11.0, *) {
-                return super.safeAreaInsets
-            } else {
-                return UIEdgeInsets(top: 64, left: 0, bottom: 0, right: 0)
-            }
+            return super.safeAreaInsets
         }
     }
     
@@ -76,10 +78,8 @@ class XNUIWindow: UIWindow {
         self.layoutMargins = .zero
         self.backgroundColor = .white
         self.clipsToBounds = true
-        if #available(iOS 11.0, *) {
-            self.directionalLayoutMargins = .zero
-            self.insetsLayoutMarginsFromSafeArea = false
-        }
+        self.directionalLayoutMargins = .zero
+        self.insetsLayoutMarginsFromSafeArea = false
         self.rootViewController = rootVC
         
         self.makeKeyAndVisible()
@@ -169,31 +169,28 @@ class XNUIWindow: UIWindow {
         toolView.addSubview(toolStackView)
         toolStackView.match(to: toolView, margin: 0)
         
-        func toolbarButton(imageName: String, orientation: UIImage.Orientation? = nil) -> UIButton {
+        func toolbarButton(imageName: String, pointSize: CGFloat = 18) -> UIButton {
             let button = UIButton(type: .custom)
             button.translatesAutoresizingMaskIntoConstraints = false
             button.backgroundColor = .white
-            button.imageView?.contentMode = .scaleAspectFit
-            var image = UIImage(named: imageName, in: Bundle.current(), compatibleWith: nil)
-            if let imgOrientation = orientation, let cgEditImg = image?.cgImage {
-                image = UIImage(cgImage: cgEditImg, scale: CGFloat(1), orientation: imgOrientation).withRenderingMode(.alwaysTemplate)
-            }
-            button.setImage(image, for: .normal)
+            let symbolConfig = UIImage.SymbolConfiguration(pointSize: pointSize, weight: .medium, scale: .large)
+            let image = UIImage(named: imageName, in: Bundle.current(), compatibleWith: nil)?
+                .withConfiguration(symbolConfig)
+            var config = UIButton.Configuration.plain()
+            config.image = image
+            button.configuration = config
             return button
         }
-        
-        let resizeBtn = toolbarButton(imageName: "resize")
-        resizeBtn.imageEdgeInsets = UIEdgeInsets(inset: 14)
+
+        let resizeBtn = toolbarButton(imageName: XNUIImageName.resize, pointSize: 18)
         let pinchGesture = UIPanGestureRecognizer(target: self, action: #selector(clickedOnResize(_:)))
         resizeBtn.addGestureRecognizer(pinchGesture)
         toolStackView.addArrangedSubview(resizeBtn)
-        let moveBtn = toolbarButton(imageName: "move")
-        moveBtn.imageEdgeInsets = UIEdgeInsets(inset: 9)
+        let moveBtn = toolbarButton(imageName: XNUIImageName.move)
         let panGesture = UIPanGestureRecognizer(target: self, action: #selector(clickedOnMove(_:)))
         moveBtn.addGestureRecognizer(panGesture)
         toolStackView.addArrangedSubview(moveBtn)
-        let moreOptionBtn = toolbarButton(imageName: "menu", orientation: .right)
-        moreOptionBtn.imageEdgeInsets = UIEdgeInsets(inset: 11)
+        let moreOptionBtn = toolbarButton(imageName: XNUIImageName.menuHorizontal)
         moreOptionBtn.addTarget(self, action: #selector(clickedOnMoreOption(_:)), for: .touchUpInside)
         toolStackView.addArrangedSubview(moreOptionBtn)
         
@@ -217,11 +214,7 @@ class XNUIWindow: UIWindow {
         toolBarView.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: 0).isActive = true
         var tabbarHeight: CGFloat = 0
         if let tabbarVC = self.rootViewController as? UITabBarController {
-            if #available(iOS 11.0, *) {
-                tabbarHeight = tabbarVC.tabBar.frame.height - super.safeAreaInsets.bottom
-            } else {
-                tabbarHeight = tabbarVC.tabBar.frame.height
-            }
+            tabbarHeight = tabbarVC.tabBar.frame.height - super.safeAreaInsets.bottom
         }
         var heightConstraint: NSLayoutConstraint? = nil
         toolBarView.constraints.forEach { (constraint) in

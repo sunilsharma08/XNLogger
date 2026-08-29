@@ -18,11 +18,7 @@ class XNJSONUtils: NSObject {
         if prettyPrint {
             jsonWriteOption = [.prettyPrinted]
         }
-        if #available(iOS 13.0, *) {
-            jsonWriteOption.update(with: .withoutEscapingSlashes)
-        } else {
-            // Fallback on earlier versions
-        }
+        jsonWriteOption.update(with: .withoutEscapingSlashes)
         do {
             let jsonData = try JSONSerialization.data(withJSONObject: jsonObj, options: jsonWriteOption)
             return getStringFrom(data: jsonData)

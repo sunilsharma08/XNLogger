@@ -22,14 +22,16 @@ class XNUILogListTableViewCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        self.urlPathLbl.textColor = XNUIAppColor.title
-        self.httpMethodLbl.textColor = XNUIAppColor.subtitle
-        self.requestStartTimeLbl.textColor = XNUIAppColor.subtitle
-        self.requestDurationLbl.textColor = XNUIAppColor.subtitle
-        self.dateFormatter.dateFormat = "hh:mm:ss a"
-        self.httpStatusLbl.backgroundColor = .clear
-        self.statusIcon.isHidden = true
-        self.statusIcon.tintColor = .white
+        MainActor.assumeIsolated {
+            self.urlPathLbl.textColor = XNUIAppColor.title
+            self.httpMethodLbl.textColor = XNUIAppColor.subtitle
+            self.requestStartTimeLbl.textColor = XNUIAppColor.subtitle
+            self.requestDurationLbl.textColor = XNUIAppColor.subtitle
+            self.dateFormatter.dateFormat = "hh:mm:ss a"
+            self.httpStatusLbl.backgroundColor = .clear
+            self.statusIcon.isHidden = true
+            self.statusIcon.tintColor = .white
+        }
     }
     
     func configureViews(withData data: XNUILogInfo) {
@@ -87,7 +89,7 @@ class XNUILogListTableViewCell: UITableViewCell {
                     updateStatusLabel(color: XNUIHTTPStatusColor.unknown, message: "\(statusCode)")
                 }
             } else {
-                let icon = UIImage(named: "information", in: Bundle.current(), compatibleWith: nil)
+                let icon = UIImage(named: XNUIImageName.information, in: Bundle.current(), compatibleWith: nil)
                 updateStatusLabel(color: XNUIHTTPStatusColor.unknown, message: nil, icon: icon)
             }
         }
@@ -99,23 +101,23 @@ class XNUILogListTableViewCell: UITableViewCell {
         
         guard let reqtStatus = status
         else {
-            let icon = UIImage(named: "information", in: Bundle.current(), compatibleWith: nil)
+            let icon = UIImage(named: XNUIImageName.information, in: Bundle.current(), compatibleWith: nil)
             updateStatusLabel(color: XNUIHTTPStatusColor.unknown, message: nil, icon: icon)
             return
         }
         
         switch reqtStatus {
         case .running:
-            let icon = UIImage(named: "wait", in: Bundle.current(), compatibleWith: nil)
+            let icon = UIImage(named: XNUIImageName.wait, in: Bundle.current(), compatibleWith: nil)
             updateStatusLabel(color: XNUIHTTPStatusColor.running, message: nil, icon: icon)
         case .canceling:
-            let icon = UIImage(named: "cancel", in: Bundle.current(), compatibleWith: nil)
+            let icon = UIImage(named: XNUIImageName.cancel, in: Bundle.current(), compatibleWith: nil)
             updateStatusLabel(color: XNUIHTTPStatusColor.cancelled, message: nil, icon: icon)
         case .suspended:
-            let icon = UIImage(named: "pause", in: Bundle.current(), compatibleWith: nil)
+            let icon = UIImage(named: XNUIImageName.pause, in: Bundle.current(), compatibleWith: nil)
             updateStatusLabel(color: XNUIHTTPStatusColor.suspended, message: nil, icon: icon)
         case .unknown:
-            let icon = UIImage(named: "information", in: Bundle.current(), compatibleWith: nil)
+            let icon = UIImage(named: XNUIImageName.information, in: Bundle.current(), compatibleWith: nil)
             updateStatusLabel(color: XNUIHTTPStatusColor.unknown, message: nil, icon: icon)
         case .completed:
             updateStatusFromResponse()

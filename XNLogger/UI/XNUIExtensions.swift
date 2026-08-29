@@ -12,10 +12,13 @@ import UIKit
 extension UIWindow {
     
     override open func motionEnded(_ motion: UIEvent.EventSubtype, with event: UIEvent?) {
-        
-        if XNUIManager.shared.startGesture == .shake,
-            motion == .motionShake {
-            XNUIManager.shared.presentUI()
+
+        if motion == .motionShake {
+            if XNUIManager.shared.startGesture == .shake {
+                XNUIManager.shared.presentUI()
+            }
+            // Post notification for SwiftUI shake detection
+            NotificationCenter.default.post(name: .xnLoggerDeviceShake, object: nil)
         } else {
             super.motionEnded(motion, with: event)
         }
@@ -100,6 +103,7 @@ extension String {
 
 extension NSNotification.Name {
     static let logDataUpdate = NSNotification.Name("com.xnLogger.logDataUpdateNotification")
+    static let xnLoggerDeviceShake = NSNotification.Name("com.xnLogger.deviceShakeNotification")
 }
 
 extension UIEdgeInsets {
@@ -131,22 +135,11 @@ extension UIView {
 }
 
 extension DispatchQueue {
-    func safeAsync(_ block: @escaping ()->()) {
+    func safeAsync(_ block: @escaping @Sendable ()->()) {
         if self === DispatchQueue.main && Thread.isMainThread {
             block()
         } else {
             async { block() }
         }
-    }
-}
-
-extension CGRect: @retroactive Comparable {
-    
-    public static func == (lhs: CGRect, rhs: CGRect) -> Bool {
-        return lhs.width == rhs.width && lhs.width == rhs.width
-    }
-    
-    public static func < (lhs: CGRect, rhs: CGRect) -> Bool {
-        return lhs.width < rhs.width && lhs.width < rhs.width
     }
 }

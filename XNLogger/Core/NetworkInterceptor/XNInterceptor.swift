@@ -8,12 +8,16 @@
 
 import UIKit
 
-internal class XNInterceptor: NSObject {
-    
+internal final class XNInterceptor: NSObject, Sendable {
+
+    private let swizzleLock = NSLock()
+
     /**
      Setup and start logging network calls.
      */
     func startInterceptingNetwork() {
+        swizzleLock.lock()
+        defer { swizzleLock.unlock() }
         /// Before swizzle checking if it's already not swizzled.
         /// If it already swizzled skip else swizzle for logging.
         /// This check make safe to call multiple times.
@@ -24,12 +28,14 @@ internal class XNInterceptor: NSObject {
             swizzleProtocolClasses()
         }
     }
-    
+
     /**
      Stop intercepting network calls and revert back changes made to
      intercept network calls.
      */
     func stopInterceptingNetwork() {
+        swizzleLock.lock()
+        defer { swizzleLock.unlock() }
         /// Check if already unswizzled for logging, if so then skip
         /// else unswizzle for logging i.e. it will stop logging.
         /// Check make it safe to call multiple times.

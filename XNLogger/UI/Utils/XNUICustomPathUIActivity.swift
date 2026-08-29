@@ -79,34 +79,40 @@ class XNUISaveToPathActivity: XNUISimulatorActivity {
     }
 
     override var activityImage: UIImage? {
-        return UIImage(named: "saveToLocation", in: Bundle.current(), compatibleWith: nil)
+        return UIImage(named: XNUIImageName.saveToLocation, in: Bundle.current(), compatibleWith: nil)
     }
     
     override var activityViewController: UIViewController? {
-        
-        let alertVC = UIAlertController(title: "Save to location", message: nil, preferredStyle: .alert)
-        alertVC.addTextField { (textField) in
-            textField.placeholder = "Enter complete location path"
-        }
-        
-        let actionSave = UIAlertAction(title: "Save", style: .default) {[weak self] (action) in
-            guard let self = self else { return }
-            
-            if let pathTextField = alertVC.textFields?.first,
-                let toPathStr = pathTextField.text, toPathStr.isEmpty == false {
-                self.destinationPath = toPathStr
-                self.perform()
+        // Capture a weak reference outside the @Sendable closures to avoid
+        // both retain cycles and sending @MainActor-isolated self across boundaries.
+        nonisolated(unsafe) let activity = self
+        return MainActor.assumeIsolated {
+            let alertVC = UIAlertController(title: "Save to location", message: nil, preferredStyle: .alert)
+            alertVC.addTextField { (textField) in
+                textField.placeholder = "Enter complete location path"
             }
+
+            let actionSave = UIAlertAction(title: "Save", style: .default) { (action) in
+                MainActor.assumeIsolated { [weak activity] in
+                    if let pathTextField = alertVC.textFields?.first,
+                        let toPathStr = pathTextField.text, toPathStr.isEmpty == false {
+                        activity?.destinationPath = toPathStr
+                        activity?.perform()
+                    }
+                }
+            }
+
+            let cancel = UIAlertAction(title: "Cancel", style: .cancel) { (action) in
+                MainActor.assumeIsolated { [weak activity] in
+                    activity?.activityDidFinish(false)
+                }
+            }
+
+            alertVC.addAction(cancel)
+            alertVC.addAction(actionSave)
+
+            return alertVC
         }
-        
-        let cancel = UIAlertAction(title: "Cancel", style: .cancel) { (action) in
-            self.activityDidFinish(false)
-        }
-        
-        alertVC.addAction(cancel)
-        alertVC.addAction(actionSave)
-        
-        return alertVC
     }
     
 }
@@ -133,6 +139,6 @@ class XNUISaveToDesktopActivity: XNUISimulatorActivity {
     }
     
     override var activityImage: UIImage? {
-        return UIImage(named: "saveToDesktop", in: Bundle.current(), compatibleWith: nil)
+        return UIImage(named: XNUIImageName.saveToDesktop, in: Bundle.current(), compatibleWith: nil)
     }
 }

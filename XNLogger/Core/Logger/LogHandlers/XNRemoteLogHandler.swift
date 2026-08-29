@@ -8,7 +8,7 @@
 
 import UIKit
 
-public class XNRemoteLogHandler: XNBaseLogHandler, XNLogHandler, XNRemoteLogger {
+public class XNRemoteLogHandler: XNBaseLogHandler, XNLogHandler, XNRemoteLogger, @unchecked Sendable {
     
     private let urlRequest: URLRequest
     private var logComposer: XNLogComposer!

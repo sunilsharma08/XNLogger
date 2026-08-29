@@ -8,7 +8,7 @@
 
 import UIKit
 
-public class XNConsoleLogHandler: XNBaseLogHandler, XNLogHandler {
+public class XNConsoleLogHandler: XNBaseLogHandler, XNLogHandler, @unchecked Sendable {
     
     private var logComposer: XNLogComposer!
     

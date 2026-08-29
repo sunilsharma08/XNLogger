@@ -8,7 +8,7 @@
 
 import UIKit
 
-protocol XNUIPopoverDelegate: AnyObject {
+@MainActor protocol XNUIPopoverDelegate: AnyObject {
     func popover(_ popover: XNUIPopOverViewController, didSelectItem item: XNUIOptionItem, indexPath: IndexPath)
 }
 
@@ -128,13 +128,15 @@ extension XNUIPopOverViewController: UITableViewDelegate, UITableViewDataSource 
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         DispatchQueue.main.safeAsync {[weak self] in
-            guard let self = self else { return }
-            let item = self.items[indexPath.row]
-            for (index, _) in self.items.enumerated() {
-                self.items[index].isSelected = index == indexPath.row
+            MainActor.assumeIsolated {
+                guard let self = self else { return }
+                let item = self.items[indexPath.row]
+                for (index, _) in self.items.enumerated() {
+                    self.items[index].isSelected = index == indexPath.row
+                }
+                tableView.reloadData()
+                self.delegate?.popover(self, didSelectItem: item, indexPath: indexPath)
             }
-            tableView.reloadData()
-            self.delegate?.popover(self, didSelectItem: item, indexPath: indexPath)
         }
     }
 }
