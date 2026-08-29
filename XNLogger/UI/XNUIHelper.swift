@@ -193,14 +193,7 @@ class XNUIHelper {
     }
     
     nonisolated func getVersion() -> String {
-        #if SWIFT_PACKAGE
-        return "3.1.0"
-        #else
-        if let sdkVersion = Bundle.current().infoDictionary?["CFBundleShortVersionString"] as? String {
-            return sdkVersion
-        }
-        return "Unknown"
-        #endif
+        return xnLoggerVersion
     }
     
     nonisolated func swizzleKeyCommands() {
