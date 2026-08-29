@@ -1,1 +1,1 @@
-let xnLoggerVersion = "3.1.0"
+let xnLoggerVersion = "4.0.0"

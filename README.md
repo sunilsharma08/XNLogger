@@ -122,7 +122,7 @@ pod 'XNLogger', :configurations => ['Debug']
 Add XNLogger to your project via Xcode:
 1. Go to **File > Add Package Dependencies**
 2. Enter the repository URL: `https://github.com/sunilsharma08/XNLogger.git`
-3. Choose your version rules (e.g., "Up to Next Major" from 3.1.0)
+3. Choose your version rules (e.g., "Up to Next Major" from 4.0.0)
 
 > **Note:** When using SPM, auto-start is not available. You must manually call `XNLogger.shared.startLogging()`. See [Quick Start](#quick-start).
 
