@@ -1,14 +1,6 @@
 {
   "permissions": {
     "allow": [
-      "Bash(find:*)",
-      "Bash(swift:*)",
-      "Bash(xcodebuild:*)",
-      "Bash(grep:*)",
-      "Bash(ls:*)",
-      "WebFetch(domain:sarunw.com)",
-      "WebFetch(domain:devgex.com)",
-      "WebFetch(domain:www.repeato.app)"
     ]
   }
 }
